@@ -1,0 +1,1338 @@
+--------------
+JAVASCRIPT OOP
+--------------
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------
+incapsulation
+-------------
+
+
+
+user.getName();
+getName(user);
+
+
+
+----------------------------------------
+
+
+import send from 'mail';
+
+const sendEmail = (user) => {
+  send('Subject', user.getEmail());                                                   // Не надо импортировать getEmail потому что это метод
+}
+
+
+
+----------------------------------------
+
+
+const brand = 'bmw';
+brand.toUpperCase();                                                                  // BMW
+
+
+
+----------------------------------------
+
+
+let brand = 'bmw';
+
+brand = brand.toUpperCase();                                                          // BMW
+brand = brand.concat(' & Kia');                                                       // BMW & Kia
+brand = brand.replace('BMW', 'Opel')                                                  // Opel & Kia
+console.log(brand);                                                                   // => Opel & Kia
+
+
+
+----------------------------------------
+
+
+const brand = 'bmw';
+
+const newBrand = brand.toUpperCase().concat(' & Kia').replace('BMW', 'Opel');
+console.log(newBrand);                                                                // => Opel & Kia
+
+
+
+----------------------------------------
+
+
+const brand = 'bmw';
+
+const newBrand = brand.toUpperCase()
+.concat(' & Kia')
+.replace('BMW', 'Opel');
+console.log(newBrand);                                                                // => Opel & Kia
+
+
+
+----------------------------------------
+
+
+const brand = 'bmw';
+
+const newBrand = brand.toUpperCase()
+.split('')                                                                            // ['B', 'M', 'W']
+.reverse()                                                                            // ['W', 'M', 'B']
+.join('');                                                                            // WMB
+console.log(newBrand);                                                                // => WMB
+
+
+
+----------------------------------------
+
+
+$ cat sample | grep -v a | sort -r
+
+
+
+----------------------------------------
+
+
+const result = exclaim(capitalize(doubleSay('hello')));
+console.log(result)                                                                   // => "Hello, hello!"
+
+const result = 'hello'
+  |> doubleSay
+  |> capitalize
+  |> exclaim;
+
+console.log(result)                                                                   // => "Hello, hello!"
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------
+context (this)
+--------------
+
+
+
+const f = () => 'i am an arrow function';
+
+function() {
+  return 'i am a regular function without name';
+}
+
+function f() {
+  return 'i am a regular function with name';
+}
+
+
+
+----------------------------------------
+
+
+const company = { name: 'Hexlet' };
+
+company.getName = function() {
+  return 'Hexlet';
+};
+
+company.getName();                                                                                    // "Hexlet"
+
+
+
+----------------------------------------
+
+
+const obj = {
+  getName: function() {
+    return 'Hexlet';
+  },
+};
+
+const company = { name: 'Hexlet' };
+
+function getHexlet() {
+  return 'Hexlet';
+};
+company.getName = getHexlet;
+
+company.getName();                                                                                    // "Hexlet"
+
+
+
+----------------------------------------
+
+
+company.getName();                                                                                    // "Hexlet"
+company.name = 'Hexlet Plus';
+company.getName();                                                                                    // "Hexlet"
+
+
+
+---
+
+
+const company = { name: 'Hexlet', employees: [] };
+company.getName = function getName() {
+  return this.name;
+};
+
+company.getName();                                                                                    // "Hexlet"
+company.name = 'Hexlet Plus';
+company.getName();                                                                                    // "Hexlet Plus"
+
+
+
+----------------------------------------
+
+
+this дает возможность не только читать данные, но и менять их:
+--------------------------------------------------------------
+
+company.setName = function setName(name) {
+  this.name = name;
+};
+
+company.getName();                                                                                    // "Hexlet"
+company.setName('Hexlet Plus');
+company.getName();                                                                                    // "Hexlet Plus"
+
+
+
+----------------------------------------
+
+
+company.addEmployee = function addEmployee(user) {
+  this.employees.push(user);
+};
+
+const user = { name: 'Petya' };
+company.addEmployee(user);
+company.employees;                                                                                    // [{ name: 'Petya' }]
+
+company.getEmployees = function() {
+  return this.employees;
+};
+
+company.getEmployees();                                                                               // [{ name: 'Petya' }]
+
+
+
+----------------------------------------
+
+
+const company1 = { name: 'Hexlet', getName: function getName() { return this.name } };
+const company2 = { name: 'Hexlet Plus' };
+
+company1.getName();                                                                                   // "Hexlet"
+
+company2.getName = company1.getName;
+
+company2.getName();                                                                                   // "Hexlet Plus"
+company1.getName();                                                                                   // "Hexlet"
+
+
+
+----------------------------------------
+
+
+const sayHi = () => 'Hi!';
+sayHi.call();                                                                                         // "Hi!"
+
+
+
+----------------------------------------
+
+
+const getName = function getName() {
+  return this.name;
+};
+
+const company1 = { name: 'Hexlet' };
+getName.call(company1);                                                                               // "Hexlet"
+
+const company2 = { name: 'Hexlet Plus' };
+getName.call(company2);                                                                               // "Hexlet Plus"
+
+
+
+----------------------------------------
+
+
+const company = {
+  name: 'Hexlet',
+  country: {
+    name: 'Finland',
+    getName: function getName() {
+      return this.name;
+    }
+  },
+};
+
+console.log(company.country.getName());                           // => ?
+
+
+
+----------------------------------------
+
+
+const { country } = company;
+console.log(country.getName());                                   // "Finland"
+
+
+
+----------------------------------------
+
+
+const company = {
+  name: 'Hexlet',
+  getName() {
+    return this.name;
+  }
+};
+
+
+---
+
+const company = {
+  getName: function getName() {
+    return this.name;
+  }
+};
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----
+bind
+----
+
+
+
+const printer = {
+  name: 'Hexlet',
+  print(greeting = 'hello') {
+    console.log(`${greeting}, ${this.name}`);
+  }
+};
+
+printer.print();                                                                                        // => "hello, Hexlet"
+
+
+---
+
+setTimeout(printer.print, 1000);
+
+---
+
+const print = printer.print;
+print();                                                                                                // => "hello, undefined"
+
+
+
+----------------------------------------
+
+
+setTimeout(() => printer.print(), 1000);
+
+const fn = () => printer.print();
+fn();                                                                                                   // => "hello, Hexlet"
+
+
+---
+
+const value = 'hi';
+setTimeout(() => printer.print(value), 1000);
+
+
+
+----------------------------------------
+
+
+const boundPrint = printer.print.bind(printer);
+
+boundPrint();                                                                                           // => "hello, Hexlet"
+setTimeout(boundPrint, 1000);
+
+setTimeout(printer.print.bind(printer), 1000);
+
+
+---
+
+setTimeout(printer.print.bind(printer, 'hi'), 1000);
+
+
+
+----------------------------------------
+
+
+const print = printer.print;
+print.bind(printer)('hi');                                                                              // => "hi, Hexlet"
+
+
+---
+
+print.apply(printer, ['hi']);                                                                           // hi, Hexlet
+print.call(printer, 'hi');                                                                              // hi, Hexlet
+
+
+
+----------------------------------------
+
+
+const numbers = [1, 10, 33, 9, 15];
+const max = Math.max.apply(null, numbers);                                                              // 33
+
+const numbers = [1, 10, 33, 9, 15];
+const max = Math.max.call(null, ...numbers);                                                            // 33
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-------------------------------------
+features of this with arrow functions
+-------------------------------------
+
+
+
+const f1 = () => {                                                                                      // стрелочная функция
+  console.log(this);
+};
+
+f1();                                                                                                   // undefined
+
+function f2() {                                                                                         // обычная функция
+  console.log(this);
+}
+
+f2();                                                                                                   // undefined
+
+
+
+----------------------------------------
+
+
+const obj = {
+  f1, f2,
+};
+
+obj.f1();                                                                                               // undefined
+obj.f2();                                                                                               // { f1: [Function: f1], f2: [Function: f2] }
+
+
+
+---
+
+
+f1.call({ name: 'hexlet' });                                                                            // undefined
+f1.bind({ name: 'hexlet' })();                                                                          // undefined
+
+
+
+----------------------------------------
+
+
+
+const company = {
+  f1: () => {                                                                                           // стрелочная функция
+    console.log(this);
+  },
+  f2() {                                                                                                // обычная функция
+    console.log(this);
+  },
+};
+
+company.f1();                                                                                           // undefined
+company.f2();                                                                                           // { f1: [Function: f1], f2: [Function: f2] }
+
+
+
+----------------------------------------
+
+
+const printer = {
+  items: [1],
+  print() {                                                                                             // важно что внешняя функция имеет контекст
+    this.items.forEach(() => console.log(this.items));
+  },
+};
+
+printer.print();                                                                                        // [1]
+
+
+
+----------------------------------------
+
+
+const printer = {
+  items: [1],
+  print() {
+    this.items.forEach(function () { console.log(this.items); });
+  },
+};
+
+printer.print();                                                                                        // Error!
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------
+constructor
+-----------
+
+
+
+const make = (name, website) => {
+  return { name, website };
+};
+
+const getName = (company) => company.name;
+const getWebsite = (company) => company.website;
+
+
+
+---
+
+
+import { make, getName } from './company.js';
+
+const company = make('Hexlet', 'https://hexlet.io');
+console.log(getName(company));                                                                          // Hexlet
+
+
+
+----------------------------------------
+
+
+const make = (name, website) => {
+  return {
+    name,
+    website,
+    getName() {
+      return this.name;
+    },
+    getWebsite() {
+      return this.website;
+    },
+  };
+};
+
+
+---
+
+import { make } from './company.js';
+
+const company = make('Hexlet', 'https://hexlet.io');
+console.log(company.getName());                                                                         // Hexlet
+
+
+
+
+----------------------------------------
+
+
+function getName() {
+  return this.name;
+}
+
+function getWebsite() {
+  return this.website;
+}
+
+const make = (name, website) => {
+  return {
+    name,
+    website,
+    getName,
+    getWebsite,
+  };
+};
+
+
+
+----------------------------------------
+
+
+function Company(name, website) {
+  this.name = name;
+  this.website = website;
+  this.getName = getName;
+  this.getWebsite = getWebsite;
+}
+
+
+---
+
+const company = new Company('Hexlet', 'https://hexlet.io');
+console.log(company.getName());                                                                         // Hexlet
+
+
+
+----------------------------------------
+
+
+const obj = {};
+Company.bind(obj)(name, website);                                                                       // этот вызов просто наполнил this (равный obj) нужными данными
+return obj;
+
+
+
+----------------------------------------
+
+
+const numbers = [10, 3, -3, 0];                                                                         // литерал
+
+const numbers = new Array(10, 3, -3, 0);
+
+const date = new Date('December 17, 1995 03:24:00');
+date.getMonth();                                                                                        // 11, в JS месяцы нумеруются с нуля
+
+const sum = new Function('a', 'b', 'return a + b');
+sum(2, 6);                                                                                              // 8
+
+
+
+----------------------------------------
+
+
+const f = () => {};
+// TypeError: function is not a constructor
+const obj = new f();
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------
+prototypes
+----------
+
+
+
+const date = new Date();
+const proto = Object.getPrototypeOf(date);                                                            // Date {}
+
+proto === Date;                                                                                       // false
+
+const numbers = [1, 2];
+Object.getPrototypeOf(numbers);                                                                       // [] – отображение отличается, но это массив
+
+function Company(name) {
+  this.name = name;
+}
+
+const company = new Company();
+Object.getPrototypeOf(company);                                                                       // Company {}
+
+
+
+----------------------------------------
+
+
+Object.getPrototypeOf({});                                                                            // {} — это и есть Object
+
+
+
+----------------------------------------
+
+
+const obj = {};                                                                                       // То же самое можно сделать так: const obj = new Object();
+
+obj.constructor;                                                                                      // [Function: Object]
+Object.hasOwn(obj, 'constructor');                                                                    // false
+Object.hasOwn(obj, 'name');                                                                           // false
+obj.name = 'hexlet';
+Object.hasOwn(obj, 'name');                                                                           // true
+
+
+
+----------------------------------------
+
+
+function Company(name) {
+  this.name = name;
+}
+
+
+
+----------------------------------------
+
+
+Company.prototype.getName = function getName() {
+  return this.name;
+}
+
+const company = new Company('Hexlet');
+console.log(company.getName());                                                                       // => Hexlet
+
+
+
+----------------------------------------
+
+
+const company1 = new Company('Hexlet');
+const company2 = new Company('Google');
+
+company2.getName = function getName() {
+  return 'Alphabet';
+}
+
+company2.getName();                                                                                   // Alphabet
+company1.getName();                                                                                   // Hexlet
+
+
+
+----------------------------------------
+
+
+const numbers1 = [1, 3];
+
+Array.prototype.last = function last() {
+  return this[this.length - 1];
+}
+
+numbers1.last();                                                                                      // 3
+
+const numbers2 = [10, 0, -2];
+numbers2.last();                                                                                      // -2
+
+Array.prototype.map = function map() {
+  return 'Ehu!';
+}
+
+numbers1.map();                                                                                       // "Ehu!"
+
+
+----------------------------------------
+
+
+Array.prototype.push = function push(value) {
+  return this.unshift(value);
+}
+
+const numbers = [1, 2];
+numbers.push(3);
+console.log(numbers);                                                                                 // => [3, 1, 2] !!!
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------
+boxing
+------
+
+
+
+const obj = {
+  sayHello: () => console.log('hello!'),
+};
+
+obj.sayHello();
+
+
+---
+
+'hexlet'.toUpperCase();                                                                             // "HEXLET"
+
+
+
+----------------------------------------
+
+
+const name = new String('hexlet');
+console.log(name);                                                                                  // "hexlet"
+
+
+
+----------------------------------------
+
+
+const name = new String('hexlet');
+name.valueOf();                                                                                     // "hexlet"
+
+
+
+----------------------------------------
+
+
+const number = new Number(100);
+number.valueOf();                                                                                   // 100
+
+const bool = new Boolean(true);
+bool.valueOf();                                                                                     // true
+
+
+
+----------------------------------------
+
+
+const number = new Number(100);
+const newName = `${number} is a big number`;                                                        // "100 is a big number!"
+
+
+---
+
+const number = new Number(100);
+number.valueOf = () => 99999;
+
+const newName = `${number} is a big number`;                                                        // "99999 is a big number!"
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------
+toString()
+----------
+
+
+
+const company = { name: 'Hexlet' };
+company.toString();                                                                               // "[object Object]"
+console.log(`I love ${company}!`);                                                                // "I love [object Object]!"
+
+
+
+----------------------------------------
+
+
+const company = {
+  name: 'Hexlet',
+  toString() {
+    return this.name;
+  },
+};
+
+company.toString();                                                                               // "Hexlet"
+console.log(`I love ${company}!`);                                                                // "I love Hexlet!"
+
+
+
+----------------------------------------
+
+
+function Company(name) {
+  this.name = name;
+};
+
+Company.prototype.toString = function toString() {
+  return this.name;
+}
+
+const company = new Company('Hexlet');
+console.log(`I love ${company}!`);                                                                // "I love Hexlet!"
+
+
+
+----------------------------------------
+
+
+const company = new Company('Hexlet');
+console.log(JSON.stringify(company));                                                             // => '{"name":"Hexlet"}'
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----
+class
+-----
+
+
+
+function Company(name, email) {
+  this.name = name;
+  this.email = email;
+};
+
+Company.prototype.getName = function getName() {
+  return this.name;
+}
+
+Company.prototype.getEmail = function getEmail() {
+  return this.email;
+}
+
+Company.prototype.setEmail = function setEmail(email) {
+  this.email = email;
+}
+
+const company = new Company('Hexlet');
+console.log(company.getName());                                                                 // => "Hexlet"
+
+
+
+---
+
+
+class Company {                                                                                 // имя класса - это имя функции конструктора
+  constructor(name, email) {
+    this.name = name;
+    this.email = email;
+  }
+
+  getName() {
+    return this.name;
+  }
+
+  getEmail() {
+    return this.email;
+  }
+
+  setEmail(email) {
+    this.email = email;
+  }
+}
+
+const company = new Company('Hexlet', 'support@hexlet.io');                                     // вызывается метод constructor
+console.log(company.getName());                                                                 // => "Hexlet"
+
+
+
+----------------------------------------
+
+
+function Company() {
+
+}
+
+const company = new Company();
+
+
+
+----------------------------------------
+
+
+const company = new Company();
+company.getEmployees();                                                                         // []
+
+
+---
+
+function Company() {
+  this.employees = [];
+}
+
+
+
+---
+
+class Company {
+  constructor() {
+    this.employees = [];
+  }
+}
+
+
+---
+
+class Company {
+  employees = [];
+}
+
+
+
+----------------------------------------
+
+
+Company.prototype.greeting = function greeting() {
+  return `Hello, ${this.name}!`;
+}
+
+const company = new Company('Hexlet');
+console.log(company.greeting());                                                            // => "Hello, Hexlet!"
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------
+static methods
+--------------
+
+
+
+const money1 = new Money(100);
+money1.getValue();                                                                                // 100
+money1.format();                                                                                  // "$100"
+money1.exchangeTo('eur').getValue();                                                              // 70
+
+const money2 = new Money(200, 'eur');
+const money3 = money2.add(money1);                                                                // 270
+
+
+
+---
+
+
+class Money {
+  constructor() {
+    this.rates = {
+      usd: {
+        eur: 0.7,
+      },
+      eur: {
+        usd: 1.2,
+      },
+    };
+  }
+}
+
+
+
+---
+
+Money.rates = {
+  usd: {
+    eur: 0.7,
+  },
+  eur: {
+    usd: 1.2,
+  },
+};
+
+
+
+
+----------------------------------------
+
+
+class Money {
+  constructor(value, currency = 'usd') {
+    this.value = value;
+    this.currency = currency;
+  }
+
+  exchangeTo(newCurrency) {
+    if (this.currency === newCurrency) {
+      return new Money(this.value, this.currency);
+    }
+    const newValue = this.value * this.constructor.rates[this.currency][newCurrency];
+    return new Money(newValue, newCurrency);
+  };
+}
+
+
+
+----------------------------------------
+
+
+Money.rates.usd.eur = 0.71;
+
+
+---
+
+Money.setRate = function setRate(from, to, value) {
+  this.rates[from][to] = value;
+}
+
+Money.setRate('usd', 'gbp', 0.6);
+
+
+
+----------------------------------------
+
+
+class Money {
+  static rates = {
+    usd: {
+      eur: 0.7,
+    },
+    eur: {
+      usd: 1.2,
+    },
+  };
+
+  static setRate(from, to, value) {
+    this.rates[from][to] = value;
+  }
+}
+
+Money.rates.usd.eur;                                                                                            // 0.7
+Money.setRate('usd', 'eur', 0.8);
+Money.rates.usd.eur;                                                                                            // 0.8
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------
+exceptions
+----------
+
+
+
+int write_log()
+{
+  int ret = 0;                                                                                                  // return value 0 if success
+  FILE *f = fopen("logfile.txt", "w+");
+
+  if (!f)
+      return -1;
+
+  if (fputs("hello logfile!", f) != EOF) {
+  } else {
+      ret = -2;
+  }
+
+  if (fclose(f) == EOF)
+      ret = -3;
+
+  return ret;
+}
+
+
+
+----------------------------------------
+
+
+const readFile = (filepath) => {
+  if (!isFileReadable(filepath)) {
+    throw new Error(`'${filepath}' is not readable`);
+  }
+};
+
+const run = (filepath) => {
+  try {
+    readFile(filepath);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+
+
+----------------------------------------
+
+
+const e = new Error('Тут любой текст');
+throw e;
+
+
+---
+
+const message = 'Тут любой текст';
+throw message;
+
+
+
+----------------------------------------
+
+
+try {
+}
+
+---
+
+catch (e) {
+}
+
+---
+
+try {
+} catch (myError) {
+  console.log(myError);
+}
+
+---
+
+const myFunc = () => {
+  try {
+  } catch (e) {
+    throw new Error('new error');
+  }
+};
+
+try {
+  myFunc();
+} catch (e) {
+  console.log(e);                                                                                     // => new error
+}
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

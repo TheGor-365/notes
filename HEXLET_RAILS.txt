@@ -1,0 +1,2721 @@
+------------
+RAILS BASICS
+------------
+
+----
+rack
+----
+
+
+
+$ curl --head https://ru.hexlet.io
+
+
+---
+
+HTTP/2 200
+server: nginx/1.21.1
+date: Wed, 01 Dec 2021 12:50:51 GMT
+content-type: text/html; charset=utf-8
+vary: Accept-Encoding
+vary: Accept
+x-xss-protection: 1; mode=block
+x-content-type-options: nosniff
+x-download-options: noopen
+x-permitted-cross-domain-policies: none
+referrer-policy: strict-origin-when-cross-origin
+
+
+$ curl -X GET https://ru.hexlet.io
+
+
+---------------------------------------------------------
+
+Rackup::Handler::WEBrick
+
+
+---------------------------------------------------------
+
+require 'rackup'
+
+class MyApp
+  def call(_env)
+    [200, {'Content-Type' => 'text/html'}, ["Hello"]]
+  end
+end
+
+Rackup::Handler::WEBrick.run MyApp.new, :Port => 3000
+
+
+
+---------------------------------------------------------
+
+
+class MyApp
+  def call(_env)
+    [200, {'Content-Type' => 'text/html'}, ["Hello"]]
+  end
+end
+
+run MyApp.new
+
+
+---------------------------------------------------------
+
+
+$ rackup
+$ rackup -s thin
+$ thin start
+$ puma
+$ unicorn
+$ passenger start
+
+
+---------------------------------------------------------
+
+
+# config.ru
+
+class MyMiddleware
+  def initialize(app1)
+    @app1 = app1
+  end
+
+  def call(env)
+    puts 'middleware_before'
+    # env содержит запрос
+    status, headers, body = @app1.call(env)
+    puts 'middleware_after'
+    request = Rack::Request.new(env)
+    if request.path == '/'
+      case request.request_method
+      when 'GET'
+        [status, headers, body]
+      when 'POST'
+        [201, headers.merge({'x-created' => 'True'}), ['Item was successfully created']]
+      end
+    else
+      [404, {}, ["Not Found"]]
+    end
+  end
+end
+
+
+class App
+  def call(env)
+    puts 'app_run'
+    [200, {}, ["success"]]
+  end
+end
+
+use MyMiddleware
+run App.new
+
+
+---------------------------------------------------------
+
+
+
+require 'json'
+
+class MyMiddleware
+  def initialize(app1)
+    @app1 = app1
+  end
+
+  def call(env)
+    status, headers, body = @app1.call(env)
+    request = Rack::Request.new(env)
+
+    body = {
+      path: request.path,
+      verb: request.request_method,
+      ip: request.ip,
+      cookies: request.cookies,
+      params: request.params,
+      body: JSON.parse(request.body.read)
+    }
+
+    [200, {}, [body.to_json]]
+  end
+end
+
+class App
+  def call(env)
+  end
+end
+
+use MyMiddleware
+run App.new
+
+
+---
+
+
+$ rackup
+$ curl -x POST localhost:9292/users?sort=desc -d "{\"login\":\"admin\",\"password\":\"password\"}"
+
+
+
+---------------------------------------------------------
+
+
+use Rack::Auth::Basic do |username, password|
+  username == 'admin' && password == 'password'
+end
+
+class App
+  def call(env)
+    puts env["HTTP_AUTHORIZATION"]
+    [200, {'Content-Type' => 'text/html'}, ["You are loggined successfully"]]
+  end
+end
+run App.new
+
+
+---
+
+
+$ rackup
+$ curl -u admin:password -i http://localhost:9292
+
+
+
+---------------------------------------------------------
+
+rack test
+
+# test.rb
+
+require 'minitest/autorun'
+require 'rack/test'
+
+class MyApp
+  def call(env)
+    [200, {'X-success' => true}, ["Success response"]]
+  end
+end
+
+describe "MyApp" do
+  include Rack::Test::Methods
+
+  def app
+    MyApp.new
+  end
+
+  it 'check response status' do
+    get '/'
+    assert last_response.ok?
+  end
+
+  it 'check response headers' do
+    get '/'
+
+    assert_equal last_response.headers, {'X-success' => true}
+  end
+
+  it 'check response body' do
+    get '/'
+    assert_equal last_response.body, "Success response"
+  end
+end
+
+
+
+---------------------------------------------------------
+
+
+Rack Gem
+
+Rack Middlewares
+
+  Rack::Files
+  Rack::Events
+  Rack::Head
+  Rack::Lock
+  Rack::Reloader
+  Rack::Runtime
+  Rack::ShowException
+
+Rack Helpers
+
+  Rack::Request
+  Rack::Response
+  Rack::MockRequest, Rack::MockResponse
+  Rack::MediaType
+  Rack::Mime
+  Rack::RewindableInput
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------
+overview
+--------
+
+
+
+$ gem install rails
+
+
+
+---------------------------------------------------------
+
+$ rails -v
+$ rails new example_app
+$ cd example_app
+$ bin/setup
+$ bin/rails server
+
+$ bin/rails --help
+$ bin/rails help
+
+
+
+---------------------------------------------------------
+
+
+$ bin/rails generate
+$ bin/rails g
+
+
+
+---------------------------------------------------------
+
+$ bin/rails generate model --help
+$ bin/rails generate model user login:string age:integer
+
+$ bin/rails destroy model user login:string age:integer
+$ bin/rails d model user login:string age:integer
+
+
+
+---------------------------------------------------------
+
+
+$ bin/rails generate controller --help
+$ bin/rails generate controller user login:string age:integer
+
+
+
+---------------------------------------------------------
+
+
+$ bin/rails generate scaffold User name:string age:integer
+
+
+
+---------------------------------------------------------
+
+$ bin/rails db:create
+$ bin/rails db:drop
+$ bin/rails db:setup
+$ bin/rails db:migrate
+$ bin/rails db:seed
+
+
+
+---------------------------------------------------------
+
+
+$ bin/rails console
+$ bin/rails test
+$ bin/rails dbconsole
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+------------
+static pages
+------------
+
+
+
+$ bin/rails g controller pages index
+$ bin/rails d controller pages index
+
+
+---
+
+Rails.application.routes.draw do
+  get 'pages/index'
+end
+
+
+---
+
+
+Rails.application.routes.draw do
+  root 'pages#index'
+
+  # get 'pages/about', to: 'pages#about'
+  # get 'pages/term_of_service', to: 'pages#term_of_service'
+  # page_path   GET /pages/:id(.:format) pages#show
+
+  resources :pages, only: :show
+end
+
+
+
+---
+
+
+class ApplicationController < ActionController::Base
+end
+
+
+
+---
+
+
+class PagesController < ApplicationController
+end
+
+
+
+---
+
+
+class PagesController < ApplicationController
+  def index; end
+end
+
+
+
+---------------------------------------------------------
+
+<%= params[:id] %>
+
+<% 10.times do %>
+<% end %>
+
+
+
+---------------------------------------------------------
+
+<%= link_to "Term of service", page_path(:term_of_service) %>
+
+
+
+---------------------------------------------------------
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ExampleApp</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
+
+
+
+---------------------------------------------------------
+
+
+<%= render 'about' >
+
+
+
+---------------------------------------------------------
+
+
+<%= render partial: "pages/partial/links", locals: {} %>
+
+
+
+---------------------------------------------------------
+
+
+
+class PagesController < ApplicationController
+  def about; end
+  def term_of_service; end
+
+  def index; end
+end
+
+
+
+
+---------------------------------------------------------
+
+
+class PagesController < ApplicationController
+  def show; end
+
+  def index; end
+end
+
+
+
+
+---------------------------------------------------------
+
+
+Rails.application.routes.draw do
+  root 'pages#index'
+
+  # page_path   GET /pages/:id(.:format) pages#show
+
+  resources :pages, only: :show
+end
+
+
+
+
+---------------------------------------------------------
+
+
+<%= render params[:id] %>
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+------
+models
+------
+
+
+
+class User < ApplicationRecord
+  validates :first_name, presence: true
+  validates_inclusion_of :role, in: %w{ customer admin superuser }
+  validates_length_of :last_name, maximum: 30, message: "less than 30 if you don't mind"
+
+  attribute :is_active, :boolean, default: -> { false }
+
+  scope :admins, -> {where(role: 'admin') }
+  has_many :orders
+  belongs_to :city
+end
+
+
+
+---------------------------------------------------------
+
+
+Class       Table name
+------------------------
+Article     articles
+LineItem    line_items
+Deer        deers
+Mouse       mice
+Person      people
+
+
+
+---------------------------------------------------------
+
+
+$ bin/rails g model User first_name last_name is_active:boolean
+
+
+
+---
+
+
+class User < ApplicationRecord
+end
+
+
+
+
+---------------------------------------------------------
+
+
+
+$ bin/rails g migration create_users first_name last_name is_admin:boolean is_active:boolean
+
+
+
+
+---
+
+
+class CreateUsers < ActiveRecord::Migration[6.1]
+  def change
+    create_table :users do |t|
+      t.string :first_name
+      t.string :last_name
+      t.boolean :is_active
+      t.timestamps
+    end
+  end
+end
+
+
+
+---------------------------------------------------------
+
+
+$ bin/rails db:migrate
+
+
+---
+
+
+ActiveRecord::Schema.define(version: 2021_12_02_144414) do
+  create_table "users", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.boolean "is_active"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+end
+
+
+
+---------------------------------------------------------
+
+$ bin/rails db:create
+$ bin/rails db:drop
+$ bin/rails db:migrate
+$ bin/rails db:prepare
+$ bin/rails db:reset
+$ bin/rails db:rollback STEP=3
+$ bin/rails db:schema:dump
+$ bin/rails db:schema:load
+$ bin/rails db:seed
+$ bin/rails db:setup
+
+
+
+---
+
+
+$ bin/rails -T 'db'
+
+
+
+---------------------------------------------------------
+
+
+admin = User.create(first_name: 'John', last_name: 'Doe', role: 'admin')
+
+user = User.new(first_name: 'Tom', last_name: 'Smith', role: 'customer')
+user.save
+
+
+
+---------------------------------------------------------
+
+
+
+user = User.new(last_name: 'Smith', role: 'customer')
+
+user.save
+
+user.validate!                                                # => ["cannot be nil"]
+user.valid?                                                   # false
+user.invalid?                                                 # true
+user.errors                                                   # Error object
+user.errors.messages                                          # {"first_name" => "cannot be nil"}
+user.errors.full_messages                                     # ["first_name cannot be nil"]
+
+
+
+---
+
+
+users = User.all
+user = User.first
+user = User.find(1)
+user = User.find_by(id: 1)
+user = User.last
+users = User.where(name: 'John', is_admin: true).order(created_at: :desc)
+
+
+
+---
+
+
+user = User.find_by(name: 'John')
+user.destroy
+
+User.destroy_all
+
+
+
+---------------------------------------------------------
+
+
+User.create(first_name: 'John', last_name: 'Doe', role: 'admin')
+User.create(first_name: 'John', last_name: 'Smith', role: 'customer')
+
+100.times do
+  User.create(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    role: %w[customer admin superuser].sample,
+    is_active: [true, false].sample
+  )
+end
+
+
+
+
+---
+
+
+$ bin/rails db:seed
+
+
+
+---------------------------------------------------------
+
+default: &default
+  adapter: sqlite3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: db/development.sqlite3
+
+test:
+  <<: *default
+  database: db/test.sqlite3
+
+production:
+  <<: *default
+  database: db/production.sqlite3
+
+
+
+---------------------------------------------------------
+
+
+User.where.not(role: :admin)
+User.where(role: :admin).or(User.where(role: :superuser))
+User.order(:age)
+User.order(age: :desc)
+User.select(:first_name, :last_name)
+User.select(:last_name).distinct
+User.limit(15)
+User.limit(15).offset(30)
+User.group(:age).count
+User.none
+
+
+---------------------------------------------------------
+
+
+class User < ApplicationRecord
+  validates :first_name, presence: true
+  validates_inclusion_of :role, in: %w( customer admin superuser )
+  validates_length_of :last_name, maximum: 15, message: "less than 15 if you don't mind"
+  validates :age, numericality: { only_integer: true, greater_than: 17 }
+  validates :email, uniqueness: true
+  validates :email, format: { with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/ }
+  validate :custom_validation
+
+  attribute :is_active, :boolean, default: -> { false }
+
+  def custom_validation
+    errors.add :first_name, 'You are not welcome here, John'  if first_name == 'John'
+  end
+
+  # scope :admins, -> {where(role: 'admin') }
+  # has_many :orders
+  # belongs_to :city
+
+  attribute :is_active, :boolean, default: -> { false }
+
+  scope :customers, -> { where(role: 'customer') }
+  scope :admins, -> { where(role: 'admin') }
+  scope :superusers, -> { where(role: 'superuser') }
+  scope :old_admins, -> { admins.where('age > ?', 60) }
+  scope :admins_older_than, -> (age) { admins.where('age > ?', age) }
+
+  # default_scope { admins }
+end
+
+
+
+---
+
+
+User.customers.where("age > ?", 45).select(:email)
+
+
+
+---------------------------------------------------------
+
+
+class User < ApplicationRecord
+  scope :admins, -> { where(role: 'admin') }
+  default_scope { admins }
+end
+
+
+---
+
+
+User.all.count                                    # 32
+User.unscoped.all.count                           # 100
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------
+quality
+-------
+
+
+
+$ rails new rails-quality
+$ bundle install
+$ bundle exec rubocop
+$ bundle exec rubocop -a
+$ bundle exec rubocop -A
+
+$ rails g controller notes index show
+$ rails g model Note title:string description:text
+$ rails db:migrate
+$ rails s
+
+$ rails db:fixtures load
+$ rails c
+
+# Note.delete_all
+
+$ bundle exec brakeman
+$ rails g integration_test notes_flow
+$ bin/rails test:integration
+
+
+
+---------------------------------------------------------
+
+
+Gemfile:
+--------
+
+
+source 'https://rubygems.org'
+
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+group :development, :test do
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+end
+
+group :development do
+  gem 'brakeman'
+end
+
+gem 'rubocop', require: false
+gem 'rubocop-rails', require: false
+
+
+
+---------------------------------------------------------
+
+
+
+class NotesController < ApplicationController
+  def index
+    @notes = Note.all.order(created_at: :desc)
+  end
+
+  def show
+    # debugger
+    @note = Note.find(params[:id])
+  end
+end
+
+
+---
+
+
+@notes = Note.all.order(created_at: :desc)
+
+
+
+---------------------------------------------------------
+
+
+<h1>Notes</h1>
+
+<% @notes.each do |note| %>
+  <h4><%= link_to note.title, note_path(note) %></h4>
+  <p><%= note.description %></p>
+<% end %>
+
+
+
+---------------------------------------------------------
+
+
+<h1>Note page</h1>
+<h4><%= @note.title %></h4>
+<p><%= @note.description %></p>
+
+<%= link_to "Back", notes_path %>
+
+
+
+---------------------------------------------------------
+
+Rails.application.routes.draw do
+  root 'notes#index'
+
+  # get 'notes', to: 'notes#index'
+  # get 'notes/show'
+
+  resources :notes, only: [:index, :show]
+end
+
+
+
+---------------------------------------------------------
+
+
+require "test_helper"
+
+class NotesFlowTest < ActionDispatch::IntegrationTest
+
+  test 'opens all notes page' do
+    get root_url
+    assert_response :success
+    assert_select 'h1', 'Notes'
+  end
+
+  test 'opens one note page' do
+    note = Note.create(title: "Title 1", description: "Description 1")
+
+    # debugger
+
+    get note_url(note.id)
+    assert_response :success
+    assert_select 'h1', 'Note page'
+    assert_select 'h4', 'Title 1'
+    assert_select 'p', 'Description 1'
+  end
+
+  test 'opens one note page with fixture' do
+    note = notes(:one)
+    get note_url(note)
+    assert_response :success
+    assert_select 'h1', 'Note page'
+    assert_select 'h4', 'Title 1'
+    assert_select 'p', 'Description 1'
+  end
+end
+
+
+
+---------------------------------------------------------
+
+notes_list = notes()
+note = notes(:one)
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------
+configuration
+-------------
+
+
+
+development
+test
+production
+
+
+
+---------------------------------------------------------
+
+
+staging_unmerged:
+  <<: *default
+  database: db/test.sqlite3
+
+
+
+---------------------------------------------------------
+
+
+$ bin/rails s -e test
+
+
+
+---------------------------------------------------------
+
+
+$ RAILS_ENV=staging_unmerged bin/rails c
+
+
+
+---------------------------------------------------------
+
+Rails.application.config.before_initialize do
+  # initialization code goes here
+end
+
+Aws.config.update(
+  region: 'us-west-2',
+  credentials: Aws::Credentials.new('akid', 'secret')
+)
+
+
+
+---------------------------------------------------------
+
+
+$ EDITOR=vim bin/rails credentials:edit
+
+
+
+---------------------------------------------------------
+
+
+$ bundle exec spring binstub --all
+$ bin/spring binstub --remove --all
+
+$ bin/rails restart
+
+
+
+---------------------------------------------------------
+
+
+class PagesController < ApplicationController
+  def index
+    logger.debug('Debug logs')
+  end
+end
+
+
+
+---------------------------------------------------------
+
+
+Rails.application.configure do
+
+  # https://guides.hexlet.io/ru/logging
+  # https://guides.rubyonrails.org/debugging_rails_applications.html
+
+  config.log_level = :info
+end
+
+
+
+---------------------------------------------------------
+
+
+module RailsConfiguration
+  class Application < Rails::Application
+    # config.logger = Logger.new(STDOUT)
+    config.logger = Log4r::Logger.new('Application logs')
+  end
+end
+
+
+
+---------------------------------------------------------
+
+
+worker_timeout 3600 if ENV.fetch("RAILS_ENV", "staging_unmerged") == "staging_unmerged"
+port ENV.fetch("PORT") { 5000 }
+environment ENV.fetch("RAILS_ENV") { "staging_unmerged" }
+pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
+
+
+
+---------------------------------------------------------
+
+
+$ rails new test_rollbar_app
+$ cd test_rollbar_app
+
+
+
+---------------------------------------------------------
+
+
+$ bin/rails generate rollbar
+
+
+
+---------------------------------------------------------
+
+
+require_relative "application"
+
+Rails.application.initialize!
+
+require_relative 'rollbar'
+
+notify = lambda do |e|
+  Rollbar.with_config(use_async: false) do
+    Rollbar.error(e)
+  end
+rescue StandardError
+  Rails.logger.error 'Synchronous Rollbar notification failed.  Sending async to preserve info'
+  Rollbar.error(e)
+end
+
+begin
+  Rails.application.initialize!
+rescue Exception => e
+  notify.call(e)
+  raise
+end
+
+
+
+---------------------------------------------------------
+
+
+$ export ROLLBAR_ACCESS_TOKEN=<ваш токен>
+
+
+
+---------------------------------------------------------
+
+
+
+Application has been already initialized. (RuntimeError)
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+----
+CRUD
+----
+
+
+
+$ bin/rails g controller articles index
+
+
+
+---------------------------------------------------------
+
+
+$ bin/rails g model articles title:string body:text author
+$ bin/rails db:migrate
+
+
+
+---------------------------------------------------------
+
+
+$ bundle
+$ bin/rails g annotate:install
+$ bundle exec annotate
+
+
+
+---------------------------------------------------------
+
+
+# == Schema Information
+#
+# Table name: articles
+#
+#  id         :integer          not null, primary key
+#  author     :string
+#  body       :text
+#  title      :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+
+class Article < ApplicationRecord
+end
+
+
+
+---------------------------------------------------------
+
+
+
+10.times do |i|
+  article_index = i + 1
+
+  Article.create(
+    title: Faker::Lorem.sentence,
+    body: Faker::Lorem.paragraphs.join("\n\n"),
+    author: Faker::Name.unique.name
+  )
+end
+
+
+
+---------------------------------------------------------
+
+
+$ bin/rails db:seed
+$ bin/rails c
+$ pp Article.all
+
+
+
+---------------------------------------------------------
+
+$ bin/rails routes -g article
+
+
+---------------------------------------------------------
+
+
+class ArticlesController < ApplicationController
+  def index
+    @articles = Article.order(created_at: :desc)
+  end
+
+  def show
+    @article = Article.find(params[:id])
+  end
+
+  def new
+    @article = Article.new
+  end
+
+  def create
+    @article = Article.new(article_params)
+
+    if @article.save
+      flash[:success] = 'New article was successfully created'
+      redirect_to article_path(@article)
+    else
+      flash[:failure] = 'Article cannot be created'
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @article = Article.find(params[:id])
+  end
+
+  def update
+    @article = Article.find(params[:id])
+
+    if @article.update(article_params)
+      flash[:success] = 'Article was successfully updated'
+      redirect_to article_path(@article)
+    else
+      flash[:failure] = 'Article cannot be updated'
+      render :edit
+    end
+  end
+
+  def destroy
+    @article = Article.find(params[:id])
+
+    if @article.destroy
+      flash[:success] = 'article was successfully deleted'
+      redirect_to root_path
+    else
+      flash[:failure] = 'Article cannot be deleted'
+      redirect_to article_path(@article)
+    end
+  end
+
+  private
+
+  def article_params
+    params.required(:article).permit(:title, :body, :author)
+  end
+end
+
+
+
+---------------------------------------------------------
+
+
+class ErrorsController < ApplicationController
+  def not_found
+    render status: :not_found
+  end
+
+  def internal_server_error
+    render status: :server_error
+  end
+end
+
+
+
+---------------------------------------------------------
+
+
+Rails.application.routes.draw do
+  get '/404', to: 'errors#not_found'
+  get "/500", to: "errors#server_error"
+
+  root 'articles#index'
+  resources :articles, only: [:show, :new, :create, :edit, :update, :destroy]
+end
+
+
+
+---------------------------------------------------------
+
+
+module CrudExample
+  class Application < Rails::Application
+    config.load_defaults 6.1
+    config.exceptions_app = self.routes
+  end
+end
+
+
+
+---------------------------------------------------------
+
+
+Rails.application.configure do
+  config.consider_all_requests_local = false
+end
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------
+deploy
+------
+
+
+
+$ rails new simple-blog --api
+$ cd ./simple-blog
+$ bin/rails g scaffold post title body
+$ bin/rails db:create
+$ bin/rails db:migrate
+$ bin/rails db:seed
+
+$ curl http://127.0.0.1:3000/posts                              # JSON ответ с постами
+
+
+$ git remote add origin https://github.com/username/simple-blog.git
+$ git add *
+$ git commit -m "initial commit"
+$ git push --set-upstream origin main
+
+
+
+---------------------------------------------------------
+
+
+$ ssh root@<server_ip>
+
+$ git clone https://github.com/username/simple-blog.git
+$ bundle
+$ bin/rails db:create
+$ bin/rails db:migrate
+$ bin/rails db:seed
+
+$ rails s -p 80 -b 0.0.0.0                                      # В браузере заходим по адресу http://<server_ip>/posts
+$ logout                                                        # exit
+
+
+
+---------------------------------------------------------
+
+
+$ cap -T
+$ cap install
+$ scp config/master.key root@<server_ip>://var/www/simple-blog/shared/config
+$ cap staging deploy
+$ cap staging deploy:seed
+$ cap staging deploy:run
+
+$ lsof -wni tcp:3000
+
+
+
+---------------------------------------------------------
+
+
+$ docker -v
+$ docker build -t <username>/simple-blog .
+$ docker login -u <username>
+$ docker push <username>/simple-blog
+
+
+$ ssh root@<server_ip>
+$ docker pull <username>/simple-blog
+$ docker images
+$ docker run --rm -p 3001:3001 <username>/simple-blog
+$ docker stop <hash>
+$ docker rm <hash>
+
+
+---
+
+
+Dockerfile:
+
+
+FROM ruby:3.0.1
+
+WORKDIR /home/app
+
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+
+COPY . .
+
+RUN chmod +x scripts/start.sh
+
+CMD ["./scripts/start.sh"]
+
+
+---
+
+
+
+start.sh:
+
+
+if [ -e /home/app ]; then
+  SEEDED_FILE=/home/app/.already_seeded
+  pushd /home/app
+  if [ -e $SEEDED_FILE ]; then
+    rake db:migrate || { echo "Can't migrate database"; exit 1; }
+  else
+    bin/rails db:create
+    bin/rails db:migrate || { echo "Can't migrate database"; exit 1; }
+    bin/rails db:seed || { echo "Can't seed database"; exit 1; }
+    echo 1 > $SEEDED_FILE
+  fi
+
+  rake tmp:clear || { echo "Can't clear cache"; }
+  popd
+fi
+
+---
+
+
+$ bin/rails server -p 3001 -b 0.0.0.0
+
+
+---
+
+
+Gemfile:
+
+
+ruby '3.0.2'
+
+group :development, :test do
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'sqlite3', '~> 1.4'
+end
+
+group :production do
+  gem 'pg'
+end
+
+
+
+---------------------------------------------------------
+
+
+$ curl -fsSL https://railway.app/install.sh | sh
+
+$ railway login
+
+$ railway init
+
+$ railway link
+$ railway up
+$ railway add
+$ railway vars
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+----------------
+template engines
+----------------
+
+
+
+index.html.slim
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----
+forms
+-----
+
+
+
+gem 'simple_form'
+
+
+---------------------------------------------------------
+
+
+$ bin/rails g simple_form:install
+
+$ bin/rails g migration add_fields_to_articles published:boolean edited_at:datetime
+$ bin/rails db:migrate
+
+$ rails generate simple_form:install --bootstrap
+
+
+
+---------------------------------------------------------
+
+
+
+= simple_form_for article do |f|
+  = f.input :title
+  = f.input :body
+  = f.input :author
+  = f.button :submit
+
+
+
+---------------------------------------------------------
+
+
+f.input :title
+
+f.input :title, placeholder: 'Title', required: false
+f.input :body, label_html: { class: 'input-group' }, hint_html: { id: 'hint '}, input_html: {class: 'text-input'}, wrapper_html: {class: 'wrapper-class'}
+
+f.input :title, disabled: true
+
+f.input :title, placeholder: 'Title', required: false, error: false, hint: false
+f.error :title
+f.hint 'No special characters, please!'
+
+f.error :title
+
+f.full_error :title
+
+f.input_field :title
+
+f.error :title
+
+f.hint 'No special characters, please!'
+
+f.input :published
+f.input :edited_at
+f.input :published, as: :radio_buttons
+f.input :published, as: :radio_buttons, checked: true
+f.input :published, input_html: { checked: true }
+f.input :title, collection: ['Title 1', 'Title 2']
+f.input :title, collection: [['Title 1', 1], ['Title 2', 2]]
+f.input :gender, as: :radio_buttons, collection: [['0', 'female'], ['1', 'male']], label_method: :second, value_method: :first
+f.input :title, collection: [['Title 1', 1], ['Title 2', 2]], prompt: 'Select please'
+f.input :title, collection: [['Title 1', 1], ['Title 2', 2]], selected: 2
+
+f.button :submit, 'Submit'
+f.button :submit, class: 'btn-success', id: 'submit'
+
+
+
+---------------------------------------------------------
+
+
+
+f.input :title, as: :currency
+
+
+
+
+---------------------------------------------------------
+
+
+app/inputs/currency_input.rb:
+
+
+class CurrencyInput < SimpleForm::Inputs::Base
+  def input(kwargs)
+    options = merge_wrapper_options(input_html_options, kwargs)
+
+    "#{@builder.text_field(attribute_name, options)} $".html_safe
+  end
+end
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------
+associations
+------------
+
+
+
+Article.where(published: true).order(created_at: :desc)
+
+
+
+---------------------------------------------------------
+
+
+scope :published, -> { where(published: true) }
+
+# def self.published
+#   where(published: true)
+# end
+
+scope :by_creation_date_desc, -> { order(created_at: :desc) }
+scope :by_creation_date_asc, -> { order(created_at: :asc) }
+
+
+
+---------------------------------------------------------
+
+
+Article.published.by_creation_date_desc
+
+
+
+---------------------------------------------------------
+
+
+$ bin/rails g migration remove_author_from_articles
+$ bin/rails db:migrate
+
+
+
+---
+
+
+
+class RemoveAuthorFromArticles < ActiveRecord::Migration[6.1]
+  def change
+    remove_column :articles, :author
+  end
+end
+
+
+
+---------------------------------------------------------
+
+
+$ bin/rails g model author name
+$ bin/rails db:migrate
+
+
+---
+
+
+class Article < ApplicationRecord
+  belongs_to :author
+end
+
+
+
+---------------------------------------------------------
+
+
+
+$ bin/rails g migration add_author_to_articles author:references
+
+
+---
+
+
+article.author
+Article.delete_all
+article = Article.new
+article.author                                                          # nil
+author = article.build_author
+
+
+
+---
+
+
+= simple_form_for article do |f|
+  = f.input :title
+  = f.input :body
+  = f.input :published
+
+  = f.association :author do |a|
+    = a.input :name
+
+  # = f.association :author, as: :radio_buttons
+  # = f.association :author
+
+  = f.button :submit
+
+
+
+---
+
+
+def create
+  author = Author.create(author_params)
+  @article = Article.new(article_params)
+  @article.author = author
+end
+
+def author_params
+  params.require(:article).require(:author).permit(:name)
+end
+
+
+---
+
+
+
+class Author < ApplicationRecord
+  # has_one: article
+  # has_and_belongs_to_many :articles
+
+  has_many :articles
+end
+
+
+
+---
+
+
+
+author.articles                                                     # Article::ActiveRecord_Associations_CollectionProxy
+
+author.articles.pluck(:title)
+author.articles.pluck(:title, :id)
+
+
+
+---------------------------------------------------------
+
+
+
+class Doctor < ApplicationRecord
+  has_many :appointments
+  has_many :patients, through: :appointments
+end
+
+class Patient < ApplicationRecord
+  has_many :appointments
+  has_many :doctors, through: :appointments
+end
+
+class Appointment < ApplicationRecord
+  belongs_to :doctor
+  belongs_to :patient
+end
+
+doctor = Doctor.create(name: 'Fred')
+patient = Patient.create(name: 'Alice')
+appointment = Appointment.create(doctor: doctor, patient: patient, appointment_date: Time.now.tomorrow)
+
+appointment.doctor                                                # Doctor name: 'Fred'
+appointment.patient                                               # Doctor name: 'Alice'
+
+doctor.patients.pluck(:name)                                      # ["Alice"]
+
+
+
+---------------------------------------------------------
+
+
+
+article = Article.new
+author = article.build_author(name: 'Bob')
+
+author = Author.find(1)
+
+article = author.articles.build(title: 'Article 1', body: "Article body") # аналог Article.new
+
+class CreateArticlesAuthors < ActiveRecord::Migration[6.1]
+  def change
+    create_table :articles_authors, id: false do |t|
+      t.belongs_to :articles
+      t.belongs_to :authors
+      t.timestamps
+    end
+  end
+end
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------
+nested resources
+----------------
+
+
+
+$ bin/rails g scaffold book title:string
+$ bin/rails g scaffold page body:text book:references
+$ bin/rails db:migrate
+
+
+
+---
+
+
+class Book < ApplicationRecord
+  has_many :pages
+end
+
+
+
+---
+
+
+class Page < ApplicationRecord
+  belongs_to :book
+end
+
+
+
+---
+
+
+ails.application.routes.draw do
+  root 'books#index'
+
+  resources :books, except: [:index] do
+    resources :pages, only: [:index, :new, :create]
+  end
+
+  resources :books, except: [:index], shallow: true do
+    resources :pages, only: [:show, :edit, :update, :destroy]
+  end
+end
+
+
+
+---
+
+
+
+class PagesController < ApplicationController
+  before_action :set_book, only: %i[ index new create ]
+  before_action :set_page, only: %i[ show edit update destroy ]
+
+  def index
+    @pages = @book.pages
+  end
+
+  def show
+  end
+
+  def new
+    @page = @book.pages.build
+  end
+
+  def edit
+  end
+
+  def create
+    @page = @book.pages.build(page_params)
+
+    if @page.save
+      redirect_to book_path(@book), notice: "Page was successfully created."
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if @page.update(page_params)
+      redirect_to book_path(@page.book), notice: "Page was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @page.destroy
+    format.html { redirect_to pages_url, notice: "Page was successfully destroyed." }
+  end
+
+  private
+
+  def set_book
+    @book = Book.find(params[:book_id])
+  end
+
+  def set_page
+    @page = Page.find(params[:id])
+  end
+
+  def page_params
+    params.require(:page).permit(:body, :book_id)
+  end
+end
+
+
+
+---
+
+
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @book.title %>
+</p>
+
+<%= link_to 'Add new page', new_book_page_path(@book) %> |
+<%= link_to 'Edit', edit_book_path(@book) %> |
+<%= link_to 'Back', root_path %>
+
+
+<h1>Pages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Body</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @book.pages.each do |page| %>
+      <tr>
+        <td><%= page.body %></td>
+        <td><%= link_to 'Edit', edit_page_path(page) %></td>
+        <td><%= link_to 'Destroy', page, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+
+---------------------------------------------------------
+
+
+
+class Web::ApplicationController < ApplicationController
+end
+
+
+
+
+---------------------------------------------------------
+
+
+class Web::BooksController < Web::ApplicationController
+end
+
+
+
+---------------------------------------------------------
+
+
+class Web::PagesController < Web::ApplicationController
+end
+
+
+
+---------------------------------------------------------
+
+
+
+Rails.application.routes.draw do
+
+  scope module: :web do
+    root 'books#index'
+    resources :books, except: [:index] do
+      resources :pages, only: [:index, :new, :create]
+    end
+
+    resources :books, except: [:index], shallow: true do
+      resources :pages, only: [:show, :edit, :update, :destroy]
+    end
+  end
+end
+
+
+
+---------------------------------------------------------
+
+
+Rails.application.routes.draw do
+  scope module: :web do
+    root 'books#index'
+    resources :books, except: [:index] do
+      resources :pages, only: [:index, :new, :create]
+      post :publish
+    end
+  end
+end
+
+
+
+---------------------------------------------------------
+
+
+Rails.application.routes.draw do
+  scope module: :web do
+    root 'books#index'
+    resources :books, except: [:index] do
+      collection do
+        post :publish
+      end
+    end
+  end
+end
+
+
+
+---------------------------------------------------------
+
+
+
+Rails.application.routes.draw do
+  scope module: :web do
+    root 'books#index'
+    resources :books, except: [:index] do
+      member do
+        post :publish
+      end
+    end
+  end
+end
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----
+I18n
+----
+
+
+
+I18n.default_locale
+
+
+
+---------------------------------------------------------
+
+
+class ApplicationController < ActionController::Base
+  around_action :set_locale_param
+
+  private
+
+  def default_url_options
+    { locale: I18n.locale }
+  end
+
+  def set_locale_param(&action)
+    locale = params[:locale] || I18n.default_locale
+    I18n.with_locale(locale, &action)
+  end
+
+  def set_locale_param_with_cookie(&action)
+    locale = params[:locale] || cookies[:locale] || I18n.default_locale
+    I18n.with_locale(locale, &action)
+    cookies[:locale] = I18n.locale
+  end
+
+  def set_locale_domain(&action)
+    locale = request.subdomains.first
+
+    I18n.locale = if I18n.available_locales.include?(locale.to_sym)
+      locale
+    else
+      I18n.default_locale
+    end
+  end
+
+  def set_locale_headers
+    logger.debug(request.env['HTTP_ACCEPT_LANGUAGE'])
+    locale = request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
+
+    logger.debug("LOCALE: #{locale}")
+
+    I18n.locale = if I18n.available_locales.include?(locale.to_sym)
+      locale
+    else
+      I18n.default_locale
+    end
+  end
+end
+
+
+
+---
+
+
+# config/routes.rb
+
+
+Rails.application.routes.draw do
+  scope '/(:locale)', locale: /en|ru/ do
+    root 'welcome#index'
+    resources :users
+  end
+end
+
+
+---
+
+
+# config/application.rb
+
+
+require_relative "boot"
+require "rails/all"
+
+Bundler.require(*Rails.groups)
+
+module I18nApp
+  class Application < Rails::Application
+    config.load_defaults 6.1
+
+    config.I18n.default_locale = :ru # :en
+
+    config.I18n.available_locales = [:en, :ru]
+    config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
+  end
+end
+
+
+
+---------------------------------------------------------
+
+
+translate(:welcome_title)
+translate('welcome_title')
+I18n.translate('welcome_title')
+I18n.t('welcome_title')
+t('welcome_title')
+
+# en.users.all
+
+t('users.all')
+t('all', scope: 'users')
+
+
+t('all', default: 'All Users')
+t('non_exists.all', default: :'fallback.all_users')
+t('non_exists.all', default: [:'fallback.all_users', 'Backup users 2'])
+
+t('.all')
+
+User.model_name.human(count: 100)
+
+
+
+---------------------------------------------------------
+
+
+t('.created_count', count: User.count)
+t('.created_count', count: @count)
+
+l(Time.now, format: :short)
+
+distance_of_time_in_words(Time.now)
+
+number_to_currency(5)
+number_to_percentage(5)
+
+
+
+---------------------------------------------------------
+
+
+ru:
+  activerecord:
+    attributes:
+      user:
+        first_name: Имя
+
+    models:
+      user:
+        one: Пользователь
+        other: Пользователи
+
+    errors:
+      models:
+        user:
+          attributes:
+            first_name:
+              blank: не может быть пустым
+
+
+
+---------------------------------------------------------
+
+
+ru:
+  time:
+    formats:
+      default:  '%d-%m-%Y'
+      short: '%d %b'
+      long: '%d %B %Y'
+
+
+
+---------------------------------------------------------
+
+
+ru:
+  some_html_string: <b>Этот текст содержит html</b>
+  safe_string_html: <b> Эта строка по умолчанию не экранируется _html</b>
+  welcome_title: Добро пожаловать в CRM для пользователей
+  users:
+    index:
+      all: Все пользователи
+      created_count:
+        one: Создан %{count} пользователь
+        other: Создано %{count} пользователя
+    all: Все пользователи
+    first_name: Имя
+    last_name: Фамилия
+    new_user: Новый пользователь
+
+  actions:
+    confirm: Вы уверены?
+    show: Показать
+    edit: Изменить
+    destroy: Удалить
+
+  fallback:
+    all_users: Все пользователи запасной
+
+
+
+---------------------------------------------------------
+
+
+# Переводы кнопок simple_form
+
+helpers:
+  submit:
+    user:
+      create: "Создать пользователя"
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------
+middlewares
+-----------
+
+
+
+$ Rails.application
+$ Rails.application.root
+
+
+---
+
+
+$ racup
+$ rackup --help
+
+$ rackup config.ru
+
+
+
+---------------------------------------------------------
+
+
+
+Rails::Server.new.tap do |server|
+  require APP_PATH
+  Dir.chdir(Rails.application.root)
+  server.start
+end
+
+class RailsServer < ::Rack::Server
+  def initialize
+    # ...
+    super
+  end
+
+  def start
+    # ...
+    super
+  end
+end
+
+
+
+---------------------------------------------------------
+
+
+
+$ bin/rails middleware
+
+
+
+
+---------------------------------------------------------
+
+
+module MiddlewareApp
+  class Application < Rails::Application
+    config.load_defaults 6.1
+
+    config.middleware.delete ActionDispatch::Session::CookieStore
+    config.middleware.swap ActionDispatch::Flash, ActionDispatch::Cookies
+    config.middleware.insert_before ActionDispatch::Flash, ActionDispatch::Cookies
+    config.middleware.insert_after ActionDispatch::Flash, ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Flash
+
+    config.middleware.use RequestTimeLogger, '#'
+  end
+end
+
+
+
+---------------------------------------------------------
+
+
+lib/request_time_logger.rb
+--------------------------
+
+
+class RequestTimeLogger
+  attr_reader :app, :logger_indentificator
+
+  def initialize(app, logger_indentificator = '*')
+    @app = app
+    @logger_indentificator = logger_indentificator
+  end
+
+  def call(env)
+    dup._call(env)
+  end
+
+  def _call(env)
+    request_recieved_at = Time.now
+    @status, @headers, @response = @app.call(env)
+    request_handled_at = Time.now
+
+    beauty_logging(request_handled_at - request_recieved_at)
+
+    [@status, @headers, @response]
+  end
+
+  private
+
+  def beauty_logging(time)
+    Rails.logger.debug(logger_indentificator * 50)
+    Rails.logger.debug("Request time: #{time}")
+    Rails.logger.debug(logger_indentificator * 50)
+  end
+end
+
+
+
+---------------------------------------------------------
+
+
+
+lib/request_time_logger.rb
+--------------------------
+
+
+class FreezeServer
+  attr_reader :app
+  def initialize(app)
+    @app = app
+  end
+
+  def call(env)
+    @status, @headers, @response = @app.call(env)
+
+    sleep 2
+    [@status, @headers, @response]
+  end
+end
+
+
+
+---------------------------------------------------------
+
+
+config/environments/development.rb
+----------------------------------
+
+
+require "active_support/core_ext/integer/time"
+
+require_relative '../../lib/request_time_logger'
+require_relative '../../lib/freeze_server'
+
+Rails.application.configure do
+  config.middleware.use RequestTimeLogger, '#'
+  config.middleware.use FreezeServer
+end
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----
+rake
+----
+
+
+
+$ bin/rails console                                                       # запуск консоли
+$ bin/rails server                                                        # запуск сервере
+$ bin/rails generate
+$ bin/rails generate scaffold
+$ bin/rails destroy
+$ bin/rails dbconsole                                                     # запуск консоли БД
+$ bin/rails runner 'pp User.all'                                          # запуск команды
+
+
+$ bin/rails g scaffold User name
+$ bin/rails db:migrate
+$ bin/rails db:seed
+
+$ bin/rails runner 'pp User.first'
+$ bin/rails runner lib/user.rb
+
+$ bin/rails about
+$ bin/rake about
+
+$ bin/rake dbconsole
+
+
+$ bin/rake assets:precompile
+$ bin/rake assets:clobber
+$ bin/rake assets:clean
+$ bin/rails notes                                                         # вывод всех пометок "TODO" и др. в проекте
+$ bin/rake stats                                                          # статистика проекта, количество строк кода, классов и т.д.
+$ bin/rake timezones
+
+$ bin/rake time:zones:all
+
+$ bin/rails users:create
+
+
+
+---------------------------------------------------------
+
+
+namespace :users do
+  desc 'Creates 5 users'
+  task :create => :environment do
+    print "Task started...\n"
+
+    5.times do |i|
+      User.create(name: "Alice #{i + 1}")
+      print '.'
+    end
+
+    print "\n...done\n"
+  end
+
+  # bin/rails users:update name=vasya
+  desc 'Updates user name'
+  task update: :environment do
+    print "Task started...\n"
+
+    User.find(1).update(name: ENV['name'])
+
+    print "\n...done\n"
+  end
+end
+
+namespace :users do
+  # bin/rails 'users:update[vasya]'
+  desc 'Updates user name'
+  task :update, [:name] => :environment do |t, args|
+    name = args[:name]
+    print "Change user name to #{name}"
+
+    User.find(1).update(name: name)
+
+    print "\n...done\n"
+  end
+end
+
+namespace :manipulate_files do
+  desc "Creates file in tmp folder"
+  task :create do
+    touch "tmp/rake_test.file.rb"
+  end
+
+  desc "Show files list"
+  task :show do
+    # FileList - хелпер Rake
+    # https://docs.ruby-lang.org/en/2.2.0/Rake/FileList.html
+    FileList.new('config/environments/*.rb') do |file|
+      pp file.exclude(/dev/)
+    end
+  end
+end
+
+
+
+
+
+---------------------------------------------------------
+
+
+$ bin/rails g task
+$ bin/rails g task manipulate_files create
+
+$ bin/rails users:update name=vasya
+$ bin/rails 'users:update[vasya]'
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

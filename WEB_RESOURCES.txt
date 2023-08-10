@@ -1,0 +1,872 @@
+-------
+NODE.JS
+-------
+
+https://nodejs.org/en/ 				                                                               - original site
+https://nodejs.org/en/about/ 			                                                           - about node.js
+https://nodejs.org/en/download/		                                                           - download node.js
+https://nodejs.org/api/				                                                               - node.js v14.3.0 Documentation
+https://www.codecademy.com/learn/linear-data-structures/modules/cspath-nodes/cheatsheet 		 - Learn Nodes
+https://www.codecademy.com/learn/learn-node-js/modules/introduction-to-node-js/cheatsheet		 - Introduction to Node.js
+https://expressjs.com/				                                                               - Express 4.17.1 framework for Node.js
+https://nodejs.org/dist/latest-v12.x/docs/api/	                                             - Node.js v12.16.3 Documentation
+https://expressjs.com/en/5x/api.html#express.json				                                     - express()
+https://www.npmjs.com/				                                                               - npm
+https://www.npmjs.com/package/nodemon		                                                     - nodemon
+https://www.codecademy.com/articles/setting-up-node-locally			                             - Setting Up Node Locally
+https://www.codecademy.com/articles/getting-user-input-in-node-js			                       - Getting User Input in Node.js
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------
+CODEACADEMY
+-----------
+
+https://www.codecademy.com/			                                                                          - codeacademy
+https://www.codecademy.com/learn/complex-data-structures/modules/cspath-hash-maps/cheatsheet 			        - Learn Hash Maps
+https://www.codecademy.com/learn/introduction-to-regular-expressions/modules/intro-to-regex/cheatsheet 		- Introduction to Regular Expressions
+https://www.codecademy.com/articles/request-response-cycle-forms 			                                    - Request-Response Cycle III
+https://discuss.codecademy.com/t/orientation-welcome-to-codecademy-forums/176345 					                - Forum
+https://discuss.codecademy.com/t/guide-how-to-build-a-web-dev-portfolio/394816 					                  - portfolio
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------
+DEVELOPER TOOLS
+---------------
+
+https://insights.stackoverflow.com/survey/2019#most-loved-dreaded-and-wanted 	                                                          - Stackoverflow
+https://www.smashingmagazine.com/2013/06/workflow-design-develop-modern-portfolio-website/ 			                                        - Workflow To Design
+https://www.dictionary.com/browse/good-thing				                                                                                    - Good thing
+https://medium.com/				                                                                                                              - A new way to control
+https://www.autohotkey.com/			                                                                                                        - The ultimate automation
+https://plnkr.co/edit/?p=preview&preview	                                                                                              - Plunker
+https://paste2.org/				                                                                                                              - Create Paste
+https://ui-patterns.com/			                                                                                                          - User Interface Design patterns
+https://techcrunch.com/				                                                                                                          - About Startups
+https://web.dev/add-manifest/			                                                                                                      - Add a web app manifest
+https://caniuse.com/#feat=es6			                                                                                                      - Can i use
+https://beautifier.io/				                                                                                                          - Online JavaScript Beautifier
+https://openweathermap.org/current		                                                                                                  - Current weather data
+https://developer.foursquare.com/docs/api-reference/venues/explore/			                                                                - Venue Recommendations
+https://developer.mozilla.org/en-US/docs/Glossary/CDN				                                                                            - CDN
+https://modernizr.com/				                                                                                                          - What is Modernizr
+http://vanilla-js.com/				                                                                                                          - Vanilla JS
+https://www.datamuse.com/api/			                                                                                                      - The Datamuse API is a word
+https://developer.foursquare.com/docs/api-reference/venues/details/		                                                                  - Venue Details
+https://developer.foursquare.com/docs/api-reference/venues/categories/		                                                              - Venue Categories
+https://openweathermap.org/guide/#how		                                                                                                - OpenWeatherMap API guide
+https://ru.foursquare.com/developers/login?continue=%2Fdevelopers%2Fregister	                                                          - Foursquare, Location Data Company
+https://developer.foursquare.com/		                                                                                                    - Create Magical Real-World
+https://unsplash.com/				                                                                                                            - Unsplash
+https://fontawesome.com/start			                                                                                                      - CDN powered Kits
+https://handlebarsjs.com/			                                                                                                          - Minimal templating on steroids
+https://www.codecademy.com/learn/paths/web-development/tracks/build-interactive-websites/modules/templating-with-handlebars/cheatsheet 	- Templating With Handlebars
+https://code.visualstudio.com/docs/editor/integrated-terminal			                                                                      - Integrated Terminal
+https://github.com/cronvel/terminal-kit		                                                                                              - Terminal Kit
+https://www.vagrantup.com/			                                                                                                        - Vagrant
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------
+DATABASE
+--------
+
+https://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html 	- ActiveRecord::Associations::ClassMethods
+https://www.sql.ru/				                                                        - all about SQL
+https://www.sisense.com/product/data-teams/	                                      - The Advanced Analytics Platform
+https://www.idc.com/getdoc.jsp?containerId=US44363318 		                        - International Data Corporation
+https://www.w3big.com/ru/ruby/ruby-database-access.html			                      - DBI Учебник
+https://www.postgresql.org/			                                                  - PostgreSQL
+https://www.mongodb.com/			                                                    - MongoDB
+https://redis.io/				                                                          - Redis
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------
+DEPLOYMENT
+----------
+
+https://domains.google.com/m/registrar/		                                        - Google domains
+https://domains.google/				                                                    - Find your place online
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----
+HTML5
+-----
+
+https://www.w3schools.com/html/html5_webstorage.asp 				          - HTML Web Storage API
+https://html.spec.whatwg.org/multipage/rendering.html 				        - Living Standard — Last Updated 21 May 2020
+https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/hidden		- HTMLElement.hidden
+https://html5book.ru/specsimvoly-html		                              - Спецсимволы HTML
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------
+GITHUB
+------
+
+https://habr.com/ru/post/125999/		                                                                            - Pull request'ы на GitHub
+https://github.com/facebook/react		                                                                            - react github
+https://www.codecademy.com/articles/push-to-github			                                                        - Push to GitHub
+https://github.com/rails/rails			                                                                            - rails
+https://github.com/mapbox/node-sqlite3/wiki/API#databaserunsql-param--callback 	                                - sqlite
+https://github.com/rubyschool-us		                                                                            - rubyschool github 
+https://github.com/DefactoSoftware/Hours	                                                                      - hours
+https://github.com/tkrotoff/jquery-simplecolorpicker			                                                      - Very simple jQuery color picker
+http://gearmobile.github.io/gulp/gitignore/	                                                                    - .gitignore
+https://help.github.com/en/github/using-git/pushing-commits-to-a-remote-repository 	                            - Pushing commits to a remote repository
+https://pages.github.com/			                                                                                  - What is GitHub Pages?
+https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-or-the-command-line - Creating a personal access token
+https://github.com/sinatra/sinatra		                                                                          - sinatra
+https://github.com/xdan/datetimepicker		                                                                      - jQuery DateTimePicker
+https://git.github.com/ryansobol/5252653	                                                                      - ryansobol
+https://github.com/ro31337/first-visit-js	                                                                      - first_visit.js
+https://github.com/cronvel/terminal-kit		                                                                      - Terminal Kit
+https://github.com/wildbit/postmark-gem		                                                                      - postmark-gem
+https://github.com/wildbit/postmark-rails	                                                                      - postmark-rails
+https://github.com/krdprog/rubyschool-notes	                                                                    - homework rubyschool
+https://github.com/msys2/MINGW-packages		                                                                      - mingw packages
+https://github.com/bootstrap-ruby/sinatra-bootstrap				                                                      - Sinatra Bootstrap
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------
+FRONTAND FRAMEWORK
+------------------
+
+https://getbootstrap.com/docs/4.4/getting-started/introduction/		                                                                    - Quick start
+https://itchief.ru/bootstrap/tooltips#id-4					                                                                                  - Bootstrap Tooltips
+https://www.geeksforgeeks.org/bootstrap-4-tooltip/ 				                                                                            - Bootstrap 4 | Tooltip
+https://plnkr.co/edit/?p=preview&preview	                                                                                            - Plunker
+https://ui-patterns.com/			                                                                                                        - User Interface Design patterns
+https://stackoverflow.com/questions/47479951/bootstrap-dynamic-size-of-items 	                                                        - dynamic bootstrap
+https://getbootstrap.com/docs/4.5/examples/	                                                                                          - Examples bootstrap
+https://www.berriart.com/sidr/			                                                                                                  - jQuery
+https://www.flaticon.com/search?word=social%20media			                                                                              - favicons icons
+https://stackoverflow.com/questions/19607851/use-bootstrap-grid-with-variable-number-of-cells			                                    - use bootstrap
+https://www.codecademy.com/articles/bootstrap-menus-navbar-modals			                                                                - Bootstrap
+https://bootstrap-4.ru/docs/4.0/components/jumbotron/				                                                                          - Jumbotron
+https://github.com/tkrotoff/jquery-simplecolorpicker			                                                                            - Very simple jQuery color picker
+https://themes.getbootstrap.com/		                                                                                                  - Build anything
+https://www.favicon-generator.org/		                                                                                                - Favicon & App Icon Generator
+https://fontawesome.com/start			                                                                                                    - CDN powered Kits
+https://www.bootstrapcdn.com/fontawesome/	                                                                                            - BootstrapCDN, Font Awesome
+https://xdsoft.net/jqplugins/datetimepicker/	                                                                                        - DateTimePicker
+https://github.com/xdan/datetimepicker		                                                                                            - jQuery DateTimePicker
+https://handlebarsjs.com/			                                                                                                        - Minimal templating on steroids
+https://www.codecademy.com/learn/paths/web-development/tracksbuild-interactive-websites/modules/templating-with-handlebars/cheatsheet - Templating With Handlebars
+https://www.bootstrapcdn.com/			                                                                                                    - Bootstrap CDN
+https://github.com/bootstrap-ruby/sinatra-bootstrap				                                                                            - Sinatra Bootstrap
+https://placeholder.com/                                                                                                              - placeholder
+https://www.w3schools.com/cssref/css_websafe_fonts.php                                                                                - safe fonts
+https://www.templatefreebies.com/                                                                                                     - figma templates
+https://www.thesaurus.com/                                                                                                            - synonims
+https://testerwork.com/                                                                                                               - tests
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---
+CSS
+---
+
+https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_and_inheritance 			                                     - Cascade and inheritance
+https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes 		                                                                 - Pseudo-classes
+https://cloudflare.design/color			                                                                                                 - color
+https://color.adobe.com/ru/create/color-wheel	                                                                                       - Adobe color
+https://developer.mozilla.org/en-US/docs/Web/CSS/position			                                                                       - position
+https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox 		                                                           - Flexbox
+https://css-tricks.com/perfect-full-page-background-image/		                                                                       - Perfect Full Page Background Image
+https://developer.mozilla.org/en-US/docs/Web/CSS/transition			                                                                     - transition
+https://developer.mozilla.org/en-US/docs/Web/CSS/border				                                                                       - border
+https://www.codecademy.com/learn/paths/web-development/tracks/getting-more-advanced-with-design/modules/learn-responsive-design-module/cheatsheet	- learn responsive
+https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity			                                                                   - Specificity
+https://developer.mozilla.org/en-US/docs/Web/CSS/display				                                                                     - display
+https://developer.mozilla.org/en-US/docs/Web/CSS					                                                                           - CSS: Cascading Style Sheets
+https://fonts.google.com/			                                                                                                       - Google fonts
+https://www.codecademy.com/learn/learn-css/modules/learn-css-box-model/cheatsheet 					                                         - The Box Model
+https://www.codecademy.com/learn/learn-css/modules/learn-css-selectors-visual-rules/cheatsheet 	                                     - Selectors and Visual Rules
+https://material.io/design			                                                                                                     - Design
+https://lightningdesignsystem.com/utilities/text/				                                                                             - About Text
+https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Box_Alignment_in_CSS_Grid_Layout#Justifying_Items_on_the_Inline_or_Row_Axis	     - Grid
+https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start 			                                                               - grid row start
+https://www.w3schools.com/colors/colors_picker.asp			                                                                             - HTML Color Picker
+https://www.w3schools.com/cssref/css_colors.asp					                                                                             - CSS Colors
+https://developer.mozilla.org/en-US/docs/Web/CSS/color_value			                                                                   - color
+https://html5css.ru/howto/howto_css_round_buttons.php			                                                                           - css
+https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing			                                                                     - box-sizing
+http://meyerweb.com/eric/tools/css/reset/                                                                                            - reset
+http://shpargalkablog.ru/2011/07/transformaciya-css.html                                                                             - css hover transition
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------
+JAVASCRIPT
+----------
+
+https://www.techonthenet.com/js/string_repeat.php 				                                                                    - String repeat() method
+https://stackoverflow.com/questions/6259982/how-do-you-use-the-conditional-operator-in-javascript 				                    - conditional, ternary operator
+https://www.codecademy.com/learn/introduction-to-javascript/modules/learn-javascript-introduction/cheatsheet 	                - Introduction
+https://stackoverflow.com/questions/51165/how-to-sort-strings-in-javascript 		                                              - sort strings in js
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error                                        - Error
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object#Methods_of_the_Object_constructor 	  - Object
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions 				                          - Arrow function expressions
+https://developer.mozilla.org/en-US/docs/Glossary/Falsy				                                                                - Falsy
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String 				                              - String
+https://www.digitalocean.com/community/tutorials/how-to-use-the-javascript-developer-console 				                          - Use the JavaScript Developer Console
+https://beautifier.io/				                                                                                                - Online JavaScript Beautifier
+https://openweathermap.org/current		                                                                                        - Current weather data
+https://dmitripavlutin.com/gentle-explanation-of-this-in-javascript/	                                                        - The mystery of this
+https://exploringjs.com/es6/ch_classes.html	                                                                                  - Classes
+https://hacks.mozilla.org/2015/08/es6-in-depth-subclassing/			                                                              - ES6 In Depth: Subclassing
+https://hacks.mozilla.org/2015/07/es6-in-depth-classes/				                                                                - ES6 In Depth: Classes
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes		                                                  - Classes
+https://eloquentjavascript.net/01_values.html	                                                                                - Values, Types, and Operators
+https://www.w3schools.com/js/js_htmldom.asp	                                                                                  - JavaScript HTML DOM
+https://developer.mozilla.org/en-US/docs/Web/JavaScript			                                                                  - JavaScript
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring 				                    - String.prototype.substring()
+https://www.codecademy.com/learn/paths/web-development/tracks/webdev-intermediate-javascript/modules/errors-and-error-handling/cheatsheet 	     - error
+https://www.codecademy.com/learn/paths/web-development/tracks/webdev-intermediate-javascript/modules/intermediate-javascript-modules/cheatsheet  - Modules
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce?v=example 		                  - Array.prototype.reduce()
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get	                                              - getter
+https://developer.mozilla.org/en-US/docs/Web/Events				                                                                    - Event reference
+https://www.codecademy.com/learn/paths/web-development/tracks/build-interactive-websites/modules/web-dev-interactive-websites/cheatsheet 	       - js
+https://lodash.com/docs/4.17.15			- Array Methods
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse 					                      - Array.prototype.reverse()
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys 					                        - Object.keys()
+https://developer.mozilla.org/en-US/docs/Glossary/Global_object			                                                          - Global object
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in				                                  - for...in
+https://www.codecademy.com/learn/paths/web-development/tracks/web-dev-js-arrays-loops-objects/modules/learn-javascript-objects/cheatsheet	      - loop js
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#Iteration_methods			                - Iteration
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function 					                          - Function
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round 					                        - Math.round()
+https://developer.mozilla.org/en-US/docs/Glossary/Hoisting				                                                            - Hoisting
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var		                                          - var
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Keywords 			                              - Keywords
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number 					                            - Number
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math	                                        - Math
+https://stackoverflow.com/questions/3138564/looping-through-localstorage-in-html5-and-javascript 					                    - localStorage
+https://developer.mozilla.org/ru/docs/Web/API/Window/localStorage		                                                          - Window.localStorage
+http://vanilla-js.com/				                                                                                                - Vanilla JS
+https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API			                                                              - Fetch API
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise 			                                - Promise
+https://www.codecademy.com/learn/paths/web-development/tracks/webdev-intermediate-javascript/modules/intermediate-javascript-requests/cheatsheet	- intermediate javascript
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop			                                                        - Concurrency model and the event loop
+https://developers.rebrandly.com/docs		- API for custom short URLs                                                           - Code snippet
+https://www.codecademy.com/learn/build-interactive-websites/modules/web-dev-interactive-websites/cheatsheet	                  - interactive websites
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects					                                    - Standard built-in objects
+https://nodejs.org/                                                                                                           - node.js
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String                                       - string
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---
+DOM
+---
+
+https://eloquentjavascript.net/14_dom.html	                                                                                        - The Document Object Model
+https://www.codecademy.com/articles/react-virtual-dom				                                                                        - React: The Virtual DOM
+https://www.w3schools.com/js/js_htmldom.asp	                                                                                        - JavaScript HTML DOM
+https://developer.mozilla.org/en-US/docs/Web/API/Document				                                                                    - Document
+https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model			                                                        - Document Object Model (DOM)
+https://www.codecademy.com/learn/paths/web-development/tracks/build-interactive-websites/modules/dom-javascript-events/cheatsheet		- dom javascript events
+https://developer.mozilla.org/en-US/docs/Web/API/Text				                                                                        - Text
+https://developer.mozilla.org/en-US/docs/Web/API/Element			                                                                      - Element
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----
+RAILS
+-----
+
+https://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html 				                      - ActiveRecord::ConnectionAdapters
+https://railsguides.net/advanced-rails-model-generators/		                                                          - Advanced Rails model generators
+https://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to 	                              - Signatures
+https://guides.rubyonrails.org/routing.html	                                                                          - Rails Routing from the Outside In
+https://guides.rubyonrails.org/			                                                                                  - Ruby on Rails Guides (v6.0.3.1)
+https://internet--technologies-ru.turbopages.org/s/internet-technologies.ru/articles/bystryy-start-rails-sqlite.html 	- quick start ror
+https://guides.rubyonrails.org/active_record_basics.html#create		                                                    - Active Record create
+https://guides.rubyonrails.org/active_record_migrations.html#creating-a-standalone-migration 				                  - db/migrate
+https://jekyllrb.com/docs/			                                                                                      - Jekyll is a static site generator
+https://guides.rubyonrails.org/action_controller_overview.html#filters	                                              - filters
+https://www.berriart.com/sidr/			                                                                                  - jQuery plugin for creating side menus
+https://guides.rubyonrails.org/asset_pipeline.html#coding-links-to-assets 	                                          - Coding links assets
+https://www.codecademy.com/articles/standard-controller-actions			                                                  - Standard Controller Actions
+http://rubydev.ru/ruby_tutorial/		                                                                                  - RoR tutorial
+https://github.com/rails/rails			                                                                                  - rails
+https://guides.rubyonrails.org/active_record_validations.html			                                                    - Active Record Validations
+https://api.rubyonrails.org/classes/ActiveRecord/Persistence.html			                                                - Active Record Persistence
+https://guides.rubyonrails.org/active_record_querying.html			                                                      - Active Record Query Interface
+https://github.com/rubyschool-us		                                                                                  - rubyschool github 
+https://riptutorial.com/ru/ruby/example/14085/запись-строки-в-файл				                                            - Запись строки в файл
+https://guides.rubyonrails.org/routing.html	                                                                          - routing
+http://stackoverflow.com/questions/20918321/how-exacty-http-protocol-works			                                      - http protocol
+http://stackoverflow.com/questions/2092527/what-happens-when-you-type-in-a-url-in-browser	                            - what happens when you type in a url in browser
+http://stackoverflow.com/questions/13200152/why-say-that-http-is-a-stateless-protocol	                                - stateless protocol
+http://api.rubyonrails.org/classes/ActionViews/Helpers/UrlHelper.html#method-i-link_to		                            - link_to
+http://railsguides.net/advanced-rails-model-generators/		                                                            - model generators
+http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html	                                      - Associations
+https://rubyonrails.org/			                                                                                        - RoR
+https://github.com/rails/rails-dev-box		                                                                            - rails dev box all for ruby development
+http://rusrails.ru/action-mailer-basics		                                                                            - Основы Action Mailer
+https://github.com/wildbit/postmark-gem		                                                                            - postmark-gem
+https://github.com/wildbit/postmark-rails	                                                                            - postmark-rails
+https://www.rubydoc.info/gems/faker/1.6.6                                                                             - faker
+https://puma.io                                                                                                       - puma
+https://github.com/hexlet-components/rails-users-list/blob/main/.rubocop.yml                                          - rubovop template
+https://github.com/rubocop/rubocop-rails                                                                              - rubocop
+https://ru.hexlet.io/blog/posts/how-to-test-code                                                                      - post about tests
+https://guides.rubyonrails.org/testing.html                                                                           - testing rails app
+https://guides.rubyonrails.org/active_record_basics.html                                                              - active records
+https://guides.rubyonrails.org/getting_started.html#using-a-model-to-interact-with-the-database                       - use models interactive
+https://guides.rubyonrails.org/layouts_and_rendering.html                                                             - rails layouts and rendering
+https://guides.rubyonrails.org/routing.html                                                                           - rails routing
+https://dev.to/brayvasq/integrate-andminlte-with-ruby-on-rails-6-od7                                                  - admin lte for rails 6
+https://www.stimulus-components.com/docs/stimulus-popover/                                                            - stimulus components
+https://github.com/heartcombo/devise/blob/main/CHANGELOG.md                                                           - devise for hitwire
+https://github.com/heartcombo/devise/wiki/How-To:-Upgrade-to-Devise-4.9.0-%5BHotwire-Turbo-integration%5D             - devise for hotwire
+https://www.simplethread.com/how-to-create-a-new-rails-7-app-with-tailwind/                                           - default tailwind rails
+https://web-crunch.com/posts/turbo-charged-real-time-search-ruby-on-rails-7                                           - turbo search
+https://blog.arkency.com/2014/10/how-to-start-using-arrays-in-rails-with-postgresql                                   - arrays with postgres
+https://www.sitepoint.com/save-multiple-checkbox-values-database-rails                                                - multiple checkbox
+https://oxylabs.io/blog/web-scraping-with-ruby                                                                        - web scrapping with ruby
+https://altalogy.com/blog/rails-6-user-accounts-with-3-types-of-roles                                                 - roles cancan rails 6
+https://web-crunch.com/collections/lets-build-with-ruby-on-rails                                                      - web apps guides
+https://www.roboleary.net/2022/01/13/copy-code-to-clipboard-blog.html                                                 - copy to clipboard
+https://www.freecodecamp.org/news/lets-create-an-intermediate-level-ruby-on-rails-application-d7c6e997c63f            - rails blog tutorial
+https://github.com/Deanout                                                                                            - Dean GitHub
+https://codingpackets.com/blog/dockerize-rails-7-app/                                                                 - dockerize rails
+https://github.com/programrails/carrierwave-yandex-disk                                                               - yandex cloud for rails
+https://github.com/anjlab/yandex-disk                                                                                 - yandex cloud for rails
+https://github.com/rheaton/carrierwave-video                                                                          - add video with carrierwave
+https://www.randygirard.com/how-to-create-a-video-upload-platform-using-ruby-on-rails-part-1/                         - add video with carrierwave
+https://admatbandara.medium.com/video-upload-processing-with-ruby-on-rails-c3c5aa04e08                                - add video with carrierwave
+http://bobintornado.github.io/rails/2015/12/29/Multiple-Images-Uploading-With-CarrierWave-and-PostgreSQL-Array.html   - add more images with carrierwave
+https://jasonfleetwoodboldt.com/courses/stepping-up-rails/rails-7-bootstrap/                                          - add bootstrap 5 to rails 7
+https://www.bootrails.com/blog/rails-7-bootstrap-5-tutorial/                                                          - add bootstrap 5 to rails 7
+https://dev.to/coorasse/rails-7-bootstrap-5-and-importmaps-without-nodejs-4g8                                         - add bootstrap 5 to rails 7
+https://bootstrap-datepicker.readthedocs.io/en/latest/                                                                - bootstrap datepicker
+https://github.com/vitalets/bootstrap-datepicker                                                                      - bootstrap datepicker
+http://strftime.net/                                                                                                  - strf time formats
+https://chartkick.com/                                                                                                - grafs for rails
+https://www.hotrails.dev/turbo-rails/quote-totals-turbo-frames                                                        - rails turbo
+https://github.com/excid3/esbuild-rails                                                                               - rails esbuild
+https://github.com/hotwired/stimulus-rails                                                                            - stimulus hotwire
+https://iridakos.com/programming/2018/01/25/creating-a-gtk-todo-application-with-ruby                                 - linux desctop app with ruby
+https://github.com/cedlemo/ruby-gtk3-tutorial                                                                         - linux desctop app with ruby
+https://www.ruby-toolbox.com/categories                                                                               - ruby and rails tools
+https://github.com/ryanwi/rails7-on-docker                                                                            - rails with docker compose
+https://github.com/rails/rails/pull/46762                                                                             - rails with docker compose
+https://evilmartians.com/chronicles/ruby-on-whales-docker-for-ruby-rails-development                                  - rails with docker compose
+https://github.com/coderjourney/03-learn-to-use-docker-in-development                                                 - rails with docker compose
+https://github.com/nejdetkadir/devise-api                                                                             - auth with devise api for rails api
+https://gorails.com                                                                                                   - rails guides
+https://web-crunch.com/                                                                                               - rails guides
+https://blog.corsego.com/                                                                                             - rails guides
+https://www.theodinproject.com/paths/full-stack-ruby-on-rails?                                                        - rails cources
+https://exercism.org/tracks/ruby/exercises                                                                            - rails cources
+https://railsbytes.com/                                                                                               - rails templates
+https://github.com/loopstudio/rails-api-boilerplate                                                                   - rails api
+https://github.com/shftco/rails-api-boilerplate                                                                       - rails api
+https://github.com/Deanout/api_boilerplate_rails                                                                      - rails api
+https://github.com/doorkeeper-gem/doorkeeper/issues/561#issuecomment-612857163                                        - OAuth client
+https://github.com/search?q=david+battersby                                                                           - rails guides
+https://www.flickr.com/search/?text=groningen                                                                         - flickr
+https://medium.com/swlh/how-to-add-a-simple-like-button-to-your-rails-6-application-c1040999dc2                       - add likes button
+https://www.sitepoint.com/                                                                                            - make resource
+https://edgeguides.rubyonrails.org/active_storage_overview.html                                                       - amazone s3 guide
+https://api.rubyonrails.org/classes/ActiveRecord/NestedAttributes/ClassMethods.html                                   - nested attrs with active record
+https://www.youtube.com/watch?v=qvGGz-2WHpU                                                                           - rails learning channel
+https://github.com/heartcombo/simple_form                                                                             - simple form
+https://www.youtube.com/channel/UCuEXLUx21ofCvFx8wFwtfNQ/videos                                                       - ruby lessons
+https://web-crunch.com/collections/lets-build-with-ruby-on-rails                                                      - build with rails guide
+https://hellorails.io/                                                                                                - hello rails
+https://www.youtube.com/playlist?list=PL01nNIgQ4uxNkDZNMON-TrzDVNIk3cOz4                                              - hello rails
+https://github.com/virtualforce/rails_sidekiq_guide                                                                   - sidekick
+https://jsonapi.org/                                                                                                  - json api
+http://www.rubygeocoder.com/                                                                                          - ruby geocoder
+https://github.com/apneadiving/Google-Maps-for-Rails/wiki/Change-handler-behavior                                     - google maps
+http://underscorejs.org/                                                                                              - google maps
+http://refactoring guru/ru/design-patterns                                                                            - ruby patterns
+http://sandimetz.com/99bottles                                                                                        - ruby patterns
+http://www.poodr.com                                                                                                  - ruby patterns
+https://dry-rb.org/                                                                                                   - dry rails
+https://www.netlify.com/                                                                                              - fast deploy
+https://cssmatic.com                                                                                                  - css web helper
+https://bulma.io/documentation/overview/start/                                                                        - css web framework
+https://github.com/thoughtbot/bourbon#installation                                                                    - saas tools
+https://sass-lang.com/guide                                                                                           - saas tools
+https://www.ultrahook.com/                                                                                            - api key for stripe
+https://stripe.com/docs/webhooks#signatures                                                                           - stripe docs
+https://dashboard.stripe.com/test/dashboard                                                                           - stripe docs
+https://dashboard.stripe.com/test/webhooks/we_1IQb1PAikeNSsMWCZHXNF934                                                - stripe documantation
+https://stripe.com/docs/api/customers/create                                                                          - stripe api
+https://stackoverflow.com/questions/65702896/latest-omniauth-facebook-gem-breaks-devise                               - devise for oath helper
+https://dev.to/yarotheslav/ruby-on-rails-6-credentials-quick-guide-2g8i                                               - credentials for rails 6
+https://developers.facebook.com/apps/427450925200664/settings/basic/                                                  - facebook for developers
+https://github.com/settings/applications/1495661                                                                      - git hub for developers
+https://console.cloud.google.com/apis/dashboard?pli=1&project=property-finder-289221&folder=&organizationId=          - google dashboard
+https://github.com/simi/omniauth-facebook                                                                             - oath facebook
+https://medium.com/@jvanier/omniauth-on-rails-4e0180e6a69e                                                            - oath facebook
+https://www.youtube.com/watch?v=Dd8dOAL6WYs                                                                           - oath facebook
+https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview                                                       - oath devise overview
+https://github.com/heartcombo/devise/wiki/OmniAuth:-Overview                                                          - devise oath
+https://github.com/cookpad/omniauth-rails_csrf_protection                                                             - devise oath
+https://github.com/omniauth/omniauth/wiki/List-of-Strategies                                                          - devise oath strategies
+https://github.com/heartcombo/devise/wiki/OmniAuth-with-multiple-models                                               - devise oath with multiple models
+https://github.com/cschiewek/devise_ldap_authenticatable                                                              - devise ldap
+https://altalogy.com/blog/rails-6-user-accounts-with-3-types-of-roles/                                                - cancan rails 6
+http://simple-form-bootstrap.plataformatec.com.br/                                                                    - simple form bootstrap
+https://github.com/rails-api/active_model_serializers                                                                 - active model serializers
+https://github.com/rails-api/active_model_serializers/tree/0-10-stable                                                - serializers guide
+https://gist.github.com/nachozt/799a54c1bba79975bdcfd4f67226ce22                                                      - add jquery to rails app
+https://bootrails.com/blog/rails-bootstrap-tutorial                                                                   - add bootstrap 5 to rails 6
+https://icons.getbootstrap.com/                                                                                       - bootstrap icons
+https://github.com/Nerian/bootstrap-datepicker-rails                                                                  - bootstrap datepicker
+https://betterprogramming.pub/devise-auth-setup-in-rails-7-44240aaed4be                                               - database config
+https://github.com/CodeSeven/toastr                                                                                   - toastr flash messages
+https://stackoverflow.com/questions/58777081/how-do-you-add-toastr-rails-gem-to-rails-6-project                       - toastr flash messages
+https://github.com/heartcombo/devise                                                                                  - devise routes configuring
+https://github.com/heartcombo/devise/wiki/How-To:-Allow-users-to-sign-in-using-their-username-or-email-address        - devise with login signup
+https://github.com/heartcombo/devise/wiki/How-To:-Create-a-guest-user                                                 - devise guest user guide
+https://github.com/heartcombo/devise/wiki/How-Tos                                                                     - devise how to's
+https://github.com/heartcombo/devise/wiki/How-To:-Allow-users-to-sign-in-with-something-other-than-their-email-address  devise login with name
+https://github.com/heartcombo/devise/wiki/How-To:-Add-sign_in,-sign_out,-and-sign_up-links-to-your-layout-template    - devise templates
+https://github.com/heartcombo/devise/wiki/How-To:-Allow-users-to-sign-in-using-their-username-or-email-address        - devise sign in with username or email
+https://github.com/heartcombo/devise/wiki/How-To:-Redirect-to-a-specific-page-on-successful-sign-up-(registration)    - devise redirect after sign up
+https://github.com/heartcombo/devise/wiki/How-To%3A-Display-a-custom-sign_in-form-anywhere-in-your-app                - devise custom sign in
+https://github.com/heartcombo/devise/blob/master/app/controllers/devise/registrations_controller.rb#L99               - devise registration
+https://mailcatcher.me/                                                                                               - mailcatcher
+https://github.com/mikel/mail                                                                                         - mail send rails
+https://guides.rubyonrails.org/action_mailer_basics.html                                                              - rails mailer
+http://rusrails.ru/action-mailer-basics                                                                               - rails mailer
+https://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration-for-gmail                        - gmail configuration
+https://github.com/mikel/mail                                                                                         - mail send
+https://postmarkapp.com/                                                                                              - postmark
+https://postmarkapp.com/developer/integration/official-libraries#rails-gem                                            - postmark rails guide
+https://github.com/wildbit/postmark-rails                                                                             - postmark rails
+https://edgeguides.rubyonrails.org/action_text_overview.html                                                          - actiontext guides
+https://github.com/rails/actiontext/tree/archive                                                                      - actiontext guides
+https://dennishellweg.com/custom-attachments-in-action-text                                                           - actiontext guides
+https://gist.github.com/nguyenngoc2505/93494b8fea2224f2fab6                                                           - multiple files upload
+https://github.com/kaize/configus                                                                                     - gem greation
+https://guides.rubyonrails.org/i18n.html#configure-the-i18n-module                                                    - localization
+https://github.com/fphilipe/i18n-debug                                                                                - localization, pluralization, translate
+https://github.com/ruby-i18n/i18n                                                                                     - localization, pluralization, translate
+https://github.com/svenfuchs/rails-i18n                                                                               - localization, pluralization, translate
+https://github.com/heartcombo/simple_form#i18n                                                                        - localization, pluralization, translate
+https://github.com/shioyama/mobility                                                                                  - localization, pluralization, translate
+https://guides.rubyonrails.org/i18n.html#action-view-helper-methods                                                   - localization, pluralization, translate
+https://guides.rubyonrails.org/i18n.html#adding-date-time-formats                                                     - localization, pluralization, translate
+https://guides.rubyonrails.org/i18n.html#pluralization                                                                - localization, pluralization, translate
+https://guides.rubyonrails.org/rails_on_rack.html#internal-middleware-stack                                           - middlewares
+https://github.com/rubocop/rubocop                                                                                    - rubocop
+https://docs.rubocop.org/rubocop/index.html                                                                           - rubocop
+https://github.com/rubocop/rubocop-rails                                                                              - rubocop
+https://github.com/faker-ruby/faker                                                                                   - rubocop
+https://github.com/presidentbeef/brakeman                                                                             - brakeman guide
+https://www.rubydoc.info/github/brynary/rack-test/master/Rack/Test/Methods                                            - rack
+https://devhints.io/rack-test                                                                                         - rack
+https://guides.rubyonrails.org/form_helpers.html                                                                      - rails template slim
+https://apidock.com/rails/ActiveModel/Errors/full_messages_for                                                        - rails template slim
+https://api.rubyonrails.org/classes/ActionDispatch/Flash.html                                                         - rails template slim
+https://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to                                - classes
+http://railsguides.net/advaced-rails-model-generators/                                                                - advanced model generation
+https://github.com/bmatzelle/gow                                                                                      - for windows
+https://github.com/krdprog/rubyschool-notes                                                                           - rubyschool notes
+https://github.com/sinatra/sinatra                                                                                    - sinatra docs
+https://github.com/bootstrap-ruby/sinatra-bootstrap                                                                   - bootstrap for sinatra
+https://stackoverflow.com/questions/9614236/escaping-strings-for-ruby-sqlite-insert                                   - safe data to database
+https://stackoverflow.com/questions/13462112/inserting-ruby-string-into-sqlite                                        - safe data to database
+https://github.com/xdan/datetimepicker                                                                                - datatimepicker
+http://guides.rubyonrails.org/active_record_querying.html                                                             - activerecord
+https://api.rubyonrails.org/classes/ActiveRecord/Persistence.html#method-i-save                                       - activerecord classes
+https://stackoverflow.com/questions/20918321/how-exacty-http-protocol-works                                           - https work wiki
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------
+SINATRA
+-------
+
+http://sinatrarb.com/				                                      - sinatra documentation
+https://github.com/sinatra/sinatra		                            - sinatra on github
+https://www.devdungeon.com/content/ruby-sinatra-tutorial#toc-34		- sinatra tutorial
+https://github.com/T-Dnzt/booklist		                            - bookList github
+https://x-team.com/blog/how-to-create-a-ruby-api-with-sinatra/		- bookList
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------
+JQUERY
+------
+
+https://www.berriart.com/sidr/			                                                        - jQuery plugin for creating side menus
+https://www.jqueryscript.net/demo/Clean-Flexible-jQuery-Content-Slider-Plugin-unslider/ 		- jQuery slider
+http://jqapi.com/				                                                                    - jQAPI - Alternative jQuery Documentation Browser
+https://www.codecademy.com/learn/learn-jquery/modules/learn-jquery-effects/cheatsheet 			- Learn jQuery: Effects
+https://www.codecademy.com/learn/learn-jquery/modules/learn-jquery-introduction/cheatsheet 	- Learn jQuery: Introduction
+https://api.jquery.com/category/effects/	                                                  - Category: Effects
+https://api.jquery.com/fadetoggle/		                                                      - .fadeToggle()
+https://api.jquery.com/ready/			                                                          - .ready()
+https://learn.jquery.com/using-jquery-core/document-ready/				                          - $( document ).ready()
+http://jqapi.com/				                                                                    - jQAPI - Alternative jQuery Documentation Browser
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------
+HEROKU
+------
+
+https://www.codecademy.com/articles/map-a-custom-domain				        - $ heroku domains:add www.yourname.com
+https://www.codecademy.com/articles/deploy-rails-to-heroku				    - INSTRUCTIONS
+https://devcenter.heroku.com/articles/custom-domains			            - Custom Domain Names for Apps
+https://devcenter.heroku.com/articles/getting-started-with-rails4			- Getting Started with Rails 4.x on Heroku
+https://rails-location-detect.herokuapp.com/                          - deploy on heroku
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------
+SQLITE
+------
+
+https://www.sqlite.org/lang_datefunc.html	                                                                                                  - Date And Time Functions
+https://www.codecademy.com/paths/analyze-data-with-sql/tracks/analyze-data-sql-go-off-platform/modules/analyze-data-sql-commands-review/articles/sql-commands - sql commands
+https://www.codecademy.com/paths/analyze-data-with-sql/tracks/analyze-data-sql-get-started-with-sql/modules/what-is-sql/articles/what-is-rdbms-sql 				- analyze data sql
+https://www.codecademy.com/paths/web-development/tracks/building-a-persistent-api/modules/persistent-api-cumulative-projects/informationals/cumulative-project-expresso
+https://www.codecademy.com/paths/web-development/tracks/building-a-persistent-api/modules/persistent-api-cumulative-projects/articles/what-is-crud				- what is crud
+https://github.com/mapbox/node-sqlite3/wiki/API#databaserunsql-param--callback 	                                                            - sqlite3
+https://www.codecademy.com/learn/paths/web-development/tracks/sql-for-web-development/modules/webdev-sql-multiple-tables/cheatsheet 		    - Multiple SQL
+https://www.codecademy.com/articles/what-is-rdbms-sql				                                                                                - Relational Database
+https://www.codecademy.com/learn/paths/web-development/tracks/sql-for-web-development/modules/webdev-sql-intro/cheatsheet 			            - SQL Introduction
+http://rubyonwindowsguides.github.io/book/ch02-05.html				                                                                              - Ruby on Windows Guides
+https://stackoverflow.com/questions/9614236/escaping-strings-for-ruby-sqlite-insert 	                                                      - ruby sqlite
+https://education.oracle.com/mysql/mysql-database-administration/product_159	                                                              - Oracle MySQL Database
+https://www.mysql.com/				                                                                                                              - MySQL
+https://www.sqlite.org/lang.html		                                                                                                        - SQL As Understood By SQLite
+https://www.codecademy.com/learn/learn-sql/modules/learn-sql-aggregate-functions/cheatsheet	                                                - sql aggregate functions
+http://2016.padjo.org/tutorials/sqlite-data-starterpacks/#toc-american-community-survey-1-year-data-for-2015				                        - year data for 2015
+https://www.codecademy.com/learn/learn-sql/modules/learn-sql-manipulation/cheatsheet					                                              - sql manipulation
+http://www.sqlishard.com/			                                                                                                              - SQL is Hard
+https://sqlite.org/download.html		                                                                                                        - SQLite Download Page
+https://sql.ru                                                                                                                              - sql
+http://www.sqlishard.com/Exercise                                                                                                           - sql exercises
+https://www.db-fiddle.com/                                                                                                                  - sql train
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------
+ARTICLES
+--------
+
+https://help.codecademy.com/hc/en-us		- We're here to help
+https://www.codecademy.com/articles		  - Codecademy Articles
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------
+CONSOLE
+-------
+
+https://www.codecademy.com/articles/command-line-commands				                                                - List of Command Line Commands
+https://www.codecademy.com/learn/learn-the-command-line/modules/learn-the-command-line-manipulation/cheatsheet	- manipulation
+http://www.linfo.org/head.html			                                                                            - The head Command
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----
+RUBY
+----
+
+https://www.ruby-forum.com/t/the-definitive-list-of-or-equal-threads-and-pages/136446 				    - explain nuances of ||=
+https://www.w3big.com/ru/ruby/ruby-database-access.html			                                      - DBI Учебник
+https://ruby-doc.org/core-2.6.4/Kernel.html	                                                      - Kernel
+https://www.codecademy.com/learn/learn-ruby/modules/learn-ruby-introduction-to-ruby-u/cheatsheet 	- Introduction to Ruby
+https://medium.com/rubycademy/the-yield-keyword-603a850b8921			                                - The yield Keyword in Ruby
+https://ruby-doc.org/core-2.7.1/String.html	                                                      - String
+https://ruby-doc.org/core-2.4.1/Array.html	                                                      - Array
+https://ruby-doc.org/core-2.5.0/Integer.html	                                                    - Integer
+https://ruby-doc.org/docs/Manual/man-1.4/syntax.html				                                      - Ruby syntax
+https://ruby-doc.org/core-2.5.1/Hash.html	                                                        - Hash 2.5.1
+https://ruby-doc.org/core-2.7.1/Hash.html	                                                        - Hash 2.7.1
+https://ruby-doc.org/core-2.5.3/Method.html	                                                      - Method 2.5.3
+https://ruby-doc.org/core-2.7.1/Object.html	                                                      - Object 2.7.1
+https://www.tutorialspoint.com/ruby/ruby_variables.htm			                                      - Ruby - Variables, Constants and Literals
+https://ruby-doc.org/core-2.5.3/Class.html	                                                      - Class
+https://ruby-doc.org/core-2.5.0/File.html	                                                        - File
+https://rubyrush.ru/				                                                                      - Ruby Rush
+https://ruby-doc.org/core-2.7.1/Module.html	                                                      - Module 2.7.1
+https://www.tutorialspoint.com/ruby/ruby_modules.htm				                                      - Ruby - Modules and Mixins
+https://ruby-doc.org/core-2.7.1/Time.html	                                                        - Time 2.7.1
+https://docs.ruby-lang.org/en/2.4.0/Time.html	                                                    - class Time
+https://ruby-doc.org/stdlib-2.6.1/libdoc/date/rdoc/Date.html				                              - Date
+https://ruby-doc.org/stdlib-2.6.1/libdoc/date/rdoc/DateTime.html			                            - DateTime
+https://ruby-doc.org/core-2.6/Math.html		                                                        - Math
+https://ruby-doc.org/core-2.7.1/IO.html		                                                        - IO
+https://ruby-doc.org/core-2.6.1/Range.html	                                                      - Range
+https://ruby-doc.org/stdlib-2.7.1/		                                                            - Ruby 2.7.1 Standard Library Documentation
+https://ruby-doc.org/stdlib-2.7.1/libdoc/net/http/rdoc/index.html			                            - net/http: Ruby Standard Library Documentation
+https://ruby-doc.org/stdlib-2.7.0/libdoc/net/http/rdoc/Net/HTTP.html			                        - Net::HTTP
+http://stackoverflow.com/questions/3138564/looping-through-localstorage-in-html5-and-javascript		- looping through localstorage
+https://www.ruby-forum.com/topic/151660/	                                                        - ruby-forum
+https://stackoverflow.com/questions/19607851/use-bootstrap0grid0with-variable-number-of-ceils			- variable number of ceils
+http://guides.rubyonrails.org/active_record_quering.html			                                    - active record quering
+https://habrahabr.ru/post/125999/		                                                              - post
+https://github.com/ro31337/rubyschool/blob/master/README.md				                                - rubyschool plan of lessons
+https://github.com/ro31337/rubyschool/blob/master/HOMEWORK.md			                                - rubyschool homeworks
+https://github.com/krdprog/rubyschool-notes	                                                      - homework rubyschool
+https://github.com/ro31337			                                                                  - Roman Pushkin
+https://docs.ruby-lang.org/en/2.0.0/index.html	                                                  - ruby 2.0 documentation
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----
+HTTP
+----
+
+https://en.wikipedia.org/wiki/List_of_HTTP_status_codes			- List of HTTP status codes
+https://www.codecademy.com/articles/rebrandly-signup				- Rebrandly URL Shortener API
+https://www.codecademy.com/articles/http-requests					  - HTTP Requests
+https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API	- Fetch API
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods		- HTTP request methods
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---
+XML
+---
+
+https://developer.mozilla.org/en-US/docs/Web/XML/XML_introduction			- XML introduction
+https://www.xml.com/				                                          - Foundations
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------
+HOSTING
+-------
+
+https://www.namecheap.com/hosting/how-to-set-up-hosting-account/?utm_source=ubersmith&utm_medium=email&utm_content=link_startguide&utm_campaign=hostsharedwelcomev3
+https://www.namecheap.comhostingshared/?clickID=UQ7U%3AtUV2xyOWLpwUx0Mo3ERUki2kVXcP2CtxA0&irgwc=1&utm_source=IR&utm_medium=Affiliate&utm_campaign=1356525&affnetwork=ir&ref=ir
+https://codecademy.namecheap.com/		- Namecheap x Codecademy
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---
+GIT
+---
+
+http://gearmobile.github.io/gulp/gitignore/	                                                                            - .gitignore
+https://help.github.com/en/github/using-git/pushing-commits-to-a-remote-repository 	                                    - Pushing commits to a remote repository
+https://www.codecademy.com/learn/paths/web-development/tracks/learn-git/modules/learn-git-git-workflow-u/cheatsheet 		- Basic Git Workflow
+https://losst.ru/kak-polzovatsya-git-dlya-nachinayushhih#i	                                                            - КАК ПОЛЬЗОВАТЬСЯ GIT ДЛЯ НАЧИНАЮЩИХ
+https://rightblog.ru/3274			                                                                                          - Основные команды консоли Git Bash
+https://pages.github.com/			                                                                                          - What is GitHub Pages?
+https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line 				- Creating a personal access token
+https://proglib.io/p/git-for-half-an-hour/	                                                                            - Git за полчаса
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------
+SINATRA
+-------
+
+https://github.com/sinatra/sinatra		                          - sinatra
+https://github.com/sinatra/sinatra/blob/master/README.ru.md			- Sinatra docs
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------
+PLUGINS
+-------
+
+https://xdsoft.net/jqplugins/datetimepicker/	- DateTimePicker
+https://github.com/xdan/datetimepicker		    - jQuery DateTimePicker
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----
+ATOM
+----
+
+https://atom.io/packages/atom-runner		                                                                          - Atom Runner
+https://www.codecademy.com/paths/web-development/tracks/styling-a-website/modules/local-website-development/articles/f1-text-editors 		- Getting Started with Atom
+https://atom.io/				                                                                                          - A hackable text editor for the 21st Century
+https://svoywebsayt.ru/effective-work/instruments/textovye-redactory/atom-tekstovyj-redaktor-2-menyu-i-interfejs	- Atom menu list
+https://www.material-theme.com/docs/configuration/icons-settings/                                                 - atom customization
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---
+NPM
+---
+
+https://docs.npmjs.com/about-npm/index.html	    - About npm
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------
+DEPLOY
+------
+
+https://guides.hexlet.io/ru/docker/                                                     - docker
+https://hub.docker.com/                                                                 - docker
+https://www.youtube.com/playlist?list=PL8D2POruohOA4Y9LQoTttfSqsRwUGWpu6                - docker
+https://lipanski.com/posts/dockerfile-ruby-best-practices                               - docker
+https://evilmartians.com/chronicles/ruby-on-whales-docker-for-ruby-rails-development    - docker
+https://docs.docker.com/                                                                - docker
+https://docs.railway.app/                                                               - railway
+https://docs.railway.app/getting-started                                                - railway
+https://docs.railway.app/develop/cli                                                    - railway
+https://www.netlify.com/                                                                - fast deploy
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----
+HTTP
+----
+
+https://app.rebrandly.com/account/api-keys     - http api
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----
+MAKE
+----
+
+https://github.com/Hexlet/hexletguides.github.io/blob/main/_i18n/ru/_posts/2020-07-30-makefile-as-task-runner.md     - http api
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------
+POSTGRESQL
+----------
+
+https://www.postgresqltutorial.com/postgresql-cheat-sheet/                                                      - psql tutorial
+https://winitpro.ru/index.php/2019/10/25/ustanovka-nastrojka-postgresql-v-windows/                              - psql for windows
+https://guruadmin.ru/page/15-practical-postgresql-database-administration-commands                              - postgres commands
+https://www.microfocus.com/documentation/idol/IDOL_12_0/MediaServer/Guides/html/English/Content/Getting_Started/Configure/_TRN_Set_up_PostgreSQL.htm
+https://postgrespro.ru/docs/postgrespro/11/database-roles                                                       - roles
+https://levelup.gitconnected.com/installing-and-configuring-postgresql-on-ubuntu-20-04-e50122635927             - installing and connecting
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----
+REGEX
+-----
+
+https://regex101.com/                                                            - regex
+https://cheatography.com/davechild/cheat-sheets/regular-expressions/             - regex
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

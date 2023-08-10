@@ -1,0 +1,718 @@
+------
+DEPLOY
+------
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----
+PaaS
+----
+
+
+-------
+Railway
+-------
+
+
+$ curl -fsSL https://railway.app/install.sh | sh
+$ railway login
+
+
+
+---
+
+
+$ git clone https://github.com/hexlet-components/devops-example-app
+$ cd devops-example-app
+
+
+
+---
+
+
+$ railway link
+
+
+---
+
+$ railway up
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------
+12 factor app
+-------------
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------
+assembling
+----------
+
+
+
+Dockerfile
+----------
+
+
+FROM node:17
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm ci
+
+COPY . .
+
+CMD ["npm", "start"]
+
+
+
+-------------------------------------------
+
+
+name: main
+
+on:
+  push:
+    branches:
+      - 'main'
+
+env:                                                                              # тег, под которым будет храниться временный образ-кеш
+  TEST_TAG: hexletcomponents/devops-example-app:test
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: docker/setup-qemu-action@v1
+      - uses: docker/setup-buildx-action@v1
+      - uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - uses: docker/build-push-action@v2
+        with:
+          context: .
+          load: true
+          tags: ${{ env.TEST_TAG }}
+
+      - run: docker run --rm ${{ env.TEST_TAG }} npm test
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: hexletcomponents/devops-example-app:latest
+
+
+
+-------------------------------------------
+
+
+
+name: release
+
+on:
+  create:
+    tags:
+      - v*                                                                  # только теги начинающиеся с v: v1, v2, v5
+
+env:
+  APP_IMAGE_NAME: hexletcomponents/devops-example-app
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - run: docker pull ${{ env.APP_IMAGE_NAME }}:latest
+      - run: docker tag ${{ env.APP_IMAGE_NAME }}:latest ${{ env.APP_IMAGE_NAME }}:${{ github.ref_name }}
+
+      - uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - run: docker push ${{ env.APP_IMAGE_NAME }}:${{ github.ref_name }}
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------
+deploy
+------
+
+
+
+apt update                                                              # обновляем список последних пакетов
+apt install python3-pip
+pip install docker
+
+
+
+-------------------------------------------
+
+
+- hosts: all
+  tasks:
+    - apt:
+        name: python3-pip
+        update_cache: yes
+        cache_valid_time: 604800 # 1 week
+
+    - pip:
+        name: docker
+
+
+
+-------------------------------------------
+
+
+
+- hosts: all
+  tasks:
+    - apt:
+        name: python3-pip
+        update_cache: yes
+        cache_valid_time: 604800 # 1 week
+
+    - pip:
+        name: docker
+
+    - community.docker.docker_container:
+        name: app
+        image: "hexletcomponents/devops-example-app:{{ version }}"
+        restart_policy: always
+        state: started
+        ports:
+          - 3000:3000
+        env: # Настраиваем
+          NODE_ENV: production
+
+
+
+-------------------------------------------
+
+
+# ansible/inventory.yml
+
+all:
+  children:
+    webservers: # группа веб-серверов
+      hosts:
+        web1: # имя сервера выбрано произвольно
+          # Поменяйте на ip вашего сервера
+          ansible_host: 65.108.149.193
+
+
+
+
+-------------------------------------------
+
+
+
+$ ansible-playbook ansible/release.yml -i ansible/inventory.yml -vv --extra-vars "version=v5"
+
+rollback:
+
+$ ansible-playbook ansible/release.yml -i ansible/inventory.yml -vv --extra-vars "version=v4"
+
+
+
+-------------------------------------------
+
+
+- hosts: all
+  tasks:
+    - apt:
+        name: python3-pip
+        update_cache: yes
+        cache_valid_time: 604800 # 1 week
+
+    - pip:
+        name: docker
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------
+proxy server Caddy
+------------------
+
+
+
+import http from 'http';
+
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('okay');
+}).listen(8080);
+
+
+
+-------------------------------------------
+
+
+
+# file: docker-compose.yml
+
+version: "3"
+
+services:
+  app:                                                                                # Имя сервиса
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - 3000:3000
+
+  caddy:                                                                              # Веб-сервер
+    build:                                                                            # Находится внутри services/caddy
+      context: .
+      dockerfile: services/caddy/Dockerfile
+    volumes:
+      - .:/app
+      - ./services/caddy/Caddyfile:/etc/caddy/Caddyfile
+    ports:
+      - 80:80
+      - 443:443
+
+
+
+
+-------------------------------------------
+
+
+
+# services/caddy/Dockerfile
+
+FROM caddy
+
+COPY services/caddy/Caddyfile /etc/caddy/
+
+COPY . /app
+
+
+
+-------------------------------------------
+
+
+
+localhost, devops-example.test {
+  tls internal
+
+  handle /images/* {
+      file_server
+      root * /app/public
+  }
+
+  handle {
+    reverse_proxy app:3000
+  }
+
+  log {
+      format json
+  }
+}
+
+
+-------------------------------------------
+
+
+
+docker compose up
+
+docker compose up --abort-on-container-exit
+[+] Running 2/0
+ ⠿ Container devops-example-app-caddy-1  Created
+ ⠿ Container devops-example-app-app-1    Created
+Attaching to devops-example-app-app-1, devops-example-app-caddy-1
+
+devops-example-app-caddy-1  | {"level":"info","ts":1646952470.170849,"msg":"serving initial configuration"}
+devops-example-app-app-1    | > fastify start server/plugin.js -a 0.0.0.0 -l info -P
+devops-example-app-app-1    | 22:48:50 ✨ Server listening at http://0.0.0.0:3000
+
+
+
+
+-------------------------------------------
+
+
+# .github/workflows/main.yml
+
+- name: Build and push caddy
+  uses: docker/build-push-action@v2
+  with:
+    context: .
+    file: services/caddy/Dockerfile
+    push: true
+    # Не забудьте создать репозиторий в Docker Hub
+    tags: hexletcomponents/devops-example-caddy:latest
+
+
+
+-------------------------------------------
+
+
+# .github/workflows/release.yml
+
+- run: docker pull hexletcomponents/devops-example-caddy:latest
+- run: docker tag hexletcomponents/devops-example-caddy:latest hexletcomponents/devops-example-caddy:${{ github.ref_name }}
+- run: docker push hexletcomponents/devops-example-caddy:${{ github.ref_name }}
+
+
+
+-------------------------------------------
+
+
+
+tasks:
+  - community.docker.docker_network:
+      name: devops-example
+
+  - community.docker.docker_container:
+      name: app                                                                             # имя используется как домен
+      image: "hexletcomponents/devops-example-app:{{ version }}"
+      restart_policy: always
+      state: started
+      networks:                                                                             # Добавляем контейнер в сеть
+        - name: devops-example
+      ports:                                                                                # Больше не нужно выставлять наружу, потому что доступ идет через Caddy
+        # - 3000:3000
+      env:
+        NODE_ENV: production
+
+  - community.docker.docker_container:
+      name: caddy                                                                           # имя используется как домен
+      image: "hexletcomponents/devops-example-caddy:{{ version }}"
+      restart_policy: always
+      state: started
+      networks:                                                                             # Добавляем контейнер в сеть
+        - name: devops-example
+      ports:
+        - 80:80
+        - 443:443
+
+
+
+
+---
+
+
+$ ansible-playbook release.yml -i inventory.yml --extra-vars="version=v6" -vv
+
+
+
+-------------------------------------------
+
+
+# Caddy
+
+reverse_proxy {
+  to app:3000
+
+  @error status 502                                                                       # Только 502 ошибки
+
+  handle_response @error {
+    root * /app/services/caddy/error_pages
+    rewrite * /502.html
+    file_server
+  }
+}
+
+
+---
+
+
+# Nginx
+
+error_page 502 /502.html;
+
+location = /502.html {
+  root /path/to/files/with/html;
+  internal;
+}
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------
+horizontal scaling
+------------------
+
+
+
+host yandex.ru                                                                              # возвращает список ip-адресов
+YANDEX.ru has address 77.88.55.50
+YANDEX.ru has address 5.255.255.80
+
+host yandex.ru                                                                              # порядок уже другой
+YANDEX.ru has address 5.255.255.80
+YANDEX.ru has address 77.88.55.50
+
+
+
+-------------------------------------------
+
+
+
+# Caddy
+
+handle {
+    reverse_proxy app1:3000 app2:3000 app3:3000
+}
+
+# Nginx
+
+http {
+    server {
+        location / {
+            proxy_pass http://backend;
+        }
+    }
+    upstream backend {
+        server app1;
+        server app2;
+        server app3;
+    }
+}
+
+
+
+-------------------------------------------
+
+
+
+all:
+  children:
+    webservers:
+      hosts:
+        web1:
+          ansible_host: 65.108.149.193
+        web2:
+          ansible_host: 55.234.111.100
+
+
+
+---
+
+
+$ ansible-playbook ansible/release.yml -i inventory.yml -vv --extra-vars "version=v5"
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--
+db
+--
+
+
+
+CREATE TABLE users (
+  id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  first_name VARCHAR(100),
+  email VARCHAR(100)
+);
+
+
+
+-------------------------------------------
+
+
+class CreateProducts < ActiveRecord::Migration[7.1]
+  def change
+    create_table :products do |t|
+      t.string :name
+      t.text :description
+
+      t.timestamps
+    end
+  end
+end
+
+
+---
+
+
+$ bin/rails db:migrate
+
+
+
+-------------------------------------------
+
+
+
+$ bin/rails db:rollback
+
+
+class ChangeProductsPrice < ActiveRecord::Migration[7.1]
+  def up
+    change_table :products do |t|
+      t.change :price, :string
+    end
+  end
+
+  def down
+    change_table :products do |t|
+      t.change :price, :integer
+    end
+  end
+end
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------
+monitoring
+----------
+
+
+
+Grafana
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

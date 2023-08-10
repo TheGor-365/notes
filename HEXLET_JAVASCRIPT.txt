@@ -1,0 +1,2670 @@
+----------
+JAVASCRIPT
+----------
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----
+basic
+-----
+
+
+
+$ console.log('Hello, World!');
+$ console.log(10);
+
+
+$ console.log('I am the King');
+
+
+
+------------------------------------
+
+
+console.log('Mother of Dragons.'); console.log('Drakarys!');
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+---------------------
+arithmetic operations
+---------------------
+
+
+
+3 + 4;
+console.log(3 + 4);                       // => '7'
+
+
+------------------------------------
+
+*  — умножение
+/  — деление
+-  — вычитание
+%  — остаток от деления
+** — возведение в степень
+
+
+
+------------------------------------
+
+
+console.log(8 / 2);  // => 4
+console.log(3 ** 2); // => 9
+
+
+
+------------------------------------
+
+
+console.log(8 + 2);
+console.log(-3); // => -3
+
+
+
+------------------------------------
+
+
+console.log(3 * 5 - 2);                       // => 13
+console.log(2 * 4 * 5 * 10);
+
+console.log(3 ** (4 - 2));                    // => 9
+console.log(7 * 3 + (4 / 2) - (8 + (2 - 1))); // => 14
+
+console.log(8 / 2 + 5 - -3 / 2);              // => 10.5
+
+console.log(((8 / 2) + 5) - (-3 / 2));        // => 10.5
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------
+strings
+-------
+
+
+
+console.log("Dragon's mother");
+console.log("Dragon's mother said \"No\"");
+console.log("Death is \so terribly final, while life is full of possibilities");
+console.log("\\");
+console.log("\\ \\ \\\\ \\\ \'\"");
+
+
+
+------------------------------------
+
+
+
+'a'.length;                                 // 1
+'\n'.length;                                // 1 !!!
+'\n\n'.length;                              // 2 !!!
+
+
+
+------------------------------------
+
+
+console.log('Gregor Clegane\nDunsen\nPolliver\nChiswyck');
+
+
+---
+
+Gregor Clegane
+Dunsen
+Polliver
+Chiswyck
+
+
+
+------------------------------------
+
+
+console.log('Polliver');                    // => Polliver
+console.log('Gregor Clegane');              // => Gregor Clegane
+console.log();
+console.log('Chiswyck');                    // => Chiswyck
+console.log('\n');
+console.log('Dunsen');                      // => Dunsen
+
+
+
+------------------------------------
+
+
+console.log('Joffrey loves using \\n');
+console.log("King's" + 'Landing');          // => King'sLanding
+
+console.log("King's " + ' Landing');        // => King's  Landing
+console.log("King's  " + '  Landing');      // => King's    Landing
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------
+variables
+---------
+
+
+
+let greeting = 'Father!';
+console.log(greeting); // => Father!
+
+
+
+------------------------------------
+
+
+let greeting;
+
+
+console.log(greeting); // undefined
+
+
+
+
+------------------------------------
+
+
+let greeting1 = 'Father!';
+
+console.log(greeting1);                       // => Father!
+console.log(greeting1);                       // => Father!
+
+let greeting2 = 'Mother!';
+
+console.log(greeting2);                       // => Mother!
+console.log(greeting2);                       // => Mother!
+
+
+
+------------------------------------
+
+
+let greeting = 'Father!';
+
+console.log(greeting);                        // => Father!
+console.log(greeting);                        // => Father!
+
+greeting = 'Mother!';
+
+console.log(greeting);                        // => Mother!
+console.log(greeting);                        // => Mother!
+
+
+
+------------------------------------
+
+
+console.log(greeting);
+let greeting = 'Father!';
+
+
+
+------------------------------------
+
+
+let dollarsInEuro = 1.25;
+let rublesInDollar = 60;
+
+let dollarsCount = 50 * dollarsInEuro;           // 62.5
+let rublesCount = dollarsCount * rublesInDollar; // 3750
+
+console.log(rublesCount);                        // => 3750
+
+
+
+------------------------------------
+
+
+const dollarsInEuro = 1.25;
+const rublesInDollar = 60;
+
+const euros = 1000;
+const dollars = euros * dollarsInEuro;           // 1250
+const rubles = dollars * rublesInDollar;         // 75000
+
+console.log(rubles); // => 75000
+
+
+
+------------------------------------
+
+
+const pi = 3.14;
+pi = 5;                                          // TypeError: Assignment to constant variable.
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------
+expressions in definitions
+--------------------------
+
+
+
+let dollarsCount = 50 * 1.25;
+console.log(dollarsCount);                // => 62.5
+
+
+
+------------------------------------
+
+
+62.5                                      // 62.5
+50 * 1.25                                 // 62.5
+120 / 10 * 2                              // 24
+
+'hello'                                   // hello
+'Good' + 'will'                           // Goodwill
+
+
+
+------------------------------------
+
+
+let who = "dragon's" + 'mother';
+console.log(who);
+
+
+
+------------------------------------
+
+
+let rublesPerDollar = 60;
+let dollarsCount = 50 * 1.25;                     // 62.5
+let rublesCount = dollarsCount * rublesPerDollar; // 3750
+
+console.log(rublesCount);
+
+
+
+------------------------------------
+
+
+let rublesPerDollar = 60;
+let dollarsCount = 50 * 1.25;                     // 62.5
+let rublesCount = dollarsCount * rublesPerDollar; // 3750
+
+console.log('The price is ' + rublesCount + ' rubles');
+
+
+
+------------------------------------
+
+
+let what = 'Kings' + 'road';
+console.log(what);                                // => Kingsroad
+
+
+let first = 'Kings';
+let what = first + 'road';
+
+console.log(what);                                // => Kingsroad
+
+let first = 'Kings';
+let last = 'road';
+
+let what = first + last;
+console.log(what);                                // => Kingsroad
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------
+naming
+------
+
+
+
+let x = 'Father!';
+console.log(x);
+console.log(x);
+
+
+
+------------------------------------
+
+
+kebab-case      — составные части переменной разделяются дефисом. Например: my-super-var.
+snake_case      — для разделения используется подчеркивание. Например: my_super_var.
+CamelCase       — каждое слово в переменной пишется с заглавной буквы. Например: MySuperVar.
+lowerCamelCase  — каждое слово в переменной пишется с заглавной буквы, кроме первого. 
+
+
+
+------------------------------------
+
+
+let dollarsCount = 50 * 1.25;           // 62.5
+let rublesCount = dollarsCount * 60;    // 3750
+
+console.log(rublesCount);
+
+
+
+------------------------------------
+
+
+let dollarsPerEuro = 1.25;
+let rublesPerDollar = 60;
+
+let dollarsCount = 50 * dollarsPerEuro;             // 62.5
+let rublesCount = dollarsCount * rublesPerDollar;   // 3750
+
+console.log(rublesCount);
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------
+interpolation
+-------------
+
+
+
+const firstName = 'Joffrey';
+const greeting = 'Hello';
+
+console.log(greeting + ', ' + firstName + '!');
+
+
+
+------------------------------------
+
+
+const firstName = 'Joffrey';
+const greeting = 'Hello';
+
+console.log(`${greeting}, ${firstName}!`);
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------
+work with strings
+-----------------
+
+
+
+const firstName = 'Tirion';
+
+console.log(firstName[0]);                  // => T
+
+
+
+------------------------------------
+
+
+const firstName = 'Tirion';
+
+console.log(firstName[5]);                  // => n
+
+const magic = '\nyou';
+console.log(magic[1]);                      // => ?
+
+
+
+------------------------------------
+
+
+const firstName = 'Tirion';
+const index = 0;
+
+console.log(firstName[index]);              // => T
+
+
+
+------------------------------------
+
+
+const firstName = 'Tirion';
+
+console.log(firstName[10]);                 // => undefined
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------
+data types
+----------
+
+
+
+3 * 'Dracarys';                             // NaN
+
+
+
+------------------------------------
+
+
+typeof 3;                                   // number
+typeof 'Game';                              // string
+
+
+
+------------------------------------
+
+
+const user = { name: 'Toto', age: 33 };
+
+
+
+------------------------------------
+
+
+0.2 + 0.1                                   // 0.30000000000000004
+
+
+------------------------------------
+
+
+const number = parseInt('345');
+console.log(number);                        // => 345
+
+
+------------------------------------
+
+parseInt() — это функция, в которую передается значение, чтобы его преобразовать
+
+
+const value = '0';
+
+const number1 = parseInt(value);
+console.log(number1);                       // => 0
+
+const number2 = parseInt('10');
+console.log(number2);                       // => 10
+
+const number5 = parseInt(3.5);
+console.log(number5);                       // => 3
+
+
+
+------------------------------------
+
+
+
+const value3 = parseFloat('0.5');
+console.log(value3);                        // 0.5
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------
+primitive types
+---------------
+
+
+
+let firstName = 'Alexander';
+
+firstName[0] = 'B';
+console.log(firstName);                     // => Alexander
+
+
+
+------------------------------------
+
+
+let firstName = 'Alexander';
+
+firstName = 'Blexander';
+console.log(firstName);                     // => Blexander
+
+
+------------------------------------
+
+
+console.log(1 + '7');                       // => 17
+
+
+
+------------------------------------
+
+
+
+const result = 'one' * 'two';
+console.log(result);                        // => NaN
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------
+functions
+---------
+
+
+
+import { length } from './hexlet-basics/string.js';
+
+const result = length('Hello!');
+console.log(result);                                  // => 6
+
+
+
+------------------------------------
+
+
+const result = length('Hello!');
+
+
+
+------------------------------------
+
+
+import { pow } from './math.js';
+
+const result = pow(2, 3);                             // 2 * 2 * 2
+console.log(result);                                  // => 8
+
+
+
+------------------------------------
+
+
+Math.pow(2, 3);                                       // 8
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------
+function signature
+------------------
+
+
+
+const result = Math.pow(2, 'boom');
+console.log(result);                          // => NaN
+
+
+
+------------------------------------
+
+
+const result = round(10.25, 0);               // 10
+const result = round(10.25);                  // 10
+const result = round(10.25, 1);               // 10.3
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------
+function calling
+----------------
+
+
+
+1 + 5 * 3;
+'He' + 'Let';
+
+rate * 5;
+
+
+------------------------------------
+
+
+const sum = 1 + 5;
+console.log(1 + 5);
+
+
+
+------------------------------------
+
+
+10 + const sum = 1 + 5;
+
+
+
+------------------------------------
+
+
+import { length } from './hexlet-basics/string.js';
+
+const name = 'JavaScript';
+
+const lastIndex = length(name) - 1;
+console.log(lastIndex);                                 // 9
+
+
+
+------------------------------------
+
+
+console.log(length(name) - 1);                          // 9
+
+
+
+------------------------------------
+
+
+import { length } from './hexlet-basics/string.js';
+
+const name = 'JavaScript';
+
+console.log(`Последний символ: ${name[length(name) - 1]}`);
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------
+function attributes
+-------------------
+
+
+
+Math.max(1, 10, 3);                               // 10
+Math.max([value1[, value2[, ...]]])
+Math.max(1, -3, 2, 3, 2);                         // 3
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------
+determinism
+-----------
+
+
+
+import { length } from './hexlet-basics/string.js';
+
+length('hexlet');                                       // 6
+length('hexlet');                                       // 6
+
+length('wow');                                          // 3
+length('wow');                                          // 3
+
+
+
+------------------------------------
+
+
+Math.random();                                          // 0.0985661311319767
+Math.random();                                          // 0.8839904367241888
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------
+standard library
+----------------
+
+
+
+https://nodejs.org/
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------
+methods
+-------
+
+
+
+import { length } from './hexlet-basics/string.js';
+
+const name = 'Robb';
+console.log(length(name));                                  // => 4
+
+
+
+------------------------------------
+
+
+const name = 'Robb';
+const len = name.length;
+console.log(len);                                           // => 4
+
+
+
+------------------------------------
+
+
+const name = 'Robb';
+console.log(name.whatIsThat);                               // => undefined
+
+
+
+------------------------------------
+
+
+const name = 'Robb';
+const upperName = name.toUpperCase();
+console.log(upperName);                                     // => ROBB
+
+
+
+------------------------------------
+
+
+const temperature = 22.93;
+const roundedTemperature = temperature.toFixed(1);
+console.log(roundedTemperature);                            // => 22.9
+
+(22.93).toFixed(1);                                         // 22.9
+
+
+
+------------------------------------
+
+
+const name = 'Tirion';
+console.log(name.toUpperCase());                            // => TIRION
+console.log(name);                                          // => ?
+
+
+
+------------------------------------
+
+
+const name = 'Tirion';
+console.log(name.length);                                   // => 6
+name.length = 100;
+console.log(name.length);                                   // => 6
+
+
+let name = 'Tirion';
+name = name.toUpperCase();
+
+console.log(name);                                          // => TIRION
+
+
+
+------------------------------------
+
+
+const name = 'Shaya';
+name.length + 5;                                            // 10
+`hi, ${name.toUpperCase()}!`;                               // hi, SHAYA!
+
+
+
+------------------------------------
+
+
+const name1 = 'Robb';
+const name2 = 'Shaya';
+
+console.log(name2.length);                                  // => 5
+console.log(name2.toLowerCase());                           // => shaya
+console.log(Math.min(name1.length, name2.length));          // => 4
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------
+call chain
+----------
+
+
+
+const peopleCount = 5;
+peopleCount.toString();                               // 5
+
+
+
+------------------------------------
+
+
+const name = 'Tirion';
+console.log(name.length.toString());
+
+
+
+------------------------------------
+
+
+const name = 'Tirion';
+const len = name.length;
+console.log(len.toString());
+
+
+
+------------------------------------
+
+
+const name = 'Tirion';
+console.log(name.toUpperCase().toLowerCase());
+
+
+
+------------------------------------
+
+
+const name = 'Tirion';
+console.log(name.toUpperCase.toLowerCase());
+
+
+
+------------------------------------
+
+console.log(name.toUpperCase().toLowerCase().length.toString().length);
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------
+define function
+---------------
+
+
+
+import { send } from 'mailer';
+
+const email = 'support@hexlet.io';
+const title = 'Помогите';
+const body = 'Я написал историю успеха, как я могу получить скидку?';
+
+send(email, title, body);
+
+
+
+------------------------------------
+
+
+const showGreeting = () => {
+  const text = 'Hello, Hexlet!';
+  console.log(text);
+};
+
+showGreeting();                                                         // => Hello, Hexlet!
+
+
+
+------------------------------------
+
+
+const noop = () => {
+};
+
+noop();
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------
+result
+------
+
+
+
+const greeting = () => {
+  console.log('Hello, Hexlet!');
+};
+
+
+
+------------------------------------
+
+
+const saveEmail = () => {
+  const email = '  SuppORT@hexlet.IO';
+  const trimmedEmail = email.trim();
+  const preparedEmail = trimmedEmail.toLowerCase();
+  console.log(preparedEmail);
+};
+
+
+
+------------------------------------
+
+
+const message = greeting();
+console.log(message);                               // => undefined
+
+
+
+------------------------------------
+
+
+const greeting = () => {
+  return 'Hello, Hexlet!';
+};
+
+
+
+------------------------------------
+
+
+return – особая инструкция, которая берет выражение, записанное справа, и отдает его наружу
+
+const message = greeting();
+console.log(message);                               // => Hello, Hexlet!
+
+console.log(message.toUpperCase());                 // => HELLO, HEXLET!
+
+
+
+------------------------------------
+
+
+Любой код после return не выполняется:
+
+const greetingWithCodeAfterReturn = () => {
+  return 'Hello, Hexlet!';
+  console.log('Я никогда не выполнюсь');
+};
+
+---
+
+const greetingWithReturnAndPrinting = () => {
+  console.log('Я появлюсь в консоли');
+  return 'Hello, Hexlet!';
+};
+
+
+const message = greetingWithReturnAndPrinting();
+
+
+
+------------------------------------
+
+
+const greeting = () => {
+  const message = 'Hello, Hexlet!';
+  return message;
+};
+
+
+
+------------------------------------
+
+
+const doubleFive = () => {
+  const result = 5 + 5;
+  return result;
+};
+
+
+
+------------------------------------
+
+
+const run = () => {
+  return 5;
+  return 10;
+};
+
+console.log(run());
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------
+function params
+---------------
+
+
+
+console.log('я параметр');
+'google'.replace('go', 'mo');                   // moogle;
+'hexlet'.slice(1, 3);                           // ex
+
+
+
+------------------------------------
+
+
+getLastChar('Hexlet');                          // t
+const name1 = 'Hexlet';
+getLastChar(name1);                             // t
+const name2 = 'Goo';
+getLastChar(name2);                             // o
+
+
+
+------------------------------------
+
+
+const getLastChar = (text) => {
+  return text[text.length - 1];
+};
+
+
+
+------------------------------------
+
+
+const getLastChar = (str) => {
+  return str[str.length - 1];
+};
+
+
+
+------------------------------------
+
+
+getLastChar('hexlet');                          // t
+
+getLastChar('code');                            // e
+
+const text = 'Winter is coming';
+getLastChar(text);                              // g
+
+
+
+------------------------------------
+
+
+const average = (a, b) => {
+  return (a + b) / 2;
+};
+
+average(1, 5);                                  // 3
+average(1, 2);                                  // 1.5
+
+
+
+------------------------------------
+
+
+'google'.replace('go', 'mo');                   // moogle
+
+const replace = (text, from, to) => {
+};
+
+replace('google', 'go', 'mo');                  // moogle
+
+
+
+------------------------------------
+
+
+replace('google', 'mo', 'go');                  // google
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------------
+optional function parameters
+----------------------------
+
+
+
+const pow = (x, base = 2) => {
+  return x ** base;
+};
+
+pow(3);                                             // 9
+pow(3, 3);                                          // 27
+
+
+
+------------------------------------
+
+
+const print = (text = 'nothing') => console.log(text);
+
+print();                                            // nothing
+print("Hexlet");                                    // Hexlet
+
+
+
+------------------------------------
+
+
+const f = (a = 5, b = 10, c = 100) => { ... }
+
+const f = (a = 5, b = 10, c = 100, x) => { ... }
+const f = (a = 5, x, b = 10, c = 100) => { ... }
+const f = (x, a = 5, b = 10, c = 100) => { ... }
+const f = (x, y, a = 5, b = 10, c = 100) => { ... }
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------
+easy syntax
+-----------
+
+
+
+const square = (x) => {
+  return x ** 2;
+};
+
+
+
+------------------------------------
+
+
+const double = (x) => x ** 2;
+
+const sum = (a, b) => {
+  return a + b;
+};
+
+const sum = (a, b) => a + b;
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----
+logic
+-----
+
+
+
+
+<     --- меньше
+<=    --- меньше или равно
+>     --- больше
+>=    --- больше или равно
+===   --- равно
+!==   --- не равно
+
+
+
+------------------------------------
+
+
+const result = 5 > 4;
+console.log(result);                        // => true
+console.log('one' !== 'one');               // => false
+
+
+
+------------------------------------
+
+
+const isInfant = (age) => age < 1;
+
+
+
+------------------------------------
+
+
+const isInfant = (age) => age < 1;
+
+isInfant(3);                                // false
+isInfant(0.5);                              // true
+
+
+
+
+------------------------------------
+
+
+const isCastle = (type) => type === 'Castle';
+
+isCastle('Sea');                            // false
+
+
+
+------------------------------------
+
+
+7 % 2;                                      // 1
+21 % 3;                                     // 0
+19 % 5;                                     // 4
+
+
+10 % 2                                      // 10 четное, так как остаток 0
+9 % 2                                       // 9 нечетное, так как остаток 1
+
+
+
+------------------------------------
+
+
+const isEven = (number) => number % 2 === 0;
+
+isEven(10);                                 // true
+isEven(3);                                  // false
+
+
+
+------------------------------------
+
+
+const isFirstLetterInUpperCase = (string) => {
+  const firstLetter = string[0];
+  return firstLetter.toUpperCase() === firstLetter;
+};
+
+isFirstLetterInUpperCase('marmont');        // false
+isFirstLetterInUpperCase('Robb');           // true
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------
+logic operators
+---------------
+
+
+
+const isStrongPassword = (password) => {
+  const length = password.length;
+  return length > 8 && length < 20;
+};
+
+isStrongPassword('qwerty');                     // false
+isStrongPassword('qwerty1234');                 // true
+isStrongPassword('zxcvbnmasdfghjkqwertyui');    // false
+
+
+
+------------------------------------
+
+
+const hasSpecialChars = (str) => /* проверяет содержание специальных символов в строке */;
+const hasCapitalChars = (str) => /* проверяет содержание заглавных букв в строке */;
+
+const isStrongPassword = (password) => {
+  const length = password.length;
+  return length > 8 && (hasSpecialChars(password) || hasCapitalChars(password));
+};
+
+
+
+------------------------------------
+
+
+const isGoodApartment = (area, street) => {
+  const result = area >= 100 || (area >= 80 && street === 'Main Street');
+  return result;
+};
+
+isGoodApartment(91, 'Queens Street');                                 // false
+isGoodApartment(78, 'Queens Street');                                 // false
+isGoodApartment(70, 'Main Street');                                   // false
+
+isGoodApartment(120, 'Queens Street');                                // true
+isGoodApartment(120, 'Main Street');                                  // true
+isGoodApartment(80, 'Main Street');                                   // true
+
+
+
+------------------------------------
+
+
+A       B       A && B
+------------------------
+TRUE    TRUE    TRUE
+TRUE    FALSE   FALSE
+FALSE   TRUE    FALSE
+FALSE   FALSE   FALSE
+
+---
+
+3 > 2 && 'wow'.startsWith('w');                                       // true
+
+// true && false;
+
+'start' === 'start' && 8 < 3;                                         // false
+
+
+
+------------------------------------
+
+
+A       B       A || B
+-----------------------
+TRUE    TRUE    TRUE
+TRUE    FALSE   TRUE
+FALSE   TRUE    TRUE
+FALSE   FALSE   FALSE
+
+
+---
+
+
+3 < 2 || 'wow'.startsWith('w');                                       // true
+
+// false || false;
+
+'start' === 'Start' || 3 < 3;                                         // false
+
+
+
+------------------------------------
+
+
+const isEven = (number) => number % 2 === 0;
+
+isEven(10);                                                           // true
+!isEven(10);                                                          // false
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------
+logic operations result
+-----------------------
+
+
+
+console.log(0 || 1);
+console.log(0 && 1);                                              // => 0
+
+
+
+------------------------------------
+
+
+0, 
+'' 
+(пустая строка), 
+undefined, 
+NaN, 
+null приводятся к false. 
+Эти значения называют falsy.
+
+Все остальное приводится к true
+
+
+
+------------------------------------
+
+
+const value = name || '';
+
+234 || ''; // 234
+'hexlet' || '';                                                 // hexlet
+undefined || '';                                                // ''
+
+
+
+------------------------------------
+
+
+false || '';                                                    // ''
+0 || '';                                                        // ''
+undefined || '';                                                // ''
+
+
+console.log('' === false);                                      // => false
+console.log('' == false);                                       // => true
+
+
+
+------------------------------------
+
+
+const answer = true;
+console.log(!answer);                                           // => false
+
+
+
+------------------------------------
+
+
+value === ('first' || 'second')
+
+node
+'Welcome to Node.js v17.4.0.
+> 'first' || 'second'
+'first'
+>
+
+value === 'first'
+
+value === 'first' || value === 'second'
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------------
+conditional constructions
+-------------------------
+
+
+
+const getTypeOfSentence = (sentence) => {
+  const lastChar = sentence[sentence.length - 1];
+  if (lastChar === '?') {
+    return 'question';
+  }
+
+  return 'general';
+};
+
+getTypeOfSentence('Hodor');                                                     // general
+getTypeOfSentence('Hodor?');                                                    // question
+
+
+
+
+------------------------------------
+
+
+const getTypeOfSentence = (sentence) => {
+  const lastChar = sentence[sentence.length - 1];
+  if (lastChar === '?')
+    return 'question';
+
+  return 'general';
+};
+
+console.log(getTypeOfSentence('Hodor'));                                        // => general
+console.log(getTypeOfSentence('Hodor?'));                                       // => question
+
+
+
+------------------------------------
+
+
+const getTypeOfSentence = (sentence) => {
+  let sentenceType;
+
+  if (sentence.endsWith('?')) {
+    sentenceType = 'Question';
+  } else {
+    sentenceType = 'General';
+  }
+
+  return `${sentenceType} sentence`;
+};
+
+
+
+------------------------------------
+
+
+const getTypeOfSentence = (sentence) => {
+  let sentenceType;
+
+  if (!sentence.endsWith('?')) {
+    sentenceType = 'General';
+  } else {
+    sentenceType = 'Question';
+  }
+
+  return `${sentenceType} sentence`;
+};
+
+
+
+------------------------------------
+
+
+const getTypeOfSentence = (sentence) => {
+  const lastChar = sentence[sentence.length - 1];
+  let sentenceType;
+
+  if (lastChar === '!') {
+    sentenceType = 'exclamation';
+  } else {
+    sentenceType = 'normal';
+  }
+
+  if (lastChar === '?') {
+    sentenceType = 'question';
+  }
+
+  return `Sentence is ${sentenceType}`;
+};
+
+getTypeOfSentence('Who?');                                                            // Sentence is question
+getTypeOfSentence('No');                                                              // Sentence is normal
+getTypeOfSentence('No!');                                                             // Sentence is exclamation
+
+
+
+------------------------------------
+
+
+const getTypeOfSentence = (sentence) => {
+  const lastChar = sentence[sentence.length - 1];
+  let sentenceType;
+
+  if (lastChar === '?') {
+    sentenceType = 'question';
+  } else if (lastChar === '!') {
+    sentenceType = 'exclamation';
+  } else {
+    sentenceType = 'normal';
+  }
+
+  return `Sentence is ${sentenceType}`;
+};
+
+getTypeOfSentence('Who?');                                                          // Sentence is question
+getTypeOfSentence('No');                                                            // Sentence is normal
+getTypeOfSentence('No!');                                                           // Sentence is exclamation
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------
+ternar operator
+---------------
+
+
+
+const abs = (number) => {
+  if (number >= 0) {
+    return number;
+  }
+
+  return -number;
+};
+
+abs(10);                                                          // 10
+abs(-10);                                                         // 10
+
+
+
+------------------------------------
+
+
+const abs = (number) => {
+  return number >= 0 ? number : -number;
+};
+
+
+---
+
+
+Общий паттерн выглядит так:
+---------------------------
+
+<predicate> ? <expression on true> : <expression on false>
+
+
+
+------------------------------------
+
+
+Сокращенный вариант функции abs() выглядит так:
+-----------------------------------------------
+
+const abs = (number) => (number >= 0 ? number : -number);
+
+
+
+------------------------------------
+
+
+const getTypeOfSentence = (sentence) => {
+  const lastChar = sentence.slice(-1);
+
+  if (lastChar === '?') {
+      return 'question';
+  }
+
+  return 'normal';
+};
+
+
+
+---
+
+
+const getTypeOfSentence = (sentence) => {
+  const lastChar = sentence.slice(-1);
+
+  return (lastChar === '?') ? 'question' : 'normal';
+};
+
+getTypeOfSentence('Hodor');                                       // normal
+getTypeOfSentence('Hodor?');                                      // question
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------
+switch construction
+-------------------
+
+
+
+if (status === 'processing') {
+} else if (status === 'paid') {
+} else if (status === 'new') {
+} else {
+}
+
+
+
+---
+
+
+switch (status) {
+  case 'processing':                                                            // status === 'processing' (строгое соответствие)
+    break;
+  case 'paid':                                                                  // status === 'paid'
+    break;
+  case 'new':                                                                   // status === 'new'
+    break;
+  default:                                                                      // else
+}
+
+
+
+------------------------------------
+
+
+switch (count) {
+  case 1:
+    break;
+  case 2:
+    break;
+  default:
+}
+
+
+
+---
+
+
+(count) => {
+  let result;
+
+  switch (count) {
+    case 1:
+      result = 'one';
+      break;
+    case 2:
+      result = 'two';
+      break;
+    default:
+      result = null;
+  }
+
+  return result;
+};
+
+
+
+------------------------------------
+
+
+
+(count) => {
+  switch (count) {
+    case 1:
+      return 'one';
+    case 2:
+      return 'two';
+    default:
+      return null;
+  }
+};
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----
+while
+-----
+
+
+
+const printNumbers = (lastNumber) => {
+  let i = 1;
+
+  while (i <= lastNumber) {
+    console.log(i);
+    i = i + 1;
+  }
+  console.log('finished!');
+};
+
+printNumbers(3);
+
+
+
+------------------------------------
+
+
+let i = 1;
+
+while (1 <= 3)
+while (2 <= 3)
+while (3 <= 3)
+while (4 <= 3)
+
+
+
+------------------------------------
+
+
+const printNumbers = (lastNumber) => {
+  let i = 1;
+
+  while (i <= lastNumber) {
+    console.log(i);
+  }
+  console.log('finished!');
+};
+
+
+
+------------------------------------
+
+
+while (true) {
+}
+
+
+
+------------------------------------
+
+
+
+a = a + 1 → a += 1
+a = a - 1 → a -= 1
+a = a * 2 → a *= 2
+a = a / 1 → a /= 1
+a = a + 'foo' → a += 'foo'
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------
+data agregation
+---------------
+
+
+
+const sumNumbersFromRange = (start, finish) => {
+  let i = start;
+  let sum = 0;                                                              // Инициализация суммы
+
+  while (i <= finish) {                                                     // Двигаемся до конца диапазона
+    sum = sum + i;                                                          // Считаем сумму для каждого числа
+    i = i + 1;                                                              // Переходим к следующему числу в диапазоне
+  }
+
+  return sum;
+};
+
+
+
+------------------------------------
+
+
+let sum = 0;
+sum = sum + 2;                                                              // 2
+sum = sum + 3;                                                              // 5
+sum = sum + 4;                                                              // 9
+sum = sum + 5;                                                              // 14
+
+
+------------------------------------
+
+
+
+let sum;
+
+sum = sum + 2;                                                              // ?
+
+
+
+------------------------------------
+
+
+const repeat = (text, times) => {
+  let result = '';
+  let i = 1;
+
+  while (i <= times) {
+    result = `${result}${text}`;
+    i = i + 1;
+  }
+
+  return result;
+};
+
+
+
+------------------------------------
+
+
+let result = '';
+result = `${result}hexlet`;                                                 // hexlet
+result = `${result}hexlet`;                                                 // hexlethexlet
+result = `${result}hexlet`;                                                 // hexlethexlethexlet
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------------
+traversing rows in a loop
+-------------------------
+
+
+
+const printNameBySymbol = (name) => {
+  let i = 0;
+  while (i < name.length) {
+    console.log(name[i]);
+    i = i + 1;
+  }
+};
+
+const name = 'Arya';
+printNameBySymbol(name);
+
+
+
+------------------------------------
+
+
+const reverse = (str) => {
+  let i = 0;
+  let result = '';
+
+  while (i < str.length) {
+    result = `${str[i]}${result}`;
+    i += 1;
+  }
+
+  return result;
+};
+
+const name = 'Bran';
+reverse(name);                                                                  // narB
+reverse('');                                                                    // '
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------------------
+conditions inside the loop body
+-------------------------------
+
+
+
+const countChars = (str, char) => {
+  let i = 0;
+  let count = 0;
+
+  while (i < str.length) {
+    if (str[i] === char) {
+      count = count + 1;
+    }
+    i += 1;
+  }
+
+  return count;
+};
+
+
+
+------------------------------------
+
+
+const isPrime = (number) => {
+  if (number < 2) {
+    return false;
+  }
+
+  let divider = 2;
+
+  while (divider <= number / 2) {
+    if (number % divider === 0) {
+      return false;
+    }
+
+    divider += 1;
+  }
+
+  return true;
+}
+
+isPrime(1);                                                                   // false
+isPrime(2);                                                                   // true
+isPrime(3);                                                                   // true
+isPrime(4);                                                                   // false
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------
+increment and decrement
+-----------------------
+
+
+
+let i = 0;
+i++;                                                                            // 0
+i++;                                                                            // 1
+
+i--;                                                                            // 2
+i--;                                                                            // 1
+
+
+
+------------------------------------
+
+
+let i = 0;
+++i;                                                                            // 1
+++i;                                                                            // 2
+
+--i;                                                                            // 1
+--i;                                                                            // 0
+
+
+
+------------------------------------
+
+
+let x = 5;
+
+console.log(++x);                                                               // => 6
+console.log(x);                                                                 // => 6
+
+console.log(x++);                                                               // => 6
+console.log(x);                                                                 // => 7
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------
+for loop
+--------
+
+
+
+const reverseString = (str) => {
+  let result = '';
+  for (let i = 0; i < str.length; i += 1) {
+    result = `${str[i]}${result}`;
+  }
+
+  return result;
+};
+
+
+
+------------------------------------
+
+
+let i = 1;
+
+for (;;) {
+  console.log(i);
+  i += 1;
+}
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------
+modules
+-------
+
+
+
+const pi = 3.14;
+const e = 2.718;
+
+const square = (x) => {
+  return x * x;
+};
+
+const surfaceArea = (r) => {
+  return 4 * pi * square(r);
+};
+
+
+---
+
+const surfaceOfMars = surfaceArea(3390);
+const surfaceOfMercury = surfaceArea(2440);
+const yearSquared = square(2017);
+
+
+------------------------------------
+
+import { surfaceArea, square } from './math.js';
+
+const surfaceOfMars = surfaceArea(3390);
+const surfaceOfMercury = surfaceArea(2440);
+const yearSquared = square(2017);
+
+
+---
+
+export const pi = 3.14;
+export const e = 2.718;
+
+export const square = (x) => {
+  return x * x;
+};
+
+export const surfaceArea = (r) => {
+  return 4 * pi * square(r);
+};
+
+
+
+------------------------------------
+
+
+const pi = 3.14;
+const e = 2.718;
+
+const square = (x) => {
+  return x * x;
+};
+
+const surfaceArea = (r) => {
+  return 4 * pi * square(r);
+};
+
+export { pi, e, square, surfaceArea };
+
+
+---
+
+import { surfaceArea, square, pi, e } from './math.js';
+
+
+---
+
+import * as mathematics from './math.js';
+
+
+---
+
+import * as mathematics from './math.js';
+
+const surfaceOfMars = mathematics.surfaceArea(3390);
+const surfaceOfMercury = mathematics.surfaceArea(2440);
+const yearSquared = mathematics.square(2017);
+
+
+---
+
+import * as mathematics from './math.js';
+
+const square = (x) => {
+  return x * x * x;
+};
+
+const yearSquared = mathematics.square(2017);   // 4068289
+const weirdSquare = square(2017);               // 8205738913
+
+
+
+------------------------------------
+
+
+const pi = 3.14;
+const e = 2.718;
+
+const square = (x) => {
+  return x * x;
+};
+
+const surfaceArea = (r) => {
+  return 4 * pi * square(r);
+};
+
+export default surfaceArea;
+
+
+---
+
+export default (r) => {
+  return 4 * pi * square(r);
+};
+
+
+---
+
+import surfaceArea from './math.js';
+
+const surfaceOfMars = surfaceArea(3390);
+
+
+---
+
+export default () => {
+};
+
+
+---
+
+import something1 from './math.js';
+import something2 from './math.js';
+
+
+
+------------------------------------
+
+
+const pi = 3.14;
+const e = 2.718;
+
+const square = (x) => {
+  return x * x;
+};
+
+const surfaceArea = (r) => {
+  return 4 * pi * square(r);
+};
+
+export { e, pi };
+
+export { square };
+
+export default surfaceArea;
+
+
+---
+
+import surfaceArea, { square, e, pi } from './math.js';
+
+
+---
+
+import { square, e, pi } from './math.js';
+import { square as square1, e as e1, pi as pi1 } from './math1.js';
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

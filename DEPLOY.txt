@@ -1,0 +1,396 @@
+------
+DEPLOY
+------
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------
+Heroku
+------
+
+$ heroku run rails console
+$ heroku login                                                                              - создании своей учетной записи Heroku
+
+
+
+Gemfile
+-------
+
+gem 'sqlite3', group: :development                                                          - добавить PG камень для вашего проекта рельсы
+gem 'pg', '0.18.1', group: :production
+gem 'rails_12factor', group: :production                                                    - добавьте драгоценный камень rails_12factor
+
+$ bundle install                                                                            - установите драгоценных камней, указанных в Gemfile
+
+
+
+app/config/database.yml
+-----------------------
+
+production:
+   <<: *default
+   database: db/production.sqlite3                                                          - Базы данных конфигурации/.yml использует адаптер postgresql. Изменить:
+
+to:
+
+production:
+   <<: *default
+   adapter: postgresql
+   database: db/production.sqlite3
+
+
+
+
+$ git add .                                                                                 - Зафиксируйте свои изменения в git
+$ git commit -m "Heroku config"
+
+$ heroku create                                                                             - В терминале создайте приложение на Heroku
+$ git push heroku master                                                                    - Подтолкнуть ваш код на Heroku
+$ heroku run rake db:migrate                                                                - используете базу данных в своем приложении, перенесите ее, запустив
+$ heroku run rake db:seed                                                                   - заполнить вашу базу данных данными
+$ heroku apps:info                                                                          - Получите URL-адрес вашего приложения и посетите его в браузере
+$ heroku domains:add www.yourname.com
+$ host wwww.yourname.com
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------
+Render
+------
+
+опубликовать rails 7 приложение бесплатно render, gordb:
+--------------------------------------------------------
+
+redis://red-cg2cnb2k728reloj2ong:6379
+postgres://gordb_loj0_user:NsN57zLaiFv5CtjKPVnxkqK3zsf9jlfA@dpg-cg2crc2k728relojj9l0-a/gordb_loj0
+
+
+posdb
+redis://red-cg2cnb2k728reloj2ong:6379
+postgres://gordb_9vts_user:urGrRi9FQD7RttOlNfK9kxeCfTmDqcOy@dpg-cg8bi2ik728pus49bgag-a/gordb_9vts
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------
+Rails API creation
+------------------
+
+
+$ rails new simple-blog --api
+$ cd ./simple-blog
+
+$ bin/rails g scaffold post title body
+
+$ bin/rails db:create
+$ bin/rails db:migrate
+$ bin/rails db:seed
+
+$ curl http://127.0.0.1:3000/posts
+
+
+
+$ git remote add origin https://github.com/username/simple-blog.git
+$ git add *
+$ git commit -m "initial commit"
+$ git push --set-upstream origin main
+
+
+
+---
+
+https://github.com/mzsrn/mzsrn-simple-blog
+https://cli.github.com/
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------
+Manual deployment
+-----------------
+
+
+$ ssh root@<server_ip>
+
+$ git clone https://github.com/username/simple-blog.git
+$ bundle
+
+$ bin/rails db:create
+$ bin/rails db:migrate
+$ bin/rails db:seed
+
+
+Ctrl + c                                                                                            - cancel
+
+
+$ rails s -p 80 -b 0.0.0.0 # В браузере заходим по адресу http://<server_ip>/posts
+
+
+
+logout                                                                                              - exit
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------
+Capistrano
+----------
+
+
+$ cap -T
+$ cap install
+
+$ scp config/master.key root@<server_ip>://var/www/simple-blog/shared/config
+
+$ cap staging deploy
+$ cap staging deploy:seed
+$ cap staging deploy:run
+
+
+
+$ lsof -wni tcp:3000
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------
+Docker
+------
+
+$ docker -v
+$ docker build -t <username>/simple-blog .
+$ docker login -u <username>
+$ docker push <username>/simple-blog
+
+
+$ ssh root@<server_ip>
+$ docker pull <username>/simple-blog
+$ docker images
+$ docker run --rm -p 3001:3001 <username>/simple-blog
+$ docker stop <hash>
+$ docker rm <hash>
+
+
+
+Dockerfile
+----------
+
+FROM ruby:3.0.1
+
+WORKDIR /home/app
+
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+
+COPY . .
+
+RUN chmod +x scripts/start.sh
+
+CMD ["./scripts/start.sh"]
+
+
+
+start.sh
+--------
+
+#!/bin/bash
+
+if [ -e /home/app ]; then
+  SEEDED_FILE=/home/app/.already_seeded
+  pushd /home/app
+  if [ -e $SEEDED_FILE ]; then
+    rake db:migrate || { echo "Can't migrate database"; exit 1; }
+  else
+    bin/rails db:create
+    bin/rails db:migrate || { echo "Can't migrate database"; exit 1; }
+    bin/rails db:seed || { echo "Can't seed database"; exit 1; }
+    echo 1 > $SEEDED_FILE
+  fi
+
+  rake tmp:clear || { echo "Can't clear cache"; }
+  popd
+fi
+
+
+$ bin/rails server -p 3001 -b 0.0.0.0
+
+
+
+Gemfile
+-------
+
+ruby '3.0.2'
+
+group :development, :test do
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'sqlite3', '~> 1.4'
+end
+
+group :production do
+  gem 'pg'
+end
+
+
+---
+
+https://guides.hexlet.io/ru/docker/
+https://hub.docker.com/
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------
+Railway
+-------
+
+$ curl -fsSL https://railway.app/install.sh | sh
+
+$ railway login
+
+$ railway init
+$ railway link
+$ railway up
+$ railway add
+$ railway vars
+
+
+
+---
+
+
+https://docs.railway.app/
+https://docs.railway.app/getting-started
+https://docs.railway.app/develop/cli
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,2248 @@
+-----------
+RUBY BASICS
+-----------
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----
+intro
+-----
+
+
+------------------------------------------------
+
+
+4 * 'hexlet'
+1.8.round
+['one', 'two'].map(&:upcase)
+
+
+------------------------------------------------
+
+
+class Job
+  include AASM
+
+  aasm do
+    state :sleeping, initial: true
+    state :running, :cleaning
+
+    event :run do
+      transitions from: :sleeping, to: :running
+    end
+
+    event :sleep do
+      transitions from: [:running, :cleaning], to: :sleeping
+    end
+  end
+end
+
+job = Job.new
+job.sleeping? # true
+job.may_run?  # true
+job.run
+job.running?  # true
+job.may_run?  # false
+
+
+
+------------------------------------------------
+
+
+class String
+  def wow
+    'ruby power'
+  end
+end
+
+'hexlet'.wow
+
+
+------------------------------------------------
+
+
+class New < [One, Two].sample
+end
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-------------------
+everythig is object
+-------------------
+
+
+
+
+'hexlet'.reverse 
+1.7.round
+nil.to_i
+1 + 1 # на самом деле 1.+(1)
+
+
+------------------------------------------------
+
+
+''.methods.count # 186
+1.methods.count # 142
+[].methods.count # 190
+
+
+
+------------------------------------------------
+
+
+1.+(5) # 6
+1.>(3) # false
+
+
+------------------------------------------------
+
+
+obj.key = 'value'
+
+
+------------------------------------------------
+
+
+1.class # Integer
+''.class # String
+nil.class # NilClass
+
+
+------------------------------------------------
+
+raise something.inspect
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------
+first function
+--------------
+
+
+def find_average(a, b)
+  sum = a + b
+  sum.to_f / 2
+end
+
+find_average(3, 1) 
+find_average(1, 2) 
+
+find_average 3, 1
+find_average 1, 2
+
+find_average(1)
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+------------
+logical type
+------------
+
+
+true && false     # false
+false || true     # true
+
+true == 1         # false
+false == nil      # false
+
+0 && 'one'        # "one"
+nil && false      # nil
+
+
+------------------------------------------------
+
+
+a ||= 'что-то'
+
+
+
+------------------------------------------------
+
+
+
+
+0.zero?           # true
+1.zero?           # false
+2.positive?       # true
+
+8.even?           # true
+8.odd?            # false
+
+''.empty?         # true
+'wow'.empty?      # false
+
+something.nil?
+
+items.any?
+items.empty?
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-------------------------
+conditional constructions
+-------------------------
+
+
+def sentence_type(text)
+  if text.end_with?('?')
+    'question'
+  elsif text.end_with?('!')
+    'exclamation'
+  else
+    'statement'
+  end
+end
+
+sentence_type 'anybody here?'     # question
+sentence_type 'Hexlet for humans' # statement
+sentence_type 'boo!'              # exclamation
+
+
+------------------------------------------------
+
+
+ternary operator
+----------------
+
+v = 3 == 4 ? 1 : 0
+
+
+postfix if
+----------
+
+doSomething() if num.zero?
+
+
+unless
+------
+
+unless something.zero?
+end
+
+unless a && b
+end
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------
+strings
+-------
+
+name = 'H' + 'e' + 'x' + 'l' + 'e' + 't'
+name = 'H' 'e' 'x' 'l' 'e' 't'
+greeting = "hello #{name}"
+
+
+------------------------------------------------
+
+
+line_feed = "one line\nanother one"
+
+
+------------------------------------------------
+
+
+name = 'ruby'
+name.upcase # 'RUBY'
+''.empty? # true
+name.include? 'ru' # true
+name.capitalize # Ruby
+name.length # 4
+
+
+------------------------------------------------
+
+
+name = 'ruby'
+name[1]       # u
+name[-1]      # y
+name[0, 2]    # ru
+name[0..-2]   # rub
+name[-4..]    # ruby
+name[/ru/]    # ru
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------
+blocks
+------
+
+
+5.times do |i|
+  puts i
+end
+
+
+------------------------------------------------
+
+5.times() do |i|
+  puts i
+end
+
+5.times(do |i|
+  puts i
+end)
+
+
+------------------------------------------------
+
+
+name = 'ruby'
+3.times do # а параметры блока можно опускать
+  puts name
+end
+
+
+------------------------------------------------
+
+
+5.times { |i| puts i }
+
+
+------------------------------------------------
+
+
+
+print_hello_f1 { "Dima" }                     # => "Hello from f1, Dima"
+print_hello_f2 { "Vasya" }                    # => "Hello from f2, Vasya"
+
+# При таком вызове функции ничего не печатают, так как нет блока
+print_hello_f1
+print_hello_f2
+
+print_hello_f1 print_hello_f2 { "Dima" }      # => ?
+
+print_hello_f1 print_hello_f2 do
+  "Vasya"
+end
+
+
+------------------------------------------------
+
+
+print_hello_f1 print_hello_f2 print_hello_f3 { 'Petya' }
+
+print_hello_f1 print_hello_f2 print_hello_f3 do 'Vasya' end
+
+
+------------------------------------------------
+
+
+print_hello_f1(print_hello_f2()) { 'Petya' }
+
+print_hello_f1 print_hello_f2 do
+  'Petya'
+end
+
+
+------------------------------------------------
+
+print_hello_f1(print_hello_f2() { 'Petya' })
+
+print_hello_f1(print_hello_f2 do
+  'Petya'
+end)
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------
+iterators
+---------
+
+
+5.upto(7) do |i|
+  puts i
+end
+
+
+------------------------------------------------
+
+
+result = 0
+5.upto(7) do |i|
+  result += i
+end
+puts result # => 18
+
+
+
+------------------------------------------------
+
+5.upto 7 do |i|
+end
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------
+line traversal
+--------------
+
+
+company_name = 'hexlet'
+company_name.each_char do |c| # c – значит char
+  puts c
+end
+
+
+------------------------------------------------
+
+
+company_name = 'hexlet'
+letters_count = 0
+company_name.each_char do |c|
+  if c == 'e'
+    letters_count += 1
+  end
+end
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------
+data types
+----------
+
+
+'one'       # String
+true        # Boolean
+false
+3           # Integer
+5.2         # Float
+[]          # Array
+{}          # Hash
+1..3        # Range
+
+
+------------------------------------------------
+
+
+Time.now..(Time.now + 60 * 60 * 24)
+
+
+------------------------------------------------
+
+
+companies = []
+# Добавление элемента
+companies << 'hexlet'
+
+
+------------------------------------------------
+
+options = {
+  sanitize: true
+}
+options['table'] = false
+
+
+
+------------------------------------------------
+
+
+:key
+:anotherone
+
+
+------------------------------------------------
+
+
+.is_a? String       # false
+1.is_a? Integer     # true
+
+1.class             # Integer
+'hexlet'.class      # String
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------
+classes
+-------
+
+
+require 'date'
+
+d = Date.today
+d.next
+
+time = Time.new
+time.thursday?    # false
+
+
+------------------------------------------------
+
+Time.new 2020, 12, 10
+
+
+------------------------------------------------
+
+
+time1 = Time.now
+time2 = Time.utc # возвращает объект времени в utc
+
+
+------------------------------------------------
+
+Time.methods.count                    # 126
+Time.class                            # класс Time — это Class
+Time.class.class                      # а у класса Class класс — это Class :D
+Time.superclass                       # а у класса есть и родитель Object
+Time.superclass.class                 # у которого класс — это Class
+Time.superclass.superclass            # а родитель родителя — это BasicObject
+
+Class.new ...                         # так как класс — это не только объект, но и класс
+
+
+------------------------------------------------
+
+
+class User < ApplicationRecord # < – наследование
+  validates :email, presence: true, uniqueness: true
+
+  has_many :companies
+  belongs_to :company
+
+  def to_s
+    "#{first_name} #{last_name}"
+  end
+end
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------
+modules
+-------
+
+
+module MyModule
+  def self.run
+    'go!'
+  end
+end
+
+
+------------------------------------------------
+
+MyModule.run # 'go!'
+
+------------------------------------------------
+
+MyModule.new    # undefined method `new' for MyModule:Module
+MyModule.class  # Module
+
+------------------------------------------------
+
+
+Math.sin(1)
+
+
+------------------------------------------------
+
+
+Kernel.exit
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------
+expression
+----------
+
+
+a = if 5 > 3
+  'yes'
+else
+  'no'
+end
+
+puts a    # => 'yes'
+
+
+------------------------------------------------
+
+
+f = def foo
+end
+puts f    # :foo
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------
+arrays
+------
+
+
+
+items = [1, 2]
+
+items << 3            # [1, 2, 3]
+items.unshift 5       # [5, 1, 2, 3]
+items.first           # 5
+items.last            # 3
+items.length          # 4
+items.any?            # true
+items.empty?          # false
+items.include? value
+items[5]              # nil
+items.sum             # 11
+
+
+
+------------------------------------------------
+
+
+
+items = [1, 2]
+items == [1, 2] # true
+
+
+------------------------------------------------
+
+items = [1, 2, 3]
+result = ''
+
+items.each do |item|
+  result = "#{result}#{item}"
+end
+
+puts result # => 123
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------
+array methods
+-------------
+
+data = [
+  ['france', 140_000],
+  ['usa', 300_000],
+  ['germany', 40_000]
+]
+
+------------------------------------------------
+
+
+data.sort_by { |row| row[1] }
+
+data.sort_by do |row|
+  row[1]
+end
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------
+hashes
+------
+
+
+
+options = {}
+options = { key: 'value' }
+options[:key]                               # 'value'
+
+options = { 'key' => 'value' }
+
+options[:where] = 'code-basics'
+options[:who] = 'hexlet'
+
+options.any?                                # true
+options.empty?                              # false
+
+options.keys                                # ['key', :where, :who]
+
+options.values                              # ['value', 'code-basics', 'hexlet']
+
+options[:language]                          # nil
+
+options.dig(:key1, :key2, :key3)
+
+options.fetch(:key)                         # KeyError (key not found: :key)
+
+options.fetch(:key, 'default value')
+
+options.key?('who')                         # false
+options.key?(:who)                          # true
+
+
+------------------------------------------------
+
+
+
+
+options1 = { language: 'ruby' }
+options2 = { language: 'ruby' }
+options1 == options2                        # true
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------
+hash methods
+------------
+
+
+
+data = {
+  clojure: 'dynamic',
+  go: 'static',
+  kotlin: 'static'
+}
+
+data.each do |key, value|
+end
+
+
+
+------------------------------------------------
+
+
+new_data = data.transform_values { |value| value.upcase }
+
+
+------------------------------------------------
+
+
+data.slice(:clojure, :go)
+
+
+------------------------------------------------
+
+data.select { |key, value| value == 'static' }
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------
+destructurization
+-----------------
+
+data = ['hexlet', 'online courses', topics: ['php', 'js']]
+name, description, topics = data
+
+puts name                                                     # "hexlet"
+puts description                                              # "online courses"
+puts topics                                                   # { topics: ["php", "js"] }
+
+------------------------------------------------
+
+
+data = ['hexlet', 'online courses', ['php', 'js']]
+
+name, description, (first_topic, second_topic) = data         # учли количество элементов
+_, _, (first_topic, _) = data                                 # так же все элементы учтены
+*, (_, second_topic) = data                                   # пропустили элементы в первом массиве, во вложенном количество учтено
+name, description, (first_topic) = data
+
+
+------------------------------------------------
+
+
+
+data = ['hexlet', 'online courses', ['php', 'js']]
+
+name, *rest = data
+puts rest                                                     # ["online courses", ["php", "js"]]
+
+name, *rest, topic = data
+puts rest                                                     # ["online courses"]
+
+
+------------------------------------------------
+
+
+data = {
+  name: 'hexlet',
+  description: 'online courses',
+  topic: 'programming'
+}
+
+name, description = data.values_at(:name, :description)
+
+------------------------------------------------
+
+def process((name, *rest))
+end
+
+data = ['hexlet', 'online courses', 'programming']
+process(data)
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-----------------
+arguments packing
+-----------------
+
+
+
+def sum(*numbers)
+  numbers.sum
+end
+
+sum()               # 0
+sum(1)              # 1
+sum(1, 10)          # 11
+sum(1, 10, 8, 1)    # 20
+
+
+------------------------------------------------
+
+
+
+
+def sum(number, *numbers)
+  number + numbers.sum
+end
+
+sum()             # ArgumentError
+sum(1)            # 1
+
+
+
+------------------------------------------------
+
+
+def sum(*numbers1, *numbers2)
+
+def sum(*number1, number2)
+def sum(number1, number2, *numbers)
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------
+hash as a param
+---------------
+
+link_to 'blog', 'https://ru.hexlet.io/blog', { id: 'news', class: 'article' }
+link_to 'blog', 'https://ru.hexlet.io/blog', id: 'news', class: 'article'
+
+------------------------------------------------
+
+resources :companies, only: [:show, :edit, :update, :destroy] do
+  resources :orders, only: [:create] do
+    member do
+      get :payment
+    end
+  end
+end
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------
+pipeline
+--------
+
+[1, 2, 3].map { |v| v ** 2 }                    # [1, 4, 9]
+
+[1, 2, 3].filter { |v| v.odd? }                 # [1, 3]
+[1, 2, 3].reduce(0) { |acc, v| acc + v } # 6
+
+
+------------------------------------------------
+
+
+users = [
+  { name: 'Bronn', gender: 'male', birthday: '1973-03-23' },
+  { name: 'Reigar', gender: 'male', birthday: '1973-11-03' },
+  { name: 'Tisha', gender: 'female', birthday: '2012-11-03' },
+  { name: 'Sansa', gender: 'female', birthday: '2012-11-03' },
+  { name: 'Rick', gender: 'male', birthday: '2012-11-03' },
+]
+
+users.filter { |u| Time.now.year - Time.new(u[:birthday]).year < 30 }
+users.map { |u| { name: u[:name], birthday: u[:birthday] } }
+
+
+------------------------------------------------
+
+
+
+users.reduce({}) do |acc, u|
+  acc[u[:gender]] ||= []
+  acc[u[:gender]] << u
+  acc # обязательно вернуть новый acc
+end
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------
+blocks as objects
+-----------------
+
+File.open('log.txt', 'w') { |f| f.write "[hexlet] #{Time.now} - User logged in\n" }
+
+
+------------------------------------------------
+
+
+square = Proc.new { |x| x**2 }                          # Альтернативный синтаксис — proc { |x| x**2 }
+square.call(4) # 16
+
+------------------------------------------------
+
+[1, 2].map square
+
+[1, 2].map &square # [1, 4]
+[1, 2].map() &square
+[1, 2].map(&square)
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------
+symbols to blocks
+-----------------
+
+['hexlet', 'code-basics'].map(&:upcase)
+
+block = :capitalize.to_proc                             # block = proc { |value| value.capitalize }
+block.call('hexlet')
+
+------------------------------------------------
+
+
+['hexlet', 'code-basics'].map(&:reverse).map(&:capitalize)
+
+
+[1, 3, 4].reduce &:+                                    # 8
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------
+blocks in functions
+-------------------
+
+
+
+def foo()
+  yield
+end
+
+foo { puts 'code-basics for the brave' }                # => "code-basics for the brave"
+
+foo do
+  puts 'code-basics for the brave'
+end                                                     # => "code-basics for the brave"
+
+
+------------------------------------------------
+
+
+def foo()
+  yield
+  yield
+end
+
+foo { puts 'Hello Hexlet' }
+
+
+
+------------------------------------------------
+
+
+def foo()
+  yield
+end
+
+result = foo { 'code-basics for the brave' }
+puts result
+
+
+------------------------------------------------
+
+
+def foo(value)
+  yield(value)
+end
+
+foo('Hexlet') { |v| puts v }
+
+
+------------------------------------------------
+
+ef my_map(coll)
+  result = []
+  coll.each do |elem|
+    result << yield(elem)
+  end
+  result
+end
+
+my_map([1, 2, 3]) { |v| v * 2 }
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------
+each_with_object
+----------------
+
+
+
+sentence = 'hexlet – work harder'
+words = sentence.split
+
+result = words.reduce({}) do |acc, word|
+  acc[word] ||= 0
+  acc[word] += 1
+  acc                                                 # <= возврат
+end
+
+
+
+sentence = 'hexlet – work harder'
+words = sentence.split ' '
+
+result = words.each_with_object({}) do |word, acc|
+  acc[word] ||= 0
+  acc[word] += 1
+end
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------
+arrays as massifs
+-----------------
+
+friends1 = ['igor', 'anna', 'nina', 'sergey']
+friends2 = ['igor', 'petya', 'inna', 'anna']
+
+friends1 & friends2                                 # ["igor", "anna"]
+
+
+
+------------------------------------------------
+
+
+friends.&(friends2)
+
+
+------------------------------------------------
+
+
+friends = ['anna', 'ivan']
+friends1 & friends2 & friends # ["anna"]
+
+
+------------------------------------------------
+
+
+[1, 3, 4] & [1, 3, 3, 8]                          # [1, 3]
+[1, 3, 4] | [1, 3, 3, 8]                          # [1, 3, 4, 8]
+[1, 3, 4] - [1, 3, 3, 8]                          # [4]
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------
+array creation
+--------------
+
+['apple', 'orange', 'melon']
+%w[apple orange melon]
+
+
+------------------------------------------------
+
+
+
+%w[first second\ value third]                     # ["first", "second value", "third"]
+
+
+------------------------------------------------
+
+
+
+
+%i[apple orange melon] # [:apple, :orange, :melon]
+
+
+
+------------------------------------------------
+
+
+
+(1..5).to_a                                       # [1, 2, 3, 4, 5]
+1.upto(5).to_a                                    # [1, 2, 3, 4, 5]
+
+
+
+------------------------------------------------
+
+
+
+
+Array.new(5) { |i| i ** 2 }                       # [0, 1, 4, 9, 16]
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----
+tests
+-----
+
+require 'minitest/autorun'
+
+------------------------------------------------
+
+def greeting(name)
+  "Hello, #{name}!"
+end
+
+class MyTest < Minitest::Test
+  def setup; end
+
+  def teardown; end
+
+  def test_if_dummy_method_returns_true
+    name = 'Bob'
+    expected_greeting = 'Hello, Bob!'
+    assert(greeting(name) == expected_greeting)
+  end
+end
+
+
+------------------------------------------------
+
+
+class MyTest < Minitest::Test
+  def test_one
+    assert true
+  end
+
+  def test_two
+    refute false
+  end
+
+  def test_three
+    refute false
+    assert false
+  end
+
+  def test_flaky
+    assert [false, true].sample
+  end
+
+  def test_for_procrastinators
+    skip "i'll do it later"
+  end
+end
+
+
+------------------------------------------------
+
+
+describe "Assertions" do
+  it 'should be true' do
+    var = true
+    assert var
+  end
+
+  it 'should be false' do
+    var = false
+    refute var
+  end
+
+  it 'should be equal' do
+    var = 2
+    assert_equal var, 2
+  end
+
+  it 'should be nil' do
+    assert_nil nil
+  end
+
+  it 'should be empty' do
+    assert_empty []
+    assert_empty ''
+    assert_empty({})
+  end
+
+  it 'matches regexp' do
+    assert_match(/\w+/, "some string")
+  end
+
+  it 'should include value' do
+    assert_includes(0..10, 10)
+  end
+
+  it 'should throw a symbol' do
+    assert_throws :symbol do
+      return :symbol
+    end
+  end
+
+  it 'should be instance of' do
+    assert_instance_of Array, []
+  end
+
+  it 'should be descendant of Enumerable' do
+    assert_kind_of Enumerable, Array.new
+    assert_kind_of Enumerable, Range.new(0, 10)
+    assert_kind_of Enumerable, Hash.new
+  end
+
+  it 'should be descendant of Enumerable' do
+    [Array.new, Range.new(0, 10), Hash.new].each do |instance|
+      assert_kind_of Enumerable, instance
+    end
+  end
+end
+
+
+------------------------------------------------
+
+
+describe "Expection" do
+  it 'should be true' do
+    var = true
+    _(var).must_equal true
+  end
+
+  it 'should be false' do
+    var = false
+    _(var).must_equal false
+  end
+
+  it 'should be equal' do
+    var = 2
+    _(var).must_equal 2
+  end
+
+  it 'should be nil' do
+    _(nil).must_be_nil
+  end
+
+  it 'should be empty' do
+    _([]).must_be_empty
+    _('').must_be_empty
+    _({}).must_be_empty
+  end
+
+  it 'matches regexp' do
+    _("some string").must_match(/\w+/)
+  end
+
+  it 'should include value' do
+    _(0..10).must_include 10
+    _(0...10).wont_include 10
+  end
+
+  it 'should throw a symbol' do
+    _ { return :symbol }.must_throw :symbol
+  end
+
+  it 'should not be instance of' do
+    _([]).wont_be_instance_of Hash
+  end
+
+  it 'should not be descendant of Comparable' do
+    [Array.new, Range.new(0, 10), Hash.new].each do |instance|
+      _(instance).wont_be_kind_of(Comparable)
+    end
+  end
+end
+
+
+------------------------------------------------
+
+
+class MyTest < Minitest::Test
+
+  def before_setup
+    puts 'a'
+  end
+
+  def setup
+    puts 'b'
+  end
+
+  def after_setup
+    puts 'c'
+  end
+
+  def before_teardown
+    puts 'd'
+  end
+
+  def teardown
+    puts 'e'
+  end
+
+  def after_teardown
+    puts 'f'
+  end
+
+  def test_assert
+    assert true
+  end
+end
+
+describe "My Test" do
+  before do
+    puts '1'
+  end
+  before :setup do
+    puts '2'
+  end
+
+  after do
+    puts '3'
+  end
+
+  it 'test' do
+    assert true
+  end
+end
+
+
+------------------------------------------------
+
+
+ruby example_test.rb
+ruby example_test.rb -v
+ruby example_test.rb -n test_one
+ruby example_test.rb -e test_one
+ruby example_test.rb -s 10000
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---
+oop
+---
+
+class Bus
+  def initialize(params)
+    @color = params[:color]
+    @doors_number = 4
+    @type = 'Bus'
+    @wheels_number = 4
+    @wheels_radius = params[:wheels_radius]
+  end
+
+  def print_string
+    print "
+      Vehicle: #{@type.upcase}\n
+      Color: #{@color.upcase}\n
+      Doors: #{@doors_number}\n
+      Wheels number: #{@wheels_number}\n
+      Wheels radius: #{@wheels_radius}\n
+    "
+  end
+end
+
+Bus.new(color: 'red', wheels_radius: 18)
+
+
+
+------------------------------------------------
+
+
+bus = Bus.new(color: 'red', wheels_radius: 18)                        # bus.color  undefined method `color'
+bus.color = 'green'
+
+class Bus
+  def initialize(params)
+    @color = params[:color]
+    @doors_number = 4
+    @type = 'Bus'
+    @wheels_number = 4
+    @wheels_radius = params[:wheels_radius]
+  end
+
+  def color
+    @color
+  end
+
+  def color=(color)
+    @color = color
+  end
+
+  def print_string
+    print "
+      Vehicle: #{@type.upcase}\n
+      Color: #{@color.upcase}\n
+      Doors: #{@doors_number}\n
+      Wheels number: #{@wheels_number}\n
+      Wheels radius: #{@wheels_radius}\n
+    "
+  end
+end
+
+
+------------------------------------------------
+
+
+
+class Bus
+  attr_reader :color, :doors_number, :type, :wheels_number, :wheels_radius
+  attr_writer :color, :doors_number, :type, :wheels_number, :wheels_radius
+
+  def initialize(params)
+    @color = params[:color]
+    @doors_number = 4
+    @type = 'Bus'
+    @wheels_number = 4
+    @wheels_radius = params[:wheels_radius]
+  end
+
+  def print_string
+    print "
+      Vehicle: #{type.upcase}\n
+      Color: #{color.upcase}\n
+      Doors: #{doors_number}\n
+      Wheels number: #{wheels_number}\n
+      Wheels radius: #{wheels_radius}\n
+    "
+  end
+end
+
+bus = Bus.new(color: 'red', wheels_radius: 18)
+bus.color
+bus.color = 'green'
+
+
+------------------------------------------------
+
+
+
+class Bus
+  def self.bus?
+    true
+  end
+end
+
+Bus.bus?                                                    # true
+
+
+------------------------------------------------
+
+
+class Bus
+  attr_accessor :color, :doors_number, :type, :wheels_number, :wheels_radius
+
+  def initialize(params)
+    @color = params[:color]
+    @doors_number = 4
+    @type = 'Bus'
+    @wheels_number = 4
+    @wheels_radius = params[:wheels_radius]
+  end
+
+  def print_string
+    print bus_string_of(self)
+  end
+
+  def bus_string_of(bus)
+    bus.bus_string
+  end
+
+  protected
+
+  def bus_string
+    "
+      Vehicle: #{upcase_attribute(type)}\n
+      Color: #{upcase_attribute(color)}\n
+      Doors: #{upcase_attribute(doors_number)}\n
+      Wheels number: #{upcase_attribute(wheels_number)}\n
+      Wheels radius: #{upcase_attribute(wheels_radius)}\n
+    "
+  end
+
+  private
+
+  def upcase_attribute(attribute)
+    attribute.to_s.upcase
+  end
+end
+
+bus = Bus.new(color: 'red', wheels_radius: 18)
+bus.print_string
+bus.bus_string(bus)
+bus.bus_string_of(bus)
+
+
+------------------------------------------------
+
+
+class Bus
+  attr_accessor :color
+
+  def initialize(params)
+    @color = params[:color]
+    @doors_number = 4
+    @type = 'Bus'
+    @wheels_number = 4
+    @wheels_radius = params[:wheels_radius]
+  end
+
+  def print_string
+    print bus_string_of(self)
+  end
+  alias to_s print_string
+
+  def bus_string_of(bus)
+    bus.bus_string
+  end
+
+  protected
+
+  def bus_string
+    "
+      Vehicle: #{upcase_attribute(@type)}\n
+      Color: #{upcase_attribute(@color)}\n
+      Doors: #{upcase_attribute(@doors_number)}\n
+      Wheels number: #{upcase_attribute(@wheels_number)}\n
+      Wheels radius: #{upcase_attribute(@wheels_radius)}\n
+    "
+  end
+
+  private
+
+  def upcase_attribute(attribute)
+    attribute.to_s.upcase
+  end
+end
+
+bus = Bus.new(color: 'red', wheels_radius: 18)
+bus.to_s
+bus.to_string
+
+
+
+------------------------------------------------
+
+
+class Bus
+  attr_accessor :color
+
+  def initialize(params)
+    @color = params[:color]
+    @doors_number = 4
+    @type = 'Bus'
+    @wheels_number = 4
+    @wheels_radius = params[:wheels_radius]
+  end
+
+  def print_string
+    print bus_string_of(self)
+  end
+
+  def bus_string_of(bus)
+    bus.bus_string
+  end
+
+  protected
+
+  def bus_string
+    "
+      Vehicle: #{upcase_attribute(@type)}\n
+      Color: #{upcase_attribute(@color)}\n
+      Doors: #{upcase_attribute(@doors_number)}\n
+      Wheels number: #{upcase_attribute(@wheels_number)}\n
+      Wheels radius: #{upcase_attribute(@wheels_radius)}\n
+    "
+  end
+
+  private
+
+  def upcase_attribute(attribute)
+    attribute.to_s.upcase
+  end
+
+  alias to_s print_string
+end
+
+class OfficeBus < Bus
+  attr_reader :people_place
+
+  def initialize(params)
+    super
+    @people_place = params[:people_place]
+  end
+
+  def has_people_place?
+    people_place
+  end
+
+  protected
+
+  def bus_string
+    "
+      Vehicle: #{upcase_attribute(@type)}\n
+      People place: #{@people_place ? 'YES' : 'NO'}
+      Color: #{upcase_attribute(@color)}\n
+      Doors: #{upcase_attribute(@doors_number)}\n
+      Wheels number: #{upcase_attribute(@wheels_number)}\n
+      Wheels radius: #{upcase_attribute(@wheels_radius)}\n
+    "
+  end
+end
+
+class Bus
+end
+
+class OfficeBus < Bus
+end
+
+OfficeBus.new(color: 'red', wheels_radius: '18', people_place: true).to_s
+
+
+------------------------------------------------
+
+
+
+module Colorful
+  COLORS = {
+    black: '#000000',
+    red: '#FF0000',
+    white: '#FFFFFF',
+  }
+
+  def color_code(color)
+    COLORS[color.to_sym]
+  end
+end
+
+class Car
+  def car?
+    true
+  end
+end
+
+class User
+  include Colorful
+end
+
+class Bus
+  attr_accessor :color
+
+  include Colorful
+
+  def initialize(params)
+    @color = params[:color]
+    @doors_number = 4
+    @type = 'Bus'
+    @wheels_number = 4
+    @wheels_radius = params[:wheels_radius]
+  end
+
+  def print_string
+    print bus_string_of(self)
+  end
+
+  def bus_string_of(bus)
+    bus.bus_string
+  end
+
+  protected
+
+  def bus_string
+    "
+      Vehicle: #{upcase_attribute(@type)}\n
+      Color: #{upcase_attribute(@color)}\n
+      Doors: #{upcase_attribute(@doors_number)}\n
+      Wheels number: #{upcase_attribute(@wheels_number)}\n
+      Wheels radius: #{upcase_attribute(@wheels_radius)}\n
+    "
+  end
+
+  private
+
+  def upcase_attribute(attribute)
+    attribute.to_s.upcase
+  end
+
+  alias to_s print_string
+end
+
+bus = Bus.new(color: 'red', wheels_radius: '18')
+bus.color_code(bus.color)
+
+## extend ##
+
+module Colorful
+  def colorized?
+    true
+  end
+end
+
+class Bus                                                     # extend расширяет класс
+  extend Colorful
+end
+
+Bus.colorized?
+
+
+------------------------------------------------
+
+
+module Books
+  module HarryPotter
+    def glasses
+    end
+  end
+
+  HarryPotter::glasses
+  ::HarryPotter::magic
+end
+
+module HarryPotter
+  def magic
+  end
+end
+
+def method_missing(m, *args, &block)
+end
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------
+metaprogramming
+---------------
+
+class Cat
+end
+
+Dog = Class.new
+
+Cat.object_id
+Dog.object_id
+
+
+------------------------------------------------
+
+
+class Cat
+
+  def count_legs
+    4
+  end
+
+end
+
+cat = Cat.new
+
+cat.class
+Cat.class
+
+cat.class.ancestors
+Cat.class.ancestors
+
+
+------------------------------------------------
+
+
+first_cat = Cat.new
+second_cat = Cat.new
+def first_cat.meow
+  "meow"
+end
+
+first_cat.meow
+
+second_cat.meow
+
+first_cat.singleton_class
+second_cat.singleton_class
+
+first_cat.singleton_methods
+second_cat.singleton_methods
+
+
+------------------------------------------------
+
+
+module Homable
+  def has_home?
+    true
+  end
+end
+
+class Cat
+  include Homable
+
+  def has_home?
+    false
+  end
+end
+
+Cat.new.has_home?
+Cat.ancestors
+
+
+------------------------------------------------
+
+
+module Homable
+  def has_home?
+    true
+  end
+end
+
+class Cat
+  prepend Homable
+
+  def has_home?
+    false
+  end
+end
+
+Cat.new.has_home?
+Cat.ancestors
+
+
+
+------------------------------------------------
+
+
+module Homable
+  def has_home?
+    true
+  end
+end
+
+class Cat
+  extend Homable
+end
+
+Cat.has_home?
+
+
+------------------------------------------------
+
+
+class Cat
+
+  define_method 'eat' do |food|
+    "#{food}'s yammy!"
+  end
+
+end
+
+cat = Cat.new
+cat.eat 'whiskas'
+
+
+------------------------------------------------
+
+
+
+class Cat
+  def initialize string
+    @color = string
+  end
+end
+
+cat = Cat.new("black")
+cat.instance_variable_get "@color"
+
+
+------------------------------------------------
+
+
+class Cat
+end
+
+cat = Cat.new()
+cat.instance_variable_set "@color", "black"
+
+
+------------------------------------------------
+
+
+
+class Cat
+
+  def self.my_attr_accessor *attributes
+    attributes.each do |attribute|
+      define_method attribute do
+        self.instance_variable_get "@#{attribute}"
+      end
+
+      define_method "#{attribute}=" do |value|
+        self.instance_variable_set "@#{attribute}", value
+      end
+    end
+  end
+
+  my_attr_accessor :name, :age, :weight
+
+  def initialize name, age, weight
+    @name, @age, @weight = name, age, weight
+  end
+
+end
+
+
+------------------------------------------------
+
+
+class StringInquirer < String
+  private
+  def method_missing(method_name, *arguments)
+    if method_name.to_s.end_with?("?")
+      self == method_name[0..-2]
+    else
+      super
+    end
+  end
+end
+
+mammal = StringInquirer.new('cat')
+mammal.cat?                                                           # true
+mammal.dog?                                                           # false
+
+mammal.methods.include? :cat?                                         #false
+
+
+------------------------------------------------
+
+
+
+class User
+  def log_vk_auth
+    Loggers::VK.new.send_message
+  end
+
+  def log_facebook_auth
+    Loggers::Facebook.new.send_message
+  end
+
+  def log_twitter_auth
+    Loggers::Twitter.new.send_message
+  end
+
+  # с использованием active support
+  %w(vk facebook twitter).each do |network|
+    define_method "log(#{network}_auth" do
+      "Loggers::#{network.capitalize}".constantize
+    end
+  end
+end
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

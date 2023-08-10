@@ -1,0 +1,1140 @@
+---
+GIT
+---
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------
+basic commands
+--------------
+
+
+
+$ mkdir hexlet-git
+$ cd hexlet-git
+$ git init
+
+
+
+Initialized empty Git repository in /private/tmp/hexlet-git/.git/
+
+
+
+--------------------------------------------------------
+
+
+git init - создает репозиторий
+git status посмотреть статус репозитория:
+
+
+$ git status
+
+
+
+On branch main
+No commits yet
+nothing to commit (create/copy files and use "git add" to track)
+
+
+
+---
+
+
+$ echo 'Hello, Hexlet!' > README.md
+$ echo 'Haskell Curry' > PEOPLE.md
+
+
+
+---
+
+
+$ git status
+
+
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+    PEOPLE.md
+    README.md
+
+
+
+---
+
+$ git add README.md
+
+
+---
+
+$ git status
+
+
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+    new file:   README.md
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+    PEOPLE.md
+
+
+---
+
+$ git commit -m 'add README.md'
+
+
+
+[main (root-commit) 3c5d976] add README.md
+1 file changed, 1 insertion(+)
+create mode 100644 README.md
+
+
+---
+
+$ git status
+
+
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+    PEOPLE.md
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------
+integration with GitHub
+-----------------------
+
+
+
+ls -a
+
+.git
+PEOPLE.md
+README.md
+
+
+---
+
+$ git remote add origin git@github.com:<ИМЯ НА ГИТХАБЕ>/hexlet-git.git
+$ git branch -M main
+$ git push -u origin main
+
+
+
+--------------------------------------------------------
+
+
+$ git clone git@github.com:<ИМЯ НА ГИТХАБЕ>/hexlet-git.git
+$ cd hexlet-git
+$ ls -la
+
+
+
+--------------------------------------------------------
+
+
+$ git pull --rebase
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------
+working directory
+-----------------
+
+
+
+$ rm PEOPLE.md
+$ git status
+
+
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+    deleted:    PEOPLE.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+
+
+---
+
+
+$ git restore PEOPLE.md
+$ git status
+
+
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+
+
+
+---
+
+
+$ rm PEOPLE.md
+$ git add PEOPLE.md
+$ git commit -m 'remove PEOPLE.md'
+
+
+
+[main e15afd2] remove PEOPLE.md
+1 file changed, 1 deletion(-)
+delete mode 100644 PEOPLE.md
+
+
+
+--------------------------------------------------------
+
+
+$ git rm PEOPLE.md
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------------
+analysis of the changes made
+----------------------------
+
+
+
+$ git status
+
+
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+    modified:   300-working-directory/README.md
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+    modified:   100-intro/README.md
+    modified:   250-github/README.md
+    modified:   300-working-directory/README.md
+    modified:   300-working-directory/spec.yml
+    modified:   350-changes/README.md
+
+
+
+--------------------------------------------------------
+
+
+$ echo 'new line' >> INFO.md
+$ echo 'Hello, Hexlet! How are you?' > README.md
+
+$ git status
+
+
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+    modified:   INFO.md
+    modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+
+
+--------------------------------------------------------
+
+
+git diff - показывает разницу между тем, что было и что стало:
+
+
+$ git diff
+
+
+
+diff --git a/INFO.md b/INFO.md
+index d5225f8..40f51f1 100644
+--- a/INFO.md
++++ b/INFO.md
+@@ -1 +1,2 @@
+
+ git is awesome!
++new line
+
+$ diff --git a/README.md b/README.md
+
+
+
+index ffe7ece..00fd294 100644
+--- a/README.md
++++ b/README.md
+@@ -1 +1 @@
+
+-Hello, Hexlet!
++Hello, Hexlet! How are you?
+
+
+
+--------------------------------------------------------
+
+
+-       — строка была удалена
++       — строка была добавлена
+
+---
+
+
+f       — перемещение вниз
+b или u — перемещение вверх
+q       — или выход из режима просмотра
+
+
+--------------------------------------------------------
+
+
+$ git diff --staged
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------
+analysis of the history of changes
+----------------------------------
+
+
+
+$ git log
+
+
+
+commit 5120bea3e5528c29f8d1da43731cbe895892eb6d
+Author: tirion <tirion@got.com>
+Date:   Thu Sep 17 18:04:19 2020 -0400
+
+    add new content
+
+commit e6f625cf8433c8b1f1aaed58cd2b437ec8a60f27
+Author: tirion <tirion@got.com>
+Date:   Thu Sep 17 16:14:09 2020 -0400
+
+    add INFO.md
+
+commit 273f81cf2117044f1973ea80ce1067a94bea3f80
+Author: tirion <tirion@got.com>
+Date:   Thu Sep 17 16:08:39 2020 -0400
+
+    remove NEW.md
+
+
+
+--------------------------------------------------------
+
+
+git log -p --- выводит диф для каждого коммита:
+
+
+$ git log -p
+
+
+--------------------------------------------------------
+
+
+$ git show 5120bea3e5528c29f8d1da43731cbe895892eb6d
+
+
+
+diff --git a/INFO.md b/INFO.md
+index d5225f8..40f51f1 100644
+--- a/INFO.md
++++ b/INFO.md
+@@ -1 +1,2 @@
+ git is awesome!
++new line
+diff --git a/README.md b/README.md
+index ffe7ece..00fd294 100644
+--- a/README.md
++++ b/README.md
+@@ -1 +1 @@
+-Hello, Hexlet!
++Hello, Hexlet! How are you?
+
+
+
+---
+
+
+$ git show 5120bea
+
+
+
+--------------------------------------------------------
+
+
+git blame <путь до файла> --- выводит файл и рядом с каждой строчкой показывает кто ее менял и в каком коммите:
+
+
+
+$ git blame INFO.md
+
+
+
+e6f625cf (tirion 2020-09-17 16:14:09 -0400 1) git is awesome!
+5120bea3 (tirion 2020-09-17 18:04:19 -0400 2) new line
+
+
+
+--------------------------------------------------------
+
+
+git grep --- ищет совпадение с указанной строкой во всех файлах проекта:
+
+
+$ git grep line
+
+
+
+INFO.md:new line
+
+---
+
+$ git grep -i hexlet
+
+
+
+README.md:Hello, Hexlet! How are you?
+
+
+---
+
+$ git grep Hexlet 5120bea
+
+
+$ git grep Hexlet $(git rev-list --all)
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------
+canceling changes in the working directory
+------------------------------------------
+
+
+
+$ mkdir one
+$ touch two
+
+$ git status
+
+
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+    two
+
+
+---
+
+$ git clean -fd
+
+
+
+Removing one/
+Removing two
+
+
+
+--------------------------------------------------------
+
+
+git restore --- отмены изменений в таких файлах:
+
+
+$ echo 'new text' > INFO.md
+$ git status
+
+
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+    modified:   INFO.md
+
+
+---
+
+$ git restore INFO.md
+
+
+
+--------------------------------------------------------
+
+
+$ echo 'new text' > INFO.md
+$ git add INFO.md
+$ git status
+
+
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+    modified:   INFO.md
+
+
+
+---
+
+$ git restore --staged INFO.md
+$ git status
+
+
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+    modified:   INFO.md
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------
+cancel commits
+--------------
+
+
+
+git revert --- автоматизирующую откат:
+
+
+$ git revert aa600a43cb164408e4ad87d216bc679d097f1a6c
+
+
+
+[main 65a8ef7] Revert "remove PEOPLE.md"
+ 1 file changed, 1 insertion(+)
+ create mode 100644 PEOPLE.md
+
+
+---
+
+$ git log -p
+
+
+
+commit 65a8ef7fd56c7356dcee35c2d05b4400f4467ca8
+Author: tirion <tirion@got.com>
+Date:   Sat Sep 26 15:32:46 2020 -0400
+
+    Revert "remove PEOPLE.md"
+
+    This reverts commit aa600a43cb164408e4ad87d216bc679d097f1a6c.
+
+diff --git a/PEOPLE.md b/PEOPLE.md
+new file mode 100644
+index 0000000..4b34ba8
+--- /dev/null
++++ b/PEOPLE.md
+@@ -0,0 +1 @@
++Haskell Curry
+
+
+---
+
+revert --- может отменять не только последний коммит, но и любой другой
+
+
+
+--------------------------------------------------------
+
+
+git reset --- удаления коммита:
+
+
+$ echo 'test' >> INFO.md
+$ git add INFO.md
+$ git commit -m 'update INFO.md'
+
+
+
+[main 17a77cb] update INFO.md
+ 1 file changed, 1 insertion(+)
+
+
+---
+
+$ git reset --hard HEAD~
+
+
+
+HEAD is now at 65a8ef7 Revert "remove PEOPLE.md"
+
+
+
+--------------------------------------------------------
+
+
+--hard  --- означает полное удаление
+HEAD~   --- означает «один коммит от последнего коммита»
+HEAD~2  --- удалить два последних коммита
+
+
+
+--------------------------------------------------------
+
+
+$ echo 'no code no pain' > README.md
+$ git add README.md
+$ git commit -m 'update README.md'
+
+
+
+[main f85e3a6] update README.md
+ 1 file changed, 1 insertion(+)
+
+
+---
+
+$ git reset HEAD~
+
+Unstaged changes after reset:
+M   README.md
+
+
+---
+
+$ git status
+
+
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+    modified:   README.md
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------
+changing the last commit
+------------------------
+
+
+
+
+$ echo 'experiment with amend' >> INFO.md
+$ echo 'experiment with amend' >> README.md
+$ git add INFO.md
+$ git commit -m 'add content to INFO.md and README.md'
+
+
+
+[main 256de25] add content to INFO.md and README.md
+ 1 file changed, 1 insertion(+)
+
+
+---
+
+$ git status
+
+
+
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+    modified:   README.md
+
+
+---
+
+$ git add README.md
+$ git commit --amend
+
+
+
+[main d96151a] add content to INFO.md and README.md
+ Date: Sat Sep 26 16:02:07 2020 -0400
+ 2 files changed, 2 insertions(+)
+
+
+---
+
+$ git status
+
+
+
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----
+index
+-----
+
+
+
+$ git commit -m 'add new feature and fix something'
+
+
+---
+
+$ git add somefile
+$ git commit -m 'add somefile'
+
+
+---
+
+$ echo 'new data' >> INFO.md
+$ git commit INFO.md -m 'update INFO.md'
+$ git add .
+
+$ git commit -am 'do something'
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------
+moving through history
+----------------------
+
+
+
+$ git checkout --- перемещаться по истории с помощью команды
+
+
+---
+
+$git log --oneline
+
+fc74e2d update README.md
+65a8ef7 Revert "remove PEOPLE.md"
+5120bea add new content
+e6f625c add INFO.md
+273f81c remove NEW.md
+aa600a4 remove PEOPLE.md
+fe9893b add NEW.md
+3ce3c02 add PEOPLE.md
+3c5d976 add README.md
+
+
+
+--------------------------------------------------------
+
+
+$ git checkout e6f625c
+
+
+
+Note: switching to 'e6f625c'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+Or undo this operation with:
+
+  git switch -
+
+
+
+--------------------------------------------------------
+
+
+$ git checkout main
+
+
+
+--------------------------------------------------------
+
+
+git branch --- узнать место нахождения:
+
+
+$ git branch
+
+
+
+* main
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------
+git understanding
+-----------------
+
+
+
+--graph --- коммиты проекта git в специальном виде:
+
+
+$ git log --graph
+
+
+
+* commit e7bb5e51f96e572084f6c04ba3312e32ce6b8c0f (HEAD -> main, origin/main, origin/HEAD)
+|
+|     update README.md
+|
+* commit 65a8ef7fd56c7356dcee35c2d05b4400f4467ca8
+|
+|     Revert "remove PEOPLE.md"
+|
+|     This reverts commit aa600a43cb164408e4ad87d216bc679d097f1a6c.
+|
+* commit 5120bea3e5528c29f8d1da43731cbe895892eb6d
+|
+|     add new content
+|
+* commit e6f625cf8433c8b1f1aaed58cd2b437ec8a60f27
+|
+|     add INFO.md
+|
+* commit 273f81cf2117044f1973ea80ce1067a94bea3f80
+|
+|     remove NEW.md
+
+
+
+--------------------------------------------------------
+
+
+$ git reset --hard HEAD~1
+$ git branch
+
+
+
+* main
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------
+files ignore
+------------
+
+
+
+access.log
+node_modules/
+/coverage/
+/db/*.sqlite3
+doc/**/*.txt
+
+
+
+--------------------------------------------------------
+
+
+$ touch .gitignore
+$ git add .gitignore
+$ git commit -m 'update gitignore'
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------
+git slash
+---------
+
+
+
+$ touch FILE.md
+$ git add FILE.md
+$ git status
+
+
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+    new file:   FILE.md
+
+
+---
+
+$ git stash
+
+
+
+Saved working directory and index state WIP on main: e7bb5e5 update README.md
+
+
+---
+
+$ git status
+
+
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+
+
+
+--------------------------------------------------------
+
+
+git stash     --- не удаляет файлы, oни попадают в специальное место внутри директории .git на временное хранение
+git stash pop --- вернуть спрятанные изменения:
+
+
+$ git stash pop
+
+
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+    new file:   FILE.md
+
+Dropped refs/stash@{0} (b896d4a0126ef4409ede63857e5d996953fe75c5)
+
+
+---
+
+$ git status
+
+
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+    new file:   FILE.md
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

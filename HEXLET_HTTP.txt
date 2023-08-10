@@ -1,0 +1,533 @@
+----
+HTTP
+----
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------
+HTTP 1.0
+--------
+
+
+
+$ telnet google.com 80
+
+
+---
+
+$ ping -c 4 google.com # 74.125.21.139
+$ telnet 74.125.21.139 80
+
+
+
+-----------------------------------------
+
+
+$ telnet google.com 80
+
+Trying 74.125.21.139...
+Connected to google.com.
+Escape character is '^]'.
+
+
+
+-----------------------------------------
+
+
+$ telnet google.com 80
+
+Trying 64.233.164.100...
+Connected to google.com.
+Escape character is '^]'.
+HEAD / HTTP/1.0
+
+HTTP/1.0 200 OK
+Date: Sat, 18 Jan 2020 09:24:50 GMT
+Expires: -1
+Cache-Control: private, max-age=0
+Content-Type: text/html; charset=ISO-8859-1
+P3P: CP="This is not a P3P policy! See g.co/p3phelp for more info."
+Server: gws
+X-XSS-Protection: 0
+X-Frame-Options: SAMEORIGIN
+Set-Cookie: 1P_JAR=2020-01-18-09; expires=Mon, 17-Feb-2020 09:24:50 GMT; path=/; domain=.google.com; Secure
+Accept-Ranges: none
+Vary: Accept-Encoding
+
+Connection closed by foreign host.
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------
+HTTP 1.1
+--------
+
+
+
+$ telnet google.com 80
+
+GET / HTTP/1.1
+host: google.com
+
+HTTP/1.1 301 Moved Permanently
+Location: http://www.google.com/
+Content-Type: text/html; charset=UTF-8
+Date: Fri, 28 Feb 2020 06:06:40 GMT
+Expires: Sun, 29 Mar 2020 06:06:40 GMT
+Cache-Control: public, max-age=2592000
+Server: gws
+Content-Length: 219
+X-XSS-Protection: 0
+X-Frame-Options: SAMEORIGIN
+
+<HTML><HEAD><meta http-equiv="content-type" content="text/html;charset=utf-8">
+<TITLE>301 Moved</TITLE></HEAD><BODY>
+<H1>301 Moved</H1>
+The document has moved
+<A HREF="http://www.google.com/">here</A>.
+</BODY></HTML>
+
+
+
+-----------------------------------------
+
+
+HEAD / HTTP/1.1
+host: google.com
+
+HTTP/1.1 301 Moved Permanently
+Location: http://www.google.com/
+Content-Type: text/html; charset=UTF-8
+Date: Fri, 28 Feb 2020 06:11:31 GMT
+Expires: Sun, 29 Mar 2020 06:11:31 GMT
+Cache-Control: public, max-age=2592000
+Server: gws
+Content-Length: 219
+X-XSS-Protection: 0
+X-Frame-Options: SAMEORIGIN
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------
+HTTP body
+---------
+
+
+
+$ telnet hexlet.io 80
+
+GET / HTTP/1.1
+Host: hexlet.io
+
+HTTP/1.1 301 Moved Permanently
+Cache-Control: private
+Content-Type: text/html; charset=UTF-8
+Referrer-Policy: no-referrer
+Location: https://34.102.241.4/
+Content-Length: 218
+Date: Tue, 07 Jul 2020 03:50:16 GMT
+
+<HTML><HEAD><meta http-equiv="content-type" content="text/html;charset=utf-8">
+<TITLE>301 Moved</TITLE></HEAD><BODY>
+<H1>301 Moved</H1>
+The document has moved
+<A HREF="https://34.102.241.4/">here</A>.
+</BODY></HTML>
+
+
+
+-----------------------------------------
+
+
+Content-Length: 218
+
+
+
+-----------------------------------------
+
+
+POST /image.png HTTP/1.1
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------
+Send Form
+---------
+
+
+
+login=smith&password=12345678
+
+
+
+-----------------------------------------
+
+
+$ telnet localhost 8080
+
+POST /login HTTP/1.1
+Host: hexlettesthost.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 29
+
+login=smith&password=12345678 # отправляем данные
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Connection: close
+Content-Type: text/html; charset=utf-8
+Content-Length: 7
+ETag: W/"c-r0WEeVxJ7IpMIG20rN7HX9ndB4c"
+Date: Thu, 09 Jul 2020 03:32:54 GMT
+
+Done!
+Connection closed by foreign host.
+
+
+
+-----------------------------------------
+
+
+login=smith&password=1234=5678
+
+
+
+-----------------------------------------
+
+
+login=smith&password=1234%3D5678
+
+
+
+-----------------------------------------
+
+
+user[login]=smith&user[password]=12345678
+
+
+
+-----------------------------------------
+
+
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "children": [
+    {
+    "firstName": "Max",
+    "lastName": "Smith"
+    },
+    {
+    "firstName": "Annie",
+    "lastName": "Smith"
+    }
+  ]
+}
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------
+Transfer Encoding
+-----------------
+
+
+
+$ telnet httpwatch.com 80
+
+GET https://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1
+Host: httpwatch.com
+Connection: close
+
+HTTP/1.1 200 OK
+Cache-Control: no-cache, no-store
+Pragma: no-cache
+Trailer: X-HttpWatch-Sample
+# вместо Content-Length здесь заголовок Transfer-Encoding
+Transfer-Encoding: chunked
+Content-Type: image/jpeg; charset=utf-8
+Expires: -1
+Server: Microsoft-IIS/10.0
+X-AspNet-Version: 4.0.30319
+X-Powered-By: ASP.NET
+Arr-Disable-Session-Affinity: True
+Date: Fri, 10 Jul 2020 09:18:05 GMT
+
+400                                                                                             # длина чанка
+Какие-то данные первого чанка
+400
+Данные второго чанка
+400
+и так далее
+0                                                                                               # последний чанк нулевой длины
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------
+query string
+------------
+
+
+
+POST /login?key=value HTTP/1.1
+
+
+---
+
+GET /?key=value HTTP/1.1
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------
+redirects
+---------
+
+
+
+telnet hexlet.io 80
+GET / HTTP/1.1
+host: hexlet.io
+
+HTTP/1.1 301 Moved Permanently
+Date: Thu, 14 May 2020 15:00:05 GMT
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: max-age=3600
+Expires: Thu, 14 May 2020 16:00:05 GMT
+Location: https://hexlet.io/
+Server: cloudflare
+CF-RAY: 59357c73fadaf2a0-WAW
+cf-request-id: 02b54c363b0000f2a07c8f0200000001
+
+0
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------
+basic authecity
+---------------
+
+
+
+HTTP/1.1 401 Access Denied
+WWW-Authenticate: Basic realm="My Server"
+Content-Length: 0
+
+
+---
+
+GET /securefiles/ HTTP/1.1
+Host: www.httpwatch.com
+Authorization: Basic aHR0cHdhdGNoDmY=
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------
+Coocies
+-------
+
+
+
+$ curl --head https://ru.hexlet.io
+
+HTTP/2 200
+server: nginx/1.19.1
+date: Thu, 16 Jul 2020 03:38:11 GMT
+content-type: text/html; charset=utf-8
+vary: Accept-Encoding
+x-xss-protection: 1; mode=block
+x-content-type-options: nosniff
+x-download-options: noopen
+x-permitted-cross-domain-policies: none
+referrer-policy: strict-origin-when-cross-origin
+strict-transport-security: max-age=0
+x-frame-options: ALLOW-FROM http://webvisor.com
+etag: W/"eb99fa0d6ee702b85ba2a5e9b0425aea"
+cache-control: max-age=0, private, must-revalidate
+content-security-policy:
+set-cookie: _hexlet_session2=AiUPd6RFbcrnoGnZSLAYSBzdJqxsQ4sTc%2BW0xXuOKzlenyv5GwkkbpdkD6IVDybDlD8vQcOcgGax98%2FmzIBJrz9f%2BDIJxWRpknZsRSfBXuC9yRfndovBUG6w4fTql4qp7zPozd2veFDLOU4koPVYiUQxgBLM6NkyYg%2Bhs%2BQe%2FSZezleVgMBVD%2FFC070DjV7t2eN01o26kcbd0pQsf9k1LE4JN0aDzSxu8elxLyAWkIJ5l3m%2BcI%2BpgOxk87Uwh9WdTHVuDaraiRaVJz1aZq5hr%2FgzaZiK%2Bgi6ChX60nhha1an610b1v3EE7xgkEM332uFPU0w675fHEr4APTdPDVtJRa3--qQi0cqcljC8i4klD--fXTErw9bhX7%2Fd1xfPE4Gww%3D%3D; domain=.hexlet.io; path=/; expires=Sun, 16 Aug 2020 03:38:11 GMT; secure; HttpOnly; SameSite=Lax
+set-cookie: GCLB=CLTE8bzdlaS6Zg; path=/; HttpOnly; expires=Thu, 16-Jul-2020 03:39:50 GMT
+x-request-id: 2f554de2-a21d-4e7d-964e-085914ac3f77
+x-runtime: 0.056974
+access-control-allow-origin: *
+via: 1.1 google
+alt-svc: clear
+
+
+
+---
+
+expires=Thu, 16-Jul-2020 03:39:50 GMT;
+MAX-AGE=2592000;
+domain=.hexlet.io; path=/;
+
+
+---
+
+set-cookie: GCLB=CLiC7uWajOOrzAE;_hexlet_session2=gu3
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

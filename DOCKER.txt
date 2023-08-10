@@ -1,0 +1,215 @@
+-------
+DOCKER:
+-------
+
+
+
+docker --version                                                                            --- docker version
+docker run -i -t ubuntu /bin/bash                                                           --- run ubuntu image
+docker ps                                                                                   --- see started containers
+docker ps -a                                                                                --- see stoped containers
+
+docker-compose up                                                                           --- run services from docker-compose.yml
+
+
+---
+
+docker pull                                                                                 --- pull images from the docker repository
+docker exec                                                                                 --- access the running container
+docker stop                                                                                 --- stops a running container
+docker kill                                                                                 --- kills the container by stopping its execution immediately
+docker commit                                                                               --- creates a new image of an edited container on the local system
+docker login                                                                                --- log in
+docker push                                                                                 --- push an image to the docker hub repository
+docker images                                                                               --- lists all the locally stored docker images
+docker rm                                                                                   --- delete a stopped container
+docker rmi                                                                                  --- delete an image from local storage
+docker build                                                                                --- build an image from a specified docker file
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------
+Docker
+------
+
+$ docker -v
+$ docker build -t <username>/simple-blog .
+$ docker login -u <username>
+$ docker push <username>/simple-blog
+
+
+$ ssh root@<server_ip>
+$ docker pull <username>/simple-blog
+$ docker images
+$ docker run --rm -p 3001:3001 <username>/simple-blog
+$ docker stop <hash>
+$ docker rm <hash>
+
+
+
+Dockerfile
+----------
+
+FROM ruby:3.0.1
+
+WORKDIR /home/app
+
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+
+COPY . .
+
+RUN chmod +x scripts/start.sh
+
+CMD ["./scripts/start.sh"]
+
+
+
+start.sh
+--------
+
+#!/bin/bash
+
+if [ -e /home/app ]; then
+  SEEDED_FILE=/home/app/.already_seeded
+  pushd /home/app
+  if [ -e $SEEDED_FILE ]; then
+    rake db:migrate || { echo "Can't migrate database"; exit 1; }
+  else
+    bin/rails db:create
+    bin/rails db:migrate || { echo "Can't migrate database"; exit 1; }
+    bin/rails db:seed || { echo "Can't seed database"; exit 1; }
+    echo 1 > $SEEDED_FILE
+  fi
+
+  rake tmp:clear || { echo "Can't clear cache"; }
+  popd
+fi
+
+
+$ bin/rails server -p 3001 -b 0.0.0.0
+
+
+
+Gemfile
+-------
+
+ruby '3.0.2'
+
+group :development, :test do
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'sqlite3', '~> 1.4'
+end
+
+group :production do
+  gem 'pg'
+end
+
+
+---
+
+https://guides.hexlet.io/ru/docker/
+https://hub.docker.com/
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
