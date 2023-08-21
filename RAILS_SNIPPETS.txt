@@ -33,7 +33,7 @@ Time ago in words helper example
 Datetime helpers for footer
 ---------------------------
 
-<small class="text-muted">&copy; Online Store 
+<small class="text-muted">&copy; Online Store
   <%= Date.today.year %>
 </small>
 
@@ -250,7 +250,7 @@ javascript file
 $(document).load(function() {
   $("#new_building_link").click(function() {
     $.ajax({
-      type:     "POST",  
+      type:     "POST",
       url:      "/buildings/add_building",
       dataType: "script"
     });
@@ -324,7 +324,7 @@ end
 def stripe_connect
   auth_data = request.env["omniauth.auth"]
   @user = current_user
-  
+
   if @user.persisted?
     @user.provider = auth_data.provider
     @user.uid = auth_data.uid
@@ -454,7 +454,7 @@ def create
   @conversation = Conversation.new(conversation_params)
   @conversation.sender_id = current_account.id
   @conversation.messages.first.account_id = current_account.id
-  
+
   @messages = @conversation.messages
 
   match = Match.between(current_account.id, id)
@@ -519,6 +519,56 @@ Add categories options to form
 
 <%= form.label :category, class: 'mb-5' %>
 <%= form.select(:category_id, options_from_collection_for_select(Category.all, :id, :heading, (@product.category.id if @product.category.present?)), {}, { class: 'form-control' }) %>
+
+
+---
+
+
+-------------------------------------------
+Bootstrap buttons styles for CRUD Rails app
+-------------------------------------------
+
+
+edit.html.erb
+-------------
+
+<div class="btn-group my-5">
+  <%= link_to "Show this user", @user, class: "btn btn-sm btn-outline-dark" %>
+  <%= link_to "Back to users", users_path, class: "btn btn-sm btn-outline-dark" %>
+</div>
+
+
+
+index.html.erb
+--------------
+
+<p><%= link_to "Show user", user, class: "btn btn-sm btn-outline-dark my-3" %></p>
+<%= link_to "New user", new_user_path, class: "btn btn-sm btn-outline-dark my-5" %>
+
+
+
+new.html.erb
+------------
+
+<%= link_to "Back to users", users_path, class: "btn btn-sm btn-outline-dark my-5" %>
+
+
+
+show.html.erb
+-------------
+
+<div class="btn-group my-5">
+  <%= link_to "Edit this user", edit_user_path(@user), class: "btn btn-sm btn-outline-dark" %>
+  <%= link_to "Back to users", users_path, class: "btn btn-sm btn-outline-dark" %>
+  <%= button_to "Destroy this user", @user, method: :delete, class: "btn btn-sm btn-outline-dark" %>
+</div>
+
+
+
+_form.html.erb
+--------------
+
+<%= f.button :submit, class: "btn btn-sm btn-outline-dark" %>
 
 
 
@@ -746,7 +796,7 @@ $ rails g migration add_username_index
 
 
 New API key for rails app
--------------------------- 
+--------------------------
 
 $ rails new my_api --api
 
@@ -822,7 +872,7 @@ $ rails new app_name --api
 Rails console reload from console
 ---------------------------------
 
-> reload!  
+> reload!
 
 Reloading...
 => true
@@ -918,7 +968,7 @@ model.rb
 --------
 
 class Book < ApplicationRecord
-  belongs_to :author 
+  belongs_to :author
 end
 
 
@@ -933,7 +983,7 @@ class CreateOrders < ActiveRecord::Migration[6.0]
     end
 
     create_table :books do |t|
-      t.belongs_to :author, foreign_key: true 
+      t.belongs_to :author, foreign_key: true
       t.datetime :published_at
       t.timestamps
     end
@@ -951,7 +1001,7 @@ model.rb
 --------
 
 class Supplier < ApplicationRecord
-  has_one :account  
+  has_one :account
 end
 
 
@@ -1967,7 +2017,7 @@ CREATE DATABASE sales OWNER salesapp TABLESPACE salesspace;
 CREATE DATABASE music
   LOCALE 'sv_SE.utf8'
   TEMPLATE template0;
-  
+
 
 CREATE DATABASE music2
   LOCALE 'sv_SE.iso885915'
@@ -2028,10 +2078,10 @@ Seeds snippet with account
 --------------------------
 
 
-Account.create([ 
-  { username: 'John',  first_name: 'John',  last_name: 'Doe',   email: 'johndoe@example.com',    password: 'password' }, 
-  { username: 'Jane',  first_name: 'Jane',  last_name: 'Smith', email: 'fanesmith@example.com',  password: 'password' }, 
-  { username: 'Susan', first_name: 'Susan', last_name: 'Baker', email: 'susanbaker@example.com', password: 'password' }, 
+Account.create([
+  { username: 'John',  first_name: 'John',  last_name: 'Doe',   email: 'johndoe@example.com',    password: 'password' },
+  { username: 'Jane',  first_name: 'Jane',  last_name: 'Smith', email: 'fanesmith@example.com',  password: 'password' },
+  { username: 'Susan', first_name: 'Susan', last_name: 'Baker', email: 'susanbaker@example.com', password: 'password' },
 ])
 
 
@@ -2086,10 +2136,10 @@ Account.create([
 Seeds snippet with user
 -----------------------
 
-User.create([ 
-  { username: 'John',  first_name: 'John',  last_name: 'Doe',   email: 'johndoe@example.com',    password: 'password' }, 
-  { username: 'Jane',  first_name: 'Jane',  last_name: 'Smith', email: 'fanesmith@example.com',  password: 'password' }, 
-  { username: 'Susan', first_name: 'Susan', last_name: 'Baker', email: 'susanbaker@example.com', password: 'password' }, 
+User.create([
+  { username: 'John',  first_name: 'John',  last_name: 'Doe',   email: 'johndoe@example.com',    password: 'password' },
+  { username: 'Jane',  first_name: 'Jane',  last_name: 'Smith', email: 'fanesmith@example.com',  password: 'password' },
+  { username: 'Susan', first_name: 'Susan', last_name: 'Baker', email: 'susanbaker@example.com', password: 'password' },
 ])
 
 
@@ -2152,29 +2202,29 @@ Lorem Ipsum text
 ----------------
 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 
@@ -2254,7 +2304,7 @@ Name your partial customers/_show.html.erb (don't forget the _so it can be calle
    <%= @customer.id %>
 </p>
 
-<%= link_to 'Edit Customer', edit_customer_path(@customer) %> 
+<%= link_to 'Edit Customer', edit_customer_path(@customer) %>
 
 
 
@@ -2318,7 +2368,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       format.js {
         if @comment.save
-        
+
           @comments = Comment.where(post_id: @comment.post_id)
           render 'comments/create'
         else
@@ -2351,8 +2401,29 @@ document.getElementById('post-comments').innerHTML = "<%= escape_javascript(rend
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ---------------------
-Usefull web resources
+Usefull web 
 ---------------------
+
+
+AASM - Rails FSM
+----------------
+
+https://github.com/aasm/aasm
+
+
+
+---
+
+
+
+Ruby market
+-----------
+
+https://github.com/markets/awesome-ruby
+
+
+---
+
 
 
 About Rails Fixtures
@@ -2895,7 +2966,7 @@ https://github.com/Deanout/api_boilerplate_rails
 Starting from 5.5.0 RC1 Doorkeeper requires client authentication for Resource Owner Password Grant
 as stated in the OAuth RFC. You have to create a new OAuth client (Doorkeeper::Application) if you didn't
 have it before and use client credentials in HTTP Basic auth if you previously used this grant flow without
-client authentication. 
+client authentication.
 
 To opt out of this you could set the "skip_client_authentication_for_password_grant" configuration option
 to "true", but note that this is in violation of the OAuth spec and represents a security risk.
@@ -3486,7 +3557,7 @@ Getting API's for oath_app
 
 Add to Gemfile
 --------------
-       
+
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
@@ -3538,7 +3609,7 @@ GitHub for developers:
 https://github.com/settings/applications/1495661
 
 
-Authorization callback URL: 
+Authorization callback URL:
 http://localhost:3000/users/auth/github/callback
 
 
@@ -3561,7 +3632,7 @@ API key:
 AIzaSyDGGhIBg984-J2vyWdsVznEpG2rf0Zk1c8
 
 
-Authorization callback URL: 
+Authorization callback URL:
 http://localhost:3000/users/auth/google_oauth2/callback
 
 
@@ -3596,7 +3667,7 @@ When done
 
 press ESC + :wq + ENTER to exit with saving
 or
-press ESC + :q! + ENTER to exit without saving 
+press ESC + :q! + ENTER to exit without saving
 
 
 File encrypted and saved.
@@ -3630,7 +3701,7 @@ secret_key_base: 23960f33178f13b9ded84bbb7c5aaa28625fbc6167f2c7e1c20da0adb2dd9b4
 
 $ rails c
 
-> Rails.application.credentials.dig(:facebook, :facebook_client_secret)     
+> Rails.application.credentials.dig(:facebook, :facebook_client_secret)
 
 => "9da417863abd3abf9865ec583d06a6bb"
 
@@ -3640,7 +3711,7 @@ $ rails c
 
 C:\Projects\rails_basics\oauth_app\config\initializers\devise.rb
 ----------------------------------------------------------------
-                                                       
+
 #config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
   config.omniauth :facebook, Rails.application.credentials.dig(:facebook, :facebook_client_id),
@@ -3657,7 +3728,7 @@ C:\Projects\rails_basics\oauth_app\config\initializers\devise.rb
 ---8---
 
 $ cd 'c:\Projects\rails_basics\oauth_app\config\initializers\session_store.rb'
-                                                             
+
 Rails.application.config.session_store :active_record_store, key: '_devise_omniauth_session'
 
 
@@ -4113,7 +4184,7 @@ app/views/static_pages/home.html.erb
 config/routes.rb
 ----------------
 
-Rails.application.routes.draw do  
+Rails.application.routes.draw do
   get 'home', to: 'static_pages#home'  devise_for :users, controllers: {
     sessions: 'users/sessions'
   }  devise_scope :user do
@@ -4152,7 +4223,7 @@ app/controllers/static_pages_controller.rb
 
 class StaticPagesController < ApplicationController
   before_action :authenticate_user!
-  
+
   def home
   end
 end
@@ -4368,11 +4439,11 @@ class Ability
 
   def initialize(user)
     user ||= User.new # guest user (not logged in)
-    
+
     if user.superadmin_role?
       can :manage, :all
     end
-    
+
     if user.supervisor_role?
       can :manage, User
     end
@@ -4412,12 +4483,12 @@ config.authorize_with :cancan
 modify app/model/ability.rb
 ---------------------------
 
-user ||= User.new 
+user ||= User.new
 
 if user.superadmin_role?
   can :manage, :all
-  can :access, :rails_admin       
-  can :manage, :dashboard         
+  can :access, :rails_admin
+  can :manage, :dashboard
 end
 
 if user.supervisor_role?
@@ -4434,14 +4505,14 @@ Manage User accounts:
 add can :manage, :all for any user in app/models/ability.rb
 -----------------------------------------------------------
 
-user ||= User.new 
+user ||= User.new
 
-can :manage, :all  
+can :manage, :all
 
 if user.superadmin_role?
   can :manage, :all
-  can :access, :rails_admin       
-  can :manage, :dashboard         
+  can :access, :rails_admin
+  can :manage, :dashboard
 end
 
 if user.supervisor_role?
@@ -4508,7 +4579,7 @@ If you want to use the country select, you will need the country_select gem, add
 gem 'country_select'
 
 
-If you don't want to use the gem you can easily override this behaviour by mapping the country inputs to 
+If you don't want to use the gem you can easily override this behaviour by mapping the country inputs to
 something else, with a line like this in your simple_form.rb initializer
 ------------------------------------------------------------------------
 
@@ -4853,7 +4924,7 @@ application.html.erb
 --------------------
 
 <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-<%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>  
+<%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
 
@@ -4911,16 +4982,16 @@ add bootstrap 5 js
 app/javascript/js/bootstrap_js_files.js
 ---------------------------------------
 
-import 'bootstrap/js/src/collapse'  
-import 'bootstrap/js/src/dropdown'  
-import 'bootstrap/js/src/scrollspy'  
-import 'bootstrap/js/src/alert'  
-import 'bootstrap/js/src/button'  
-import 'bootstrap/js/src/carousel'  
-import 'bootstrap/js/src/modal'  
-import 'bootstrap/js/src/popover'  
-import 'bootstrap/js/src/tab'  
-import 'bootstrap/js/src/toast'  
+import 'bootstrap/js/src/collapse'
+import 'bootstrap/js/src/dropdown'
+import 'bootstrap/js/src/scrollspy'
+import 'bootstrap/js/src/alert'
+import 'bootstrap/js/src/button'
+import 'bootstrap/js/src/carousel'
+import 'bootstrap/js/src/modal'
+import 'bootstrap/js/src/popover'
+import 'bootstrap/js/src/tab'
+import 'bootstrap/js/src/toast'
 import 'bootstrap/js/src/tooltip'
 
 
@@ -5173,7 +5244,7 @@ $ cd jquery-example
 
 ---2---
 
-$ yarn add jquery 
+$ yarn add jquery
 
 
 
@@ -5312,21 +5383,21 @@ Bootstrap 6 dropdown snippet
 <div class="accordion" id="accordionExample">
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">
-      <button 
-        class="accordion-button" 
-        type="button" 
-        data-bs-toggle="collapse" 
-        data-bs-target="#collapseOne" 
-        aria-expanded="true" 
+      <button
+        class="accordion-button"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapseOne"
+        aria-expanded="true"
         aria-controls="collapseOne"
       >
         Accordion Item #1
       </button>
     </h2>
-    <div 
-      id="collapseOne" 
-      class="accordion-collapse collapse show" 
-      aria-labelledby="headingOne" 
+    <div
+      id="collapseOne"
+      class="accordion-collapse collapse show"
+      aria-labelledby="headingOne"
       data-bs-parent="#accordionExample"
     >
       <div class="accordion-body">
@@ -5579,7 +5650,7 @@ global.toastr = require("toastr")
 
 $ mkdir app/javascript/stylesheets && touch app/javascript/stylesheets/application.scss
 
-                                 
+
 import in app/javascript/stylesheets/application.scss
 -----------------------------------------------------
 
@@ -5685,14 +5756,14 @@ application.html.erb
 <% when notice.present? %>
 
   <% @info = notice %>
-  
+
   <div class="container alert alert-success">
     <%= @info %>
   </div>
 <% when alert.present? %>
 
   <% @info = alert %>
-  
+
   <div class="container alert alert-danger">
     <%= @info %>
   </div>
@@ -5833,8 +5904,8 @@ end
 Configuring routes
 ------------------
 
-devise_for :users, path: 'auth', path_names: { 
-  sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'cmon_let_me_in' 
+devise_for :users, path: 'auth', path_names: {
+  sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'cmon_let_me_in'
 }
 
 
@@ -5930,7 +6001,7 @@ protected
 
 def configure_permitted_parameters
   added_attrs = [:username, :email, :password, :password_confirmation, :remember_me]
-  
+
   devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
   devise_parameter_sanitizer.permit :sign_in, keys: [:login, :password]
   devise_parameter_sanitizer.permit :account_update, keys: added_attrs
@@ -5966,7 +6037,7 @@ If you are using multiple models with Devise
 --------------------------------------------
 
 devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :trackable, 
+  :recoverable, :rememberable, :trackable,
   :validatable, authentication_keys: [:login]
 
 
@@ -5974,7 +6045,7 @@ If you need permissions
 -----------------------
 
 devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :trackable, 
+  :recoverable, :rememberable, :trackable,
   :validatable, :authentication_keys => { email: true, login: false }
 
 
@@ -6310,7 +6381,7 @@ class RegistrationsController < Devise::RegistrationsController
   protected
 
   def after_sign_up_path_for(resource)
-    '/path' 
+    '/path'
   end
 end
 
@@ -6322,7 +6393,7 @@ class RegistrationsController < Devise::RegistrationsController
   protected
 
   def after_inactive_sign_up_path_for(resource)
-    '/path' 
+    '/path'
   end
 end
 
@@ -6392,11 +6463,11 @@ views/devise/menu/_login_items.html.erb
 
 <% if user_signed_in? %>
   <li>
-    <%= link_to('Logout', destroy_user_session_path, method: :delete) %>        
+    <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
   </li>
 <% else %>
   <li>
-    <%= link_to('Login', new_user_session_path) %>  
+    <%= link_to('Login', new_user_session_path) %>
   </li>
 <% end %>
 
@@ -6435,17 +6506,17 @@ Sign_in, sign_out links
   <%= link_to new_user_session_path, class: 'login-button' do %>
     Sign in
   <% end %>
-  
+
 <% else %>
 
   <%= link_to app_dashboard_index_path, class: 'login-button' do %>
     Go to App
   <% end %>
-  
+
   <%= link_to destroy_user_session_path, method: :delete do %>
     Log out
   <% end %>
-  
+
 <% end %>
 
 
@@ -6454,11 +6525,11 @@ Sign_in, sign_out links
 <% if user_signed_in? %>
 
   <%= link_to('Edit registration', edit_user_registration_path) %>
-  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
+  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
 <% else %>
 
   <%= link_to('Register', new_user_registration_path)  %>
-  <%= link_to('Login', new_user_session_path)  %>  
+  <%= link_to('Login', new_user_session_path)  %>
 <% end %>
 
 
@@ -6466,13 +6537,13 @@ styles.scss
 -----------
 
 ul.hmenu {
-  list-style: none;	
+  list-style: none;
   margin: 0 0 2em;
   padding: 0;
 }
 
 ul.hmenu li {
-  display: inline;  
+  display: inline;
 }
 
 
@@ -6634,7 +6705,7 @@ application_helper.rb
 def resource_name
   :user
 send
- 
+
 def resource
   @resource ||= User.new
 end
@@ -6642,7 +6713,7 @@ end
 def resource_class
   User
 end
- 
+
 def devise_mapping
   @devise_mapping ||= Devise.mappings[:user]
 end
@@ -6952,9 +7023,9 @@ development:
   secret_key_base: 1d7...fc1
   mail_username: test@example.com
   mail_password: Password123
-  
 
-  
+
+
 ---3---
 
 config/initializers/devise.rb
@@ -6972,7 +7043,7 @@ Open in web browser: /users/password/new . And try to send reset password instru
 Alternative is changing
 -----------------------
 
-config.action_mailer.smtp_settings.port to 465 
+config.action_mailer.smtp_settings.port to 465
 
 may help.
 
@@ -7030,7 +7101,7 @@ $ mkdir views/user_mailer && touch send_welcome_mail.html.erb
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
-  
+
   <body>
     <h1>Welcome, <%= @user.email %></h1>
     <p>
@@ -7079,7 +7150,7 @@ config.action_mailer.smtp_settings = {
   user_name:            'Gor',
   password:             'ktotI1987',
   authentication:       'plain',
-  enable_starttls_auto: true 
+  enable_starttls_auto: true
 }
 
 
@@ -7611,7 +7682,7 @@ protected
 
 def configure_permitted_parameters
   added_attrs = [:username, :email, :password, :password_confirmation, :remember_me, :avatar]
-  
+
   devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
   devise_parameter_sanitizer.permit :sign_in, keys: [:login, :password]
   devise_parameter_sanitizer.permit :account_update, keys: added_attrs
@@ -7630,7 +7701,7 @@ _form.html.erb:
 <%= form_for @user, html: { multipart: true } do |f| %>
   <%= f.label :avatar %>
   <%= f.file_field :avatar %>
-  <%= f.hidden_field :avatar_cache %> 
+  <%= f.hidden_field :avatar_cache %>
 <% end %>
 
 
@@ -7644,7 +7715,7 @@ Add input field to _form.html.erb
 
 <div class="form-group">
   <%= form.label 'Product Image' %>
-  
+
   <div class="custom-file">
     <%= form.label 'Choose file', class: 'custom-file-label' %>
     <%= form.file_field :image, type: 'file', class: 'custom-file-input' %>
@@ -7988,7 +8059,7 @@ protected
 
 def configure_permitted_parameters
   added_attrs = [:username, :email, :password, :password_confirmation, :remember_me, { avatars: [] }]
-  
+
   devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
   devise_parameter_sanitizer.permit :sign_in, keys: [:login, :password]
   devise_parameter_sanitizer.permit :account_update, keys: added_attrs
@@ -8109,7 +8180,7 @@ uploader.rb
 
 class MyUploader < CarrierWave::Uploader::Base
   process :scale => [200, 200], :if => :image?
-  
+
   def image?(carrier_wave_sanitized_file)
     true
   end
@@ -8128,7 +8199,7 @@ class MyUploader < CarrierWave::Uploader::Base
     version :monkey
     version :llama
   end
-  
+
 end
 
 
@@ -8223,7 +8294,7 @@ Add input field to _form.html.erb
 
   <%= f.label :avatar %>
   <%= image_tag(@user.avatar_url) if @user.avatar? %>
-    
+
   <%= f.file_field :avatar %>
   <%= f.hidden_field :avatar_cache %>
 <% end %>
@@ -8284,7 +8355,7 @@ _form.html.erb:
 
   <%= f.label :avatar %>
   <%= image_tag(@user.avatar_url) if @user.avatar? %>
-    
+
   <%= f.text_field :remote_avatar_url %>
 <% end %>
 
@@ -8483,13 +8554,13 @@ HTML5 Datalist using Ruby on Rails form_for
 
   <%= f.label :first_name, "First Name" %>:
   <%= f.text_field :first_name, list: 'first-name' %>
-  
+
   <datalist id="first-name">
     <% Person.all.each do |person| %>
       <option value="<%= person.first_name %>"></option>
     <% end %>
   </datalist>
-  
+
   <%= f.submit %>
 <% end %>
 
@@ -8541,7 +8612,7 @@ Rails generate Model commands
 -----------------------------
 
 rails g model Product name:string price:decimal
-rails g model Cart  
+rails g model Cart
 rails g model LineItem quantity:integer product_id:integer cart_id:integer order_id:integer
 rails g model Order name:string email:string address:text
 
@@ -8701,7 +8772,7 @@ class ProductsController < ApplicationController
   end
 
   private
-  
+
   def product_params
     params.require(:product).permit(:name, :price)
   end
@@ -8721,7 +8792,7 @@ Product Index show page
 
 <% @products.each do |product| %>
   <p>Name: <%= product.name %>; unit price of <%= number_to_currency(product.price) %></p>
-  
+
   <p>
     <%= link_to "Edit", edit_product_path(product) %> |
     <%= link_to "Delete", product_path(product), method: :delete, data: {confirm: "Are you sure?"} %>
@@ -8808,7 +8879,7 @@ Cart View
 
 <ul>
   <% @cart.line_items.each do |line_item| %>
-  
+
     <li>Item: <%= line_item.product.name %>/ Price: <%= number_to_currency(line_item.product.price) %>/ Quantity: <%= line_item.quantity %>/ Total Price: <%= number_to_currency(line_item.total_price) %>
     <ul>
       <li>
@@ -8851,7 +8922,7 @@ class Cart < ActiveRecord::Base
 
   def sub_total
     sum = 0
-    
+
     self.line_items.each do |line_item|
       sum+= line_item.total_price
     end
@@ -8881,7 +8952,7 @@ def create
   end
 
   @line_item.save
-  
+
   redirect_to cart_path(current_cart)
 end
 
@@ -8940,19 +9011,19 @@ def add_quantity
   @line_item = LineItem.find(params[:id])
   @line_item.quantity += 1
   @line_item.save
-  
+
   redirect_to cart_path(@current_cart)
 end
 
 def reduce_quantity
   @line_item = LineItem.find(params[:id])
-  
+
   if @line_item.quantity > 1
     @line_item.quantity -= 1
   end
-  
+
   @line_item.save
-  
+
   redirect_to cart_path(@current_cart)
 end
 
@@ -8997,16 +9068,16 @@ end
 
 def create
   @order = Order.new(order_params)
-  
+
   @current_cart.line_items.each do |item|
     @order.line_items << item
     item.cart_id = nil
   end
-  
+
   @order.save
   Cart.destroy(session[:cart_id])
   session[:cart_id] = nil
-  
+
   redirect_to root_path
 end
 
@@ -9055,7 +9126,7 @@ Index page listing out all orders
   <p>Name: <%= order.name %></p>
   <p>Email: <%= order.email %></p>
   <p>Line Items: </p>
-  
+
   <ul>
     <% order.line_items.each do |item| %>
       <li><%= item.quantity %> x <%= item.product.name %></li>
@@ -9321,7 +9392,7 @@ class ProductsController < ApplicationController
   end
 
   private
-  
+
   def products_layout
     @current_user.special? ? "special" : "products"
   end
@@ -9363,7 +9434,7 @@ end
 
 def show
   @book = Book.find_by(id: params[:id])
-  
+
   if @book.nil?
     redirect_to action: :index
   end
@@ -9535,11 +9606,11 @@ shared/_search_filters.html.erb
 
 <%= form_with model: search do |form| %>
   <h1>Search form:</h1>
-  
+
   <fieldset>
     <%= yield form %>
   </fieldset>
-  
+
   <p>
     <%= form.submit "Search" %>
   </p>
@@ -10233,12 +10304,12 @@ require File.dirname(__FILE__) + '/../test_helper'
 require 'message'
 
 
-class MessageTest < Test::Unit::TestCase 
-  fixtures :message 
+class MessageTest < Test::Unit::TestCase
+  fixtures :message
 
-  def test_initialization 
+  def test_initialization
     f = Message.new message(:good)
-  end 
+  end
 end
 
 
@@ -10250,7 +10321,7 @@ good: |
 
 missing_header: |
   [more text]
-  
+
 bad_checksum: |
   [more text]
 
@@ -10353,7 +10424,7 @@ Nested Model Form (revised)
 
 ---1---
 
-models/survey.rb 
+models/survey.rb
 ----------------
 
 class Survey < ActiveRecord::Base
@@ -10656,7 +10727,7 @@ show.html.erb
 <%= render @post %>
 
 <div>
-  <%= link_to "Edit post", edit_post_path(@post), data: { turbo_frame: "modal" } %> 
+  <%= link_to "Edit post", edit_post_path(@post), data: { turbo_frame: "modal" } %>
 </div>
 
 
@@ -14982,6 +15053,369 @@ $ bin/rails 'users:update[vasya]'
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------
+Rails sequrity
+--------------
+
+
+require 'open-uri'
+require 'nokogiri'
+require 'net/http'
+require 'net/https'
+
+uri = URI('https://httpbin.org')
+get_path = 'get'
+post_path = 'post'
+
+Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https', verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
+  request  = Net::HTTP::Get.new uri.request_uri + get_path
+  response = http.request request
+
+  puts response.body
+
+  # cookie = response.response['set-cookie'].split('; ')[0]
+
+  params = {
+    test: true,
+    hello: 'world'
+  }
+
+  request = Net::HTTP::Post.new uri.request_uri + post_path
+  request.body = URI.encode_www_form(params)
+  # request['Cookie'] = cookie
+
+  response = http.request request
+
+  puts response.body
+
+  response.code == '200'
+end
+
+
+---
+
+
+----------------------------
+Пример с получением страницы
+----------------------------
+
+hostname = 'https://example.com'
+
+uri = URI(hostname)
+http = Net::HTTP.new(uri.host, uri.port)
+http.use_ssl = uri.scheme == 'https'
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+request = Net::HTTP::Get.new uri
+
+response = http.request request
+
+
+---
+
+
+
+----------------------------------------
+Если нам нужно получить куки со страницы
+----------------------------------------
+
+cookie = response.response['set-cookie'].split('; ')[0]
+
+params = {
+  'name': "Jon",
+  'email': "jon@example.com"
+  'token': token
+}
+
+request = Net::HTTP::Post.new URI.join(hostname, '/register')
+request.body = URI.encode_www_form(params)
+# Добавляем куки в запрос
+request['Cookie'] = cookie
+
+response = http.request request
+
+
+---
+
+
+
+---------------------------------------
+При успешной отправке формы как правило
+---------------------------------------
+
+response.code == '302'
+
+
+---
+
+
+
+-----------------------------------
+Пример скрапинга данных со страницы
+-----------------------------------
+
+example_uri = URI('https://example.com/')
+response = Net::HTTP.get_response(example_uri)
+
+html = Nokogiri::HTML(response.body)
+
+
+
+---------------------------------------
+Поиск нужного тега с помощью селекторов
+---------------------------------------
+
+token_tag = html.at('input[@name="token"]')
+puts token_tag['value']
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------
+Rails System Tests
+------------------
+
+
+gem 'capybara'
+
+
+
+$ bin/rails test:system
+
+
+---
+
+
+book_test.rb
+------------
+
+frozen_string_literal: true
+
+test/system/books_test.rb
+
+require 'application_system_test_case'
+
+class BooksTest < ApplicationSystemTestCase
+  setup do
+    @book = books(:one)
+  end
+
+  test 'visiting the index' do
+    visit books_url
+    assert_selector 'h1', text: 'Books'
+  end
+
+  test 'creating a Book' do
+    visit books_url
+    click_on 'New Book'
+
+    click_on 'Create Book'
+
+    assert_text 'Book was successfully created'
+  end
+
+  test 'updating a Book' do
+    visit books_url
+    click_on 'Edit', match: :first
+
+    click_on 'Update Book'
+
+    assert_text 'Book was successfully updated'
+  end
+
+  test 'destroying a Book' do
+    visit books_url
+    page.accept_confirm do
+      click_on 'Destroy', match: :first
+    end
+
+    assert_text 'Book was successfully destroyed'
+  end
+end
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------
+Rails FSM, AASM
+---------------
+
+
+Gemfile
+-------
+
+gem 'aasm'
+
+
+---
+
+
+
+AASM class example
+------------------
+
+class Job
+  include AASM
+
+  aasm do
+    # Начальное состояние
+    state :sleeping, initial: true
+    state :running, :cleaning
+
+    # Событие и переходы
+    event :run do
+      transitions from: :sleeping, to: :running
+    end
+
+    event :clean do
+      transitions from: :running, to: :cleaning
+    end
+
+    event :sleep do
+      # Одинаковое событие для перехода из нескольких состояний
+      transitions from: [:running, :cleaning], to: :sleeping
+    end
+  end
+end
+
+
+
+---
+
+
+
+job = Job.new
+# У модели появляются функции-предикаты, которые позволяют определить состояние
+job.sleeping? # => true
+job.may_run?  # => true
+job.run
+job.running?  # => true
+job.sleeping? # => false
+job.may_run?  # => false
+job.run       # => raises AASM::InvalidTransition
+
+
+
+---
+
+
+
+class CreateExamples < ActiveRecord::Migration[6.1]
+  def change
+    create_table :examples do |t|
+      По дефолту используется имя колонки aasm_state
+      t.string :aasm_state
+
+      t.timestamps
+    end
+  end
+end
+
+
+
+---
+
+
+
+job = Job.new
+job.run   # not saved
+# События с ! сохраняют модель
+job.run!  # saved
+
+# or
+job.aasm.fire(:run) # not saved
+job.aasm.fire!(:run) # saved
+
+resources :vacancies do
+  # Запрос на изменение состояния выполняется с глаголом PATCH
+  # https://www.restapitutorial.com/lessons/httpmethods.html
+  member do
+    patch :run
+  end
+end
+
+
+---
+
+
+AASM
+----
+
+https://github.com/aasm/aasm
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
