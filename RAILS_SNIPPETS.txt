@@ -2401,8 +2401,19 @@ document.getElementById('post-comments').innerHTML = "<%= escape_javascript(rend
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ---------------------
-Usefull web 
+Usefull web resources
 ---------------------
+
+
+Rails Ransack
+-------------
+
+https://activerecord-hackery.github.io/ransack/getting-started/simple-mode/
+
+
+
+---
+
 
 
 AASM - Rails FSM
@@ -15379,6 +15390,61 @@ https://github.com/aasm/aasm
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+-------
+Ransack
+-------
+
+
+require_relative 'boot'
+
+# В config/application.rb добавляем работу с SimpleForm
+ENV['RANSACK_FORM_BUILDER'] = '::SimpleForm::FormBuilder'
+
+require 'rails/all'
+
+class PeopleController < ApplicationController
+  def index
+    @q = Person.ransack(params[:q])
+    @people = @q.result
+  end
+end
+
+# Можем использовать хелпер формы. Однако этот хелпер не может подтягивать стили Bootstrap, поэтому классы и лейблы нужно писать самим
+# Если в конфиге подключен Simpleform для ransack, используем его
+= search_form_for @q do |f|
+  .row.my-2
+    .col-5
+    # Можем отключить показ лейблов
+    # Ransack ищет по полям в БД
+    # Для фильтров необходимо использовать определенные имена. Например, Если поле "содержит" текст, то имя инпута формы - column_cont
+      https://github.com/activerecord-hackery/ransack#search-matchers
+      = f.input :name_cont, label: false
+    .col-4
+      # Для вывода списка состояний можно выполнить map() на списке состояний.
+      = f.input :aasm_state_eq, as: :select, collection: Post.aasm.states.map(&:name), label: false
+    .col-3
+      = f.submit 'Search', class: 'btn btn-primary me-2'
+      = link_to 'Reset', url_for, class: 'btn btn-outline-primary'
+
+
+
+
+class User < ApplicationRecord
+  include AASM
+
+  validates :name, presence: true
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[name]
+  end
+end
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -15386,6 +15452,86 @@ https://github.com/aasm/aasm
 
 
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------
+Nested Forms, and nested attributes, with activerecord and cocoon
+-----------------------------------------------------------------
+
+
+form_for @user do |f|
+  # вложенная форма
+  = f.simple_fields_for :posts do |posts_form|
+    = posts_form.input :title
+  end
+end
+
+
+
+---
+
+
+
+form_for @user do |f|
+  # вложенная форма
+  = f.simple_fields_for :posts do |posts_form|
+  = render 'posts_field', posts_form: posts_form
+  end
+end
+
+
+
+---
+
+
+
+class Project < ActiveRecord::Base
+  has_many :tasks, inverse_of: :project, dependent: :destroy
+  accepts_nested_attributes_for :tasks, reject_if: :all_blank, allow_destroy: true
+end
+
+class Task < ActiveRecord::Base
+  belongs_to :project
+end
+
+
+
+---
+
+
+
+= simple_form_for @project do |f|
+  = f.input :name
+  = f.input :description
+  %h3 Tasks
+  #tasks
+    = f.simple_fields_for :tasks do |task|
+      = render 'task_fields', f: task
+    .links
+    # Нажатие по ссылке будет подгружать на страницу новые поля
+      = link_to_add_association t('.add_task'), f, :tasks
+  = f.submit
+
+
+
+---
+
+
+
+_task_fields.slim
+-----------------
+
+.nested-fields
+  = f.input :description
+  = f.input :done, as: :boolean
+  # Нажатие по ссылке будет удалять поля
+  = link_to_remove_association t('.remove_task'), f
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -15393,6 +15539,66 @@ https://github.com/aasm/aasm
 
 
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------------
+Add cocoon to rails 7 app
+-------------------------
+
+
+Gemfile
+-------
+
+gem 'jquery-rails'
+gem 'cocoon'
+
+
+
+---
+
+
+
+assets.rb
+---------
+
+Rails.application.config.assets.precompile += %w( jquery.js )
+
+
+
+---
+
+
+
+application.html.erb
+--------------------
+
+
+<%= javascript_include_tag "jquery" %>
+
+
+
+---
+
+
+
+$ importmap pin @nathanvda/cocoon
+
+
+
+---
+
+
+
+application.js
+--------------
+
+import "@nathanvda/cocoon"
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -15400,14 +15606,7 @@ https://github.com/aasm/aasm
 
 
 
-
-
-
-
-
-
-
-
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
