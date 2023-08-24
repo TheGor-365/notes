@@ -513,6 +513,7 @@ end
 
 ---
 
+
 ------------------------------
 Add categories options to form
 ------------------------------
@@ -569,6 +570,86 @@ _form.html.erb
 --------------
 
 <%= f.button :submit, class: "btn btn-sm btn-outline-dark" %>
+
+
+
+---
+
+
+
+---------------------------------------
+Active storage attachment view snippets
+---------------------------------------
+
+
+model.rb
+--------
+
+class Book < ApplicationRecord
+  has_many_attached :images
+end
+
+
+
+controller.rb
+-------------
+
+def book_params
+  params.require(:book).permit(:title, images: [])
+end
+
+
+or
+--
+
+def create
+  @book = Book.new(book_params)
+  @book.attach(params[:images], content_type: 'application/png')
+
+  respond_to do |format|
+    if @book.save
+      format.html { redirect_to book_url(@book), notice: "Book was successfully created." }
+    else
+      format.html { render :new, status: :unprocessable_entity }
+    end
+  end
+end
+
+
+
+_form.html.erb
+--------------
+
+<%= simple_form_for(@book) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <%= f.input :title %>
+  <%= f.input :images, input_html: { multiple: true }, class: 'form-control-sm my-3' %>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn btn-sm btn-outline-success mt-3' %>
+  </div>
+<% end %>
+
+
+
+view.html.erb
+-------------
+
+<% @book.images.each do |image| %>
+
+  <%= image_tag rails_blob_path(image), width: 200, height: 200 %>
+
+  <%= link_to rails_blob_path(image, disposition: "attachment"), width: 200, height: 200 %>
+
+  <%= image_tag url_for(image), width: 200, height: 200 %>
+
+  <%= image_tag image.variant(resize_to_limit: [400, 400]) %>
+
+  <%= image_tag image.preview(resize_to_limit: [400, 400]) %> # for video
+
+<% end %>
 
 
 
@@ -15607,6 +15688,285 @@ import "@nathanvda/cocoon"
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------
+User authentication and authorization with pundit gem for Rails app
+-------------------------------------------------------------------
+
+
+Gemfile
+-------
+
+gem "pundit"
+
+
+
+---
+
+
+
+$ rails g pundit:install
+
+
+
+
+---
+
+
+
+
+class ApplicationController < ActionController::Base
+  include Pundit::Authorization
+end
+
+class PostPolicy
+  attr_reader :user, :post
+
+  def initialize(user, post)
+    @user = user
+    @post = post
+  end
+
+  def update?
+    user.admin? || !post.published?
+  end
+end
+
+
+
+
+или
+---
+
+class PostPolicy < ApplicationPolicy
+  def update?
+    user.admin? || !record.published?
+  end
+end
+
+class PostsController < ActionController
+  def update
+    @post = Post.find(params[:id])
+    authorize @post
+    if @post.update(post_params)
+      redirect_to @post
+    else
+      render :edit
+    end
+  end
+
+  # Вторым параметром можно передать имя привилегии, которое нужно проверить, если имя экшена отличается
+
+  def publish
+    @post = Post.find(params[:id])
+    authorize @post, :update?
+    @post.publish!
+    redirect_to @post
+  end
+end
+
+
+
+
+
+Если нет конкретного инстанса для которого нужно проверить права, можно проверить права по имени класса
+-------------------------------------------------------------------------------------------------------
+
+class PostPolicy < ApplicationPolicy
+  def admin_list?
+    user.admin?
+  end
+end
+
+def admin_list
+  authorize Post # we don't have a particular post to authorize
+  # Rest of controller action
+end
+
+
+
+
+Использование политики в шаблоне
+--------------------------------
+
+<% if policy(@post).update? %>
+ <%= link_to "Edit post", edit_post_path(@post) %>
+<% end %>
+
+<% if policy(Post).new? %>
+ <%= link_to "Create post", new_post_path %>
+<% end %>
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------
+Working with files, using active_storage
+----------------------------------------
+
+
+$ bin/rails active_storage:install
+$ bin/rails db:migrate
+
+
+
+---
+
+
+
+class User < ApplicationRecord
+  has_one_attached :avatar
+
+  validates :avatar, attached: true,
+                    content_type: %i[png jpg jpeg],
+                    size: { less_than: 5.megabytes }
+end
+
+
+
+
+---
+
+
+
+tests
+-----
+
+
+class VehiclesControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @vehicle = vehicles(:one)
+
+    @attrs = {
+      manufacture: Faker::Vehicle.manufacture,
+      model: Faker::Vehicle.model,
+      color: Faker::Vehicle.color,
+      doors: Faker::Vehicle.doors,
+      kilometrage: Faker::Vehicle.kilometrage,
+      production_year: Faker::Date.backward,
+      image: fixture_file_upload('hexlet.png', 'image/png')
+    }
+  end
+
+  test 'should get index' do
+    get vehicles_url
+    assert_response :success
+  end
+
+  test 'should get new' do
+    get new_vehicle_url
+    assert_response :success
+  end
+
+  test 'should create vehicle' do
+    post vehicles_url, params: { vehicle: @attrs }
+
+    vehicle = Vehicle.find_by(@attrs.except(:image))
+
+    assert { vehicle }
+    assert_redirected_to vehicle_url(vehicle)
+  end
+
+  test 'should show vehicle' do
+    get vehicle_url(@vehicle)
+    assert_response :success
+  end
+
+  test 'should get edit' do
+    get edit_vehicle_url(@vehicle)
+    assert_response :success
+  end
+
+  test 'should update vehicle' do
+    patch vehicle_url(@vehicle), params: { vehicle: @attrs }
+
+    @vehicle.reload
+
+    assert { @vehicle.manufacture == @attrs[:manufacture] }
+    assert { @vehicle.model == @attrs[:model] }
+    assert_redirected_to vehicle_url(@vehicle)
+  end
+
+  test 'should destroy vehicle' do
+    delete vehicle_url(@vehicle)
+
+    assert_redirected_to vehicles_url
+
+    assert { !Vehicle.exists? @vehicle.id }
+  end
+end
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
