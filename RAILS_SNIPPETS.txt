@@ -3061,11 +3061,14 @@ have it before and use client credentials in HTTP Basic auth if you previously u
 client authentication.
 
 To opt out of this you could set the "skip_client_authentication_for_password_grant" configuration option
-to "true", but note that this is in violation of the OAuth spec and represents a security risk.
+to "true", but note that this is in violation of the OAuth spec and represents a security risk
 
 
 
-https://github.com/doorkeeper-gem/doorkeeper/issues/561#issuecomment-612857163 for more details.
+
+
+
+https://github.com/doorkeeper-gem/doorkeeper/issues/561#issuecomment-612857163
 
 
 

@@ -155,8 +155,8 @@ exit
 
 
 
-interpolation.rb:
------------------
+interpolation.rb
+----------------
 
 print "Enter value: "
 n = gets.chomp.to_s
@@ -186,7 +186,10 @@ puts "x = #{variable}"
 
 ---
 
-Russian encoding for Far:
+
+
+Russian encoding for Far
+------------------------
 
 # encoding: cp866 + f8
 
@@ -388,8 +391,8 @@ exit
 
 ---
 
-raind.rb:
----------
+raind.rb
+--------
 
 print "Enter string: "
 str = gets.chomp
@@ -785,11 +788,12 @@ SYMBOLS
 ---
 
 Array
+-----
 
 14, 22, 31, "Vasya", 44, 88
 
 arr = []
-arr = [ 18,4,5 ]
+arr = [ 18, 4, 5 ]
 
 ["Mike", 56]
 [["Mike", 56"], ["Jake", 33]]
@@ -811,7 +815,9 @@ arr = [ 18,4,5 ]
 
 arr = []
 arr = ["Roman", 32]
+
 arr << "Mike"
+
 arr = %w[Roman 32 Mike]
 arr = [:left, :right]
 
@@ -823,7 +829,7 @@ arr.each do |name|
 end
 
 arr abcde
-arr[1..3] => bcd
+arr[1..3]               => bcd
 
 .delete_at 0
 .delete item
@@ -854,7 +860,7 @@ arr.each do |item|
 end
 
 arr.each_with_index do |item, index|
-  puts "#{ index + 1 } #{ item }
+  puts "#{ index + 1 } #{ item }"
 end
 
 key value storage
@@ -1095,7 +1101,6 @@ merge
 
 
 class Animal
-
   def run
     puts 'Run'
   end
@@ -1113,7 +1118,6 @@ x.run
 
 
 class Animal
-
   @name = 'Dog'
 
   def run
@@ -1145,7 +1149,6 @@ attr_writer :variable
 
 
 class Airplane
-
   attr_reader :a
   attr_writer :b
   attr_accessor :c
@@ -1159,9 +1162,11 @@ class Airplane
   end
 end
 
+
 attr_reader r
 attr_writer w
 attr_accessor rw
+
 
 phone.a = 1 W
 puts plane.a R
@@ -1173,7 +1178,6 @@ Inheritance
 
 
 class Animal
-
   def run
      ...
   end
@@ -1262,6 +1266,7 @@ Man.say
 
 ---
 
+
 yield
 
 lambda
@@ -1285,6 +1290,7 @@ def
 
 
 ---
+
 
 require './file1.rb'
 
@@ -1358,6 +1364,7 @@ end
 
 
 ---
+
 
 split []
 
@@ -1469,7 +1476,7 @@ puts response
 
 ---
 
-ctrl + f search something
+ctrl + f --- search something
 
 
 ---
@@ -1512,31 +1519,33 @@ https://github.com/bmatzelle/gow
 19. RUBY GEM'S & SINATRA
 ------------------------
 
-
-> gem install hipchat
+$ gem install hipchat
 
 install ruby
 isert to PATH
 Development kit (MYSYS)
 
-win + E - проводник
-win + Prn Sc -
+win + E      - проводник
+win + Prn Sc - screenshot
 
 
-> ruby dk.rb init
 
-config.yml:
+$ ruby dk.rb init
+
+
+config.yml
+----------
+
 C:/Ruby200-x64
 
 
-> ruby dk.rb install
+$ ruby dk.rb install
 
 https://github.com/krdprog/rubyschool-notes
 
+
+
 Environment Variables
-
-
-permanent - постоянный
 
 
 stackoverflow
@@ -1548,9 +1557,12 @@ https://github.com/sinatra/sinatra - sinatra documentation
 get		post
 methods for server
 
+
+
 require 'sinatra'
 
-> ruby first_sapp.rb
+$ ruby first_app.rb
+
 
 == Sinatra (v2.1.0) has taken the stage on 4567 for development with backup from Thin
 Thin web server (v1.7.2 codename Bachmanity)
@@ -1611,12 +1623,12 @@ flash messages
 git
 ungit
 
-> node
-> node -v
+$ node
+$ node -v
 
-> npm install -g ungit
+$ npm install -g ungit
 
-> start ungit
+$ start ungit
 
 
 repository
@@ -1632,6 +1644,7 @@ initial commit
 
 
 ---
+
 
 http://putshello.wordpress.com/2014/08/14/installing-git-for-windows-git-ungit/
 
@@ -1662,7 +1675,7 @@ alt + \   - hendler
 
 ---
 
-> git checkout 462ef4ff - go to the branch 462ef4ff
+$ git checkout 462ef4ff - go to the branch 462ef4ff
 
 
 <head><head>
@@ -1681,7 +1694,9 @@ body {
 
 twitter bootstrap
 
-css:
+
+css
+---
 
 ctrl + alt + c  - colorpicker (atom)
 
@@ -1692,9 +1707,13 @@ ctrl + alt + c  - colorpicker (atom)
 
 ---
 
+
 https://github.com/bootstrap-ruby/sinatra-bootstrap
 
-> git clone git@github.com:bootstrap-ruby/sinatra-bootstrap.git
+
+
+$ git clone git@github.com:bootstrap-ruby/sinatra-bootstrap.git
+
 
 Cloning into 'sinatra-bootstrap'...
 Warning: Permanently added the RSA host key for IP address '140.82.121.4' to the list of known hosts.
@@ -1704,7 +1723,7 @@ Receiving objects: 100% (296/296), 791.43 KiB | 1.48 MiB/s, done.
 Resolving deltas: 100% (93/93), done.
 
 
-> bundle install
+$ bundle install
 
 Fetching gem metadata from https://rubygems.org/.....
 Resolving dependencies...
@@ -1718,7 +1737,7 @@ Bundle complete! 1 Gemfile dependency, 6 gems now installed.
 Use `bundle info [gemname]` to see where a bundled gem is installed.
 
 
-> bundle exec ruby app.rb
+$ bundle exec ruby app.rb
 
 [2021-01-11 20:18:01] INFO  WEBrick 1.4.2
 [2021-01-11 20:18:01] INFO  ruby 2.5.8 (2020-03-31) [x64-mingw32]
@@ -1763,18 +1782,24 @@ https://github.com
 
 git pull
 
-> git pull
+$ git pull
+
+
 Already up to date.
 
 
-> gem install sinatra-reloader
-> gem install sinatra-contrib
+$ gem install sinatra-reloader
+$ gem install sinatra-contrib
 
 
 require "sinatra/reloader" if development?
 
 
+
+
 ctrl + k + b  - tree (sublime text3)
+
+
 
 <input name="username" - for post method
 
@@ -1816,8 +1841,13 @@ bootstrap	jQuery
 
 <script type="text/javascript" src="/scripts.js"></script>
 
-selectors:
+
+
+selectors
+---------
+
 .class		#id
+
 
 <script type="text/javascript">
   $('#aaa').css('background-color', '#b4fff6');
@@ -1936,7 +1966,7 @@ redirect '/visit'
 
 CDN - Content Delivery Network
 
-gem pony
+gem 'pony'
 
 
 
@@ -1992,7 +2022,9 @@ copy * %WINDIR%\System32\
 http://www.sqlishard.com/Exercise - select exercises
 
 
-Create table:
+
+Create table
+------------
 
 ( first column: id )
 
@@ -2009,7 +2041,9 @@ values (1, 'BMW', 10000)
 insert into Cars (model, price)
 values ('BMW', 10000)
 
-> sqlite3 cars.sqlite
+
+
+$ sqlite3 cars.sqlite
 
 SQLite version 3.32.2 2020-06-04 12:58:43
 Enter ".help" for usage hints.
@@ -2029,8 +2063,11 @@ sqlite> select * from cars;
 6|KIA|50000
 7|LADA|10000
 
+
+
 sqlite> .mode column
 sqlite> .header on
+
 
 
 sqlite> select * from cars;
@@ -2113,6 +2150,7 @@ SQL injection
 
 
 ---
+
 
 http://rubyschool.us/files/sqlite3.zip
 
@@ -2484,7 +2522,7 @@ id          username    phone       datestamp         barber        color
 
 ---
 
-git reset hard HEAD~1
+$ git reset hard HEAD~1
 
 
 barbers hardcoded
@@ -2516,6 +2554,7 @@ seed_db db, ['Jessie Pinkman', 'Walter White', 'Gus Fring', 'Mike Smit']
 
 
 migrations
+----------
 
 
 before do
@@ -2829,9 +2868,13 @@ group :development do
   gem 'tux'
 end
 
-bundle install
 
-config.ru:
+$ bundle install
+
+
+
+config.ru
+---------
 
 require './app'
 run Sinatra::Application
@@ -2840,12 +2883,17 @@ for tux
 
 deploy, deployment - add app to hosting
 
+
+
 require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'sinatra/activerecord'
 
-set database:
+
+
+set database
+------------
 
 set :database, 'sqlite3:barber_AR_29.sqlite'
 
@@ -2869,17 +2917,29 @@ create essence
 class Client < ActiveRecord::Base
 end
 
-tux:
-> Clients.all
 
-> rake -T
 
-# app.rb
+tux
+---
+
+$ Clients.all
+
+$ rake -T
+
+
+
+app.rb
+------
+
 require "sinatra/activerecord"
 
 set :database, {adapter: "sqlite3", database: "foo.sqlite3"}
 
-# Rakefile
+
+
+Rakefile
+--------
+
 require "sinatra/activerecord/rake"
 
 namespace :db do
@@ -2887,6 +2947,7 @@ namespace :db do
     require "./app"
   end
 end
+
 
 rake aborted!
 No Rakefile found (looking for: rakefile, Rakefile, rakefile.rb, Rakefile.rb)
@@ -2897,15 +2958,21 @@ No Rakefile found (looking for: rakefile, Rakefile, rakefile.rb, Rakefile.rb)
 si/si++ - Makefile
 ruby - Rakefile
 
-app.directory:
-touch Rakefile:
+
+
+app.directory
+-------------
+
+$ touch Rakefile
+
+
 
 require './app'
 require 'sinatra/activerecord/rake'
 
 
 
-> rake -T
+$ rake -T
 
 rake db:create              # Creates the database from DATABASE_URL or con...
 rake db:create_migration    # Create a migration (parameters: NAME, VERSION)
@@ -2937,7 +3004,7 @@ rake db:rollback - back to previous migration
 
 
 
-> rake db:create_migration NAME=create_clients
+$ rake db:create_migration NAME=create_clients
 
 db/migrate/20210117064606_create_clients.rb
 
@@ -2989,7 +3056,7 @@ t.text -> TEXT
 t.string -> VARCHAR(255)
 
 
-> rake db:migrate --trace
+$ rake db:migrate --trace
 
 ** Invoke db:migrate (first_time)
 ** Invoke db:load_config (first_time)
@@ -3003,11 +3070,11 @@ t.string -> VARCHAR(255)
 
 
 
-gem install activerecord -v 5.2.4
+$ gem install activerecord -v 5.2.4
 
 
 
-> rake db:create_migration NAME=create_clients
+$ rake db:create_migration NAME=create_clients
 
 db/migrate/20210117104230_create_clients.rb
 
@@ -3029,18 +3096,19 @@ ar_internal_metadata  client                schema_migrations
 
 
 mapping
+-------
 
 ORM - Object Relational Mapper
 
 
 
-> rake db:create_migration NAME=create_barbers
+$ rake db:create_migration NAME=create_barbers
 
 db/migrate/20210117112435_create_barbers.rb
 
 
 
-> rake db:migrate
+$ rake db:migrate
 
 == 20210117112435 CreateBarbers: migrating ====================================
 -- create_table(:barbers)
@@ -3248,8 +3316,8 @@ D, [2020-06-05T23:05:52.629577 #14092] DEBUG -- :
 ---
 
 
-tux:
-----
+tux
+---
 
 >> b = Barber.new :name => 'Roman'
 
@@ -3530,7 +3598,7 @@ https://stackoverflow.com/questions/20918321/how-exacty-http-protocol-works
 
 ---
 
-> ping yandex.ru
+$ ping yandex.ru
 
 Обмен пакетами с yandex.ru [5.255.255.60] с 32 байтами данных:
 Ответ от 5.255.255.60: число байт=32 время=12мс TTL=249
@@ -3567,7 +3635,7 @@ SSL - https://ya.ru - connect by secure channel
 see ip >ping site_name:
 
 
-> ping google.com
+$ ping google.com
 
 Обмен пакетами с google.com [64.233.165.101] с 32 байтами данных:
 Ответ от 64.233.165.101: число байт=32 время=23мс TTL=46
@@ -3662,10 +3730,16 @@ u - unset - сбросить параметры ("unset ?" для вывода �
 ---
 
 
-HTTP:
+HTTP
+----
+
 stateless
 
-IRC:
+
+
+IRC
+---
+
 unstateless
 
 
@@ -3696,7 +3770,7 @@ http://stackoverflow.com/questions/20918321/how-exacty-http-protocol-works
 CMD
 ---
 
-ping ya.ru
+$ ping ya.ru
 
 
 ---
@@ -3714,14 +3788,15 @@ GET / HTTP / 1.0
 ---
 
 
-telnet
-telnet ya.ru 80
+$ telnet
+$ telnet ya.ru 80
 
 
 ---
 
 
 http://stackoverflow.com/questions/2092527/what-happens-when-you-type-in-a-url-in-browser
+
 
 1.  browser checks cache; if requested object is in cache and is fresh, skip to #9
 2.  browser asks OS for server's IP address
@@ -3735,12 +3810,17 @@ http://stackoverflow.com/questions/2092527/what-happens-when-you-type-in-a-url-i
 10. browser determines what to do with response (e.g. is it a HTML page, is it an image, is it a sound clip?)
 11. browser renders response, or offers a download dialog for unrecognized types
 
+
 stateless - HTTP/HTTPS
 IRC - no stateless protocol
 
+
 http://stackoverflow.com/questions/13200152/why-say-that-http-is-a-stateless-protocol
 
-autorization mechanism:
+
+
+autorization mechanism
+----------------------
 
 1. the use of HTTP cookies.
 2. server side sessions,
@@ -3758,7 +3838,9 @@ url.unescape online (online decoder)
 ---
 
 
-gem devise
+gem 'devise'
+
+
 
 javascript
 
@@ -4822,7 +4904,7 @@ stackoverflow.com
 ----------------------------
 
 
->irb
+$ irb
 
 > x = 1
 => 1
@@ -4846,16 +4928,18 @@ x || = y
 PizzaShop data, cart data structure
 -----------------------------------
 
-key		value
----		---
-product1	amount
+key		        value
+---		        -----
+product_1	    amount
 
 
-window.localStorage.length
+
+$ window.localStorage.length
+
 3
 
 
-> window.localStorage
+$ window.localStorage
 
 Storage {product_1: "5", product_2: "4", product_3: "1", length: 3}
 length: 3
@@ -6331,7 +6415,10 @@ $ rails g controller contacts
   create      app/assets/stylesheets/contacts.scss
 
 
+
+
 REST
+----
 
 Contacts
 --------
@@ -6985,8 +7072,8 @@ http://github.com/ro31337/sample-blog
 Rails
 -----
 
-cmd:
-----
+cmd
+---
 
 $ rails console
 
@@ -8033,6 +8120,7 @@ article_comments GET    /articles/:article_id/comments(.:format)  comments#index
 <form action="/articles/3" ...
 
 
+
 neeed
 -----
 
@@ -8286,11 +8374,11 @@ article#show
 ActiveRecord
 ------------
 
-C		R		U		D
+C		      R		    U		      D
 create		read		update		delete
 -------		-----		-------		--------
-.new		.find		.update		.destroy
-.save		.all				.delete
+.new		  .find		.update		.destroy
+.save		  .all		.delete
 .create		.where
 
 
@@ -8717,7 +8805,9 @@ rspec ./hero_spec.rb:4 # Hero has a capitalized name
 rspec ./hero_spec.rb:10 # Hero can power up
 
 
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 require './hero'
 
@@ -8941,6 +9031,7 @@ describe Hero do
   end
 end
 
+
 ---
 
 
@@ -9091,6 +9182,7 @@ Issues
 ------
 
 New issue
+---------
 
 1. Add title
 2. Add comment
@@ -9169,7 +9261,7 @@ http://github.com/ro31337/sample-blog
 ---
 
 
-gem install devise
+$ gem install devise
 
 gem for authorization
 
@@ -9256,6 +9348,7 @@ TestUnit:
 
 
 ----
+
 
 $ rails g devise install
 
@@ -9708,8 +9801,8 @@ https://odeskwork.com/projects/
 https://github.com/nwinkler/atom-keyboard-shortcuts - atom shortcuts
 
 
-Far manager shortcut:
----------------------
+Far manager shortcut
+--------------------
 
 $ cd working_dyrectory
 $ start atom .
@@ -9771,10 +9864,10 @@ application.html.erb
         <p class="alert text-muted"><%= alert %></p>
     </div>
 
-
     <%= yield %>
   </body>
 </html>
+
 
 
 https://github.com/heartcombo/devise
@@ -10027,13 +10120,16 @@ add bootstrap
   <head>
     <link rel="stylesheet" href="lib/style.css">
     <script src="lib/script.js"></script>
+
     <!-- CSS only -->
+
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 	  integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
 	  crossorigin="anonymous">
 
     <!-- JS, Popper.js, and jQuery -->
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 	    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 	    crossorigin="anonymous">
@@ -10084,12 +10180,14 @@ add bootstrap
     <script src="lib/script.js"></script>
 
     <!-- CSS only -->
+
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 	  integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
 	  crossorigin="anonymous">
 
     <!-- JS, Popper.js, and jQuery -->
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 	    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 	    crossorigin="anonymous">
@@ -10156,12 +10254,14 @@ add bootstrap
     <script src="lib/script.js"></script>
 
     <!-- CSS only -->
+
     <link rel="stylesheet"
     	  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 	  integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
 	  crossorigin="anonymous">
 
     <!-- JS, Popper.js, and jQuery -->
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 	    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 	    crossorigin="anonymous">
@@ -10209,6 +10309,7 @@ add bootstrap
         </div>
       </div>
     </div>
+
   </body>
 </html>
 
@@ -10505,6 +10606,7 @@ $ rails db:migrate RAILS_ENV=test
 
 
 
+
 $ rails db:migrate RAILS_ENV=test
 
 $ rake spec
@@ -10758,7 +10860,9 @@ group :development, :test do
 end
 
 
-# new
+
+new
+---
 
 group :development, :test do
   gem "factory_bot_rails"
@@ -10771,7 +10875,9 @@ $ bundle install
 $ bundle update
 
 
-C:\new_repeat\ruby_cource\lesson_46_rails_models_testing\Blog_46_tests\spec:
+
+C:\new_repeat\ruby_cource\lesson_46_rails_models_testing\Blog_46_tests\spec
+---------------------------------------------------------------------------
 
 $ mkdir factories/model_name.rb
 $ mkdir support
@@ -10784,6 +10890,7 @@ add to support
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 end
+
 
 
 C:\new_repeat\ruby_cource\lesson_46_rails_models_testing\Blog_46_tests\spec\rails_helper.rb
@@ -10829,7 +10936,7 @@ scenario
 ---
 
 
-gem capybara
+gem 'capybara'
 
 
 ---
@@ -11020,7 +11127,7 @@ C:\Projects\ruby\rails\blog_2\app\views\contacts\new.html.erb
       </div>
     </div>
 
-      <%= f.submit 'Send message', :class => "btn btn-primary btn-lg" %>
+    <%= f.submit 'Send message', :class => "btn btn-primary btn-lg" %>
   <% end %>
 </div>
 
@@ -11269,6 +11376,7 @@ RSpec.configure do |config|
 end
 
 
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -11330,7 +11438,7 @@ scaffold - rails command
 ---
 
 
-> rails g scaffold User name:string email:string
+$ rails g scaffold User name:string email:string
 
       invoke  active_record
       create    db/migrate/20200629190540_create_users.rb
@@ -11472,7 +11580,7 @@ end
 ---
 
 
-> rails g scaffold Micropost content:text user_id:integer
+$ rails g scaffold Micropost content:text user_id:integer
 
       invoke  active_record
       create    db/migrate/20200629192856_create_microposts.rb
@@ -11538,7 +11646,8 @@ end
 Associations realization
 ------------------------
 
-one_to_many:
+one_to_many
+-----------
 
 User 1------------->* Microposts:
 
@@ -11557,9 +11666,11 @@ end
 
 microposts		users
 ----------		-----
-id			id
-content			name
-user_id			email
+id			      id
+content			  name
+user_id			  email
+
+
 
 
 > select * from Microposts;
@@ -12432,6 +12543,7 @@ http://rubular.com
 
 
 Regular expression
+------------------
 
 regex
 
@@ -12445,18 +12557,18 @@ find & replace
 ---
 
 
-\b - Любая граница слова (cat\b)
-\. - any symbol
-\d - any number
-{2} - count of same elements (\.\d{2}) (\.\d{1,2})
-a+ - own or more (\n+)
-* - zero or more (\n *) (\n\s*) (no+!*) (0{6}) (0{6}\b) (0{3,}) (ba{3,}) (^hello) (^http://.+)
-\s - any whitespace
-^ - start of line
-$ - end of line (bye$) ($index.html) (^\$)
-\w - word character
+\b    - Любая граница слова (cat\b)
+\.    - any symbol
+\d    - any number
+{2}   - count of same elements (\.\d{2}) (\.\d{1,2})
+a+    - own or more (\n+)
+*     - zero or more (\n *) (\n\s*) (no+!*) (0{6}) (0{6}\b) (0{3,}) (ba{3,}) (^hello) (^http://.+)
+\s    - any whitespace
+^     - start of line
+$     - end of line (bye$) ($index.html) (^\$)
+\w    - word character
 [abc] - single character of: a, b, or c ([$,])
-() - pattern (something)+ ((\d{1,2})\/(\d{1,2})\/(\d{4}))
+()    - pattern (something)+ ((\d{1,2})\/(\d{1,2})\/(\d{4}))
 
 
 ---
@@ -12472,8 +12584,8 @@ Regex functions
 ---
 
 
-Work with regex in sublime text:
---------------------------------
+Work with regex in sublime text
+-------------------------------
 
 ctrl + h - regular expression panel
 
@@ -12935,7 +13047,7 @@ https://www.youtube.com/channel/UCuEXLUx21ofCvFx8wFwtfNQ/videos
 Generate mailer cmd example
 ---------------------------
 
-rails g mailer CommentMailer new_comment
+$ rails g mailer CommentMailer new_comment
 
 
 
@@ -13064,7 +13176,7 @@ https://www.microfocus.com/documentation/idol/IDOL_12_0/MediaServer/Guides/html/
 Syntax for add POST params to console
 -------------------------------------
 
-curl -d "name=oleg&price=120" -X POST http://localhost:3000/data
+$ curl -d "name=oleg&price=120" -X POST http://localhost:3000/data
 
 
 
@@ -13100,7 +13212,7 @@ https://www.youtube.com/watch?v=qvGGz-2WHpU
 Rails app create cmd (property_finder)
 --------------------------------------
 
-rails new property_finder --database-postgresql --skip-test --skip-action-cable --skip-active-storage --skip-turbolinks --skip-yarn
+$ rails new property_finder --database-postgresql --skip-test --skip-action-cable --skip-active-storage --skip-turbolinks --skip-yarn
 
 
 
@@ -13135,7 +13247,7 @@ file:///C:/Program%20Files%20(x86)/GraphicsMagick-1.3.34-Q16/www/index.html
 New API key for rails app
 -------------------------
 
->rails new my_api --api
+$ rails new my_api --api
 
 
 
@@ -13152,7 +13264,7 @@ New API key for rails app
 Console command for atom starting
 ---------------------------------
 
->atom ./
+$ atom ./
 
 
 
@@ -13171,7 +13283,7 @@ Add fontawesome to rails app
 
 ---1---
 
->yarn add @fortawesome/fontawesome-free
+$ yarn add @fortawesome/fontawesome-free
 
 
 ---2---
@@ -13198,7 +13310,7 @@ https://stackoverflow.com/questions/55989717/rails-installing-font-awesome-in-ra
 Rails multiple object create snippets for seeds.rb
 --------------------------------------------------
 
-> Account.create([
+Account.create([
   { username: 'John',  first_name: 'John',  last_name: 'Doe',   email: 'johndoe@example.com',    password: 'password' },
   { username: 'Jane',  first_name: 'Jane',  last_name: 'Smith', email: 'fanesmith@example.com',  password: 'password' },
   { username: 'Susan', first_name: 'Susan', last_name: 'Baker', email: 'susanbaker@example.com', password: 'password' },
@@ -13258,7 +13370,7 @@ https://www.youtube.com/watch?v=Dd8dOAL6WYs
 
 ---2---
 
->rails g migration AddOmniauthToAccounts provider:string uid:string
+$ rails g migration AddOmniauthToAccounts provider:string uid:string
 
   invoke  active_record
   create    db/migrate/20210211092149_add_omniauth_to_accounts.rb
@@ -13267,7 +13379,7 @@ https://www.youtube.com/watch?v=Dd8dOAL6WYs
 
 ---3---
 
->rake db:migrate
+$ rake db:migrate
 
 == 20210211092149 AddOmniauthToAccounts: migrating ============================
 -- add_column(:accounts, :provider, :string)
@@ -13330,7 +13442,7 @@ https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview
 Add jquery twitter-bootstrap and popper.js to rails app with yarn
 -----------------------------------------------------------------
 
->yarn add bootstrap jquery popper.js
+$ yarn add bootstrap jquery popper.js
 
 @import 'bootstrap/scss/bootstrap';
 
@@ -13338,7 +13450,8 @@ require("bootstrap")
 
 
 
-ADD JQUERY SNIPPET:
+ADD JQUERY SNIPPET
+------------------
 
 const webpack = require('webpack')
 environment.plugins.prepend('Provide',
@@ -13348,6 +13461,7 @@ environment.plugins.prepend('Provide',
     Popper: ['popper.js', 'default']
   })
 )
+
 
 
 https://gist.github.com/nachozt/799a54c1bba79975bdcfd4f67226ce22
@@ -13403,14 +13517,14 @@ Rails ActiveStorage
 
 ---1---
 
->rails active_storage:install
+$ rails active_storage:install
 
 Copied migration 20210212141003_create_active_storage_tables.active_storage.rb from active_storage
 
 
 ---2---
 
->rails db:migrate
+$ rails db:migrate
 
 == 20210212141003 CreateActiveStorageTables: migrating ========================
 -- create_table(:active_storage_blobs, {})
@@ -13875,8 +13989,9 @@ https://www.material-theme.com/docs/configuration/icons-settings/
 Getting API's for oath_app
 --------------------------
 
-Add to Gemfile:
-       --------
+Add to Gemfile
+--------------
+
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
@@ -13977,8 +14092,11 @@ File encrypted and saved.
 
 $ rails credentials:show
 
+
+
 C:\Users\74955\AppData\Local\Temp\656.credentials.yml
-                                  -------------------
+-----------------------------------------------------
+                                  
 facebook:
   facebook_client_id: 427450925200664
   facebook_client_secret: 9da417863abd3abf9865ec583d06a6bb
@@ -13994,7 +14112,8 @@ google:
 secret_key_base: 23960f33178f13b9ded84bbb7c5aaa28625fbc6167f2c7e1c20da0adb2dd9b4b965d2768c1fc4f502b90256de18098e5b341b5e856f166fddc01914e02c9c8d6
 
 
-rails c:
+
+$ rails c
 
 > Rails.application.credentials.dig(:facebook, :facebook_client_secret)
 
@@ -14005,7 +14124,8 @@ rails c:
 ---7---
 
 C:\Projects\rails_basics\oauth_app\config\initializers\devise.rb
-                                                       ---------
+----------------------------------------------------------------
+                                                       
 #config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
   config.omniauth :facebook, Rails.application.credentials.dig(:facebook, :facebook_client_id),
@@ -14022,7 +14142,8 @@ C:\Projects\rails_basics\oauth_app\config\initializers\devise.rb
 ---8---
 
 $ cd 'c:\Projects\rails_basics\oauth_app\config\initializers\session_store.rb'
-                                                             -----------------
+------------------------------------------------------------------------------
+                                                             
 Rails.application.config.session_store :active_record_store, key: '_devise_omniauth_session'
 
 
@@ -14085,9 +14206,9 @@ $ rails db:migrate
 ---10---
 
 C:\Projects\rails_basics\oauth_app\app\models\user.rb
-                                              -------
+-----------------------------------------------------
+                                              
 class User < ApplicationRecord
-
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 
   devise :database_authenticatable, :registerable,
@@ -14126,9 +14247,9 @@ $ rails g controller omniauth
 ---12---
 
 C:\Projects\rails_basics\oauth_app\app\controllers\omniauth_controller.rb
-                                                   ----------------------
+-------------------------------------------------------------------------
+                                                   
 class OmniauthController < ApplicationController
-
   def facebook
     @user = User.create_from_provider_data(request.env['omniauth.auth'])
 
@@ -14194,6 +14315,7 @@ customize devise pages!
 
 routes.rb
 ---------
+
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth' }
   root to: 'public#home'
@@ -14409,17 +14531,21 @@ $ yarn add toastr
 ---2---
 
 app/javascript/packs/application.js
-                     --------------
+-----------------------------------
+
 global.toastr = require("toastr")
 
 
 
 ---3---
 
-touch app/javascript/stylesheets/application.scss
-                                 ----------------
+$ touch app/javascript/stylesheets/application.scss
+                     
+
+
 import in app/javascript/stylesheets/application.scss
-                                     ----------------
+-----------------------------------------------------
+                                     
 @import 'toastr'
 
 
@@ -14427,7 +14553,8 @@ import in app/javascript/stylesheets/application.scss
 ---4---
 
 app/javascript/packs/application.js
-                     --------------
+-----------------------------------
+                     
 import "../stylesheets/application"
 
 

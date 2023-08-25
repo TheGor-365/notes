@@ -1,12 +1,16 @@
----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---
+RVM
+---
 
------
-Usage
------
- 
+
+
+
+
 rvm [--debug][--trace][--nice] <command> <options>
 
 
+
+-----------
 for example
 -----------
 
@@ -26,7 +30,7 @@ Available commands
 ------------------
 
 rvm has a number of common commands, listed below. Additional information about any command
-can be found by executing `rvm help <command>`. 
+can be found by executing `rvm help <command>`
 
 ruby installation
 -----------------

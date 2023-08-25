@@ -192,9 +192,9 @@ deploy
 
 
 
-apt update                                                              # обновляем список последних пакетов
-apt install python3-pip
-pip install docker
+$ apt update                                                              # обновляем список последних пакетов
+$ apt install python3-pip
+$ pip install docker
 
 
 
@@ -234,7 +234,7 @@ pip install docker
         state: started
         ports:
           - 3000:3000
-        env: # Настраиваем
+        env:                                                                                  # Настраиваем
           NODE_ENV: production
 
 
@@ -242,15 +242,15 @@ pip install docker
 -------------------------------------------
 
 
-# ansible/inventory.yml
+ansible/inventory.yml
+---------------------
 
 all:
   children:
-    webservers: # группа веб-серверов
+    webservers:                                                                               # группа веб-серверов
       hosts:
-        web1: # имя сервера выбрано произвольно
-          # Поменяйте на ip вашего сервера
-          ansible_host: 65.108.149.193
+        web1:
+          ansible_host: 65.108.149.193                                                        # Поменяйте на ip вашего сервера, имя сервера выбрано произвольно
 
 
 
@@ -261,7 +261,9 @@ all:
 
 $ ansible-playbook ansible/release.yml -i ansible/inventory.yml -vv --extra-vars "version=v5"
 
-rollback:
+
+rollback
+--------
 
 $ ansible-playbook ansible/release.yml -i ansible/inventory.yml -vv --extra-vars "version=v4"
 
@@ -314,7 +316,8 @@ const server = http.createServer((req, res) => {
 
 
 
-# file: docker-compose.yml
+docker-compose.yml
+------------------
 
 version: "3"
 
@@ -346,7 +349,8 @@ services:
 
 
 
-# services/caddy/Dockerfile
+services/caddy/Dockerfile
+-------------------------
 
 FROM caddy
 
@@ -382,9 +386,11 @@ localhost, devops-example.test {
 
 
 
-docker compose up
+$ docker compose up
+$ docker compose up --abort-on-container-exit
 
-docker compose up --abort-on-container-exit
+
+
 [+] Running 2/0
  ⠿ Container devops-example-app-caddy-1  Created
  ⠿ Container devops-example-app-app-1    Created
@@ -400,7 +406,8 @@ devops-example-app-app-1    | 22:48:50 ✨ Server listening at http://0.0.0.0:30
 -------------------------------------------
 
 
-# .github/workflows/main.yml
+.github/workflows/main.yml
+--------------------------
 
 - name: Build and push caddy
   uses: docker/build-push-action@v2
@@ -408,15 +415,15 @@ devops-example-app-app-1    | 22:48:50 ✨ Server listening at http://0.0.0.0:30
     context: .
     file: services/caddy/Dockerfile
     push: true
-    # Не забудьте создать репозиторий в Docker Hub
-    tags: hexletcomponents/devops-example-caddy:latest
+    tags: hexletcomponents/devops-example-caddy:latest                                      # Не забудьте создать репозиторий в Docker Hub
 
 
 
 -------------------------------------------
 
 
-# .github/workflows/release.yml
+.github/workflows/release.yml
+-----------------------------
 
 - run: docker pull hexletcomponents/devops-example-caddy:latest
 - run: docker tag hexletcomponents/devops-example-caddy:latest hexletcomponents/devops-example-caddy:${{ github.ref_name }}
@@ -467,8 +474,9 @@ $ ansible-playbook release.yml -i inventory.yml --extra-vars="version=v6" -vv
 
 -------------------------------------------
 
-
-# Caddy
+-----
+Caddy
+-----
 
 reverse_proxy {
   to app:3000
@@ -483,10 +491,16 @@ reverse_proxy {
 }
 
 
+
+
 ---
 
 
-# Nginx
+
+
+-----
+Nginx
+-----
 
 error_page 502 /502.html;
 

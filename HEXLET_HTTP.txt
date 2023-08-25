@@ -18,7 +18,7 @@ $ telnet google.com 80
 
 ---
 
-$ ping -c 4 google.com # 74.125.21.139
+$ ping -c 4 google.com                                                                                          # 74.125.21.139
 $ telnet 74.125.21.139 80
 
 
@@ -27,6 +27,7 @@ $ telnet 74.125.21.139 80
 
 
 $ telnet google.com 80
+
 
 Trying 74.125.21.139...
 Connected to google.com.
@@ -38,6 +39,7 @@ Escape character is '^]'.
 
 
 $ telnet google.com 80
+
 
 Trying 64.233.164.100...
 Connected to google.com.
@@ -79,6 +81,7 @@ HTTP 1.1
 
 
 $ telnet google.com 80
+
 
 GET / HTTP/1.1
 host: google.com
@@ -141,6 +144,7 @@ HTTP body
 
 $ telnet hexlet.io 80
 
+
 GET / HTTP/1.1
 Host: hexlet.io
 
@@ -201,12 +205,13 @@ login=smith&password=12345678
 
 $ telnet localhost 8080
 
+
 POST /login HTTP/1.1
 Host: hexlettesthost.com
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 29
 
-login=smith&password=12345678 # отправляем данные
+login=smith&password=12345678                                                                                       # отправляем данные
 HTTP/1.1 200 OK
 X-Powered-By: Express
 Connection: close
@@ -280,6 +285,7 @@ Transfer Encoding
 
 $ telnet httpwatch.com 80
 
+
 GET https://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1
 Host: httpwatch.com
 Connection: close
@@ -288,8 +294,7 @@ HTTP/1.1 200 OK
 Cache-Control: no-cache, no-store
 Pragma: no-cache
 Trailer: X-HttpWatch-Sample
-# вместо Content-Length здесь заголовок Transfer-Encoding
-Transfer-Encoding: chunked
+Transfer-Encoding: chunked                                                                      # вместо Content-Length здесь заголовок Transfer-Encoding
 Content-Type: image/jpeg; charset=utf-8
 Expires: -1
 Server: Microsoft-IIS/10.0
@@ -352,6 +357,8 @@ redirects
 
 
 telnet hexlet.io 80
+
+
 GET / HTTP/1.1
 host: hexlet.io
 
@@ -417,6 +424,7 @@ Coocies
 
 
 $ curl --head https://ru.hexlet.io
+
 
 HTTP/2 200
 server: nginx/1.19.1

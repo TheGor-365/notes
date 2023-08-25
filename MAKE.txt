@@ -137,6 +137,7 @@ start:
 
 ---
 
+
 $ make setup 														# выполнит последовательно: env-prepare sqlite-prepare install key db-prepare
 $ make start
 
@@ -185,6 +186,8 @@ test:
 
 
 $ make test
+
+
 ✓ All tests passed!
 
 
@@ -208,6 +211,7 @@ env-prepare:
 
 
 ---
+
 
 env-prepare:
 	cp -n .env.example .env || true 						# теперь любой исход выполнения команды будет считаться успешным

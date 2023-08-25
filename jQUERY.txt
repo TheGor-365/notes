@@ -14,7 +14,7 @@ const loginMenu = document.getElementById('loginMenu');
 
 
 login.addEventListener('click', () => {
-  if(loginMenu.style.display === 'none'){
+  if (loginMenu.style.display === 'none') {
     loginMenu.style.display = 'inline';
   } else {
     loginMenu.style.display = 'none';
@@ -162,6 +162,7 @@ $('#login').on('click', () => {
 
 ---
 
+
 $(document).ready(() => {
 
   const $menuButton = $('.menu-button');
@@ -170,7 +171,6 @@ $(document).ready(() => {
   $menuButtom.on('click', () => {
     $navDropdown.show();
   })
-
 })
 
 
@@ -182,14 +182,14 @@ $(document).ready(() => {
 
 ------------------------------------------------------------------------------------------------------------
 
-.ready()    - 
-.on()       - 
-.hide()     - 
-.show()     - 
-.fadeIn()   -
-.fadeOut()  -
-.click()    -
-.toggle()   -
+.ready()    - specify a function to execute when the DOM is fully loaded
+.on()       - attach an event handler function for one or more events to the selected elements
+.hide()     - hide the matched elements
+.show()     - display the matched elements
+.fadeIn()   - display the matched elements by fading them to opaque
+.fadeOut()  - hide the matched elements by fading them to transparent
+.click()    - bind an event handler to the "click" event
+.toggle()   - display or hide the matched elements
 
 
 
@@ -732,6 +732,7 @@ body {
 }
 
 /* Header */
+
 .header {
   padding: 45px 0;
   background-color: #0074ff;
@@ -783,6 +784,7 @@ body {
 }
 
 /* Main */
+
 .main {
   background: url('https://s3.amazonaws.com/codecademy-content/projects/2/madison-square-market/s1.jpg') no-repeat center center;
   background-size: cover;
@@ -791,6 +793,7 @@ body {
 }
 
 /* Footer */
+
 .footer {
   background-color: #0074ff;
   padding: 20px 0;
@@ -909,7 +912,6 @@ const code = fs.readFileSync('js/main.js', 'utf8');
 
 describe('', function () {
   it('', function() {
-    // Match for method call
     let structureMethod = function() {
       $(document).ready(() => {
         $($buttonName).on($click, () => {
@@ -981,11 +983,11 @@ describe('', function () {
 
 ---
 
-body{
+body {
   background-color: #86bdfd;
 }
 
-table{
+table {
   width: 100%;
   border: 1px #0b2748 solid;
   border-spacing:0;
@@ -1000,7 +1002,7 @@ th {
   border: 1px #0b2748 solid;
 }
 
-img{
+img {
   width: 240px; 
   height: 160px;
   display: block;
@@ -1037,12 +1039,12 @@ button {
   color: #4a90e2;
 }
 
-.header-small{
+.header-small {
   height: 69px;
   background-color: #ffffff;
 }
 
-.header-big{
+.header-big {
   background-color: #ffffff;
 }
 
@@ -1267,16 +1269,26 @@ $(document).ready(() => {
 ------------------------------------------------------------------------------------------------------------
 
 мгновенно скрывают или показывают элементы на веб-странице
+----------------------------------------------------------
+
 .hide()
 .show()
 .toggle()
 
+
+
 заставляют элементы исчезать или появляться в течение определенного периода времени
+-----------------------------------------------------------------------------------
+
 .fadeOut()
 .fadeIn()
 .fadeToggle()
 
+
+
 заставляют элементы скользить вверх или вниз на место в течение определенного периода времени
+---------------------------------------------------------------------------------------------
+
 .slideUp()
 .slideDown()
 .slideToggle()
@@ -1395,7 +1407,7 @@ body {
   background-color: #86bdfd;
 }
 
-.card{
+.card {
   width: 620px;
 }
 
@@ -1407,7 +1419,7 @@ body {
   color: #0b2748;
 }
 
-.question{
+.question {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1416,7 +1428,7 @@ body {
   background-color: #86bdfd;
 }
 
-.hint-box{
+.hint-box {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1426,7 +1438,7 @@ body {
   cursor: pointer;
 }
 
-.hint{
+.hint {
   box-sizing: border-box;
   width:100%;
   padding: 30px 0;
@@ -1437,7 +1449,7 @@ body {
   
 }
 
-.answer{
+.answer {
   display: flex;
   align-items: center;
   width: 100%;
@@ -1447,7 +1459,7 @@ body {
   
 }
 
-.wrong-answer-one{
+.wrong-answer-one {
   background-color: #ffffff;
 }
 
@@ -1455,16 +1467,16 @@ body {
   background-color: #edf5ff;
 }
 
-.wrong-answer-three{
+.wrong-answer-three {
 
   background-color: #ffffff;
 }
 
-.correct-answer{
+.correct-answer {
   background-color: #edf5ff;
 }
 
-.result{
+.result {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1473,15 +1485,16 @@ body {
   border-radius: 2.2px;
   background-color: #0b2748;
 }
-.smiley{
+
+.smiley {
 	display: none;
 }
 
-.frown{
+.frown {
   display: none;
 }
 
-.hide-hint-text{
+.hide-hint-text {
   font-family: Source Sans Pro;
   font-size: 20px;
   font-weight: 600;
@@ -1491,7 +1504,6 @@ body {
 }
 
 .answer-text {
- 
   font-family: Source Sans Pro;
   font-size: 42px;
   line-height: 1.29;
@@ -1525,6 +1537,7 @@ $('.example-class').on('mouseenter',  () => {
 
 ---
 
+
 $(document).ready(() => {
   $('.login-button').on('click', () => {
     $('.login-form').show();
@@ -1557,6 +1570,7 @@ $('.example-class').on('mouseleave', function() {
 
 
 ---
+
 
 $(document).ready(() => {
   $('.login-button').on('click', () => {
@@ -2486,6 +2500,7 @@ $('.example-class').css('color', '#FFFFFF');
 
 ---
 
+
 $(document).ready(() => {
  
   $('.login-button').on('click', () => {
@@ -2796,6 +2811,7 @@ $(document).ready(() => {
 
   <body>
     <!-- Navigation -->
+
     <nav>
       <div class='container'>
         <object type='image/svg+xml' data='https://s3.amazonaws.com/codecademy-content/courses/jquery/audit/images/sole-logo.svg'></object>
@@ -2807,6 +2823,7 @@ $(document).ready(() => {
     </nav>
 
     <!-- Nav Menu -->
+
     <div class='nav-menu hide'>
       <div class='container'>
         <ul>
@@ -2827,6 +2844,7 @@ $(document).ready(() => {
     </div>
 
     <!-- Login Form -->
+
     <div class='login-form'>
       <div class='container'>
         <form>
@@ -2937,6 +2955,7 @@ $(document).ready(() => {
     </div>
 
     <!-- Shopping cart -->
+
     <div class='shopping-cart'>
       <div class='container'>
         <div class='cart'>
@@ -3472,7 +3491,7 @@ TRAVERSING THE DOM
 Children
 --------
 
-.children() - 
+.children() - get the children of each element in the set of matched elements, optionally filtered by a selector
 
 
 
@@ -3483,6 +3502,7 @@ Children
 </div>
 
 const $kids = $('#holder').children();
+
 $kids.on('click', event => {
   $(event.currentTarget).css('border', '1px solid black');
 });
@@ -3533,6 +3553,7 @@ $(document).ready(() => {
 
   <body>
     <!-- Navigation -->
+
     <nav>
       <div class='container'>
         <object type='image/svg+xml' data='https://s3.amazonaws.com/codecademy-content/courses/jquery/audit/images/sole-logo.svg'></object>
@@ -3544,6 +3565,7 @@ $(document).ready(() => {
     </nav>
 
     <!-- Nav Menu -->
+
     <div class='nav-menu hide'>
       <div class='container'>
         <ul>
@@ -3564,6 +3586,7 @@ $(document).ready(() => {
     </div>
 
     <!-- Login Form -->
+
     <div class='login-form'>
       <div class='container'>
         <form>
@@ -3577,6 +3600,7 @@ $(document).ready(() => {
     </div>
 
     <!-- Product Cards -->
+
     <div class='container'>
       <div class='product-card'>
         <div class='product-photo sole-air-ii'></div>
@@ -3672,7 +3696,9 @@ $(document).ready(() => {
         </div>
       </div>
     </div>
+
     <!-- Shopping cart -->
+
     <div class='shopping-cart'>
       <div class='container'>
         <div class='cart'>
@@ -4009,6 +4035,7 @@ $('.choice').on('click', event => {
 
 ---
 
+
 $(document).ready(() => {
   $('.shoe-details').show();
   $('.more-details-button').on('click', event => {
@@ -4051,6 +4078,7 @@ $(document).ready(() => {
 
   <body>
     <!-- Navigation -->
+
     <nav>
       <div class='container'>
         <object type='image/svg+xml' data='https://s3.amazonaws.com/codecademy-content/courses/jquery/audit/images/sole-logo.svg'></object>
@@ -4062,6 +4090,7 @@ $(document).ready(() => {
     </nav>
 
     <!-- Nav Menu -->
+
     <div class='nav-menu hide'>
       <div class='container'>
         <ul>
@@ -4082,6 +4111,7 @@ $(document).ready(() => {
     </div>
 
     <!-- Login Form -->
+
     <div class='login-form'>
       <div class='container'>
         <form>
@@ -4095,6 +4125,7 @@ $(document).ready(() => {
     </div>
 
     <!-- Product Cards -->
+
     <div class='container'>
       <div class='product-card'>
         <div class='product-photo sole-air-ii'></div>
@@ -4192,6 +4223,7 @@ $(document).ready(() => {
     </div>
 
     <!-- Shopping cart -->
+
     <div class='shopping-cart'>
       <div class='container'>
         <div class='cart'>
@@ -4209,10 +4241,11 @@ $(document).ready(() => {
       </div>
     </footer>
 
-     <script
-    src="https://code.jquery.com/jquery-3.2.1.min.js"
-    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-    crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous">
+    </script>
     <script src='js/main.js'></script> 
   </body>
 </html>
@@ -4528,6 +4561,7 @@ $('.example-class-one').closest('.another-class');
 
 ---
 
+
 $(document).ready(() => {
   $('.shoe-details').show();
   $('.more-details-button').on('click', event => {
@@ -4571,6 +4605,7 @@ $(document).ready(() => {
 
   <body>
     <!-- Navigation -->
+
     <nav>
       <div class='container'>
         <object type='image/svg+xml' data='https://s3.amazonaws.com/codecademy-content/courses/jquery/audit/images/sole-logo.svg'></object>
@@ -4582,6 +4617,7 @@ $(document).ready(() => {
     </nav>
 
     <!-- Nav Menu -->
+
     <div class='nav-menu hide'>
       <div class='container'>
         <ul>
@@ -4602,6 +4638,7 @@ $(document).ready(() => {
     </div>
 
     <!-- Login Form -->
+
     <div class='login-form'>
       <div class='container'>
         <form>
@@ -4615,6 +4652,7 @@ $(document).ready(() => {
     </div>
 
     <!-- Product Cards -->
+
     <div class='container'>
       <div class='product-card'>
         <div class='product-photo sole-air-ii'></div>
@@ -4709,7 +4747,9 @@ $(document).ready(() => {
         </div>
       </div>
     </div>
+
     <!-- Shopping cart -->
+
     <div class='shopping-cart'>
       <div class='container'>
         <div class='cart'>
@@ -5095,6 +5135,7 @@ $(document).ready(() => {
 
   <body>
     <!-- Navigation -->
+
     <nav>
       <div class='container'>
         <object type='image/svg+xml' data='https://s3.amazonaws.com/codecademy-content/courses/jquery/audit/images/sole-logo.svg'></object>
@@ -5106,6 +5147,7 @@ $(document).ready(() => {
     </nav>
 
     <!-- Nav Menu -->
+
     <div class='nav-menu hide'>
       <div class='container'>
         <ul>
@@ -5126,6 +5168,7 @@ $(document).ready(() => {
     </div>
 
     <!-- Login Form -->
+
     <div class='login-form'>
       <div class='container'>
         <form>
@@ -5139,6 +5182,7 @@ $(document).ready(() => {
     </div>
 
     <!-- Product Cards -->
+
     <div class='container'>
       <div class='product-card'>
         <div class='product-photo sole-air-ii'></div>
@@ -5234,7 +5278,9 @@ $(document).ready(() => {
         </div>
       </div>
     </div>
+
     <!-- Shopping cart -->
+
     <div class='shopping-cart'>
       <div class='container'>
         <div class='cart'>
@@ -5252,10 +5298,11 @@ $(document).ready(() => {
       </div>
     </footer>
 
-     <script
-    src="https://code.jquery.com/jquery-3.2.1.min.js"
-    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-    crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous">
+    </script>
     <script src='js/main.js'></script> 
   </body>
 </html>
@@ -5605,8 +5652,8 @@ $(document).ready(() => {
   </head>
 
   <body>
-
     <!-- Navigation -->
+
     <nav>
       <div class='container'>
         <object type='image/svg+xml' data='https://s3.amazonaws.com/codecademy-content/courses/jquery/audit/images/sole-logo.svg'></object>
@@ -5618,6 +5665,7 @@ $(document).ready(() => {
     </nav>
 
     <!-- Nav Menu -->
+
     <div class='nav-menu hide'>
       <div class='container'>
         <ul>
@@ -5638,6 +5686,7 @@ $(document).ready(() => {
     </div>
 
     <!-- Login Form -->
+
     <div class='login-form'>
       <div class='container'>
         <form>
@@ -5651,6 +5700,7 @@ $(document).ready(() => {
     </div>
 
     <!-- Product Cards -->
+
     <div class='container'>
       <div class='product-card'>
         <div class='product-photo sole-air-ii'></div>
@@ -5745,7 +5795,9 @@ $(document).ready(() => {
         </div>
       </div>
     </div>
+
     <!-- Shopping cart -->
+    
     <div class='shopping-cart'>
       <div class='container'>
         <div class='cart'>

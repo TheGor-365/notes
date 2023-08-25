@@ -18,6 +18,7 @@ const url = 'https://api-to-call.com/endpoint';
 
 
 xhr.responseType = 'json';
+
 xhr.onreadystatechange = () => {
   if (xhr.readyState === XMLHttpRequest.DONE) {
     return xhr.response;
@@ -1538,6 +1539,7 @@ const shortenUrl = async () => {
 
 const displayShortUrl = (event) => {
   event.preventDefault();
+  
   while(responseField.firstChild){
     responseField.removeChild(responseField.firstChild);
   }

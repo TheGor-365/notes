@@ -642,13 +642,13 @@ close.addEventListener('click', textReturn);
 ---
 
 
-body{
+body {
   margin: 0;
   padding: 0;
   font-family: 'Nunito';
 }
 
-#container{
+#container {
   background: #141c3a;
   margin: 0;
   display: block;
@@ -657,7 +657,7 @@ body{
   height: 100vh;
 }
 
-#view-button{
+#view-button {
   width: 380px;
   height: 50px;
   font-size: 24px;
@@ -671,13 +671,13 @@ body{
   font-family: 'Nunito';
 }
 
-#margo{
+#margo {
   display: none;
   width: 200px;
   margin: 0 auto;
 }
 
-#close-button{
+#close-button {
   width: 380px;
   height: 50px;
   font-size: 24px;
@@ -804,31 +804,31 @@ lock.addEventListener('click', function(){
 ---
 
 
-body{
+body {
   background-color: #141c3a;
 }
 
-#container{
+#container {
   width: 300px;
   height: 100%;
   margin: 0 auto;
 }
 
-button{
+button {
   background-color: lightgray;
   border: none;
   margin: 5px;
   width: 115px;
 }
 
-#door{
+#door {
   background: #efd9ca;
   width: 250px;
   height: 530px;
   padding: 15px 0px 10px 0px;
 }
 
-div{
+div {
   width: 250px;
   height: 525px;
   background-color: blue;
@@ -836,7 +836,7 @@ div{
   z-index: 999;
 }
 
-.door-knob{
+.door-knob {
   width: 25px;
   height: 25px;
   border-radius: 25px;
@@ -846,7 +846,7 @@ div{
   left: 220px;
 }
 
-.top-square{
+.top-square {
   width: 200px;
   height: 240px;
   border: 2px solid tan;
@@ -854,7 +854,7 @@ div{
   margin: 0 auto;
 }
 
-.bottom-square{
+.bottom-square {
   width: 200px;
   height: 200px;
   border: 2px solid tan;
@@ -863,7 +863,7 @@ div{
   margin-top: 40px;
 }
 
-#sign{
+#sign {
   width: 120px;
   height: 30px;
   background-color: white;
@@ -980,14 +980,14 @@ share.onclick = sharePhoto;
 ---
 
 
-body{
+body {
   margin: 0;
   padding: 0;
   background-color: #141c3a;
   color: white;
 }
 
-p{
+p {
   width: 400px;
   display: block;
   margin: 0 auto;
@@ -998,7 +998,7 @@ p{
   font-family: 'Nunito', sans-serif;
 }
 
-img{
+img {
   width: 250px;
   display: block;
   margin: 0 auto;
@@ -1014,7 +1014,7 @@ img{
   transform: translate(-50%, 50%);
 }
 
-#share-button{
+#share-button {
   width: 300px;
   height: 75px;
   display: block;
@@ -1030,7 +1030,7 @@ img{
   font-family: 'Nunito', sans-serif;
 }
 
-#social-media{
+#social-media {
   width: 300px;
   height: 75px;
   display: block;
@@ -1041,7 +1041,7 @@ img{
   position: relative;
 }
 
-.social-button{
+.social-button {
   border: none;
   background: transparent;
   padding: 0px;
@@ -1142,13 +1142,13 @@ mysteryButton.onwheel = colorChange;
 ---
 
 
-body{
+body {
   margin: 0;
   padding: 0;
   font-family: 'Nunito';
 }
 
-img{
+img {
   width: 200px;
   display: block;
   margin: 0 auto;
@@ -1156,7 +1156,7 @@ img{
   margin-bottom: 30px;
 }
 
-#container{
+#container {
   margin: 0;
   width: 100vw;
   height: 600px;
@@ -1164,7 +1164,7 @@ img{
   margin: 0 auto;
 }
 
-h1{
+h1 {
   font-size: 30px;
   width: 450px;
   text-align: center;
@@ -1173,7 +1173,7 @@ h1{
   color: #141c3a;
 }
 
-p{
+p {
   font-size: 20px;
   width: 400px;
   text-align: center;
@@ -1183,7 +1183,7 @@ p{
   color: white;
 }
 
-#color-button{
+#color-button {
   width: 350px;
   height: 100px;
   border: none;
@@ -1198,7 +1198,7 @@ p{
   font-family: 'Nunito';
 }
 
-#next-button{
+#next-button {
   width: 350px;
   height: 100px;
   border: none;
@@ -1339,14 +1339,14 @@ itemFour.onmousedown = function(){
 ---
 
 
-body{
+body {
   margin: 0;
   padding: 0;
   background: green;
   font-family: 'Nunito';
 }
 
-#container{
+#container {
   background: #efd9ca;
   width: 100%;
   height: 100vh;
@@ -1354,7 +1354,7 @@ body{
   float: left;
 }
 
-li, #list-item-one, #list-item-two , #list-item-three, #list-item-four, #list-item-five{
+li, #list-item-one, #list-item-two , #list-item-three, #list-item-four, #list-item-five {
   width: 400px;
   height: 17px;
   list-style: none;
@@ -1371,11 +1371,11 @@ li, #list-item-one, #list-item-two , #list-item-three, #list-item-four, #list-it
   font-family: 'Nunito';
 }
 
-#list-item-five{
+#list-item-five {
   display: none;
 }
 
-#reset-button{
+#reset-button {
   width: 400px;
   height: 50px;
   background: #fd4d3c;
@@ -1493,13 +1493,13 @@ document.onkeyup = down;
 ---
 
 
-body{
+body {
   padding: 0;
   margin: 0;
   font-family: sans-serif;
 }
 
-#container{
+#container {
   background: #6400e4;
   width: 100vw;
   height: 100vh;
@@ -1507,7 +1507,7 @@ body{
   float: left;
 }
 
-h1{
+h1 {
   font-size: 30px;
   width: 50%;
   text-align: center;
@@ -1517,7 +1517,7 @@ h1{
   color: #141c3a;
 }
 
-p{
+p {
   font-size: 18px;
   width: 60%;
   text-align: center;
@@ -1527,7 +1527,7 @@ p{
   color: white;
 }
 
-button{
+button {
   width: 150px;
   height: 40px;
   display: block;
@@ -1538,7 +1538,7 @@ button{
   background: #141c3a;
 }
 
-#float-circle{
+#float-circle {
   width: 100px;
   height: 100px;
   background: #fd4d3f;
@@ -1548,7 +1548,7 @@ button{
   position: absolute;
 }
 
-#floor{
+#floor {
   width: 100%;
   height: 30px;
   background: #6df0c2;
@@ -1556,7 +1556,7 @@ button{
   position: absolute;
 }
 
-#platform{
+#platform {
   width: 100px;
   height: 50px;
   background: #efd9ca;
@@ -1699,7 +1699,7 @@ describe('', function () {
 Handlebars.js
 -------------
 
-Добавить библиотеку руль к вашему проекту. — одним из вариантов является использование сети доставки контента (CDN): MDN CDN documentation.
+Добавить библиотеку руль к вашему проекту — одним из вариантов является использование сети доставки контента (CDN): MDN CDN documentation.
 Создать скрипт рули в HTML-файл.
 В вашем файле JavaScript возьмите HTML, хранящийся в скрипте Handlebars.
 Используйте Handlebars.compile() возвращает шаблонную функцию.

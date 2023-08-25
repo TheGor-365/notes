@@ -191,7 +191,7 @@ variables
 
 
 let greeting = 'Father!';
-console.log(greeting); // => Father!
+console.log(greeting);                        // => Father!
 
 
 
@@ -201,7 +201,7 @@ console.log(greeting); // => Father!
 let greeting;
 
 
-console.log(greeting); // undefined
+console.log(greeting);                        // undefined
 
 
 
@@ -267,7 +267,7 @@ const euros = 1000;
 const dollars = euros * dollarsInEuro;           // 1250
 const rubles = dollars * rublesInDollar;         // 75000
 
-console.log(rubles); // => 75000
+console.log(rubles);                             // => 75000
 
 
 
@@ -1917,8 +1917,8 @@ const abs = (number) => {
 ---
 
 
-Общий паттерн выглядит так:
----------------------------
+Общий паттерн выглядит так
+--------------------------
 
 <predicate> ? <expression on true> : <expression on false>
 
@@ -1927,8 +1927,8 @@ const abs = (number) => {
 ------------------------------------
 
 
-Сокращенный вариант функции abs() выглядит так:
------------------------------------------------
+Сокращенный вариант функции abs() выглядит так
+----------------------------------------------
 
 const abs = (number) => (number >= 0 ? number : -number);
 
@@ -1985,9 +1985,9 @@ switch construction
 
 
 if (status === 'processing') {
-} else if (status === 'paid') {
-} else if (status === 'new') {
-} else {
+  } else if (status === 'paid') {
+  } else if (status === 'new') {
+  } else {
 }
 
 

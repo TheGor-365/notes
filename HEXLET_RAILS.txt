@@ -2,6 +2,8 @@
 RAILS BASICS
 ------------
 
+
+
 ----
 rack
 ----
@@ -74,7 +76,8 @@ $ passenger start
 ---------------------------------------------------------
 
 
-# config.ru
+config.ru
+---------
 
 class MyMiddleware
   def initialize(app1)
@@ -183,9 +186,11 @@ $ curl -u admin:password -i http://localhost:9292
 
 ---------------------------------------------------------
 
-rack test
+$ rack test
 
-# test.rb
+
+test.rb
+-------
 
 require 'minitest/autorun'
 require 'rack/test'
@@ -636,57 +641,57 @@ $ bin/rails -T 'db'
 ---------------------------------------------------------
 
 
-admin = User.create(first_name: 'John', last_name: 'Doe', role: 'admin')
+$ admin = User.create(first_name: 'John', last_name: 'Doe', role: 'admin')
 
-user = User.new(first_name: 'Tom', last_name: 'Smith', role: 'customer')
-user.save
-
-
-
----------------------------------------------------------
-
-
-
-user = User.new(last_name: 'Smith', role: 'customer')
-
-user.save
-
-user.validate!                                                # => ["cannot be nil"]
-user.valid?                                                   # false
-user.invalid?                                                 # true
-user.errors                                                   # Error object
-user.errors.messages                                          # {"first_name" => "cannot be nil"}
-user.errors.full_messages                                     # ["first_name cannot be nil"]
-
-
-
----
-
-
-users = User.all
-user = User.first
-user = User.find(1)
-user = User.find_by(id: 1)
-user = User.last
-users = User.where(name: 'John', is_admin: true).order(created_at: :desc)
-
-
-
----
-
-
-user = User.find_by(name: 'John')
-user.destroy
-
-User.destroy_all
+$ user = User.new(first_name: 'Tom', last_name: 'Smith', role: 'customer')
+$ user.save
 
 
 
 ---------------------------------------------------------
 
 
-User.create(first_name: 'John', last_name: 'Doe', role: 'admin')
-User.create(first_name: 'John', last_name: 'Smith', role: 'customer')
+
+$ user = User.new(last_name: 'Smith', role: 'customer')
+
+$ user.save
+
+$ user.validate!                                                # => ["cannot be nil"]
+$ user.valid?                                                   # false
+$ user.invalid?                                                 # true
+$ user.errors                                                   # Error object
+$ user.errors.messages                                          # {"first_name" => "cannot be nil"}
+$ user.errors.full_messages                                     # ["first_name cannot be nil"]
+
+
+
+---
+
+
+$ users = User.all
+$ user = User.first
+$ user = User.find(1)
+$ user = User.find_by(id: 1)
+$ user = User.last
+$ users = User.where(name: 'John', is_admin: true).order(created_at: :desc)
+
+
+
+---
+
+
+$ user = User.find_by(name: 'John')
+$ user.destroy
+
+$ User.destroy_all
+
+
+
+---------------------------------------------------------
+
+
+$ User.create(first_name: 'John', last_name: 'Doe', role: 'admin')
+$ User.create(first_name: 'John', last_name: 'Smith', role: 'customer')
 
 100.times do
   User.create(
@@ -731,16 +736,16 @@ production:
 ---------------------------------------------------------
 
 
-User.where.not(role: :admin)
-User.where(role: :admin).or(User.where(role: :superuser))
-User.order(:age)
-User.order(age: :desc)
-User.select(:first_name, :last_name)
-User.select(:last_name).distinct
-User.limit(15)
-User.limit(15).offset(30)
-User.group(:age).count
-User.none
+$ User.where.not(role: :admin)
+$ User.where(role: :admin).or(User.where(role: :superuser))
+$ User.order(:age)
+$ User.order(age: :desc)
+$ User.select(:first_name, :last_name)
+$ User.select(:last_name).distinct
+$ User.limit(15)
+$ User.limit(15).offset(30)
+$ User.group(:age).count
+$ User.none
 
 
 ---------------------------------------------------------
@@ -781,7 +786,7 @@ end
 ---
 
 
-User.customers.where("age > ?", 45).select(:email)
+$ User.customers.where("age > ?", 45).select(:email)
 
 
 
@@ -797,8 +802,8 @@ end
 ---
 
 
-User.all.count                                    # 32
-User.unscoped.all.count                           # 100
+$ User.all.count                                    # 32
+$ User.unscoped.all.count                           # 100
 
 
 
@@ -1439,7 +1444,8 @@ $ docker rm <hash>
 ---
 
 
-Dockerfile:
+Dockerfile
+----------
 
 
 FROM ruby:3.0.1
@@ -1460,7 +1466,8 @@ CMD ["./scripts/start.sh"]
 
 
 
-start.sh:
+start.sh
+--------
 
 
 if [ -e /home/app ]; then
@@ -1488,7 +1495,8 @@ $ bin/rails server -p 3001 -b 0.0.0.0
 ---
 
 
-Gemfile:
+Gemfile
+-------
 
 
 ruby '3.0.2'
@@ -1641,7 +1649,8 @@ f.input :title, as: :currency
 ---------------------------------------------------------
 
 
-app/inputs/currency_input.rb:
+app/inputs/currency_input.rb
+----------------------------
 
 
 class CurrencyInput < SimpleForm::Inputs::Base
@@ -2191,7 +2200,8 @@ end
 ---
 
 
-# config/routes.rb
+config/routes.rb
+----------------
 
 
 Rails.application.routes.draw do
@@ -2205,7 +2215,8 @@ end
 ---
 
 
-# config/application.rb
+config/application.rb
+---------------------
 
 
 require_relative "boot"
@@ -2235,7 +2246,10 @@ I18n.translate('welcome_title')
 I18n.t('welcome_title')
 t('welcome_title')
 
-# en.users.all
+
+
+en.users.all
+------------
 
 t('users.all')
 t('all', scope: 'users')
@@ -2333,7 +2347,8 @@ ru:
 ---------------------------------------------------------
 
 
-# Переводы кнопок simple_form
+Переводы кнопок simple_form
+---------------------------
 
 helpers:
   submit:
