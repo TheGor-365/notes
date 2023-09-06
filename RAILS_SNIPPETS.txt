@@ -194,7 +194,6 @@ Class ApplicationController < ActionController::Base
   end
 end
 
-
 ---
 
 --------------------------------------
@@ -15226,7 +15225,11 @@ params = {
 
 request = Net::HTTP::Post.new URI.join(hostname, '/register')
 request.body = URI.encode_www_form(params)
-# Добавляем куки в запрос
+
+
+Добавляем куки в запрос
+-----------------------
+
 request['Cookie'] = cookie
 
 response = http.request request
@@ -15404,7 +15407,10 @@ end
 
 
 job = Job.new
-# У модели появляются функции-предикаты, которые позволяют определить состояние
+
+У модели появляются функции-предикаты, которые позволяют определить состояние
+-----------------------------------------------------------------------------
+
 job.sleeping? # => true
 job.may_run?  # => true
 job.run
@@ -15422,7 +15428,8 @@ job.run       # => raises AASM::InvalidTransition
 class CreateExamples < ActiveRecord::Migration[6.1]
   def change
     create_table :examples do |t|
-      По дефолту используется имя колонки aasm_state
+      # По дефолту используется имя колонки aasm_state
+
       t.string :aasm_state
 
       t.timestamps
@@ -15437,17 +15444,25 @@ end
 
 
 job = Job.new
-job.run   # not saved
-# События с ! сохраняют модель
-job.run!  # saved
+job.run                         # not saved
 
-# or
+События с ! сохраняют модель
+----------------------------
+
+job.run!                        # saved
+
+
+
+or
+--
+
 job.aasm.fire(:run) # not saved
 job.aasm.fire!(:run) # saved
 
 resources :vacancies do
   # Запрос на изменение состояния выполняется с глаголом PATCH
   # https://www.restapitutorial.com/lessons/httpmethods.html
+
   member do
     patch :run
   end
@@ -15481,7 +15496,9 @@ Ransack
 
 require_relative 'boot'
 
-# В config/application.rb добавляем работу с SimpleForm
+В config/application.rb добавляем работу с SimpleForm
+-----------------------------------------------------
+
 ENV['RANSACK_FORM_BUILDER'] = '::SimpleForm::FormBuilder'
 
 require 'rails/all'
@@ -15493,18 +15510,32 @@ class PeopleController < ApplicationController
   end
 end
 
-# Можем использовать хелпер формы. Однако этот хелпер не может подтягивать стили Bootstrap, поэтому классы и лейблы нужно писать самим
-# Если в конфиге подключен Simpleform для ransack, используем его
+
+
+---
+
+
+
+Можем использовать хелпер формы. Однако этот хелпер не может подтягивать стили Bootstrap, поэтому классы и лейблы нужно писать самим
+------------------------------------------------------------------------------------------------------------------------------------
+
+Если в конфиге подключен Simpleform для ransack, используем его
+---------------------------------------------------------------
+
 = search_form_for @q do |f|
   .row.my-2
     .col-5
+
     # Можем отключить показ лейблов
     # Ransack ищет по полям в БД
     # Для фильтров необходимо использовать определенные имена. Например, Если поле "содержит" текст, то имя инпута формы - column_cont
+
       https://github.com/activerecord-hackery/ransack#search-matchers
       = f.input :name_cont, label: false
     .col-4
-      # Для вывода списка состояний можно выполнить map() на списке состояний.
+
+      # Для вывода списка состояний можно выполнить map() на списке состояний
+
       = f.input :aasm_state_eq, as: :select, collection: Post.aasm.states.map(&:name), label: false
     .col-3
       = f.submit 'Search', class: 'btn btn-primary me-2'
@@ -15545,6 +15576,7 @@ Nested Forms, and nested attributes, with activerecord and cocoon
 
 form_for @user do |f|
   # вложенная форма
+
   = f.simple_fields_for :posts do |posts_form|
     = posts_form.input :title
   end
@@ -15558,6 +15590,7 @@ end
 
 form_for @user do |f|
   # вложенная форма
+
   = f.simple_fields_for :posts do |posts_form|
   = render 'posts_field', posts_form: posts_form
   end
@@ -15593,6 +15626,7 @@ end
       = render 'task_fields', f: task
     .links
     # Нажатие по ссылке будет подгружать на страницу новые поля
+
       = link_to_add_association t('.add_task'), f, :tasks
   = f.submit
 
@@ -15609,9 +15643,19 @@ _task_fields.slim
   = f.input :description
   = f.input :done, as: :boolean
   # Нажатие по ссылке будет удалять поля
+
   = link_to_remove_association t('.remove_task'), f
 
 
+
+---
+
+
+exercises/nested-forms/app/javascript/packs/application.js
+----------------------------------------------------------
+
+require("jquery")
+require("@nathanvda/cocoon")
 
 
 
@@ -15924,38 +15968,88 @@ end
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+---------------------------
+Rails Controllers Hierarchy
+---------------------------
 
 
+config/routes.rb
+----------------
 
+Rails.application.routes.draw do
+  namespace :api do
+  end
 
+  scope module: :web do
+    namespace :admin do
+    end
 
+    root 'home#index'
 
+    shallow do
+      resources :books, only: index do
+        resources :comments, except: [:edit, :update]
+      end
 
+      resources :users do
+        resources :books
+        resources :comments, only: [:index]
+      end
+    end
+  end
+end
 
 
+---
 
 
 
+app/controllers/web/application_controller.rb
+---------------------------------------------
 
+Иерархия контроллеров позволяет разделять контекст и удобно создавать вложенные модули
+--------------------------------------------------------------------------------------
 
+class Web::ApplicationController < ActionController::Base
+end
 
 
+---
 
 
 
+app/controllers/web/books/application_controller.rb
+---------------------------------------------------
 
+Каждый модуль содержит свой ApplicationController
+-------------------------------------------------
 
+class Web::Books::ApplicationController < Web::ApplicationController
+  helper_method :resource_book
 
+  def resource_book
+    @resource_book ||= Book.find params[:book_id]
+  end
+end
 
 
+---
 
 
 
+app/controllers/web/books/comments_controller.rb
+------------------------------------------------
 
+class Web::Books::CommentsController < Web::Books::ApplicationController
+  def index
+    @comments = resource_book.comments.order(id: :desc)
+  end
+end
 
 
 
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -15963,50 +16057,1723 @@ end
 
 
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+-------------------------------------
+Rails API, api versioning, responders
+-------------------------------------
 
 
+Scaffold генерирует в контроллерах методы, которые работают с несколькими форматами
+-----------------------------------------------------------------------------------
 
+class BooksController < ApplicationController
+  before_action :set_book, only: %i[ show edit update destroy ]
 
+  # Также как с шаблонами, ищется во вью файл для показа в нужном формате (html, json)
+  # GET /books or /books.json
 
+  def index
+    @books = Book.all
+  end
 
 
+  # GET /books/1 or /books/1.json
 
+  def show
+  end
 
 
+  # GET /books/new
 
+  def new
+    @book = Book.new
+  end
 
 
+  # GET /books/1/edit
 
+  def edit
+  end
 
 
+  # POST /books or /books.json
 
+  def create
+    @book = Book.new(book_params)
 
+    respond_to do |format|
+      if @book.save
+        format.html { redirect_to @book, notice: "Book was successfully created." }
+        format.json { render :show, status: :created, location: @book }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @book.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
 
+  # PATCH/PUT /books/1 or /books/1.json
 
+  def update
+    respond_to do |format|
+      if @book.update(book_params)
+        format.html { redirect_to @book, notice: "Book was successfully updated." }
+        format.json { render :show, status: :ok, location: @book }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @book.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
 
+  # DELETE /books/1 or /books/1.json
 
+  def destroy
+    @book.destroy
+    respond_to do |format|
+      format.html { redirect_to books_url, notice: "Book was successfully destroyed." }
+      format.json { head :no_content }
+    end
+  end
 
 
+  private
 
+  # Use callbacks to share common setup or constraints between actions.
 
+  def set_book
+    @book = Book.find(params[:id])
+  end
 
+  # Only allow a list of trusted parameters through.
 
+  def book_params
+    params.require(:book).permit(:title)
+  end
+end
 
 
 
+---
 
 
 
 
+class BooksController < ApplicationController
+  before_action :set_book, only: %i[ show edit update destroy ]
 
+  # GET /books or /books.json
 
+  def index
+    @books = Book.all
 
+    # respond_to переопределяет стандартное поведение
+    # запрос к /books.json выводит {"hi": "books"}
+    # https://apidock.com/rails/ActionController/MimeResponds/InstanceMethods/respond_to
 
+    respond_to do |format|
+      format.html do
+        redirect_to root_path
+      end
+      format.json do
+        render json: { hi: 'Books' }
+      end
+    end
+  end
+end
 
 
+format приходит в переменную params
+-----------------------------------
+
+{ "controller":"books", "action":"index", "format":"json" }
+
+
+$ bin/rails routes -g books
+
+#    Prefix Verb   URI Pattern               Controller#Action
+#     books GET    /books(.:format)          books#index
+#           POST   /books(.:format)          books#create
+#  new_book GET    /books/new(.:format)      books#new
+# edit_book GET    /books/:id/edit(.:format) books#edit
+#      book GET    /books/:id(.:format)      books#show
+#           PATCH  /books/:id(.:format)      books#update
+#           PUT    /books/:id(.:format)      books#update
+#           DELETE /books/:id(.:format)      books#destroy
+
+
+
+---
+
+
+
+
+class BooksController < ApplicationController
+  before_action :set_book, only: %i[ show edit update destroy ]
+
+  # GET /books or /books.json
+
+  def index
+    # метод принимает только запросы вида /books.json и отвечает только в json
+
+    respond_to :json
+
+    @books = Book.all
+  end
+end
+
+
+
+---
+
+
+
+class BooksController < ApplicationController
+  before_action :set_book, only: %i[ show edit update destroy ]
+
+  def show
+    respond_to do |format|
+      format.html { redirect_to root_path }
+
+      # При преобразовании вызывается метод to_json()
+      # https://apidock.com/rails/ActiveRecord/Serialization/to_json
+
+      format.json { render json: @book.to_json, root: true }
+
+      # root: true кладет сущность в под ключем
+      # => {"book":{"id":1,"title":"example","created_at":"2021-11-10T11:57:36.381Z","updated_at":"2021-11-10T11:57:36.381Z"}}
+    end
+  end
+end
+
+
+
+---
+
+
+
+
+class BooksController < ApplicationController
+  # GET /books/1 or /books/1.json
+
+  def show
+    respond_to :json
+    # as_json позволяет выводить только определенные поля
+
+    render json: @book.as_json(
+      root: true,
+      only: :title
+    )
+    # => {"book":{"title":"example"}}
+  end
+end
+
+
+
+---
+
+
+
+Rails.application.routes.draw do
+  resources :books
+
+  # api логика лежит отдельно
+
+  namespace :api do
+    # изолируем изменения на каждой версии api
+
+    namespace :v1 do
+      resources :books
+    end
+  end
+end
+
+
+#     api_v1_books GET    /api/v1/books(.:format)          api/v1/books#index
+#                  POST   /api/v1/books(.:format)          api/v1/books#create
+#  new_api_v1_book GET    /api/v1/books/new(.:format)      api/v1/books#new
+# edit_api_v1_book GET    /api/v1/books/:id/edit(.:format) api/v1/books#edit
+#      api_v1_book GET    /api/v1/books/:id(.:format)      api/v1/books#show
+#                  PATCH  /api/v1/books/:id(.:format)      api/v1/books#update
+#                  PUT    /api/v1/books/:id(.:format)      api/v1/books#update
+#                  DELETE /api/v1/books/:id(.:format)      api/v1/books#destroy
+
+
+
+---
+
+
+
+app/controllers/api/application_controller.rb
+---------------------------------------------
+
+# Работает для всех версий
+# Перед этим необходимо подключить гем gem "responders"
+
+class Api::ApplicationController < ApplicationController
+  respond_to :json
+end
+
+
+
+app/controllers/api/v1/application_controller.rb
+------------------------------------------------
+
+class Api::V1::ApplicationController < Api::ApplicationController
+end
+
+
+
+app/controllers/api/v1/books_controller.rb
+------------------------------------------
+
+class Api::V1::BooksController < Api::V1::ApplicationController
+  # /api/v1/books.json
+
+  def index
+    @books = Books.all
+
+    # Без гема responders выглядело бы так
+    # render json: @books.as_json(only: :title)
+
+    respond_with @books.as_json(only: :title)
+  end
+end
+
+
+class Api::V1::BooksControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @book = books(:one)
+  end
+
+  test 'should get api index' do
+    get api_books_url(format: :json)
+    assert_response :success
+  end
+
+  test 'should get api show' do
+    get api_book_url(@book, format: :json)
+    assert_response :success
+  end
+end
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------
+jbuilder for json Rails
+-----------------------
+
+
+
+app/views/books/index.json.builder
+----------------------------------
+
+# Jbuilder позволяет использовать синтаксис и все конструкции ruby
+# .jbuilder похож на шаблоны и позволяет также погружать паршеллы из других файлов
+
+json.array! @books, partials: "books/book", as: book
+
+
+
+app/views/books/_book.json.builder
+----------------------------------
+
+json.extract! book, :title, :description, :created_at, :updated_at
+json.url book_url(book, format: :json)
+
+
+
+---
+
+
+
+app/views/books/_book.json.builder
+----------------------------------
+
+# Поле добавляется при выполнении условия
+
+unless book.title == 'Example'
+  json.title book.title
+end
+
+
+# Значение поля устанавливается в зависимости от условия
+
+json.author book.author == 'Tirion' ? boo.author : nil
+
+
+# Добавляется поле, которое будет в каждом элементе списка или в структуре
+
+json.set! :category, 'Non-Fiction'
+
+hash = { genre: 'Fantasy' }
+
+json.merge!(hash)
+
+
+
+app/views/books/index.json.builder
+----------------------------------
+
+# Отдаётся массив с объектами с одним атрибутом
+
+json.array! @books, :id
+
+
+
+app/views/books/index.json.builder
+----------------------------------
+
+json.partial! 'books/book', books: @books
+
+json.extract! book, :title, :description, :created_at, :updated_at
+
+# Передача блока позволяет создавать вложенные структуры (объекты)
+
+json.book_title do
+  json.title book.title
+end
+
+
+---
+
+
+
+class BooksController < ApplicationController
+  def index
+    @books = Book.all
+
+    respond_to do |format|
+      format.rss { render layout: false }
+    end
+  end
+end
+
+
+
+app/views/books/index.rss.jbuilder
+----------------------------------
+
+xml.instruct! :xml, :version => "1.0"
+xml.rss :version => "2.0" do
+  xml.channel do
+    xml.title "Books seed"
+    xml.description "Describes books title and ID"
+    xml.link root_url
+
+    @books.each do |book|
+      xml.item do
+        xml.title book.title
+        xml.description book.description
+        xml.book_url book_url(book)
+      end
+    end
+  end
+end
+
+
+
+---
+
+
+
+doctype html
+html.h-100
+  head
+    title = t('.title')
+    == csrf_meta_tags
+    == csp_meta_tag
+    meta name="keywords" content="template language"
+    meta name="author" content='author'
+    meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    = stylesheet_pack_tag 'application', media: 'all'
+    = javascript_pack_tag 'application'
+
+    / Ссылка на RSS поток
+
+    = auto_discovery_link_tag :rss, books_url(format: :rss)
+
+  body
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------
+Rails Streaming
+---------------
+
+
+class BooksController < ApplicationController
+  def index
+    @books = Book.all
+
+    # Включение стриминга шаблонов
+    # https://api.rubyonrails.org/classes/ActionController/Streaming.html
+
+    render stream: true
+  end
+end
+
+
+
+---
+
+
+
+при запросе с помощью Curl данные будут отдаваться постепенно
+-------------------------------------------------------------
+
+class HelloController < ActionController::Base
+  include ActionController::Live
+
+  def stream
+    response.headers['Content-Type'] = 'text/event-stream'
+    response.headers["Last-Modified"] = Time.current.httpdate
+    100.times {
+      response.stream.write "hello world\n"
+      sleep 1
+    }
+  ensure
+    response.stream.close
+  end
+end
+
+
+---
+
+
+
+https://api.rubyonrails.org/v5.1.7/classes/ActionController/DataStreaming.html
+------------------------------------------------------------------------------
+
+class BooksController < ActionController::Base
+  include ActionController::Live
+
+  def send_file
+
+    # Используется для отправки готового файла
+
+    send_file(Rails.root.join('public', '404.html'), filename: 'hello.txt')
+  end
+
+  # https://api.rubyonrails.org/v5.1.7/classes/ActionController/DataStreaming.html
+  
+  def send_data
+    # Отправляется стриминговый файл, которого изначально нет
+    data = 'Hello'
+    send_data(data, filename: 'hello.txt')
+  end
+end
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------
+JSON testing Rails
+------------------
+
+
+Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      get 'names/fetch', to: 'names#fetch', as: :fetch_name
+    end
+  end
+end
+
+
+---
+
+
+
+Простейший способ тестирования API
+----------------------------------
+
+class Api::V1::NamesControllerTest < ActionDispatch::IntegrationTest
+  test '#fetch' do
+    get api_v1_fetch_name_url
+    assert_response :success
+  end
+end
+
+class Api::V1::NamesController < Web::ApplicationController
+  def fetch
+    render json: {
+      country: '',
+      possibility: 0.1
+    }
+  end
+end
+
+
+
+Проверка содержимого ответа
+---------------------------
+
+class Api::V1::NamesControllerTest < ActionDispatch::IntegrationTest
+  test '#fetch' do
+    get api_v1_fetch_name_url
+    json_response = JSON.parse(response.body)
+
+    assert_response :success
+    assert_equal 'RU', json_response['country']
+    assert_equal 0.1, json_response['possibility']
+
+    refute_nil json_response['country']
+    refute_nil json_response['possibility']
+  end
+end
+
+
+---
+
+
+
+class Api::V1::NamesController < Web::ApplicationController
+  def fetch
+    result = FetchNameInformationService.new.(name: params[:name])
+  end
+end
+
+
+
+app/services/fetch_name_information_service.rb
+----------------------------------------------
+
+# Сервис возвращает информацию об имени и верояность его использования в странах
+# http://api.nationalize.io/?name=David
+
+class FetchNameInformationService
+  FETCH_NAME_BASE_URL = 'http://api.nationalize.io'
+  def call(name:)
+    uri = URI("#{FETCH_NAME_BASE_URL}?name=#{name}")
+    response = Net::HTTP.get(uri)
+    JSON.parse(response)
+  rescue StandardError
+    {
+      country: nil,
+      possibility: nil
+    }
+  end
+end
+
+
+
+test/services/fetch_name_information_service_test.rb
+----------------------------------------------------
+
+require 'test_helper'
+require_relative 'app/services/fetch_name_information_service.rb'
+
+
+
+При каждом запуске тестов выполняется реальный запрос к API
+-----------------------------------------------------------
+
+class FetchNameInformationServiceTest < ActiveSupport::TestCase
+  test '#call' do
+    result = FetchNameInformationService.new.(name: params[:name])
+
+    assert result['country'].is_a? Array
+  end
+end
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------
+Webmock testing Rails
+---------------------
+
+
+Gemfile
+-------
+
+group :test do
+  gem "webmock"
+end
+
+
+https://github.com/bblimke/webmock
+
+
+---
+
+
+
+test/test_helper.rb
+-------------------
+
+require 'webmock/minitest'
+
+
+
+test/services/fetch_name_information_service_test.rb
+----------------------------------------------------
+
+require 'test_helper'
+require_relative 'app/services/fetch_name_information_service.rb'
+
+
+---
+
+
+
+app/services/fetch_name_information_service.rb
+----------------------------------------------
+
+# Сервис возвращает информацию об имени и верояность его использования в странах
+# http://api.nationalize.io/?name=David
+
+class FetchNameInformationService
+  FETCH_NAME_BASE_URL = 'http://api.nationalize.io'
+  def call(name:)
+    uri = URI("#{FETCH_NAME_BASE_URL}?name=#{name}")
+    response = Net::HTTP.get(uri)
+
+    {
+      country: response['country'][0]['country_id'],
+      possibility: response['country'][0]['probability']
+    }
+  rescue StandardError
+    {
+      country: '',
+      possibility: ''
+    }
+  end
+end
+
+
+
+---
+
+
+
+При каждом запуске тестов выполняется реальный запрос к API
+-----------------------------------------------------------
+
+class FetchNameInformationServiceTest < ActiveSupport::TestCase
+  test '#call' do
+    name = 'John'
+    stub_request(:get, "#{FetchNameInformationService::FETCH_NAME_BASE_URL}?name=#{name}")
+    result = FetchNameInformationService.new.(name: name)
+
+    assert result[:country].is_a? String
+    assert result[:possibility].is_a? String
+  end
+end
+
+
+
+class Api::V1::NamesControllerTest < ActionDispatch::IntegrationTest
+  test '#fetch' do
+    name = 'David'
+    stub_request(:get, "#{FetchNameInformationService::FETCH_NAME_BASE_URL}?name=#{name}")
+    get api_v1_fetch_name_url(name: name)
+
+    json_response = JSON.parse(response.body)
+
+    assert_response :success
+    assert json_response['country'].is_a?(String)
+    assert json_response['possibility'].is_a?(String)
+  end
+end
+
+
+
+---
+
+
+
+Webmock может подменять ответы от внешних сервисов
+--------------------------------------------------
+
+stub_request(:get, "www.example.com").to_return({body: "abc"}, {body: "def"})
+
+Net::HTTP.get('www.example.com', '/')    # ===> "abc\n"
+Net::HTTP.get('www.example.com', '/')    # ===> "def\n"
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------
+Rails Active Job, callbacks, emails
+-----------------------------------
+
+
+$ bin/rails g job fetch_books_titles
+
+create  test/jobs/fetch_books_titles_job_test.rb
+create  app/jobs/fetch_books_titles_job.rb
+
+
+---
+
+
+
+app/jobs/fetch_books_titles_job.rb
+----------------------------------
+
+class FetchBooksTitlesJob < ApplicationJob
+  queue_as :default
+
+  def perform(*args)
+    # Do something later
+  end
+end
+
+
+
+
+
+test/jobs/fetch_books_titles_job_test.rb
+----------------------------------------
+
+require "test_helper"
+
+class FetchBooksTitlesJobTest < ActiveJob::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
+end
+
+
+
+---
+
+
+
+app/jobs/fetch_books_titles_job.rb
+----------------------------------
+
+class FetchBooksTitlesJob < ApplicationJob
+  queue_as :default
+
+  def perform
+    titles = Book.pluck(:title)
+    pp titles
+  end
+end
+
+
+
+
+$ bin/rails g job fetch_books_titles --queue urgent
+
+
+app/jobs/fetch_books_titles_job.rb
+----------------------------------
+
+class FetchBooksTitlesJob < ApplicationJob
+  # --queue задает очередь в которую попадает задача
+  queue_as :urgent
+
+  def perform(*args)
+    # Do something later
+  end
+end
+
+
+
+---
+
+
+
+Вызов джобы
+-----------
+FetchBooksTitlesJob.perform_later       --- Джоба выполняется после выполнения основного процесса
+FetchBooksTitlesJob.perform_now         --- Джоба запускается непосредственно
+
+Выполнить через 5 секунд
+------------------------
+
+FetchBooksTitlesJob.set(wait: 5.seconds).perform_later
+
+
+Запустить через 10 секунд, в определенное время
+-----------------------------------------------
+
+FetchBooksTitlesJob.set(wait_until: Time.now + 10.seconds).perform_later
+
+
+
+---
+
+
+
+config/application.rb
+---------------------
+
+require_relative "boot"
+
+require "rails/all"
+
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
+
+Bundler.require(*Rails.groups)
+
+module Books
+  class Application < Rails::Application
+    config.load_defaults 6.1
+
+    # https://api.rubyonrails.org/classes/ActiveJob/QueueAdapters.html
+    config.active_job.queue_adapter = :sidekiq
+    config.active_job_queue_name_prefix = Rails.new
+    config.active_job_queue_name_delimiter = '.'
+  end
+end
+
+
+
+
+Запуск задачи в заданной очереди
+--------------------------------
+
+FetchBooksTitlesJob.set(queue: :low_priority).perform_later
+
+
+
+
+app/jobs/fetch_books_titles_job.rb
+----------------------------------
+
+class FetchBooksTitlesJob < ApplicationJob
+
+  # Очередь задается динамически
+  # queue_as { cond ? :default : :high_priority }
+
+  def perform
+    titles = Book.pluck(:title)
+    pp titles
+  end
+end
+
+
+
+---
+
+
+
+Доступные коллбеки
+------------------
+
+before_enqueue
+around_enqueue
+after_enqueue
+before_perform
+around_perform
+after_perform
+
+
+https://edgeguides.rubyonrails.org/active_job_basics.html#available-callbacks
+
+
+
+---
+
+
+
+app/jobs/fetch_books_titles_job.rb
+----------------------------------
+
+class FetchBooksTitlesJob < ApplicationJob
+  around_perform :improve_output
+
+  def perform
+    titles = Book.pluck(:title)
+    pp titles
+  end
+
+  def improve_output
+    pp '*******************************************'
+    yield
+    pp '*******************************************'
+  end
+end
+
+
+$ bin/rails g mailer new_book
+
+
+create  app/mailers/new_book_mailer.rb
+create    app/views/new_book_mailer
+create    test/mailers/new_book_mailer_test.rb
+create    test/mailers/previews/new_book_mailer_preview.rb
+
+
+https://guides.rubyonrails.org/action_mailer_basics.html
+
+
+
+---
+
+
+
+app/mailers/new_book_mailer.rb
+------------------------------
+
+class NewBookMailer < ApplicationMailer
+  default from: 'book@example.com'
+
+  def new_book
+    mail(
+      to: 'user@examplle.com',
+      subject: 'New book'
+    )
+  end
+end
+
+
+
+---
+
+
+
+app/views/new_book_mailer/new_book.txt.erb
+------------------------------------------
+
+New book has been created
+
+
+
+Отправка письма
+---------------
+
+NewBookMailer.new_book.deliver_later
+NewBookMailer.new_book.deliver_now
+
+
+
+https://github.com/mperham/sidekiq
+
+# Для работы sidekiq требуется запущенный redis
+# Для выполнения задач требуется запущенный sidekiq
+# bundle exec sidekiq
+
+
+
+---
+
+
+
+Gemfile
+-------
+
+gem 'sidekiq'
+
+
+---
+
+
+config/application.rb
+---------------------
+
+require_relative "boot"
+
+require "rails/all"
+
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
+
+Bundler.require(*Rails.groups)
+
+module Books
+  class Application < Rails::Application
+    config.load_defaults 6.1
+
+    # https://api.rubyonrails.org/classes/ActiveJob/QueueAdapters.html
+
+    config.active_job.queue_adapter = :sidekiq
+  end
+end
+
+
+
+
+config/sidekiq.yml
+------------------
+
+В этомф файле хранятся настройки sidekiq
+----------------------------------------
+
+:concurrency: 2
+:logfile: ./log/sidekiq.log
+:queues:
+ - default
+ - mailers
+
+
+
+---
+
+
+
+Open http://localhost:3000/sidekiq
+----------------------------------
+
+app/jobs/fetch_books_titles_job.rb
+----------------------------------
+
+class FetchBooksTitlesJob
+  include Sidekiq::Worker
+
+  def perform
+    titles = Book.pluck(:title)
+    pp titles
+  end
+
+  def improve_output
+    pp '*******************************************'
+    yield
+    pp '*******************************************'
+  end
+end
+
+
+
+
+Для асинхронных джоб с sidekiq изменяется способ их вызова
+----------------------------------------------------------
+
+FetchBooksTitlesJob.perform_async
+FetchBooksTitlesJob.perform_in(5.seconds)
+
+
+
+
+# ActiveJob perform_now / perform_later
+# Sidekiq perform_async / perform_in
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------
+Rails Cashing
+-------------
+
+
+https://guides.rubyonrails.org/caching_with_rails.html
+https://github.com/rails/actionpack-page_caching
+
+
+---
+
+
+
+Gemfile
+-------
+
+При первом запросе генерируется статический файл, при следующих запросах отдаётся этот файл
+-------------------------------------------------------------------------------------------
+
+gem "actionpack-page_caching"
+
+
+---
+
+
+
+config/environments/development.rb
+----------------------------------
+
+$ bin/rails dev:cache - включить кеширование командой
+
+
+require "active_support/core_ext/integer/time"
+
+Rails.application.configure do
+  # Enable/disable caching. By default caching is disabled.
+  # Run rails dev:cache to toggle caching.
+
+  if Rails.root.join('tmp', 'caching-dev.txt').exist?
+    config.action_controller.perform_caching = true
+    config.action_controller.enable_fragment_cache_logging = true
+
+    config.cache_store = :memory_store
+    config.public_file_server.headers = {
+      'Cache-Control' => "public, max-age=#{2.days.to_i}"
+    }
+
+    # Задаём директорию для хранения статических файлов страниц
+
+    config.action_controller.page_cache_directory = Rails.root.join('public', 'cached_pages')
+  else
+    config.action_controller.perform_caching = false
+    config.cache_store = :null_store
+  end
+end
+
+
+---
+
+
+
+
+class BooksController < ApplicationController
+  # создает статический файл, например public/books.html
+
+  caches_page :index
+
+  def index
+    @books = Book.all
+  end
+end
+
+
+---
+
+
+
+class Book < ApplicationRecord
+  # Обновление зависимой сущности приводит к обновлению updated_at у основной, что позволяет инвалидировать кеш
+
+  belongs_to :shop, touch: true
+end
+
+
+---
+
+
+
+Low level caching
+-----------------
+
+Rails.cache.write('my-cache-key', 123)
+Rails.cache.read('my-cache-key') # 123
+Rails.cache.read('my-not-written') # nil
+
+fetch создаёт ключ в кеше, если его не было ранее и возвращает это значение
+---------------------------------------------------------------------------
+
+Rails.cache.fetch('my-cache-key2') { 123 }
+Rails.cache.read('my-cache-key2') # 123
+
+
+---
+
+
+
+class Book < ApplicationRecord
+  def cached_books
+    Rails.cache.fetch("#{cache_key_with_version}/cached_books", expires_in: 5.seconds) do
+      Book.limit(30)
+    end
+  end
+end
+
+Book.last.cached_books
+
+
+---
+
+
+
+Список ключей в кеше
+--------------------
+
+Rails.cache.instance_variable_get(:@data).keys
+
+config/environments/development.rb
+----------------------------------
+
+require "active_support/core_ext/integer/time"
+
+Rails.application.configure do
+  if Rails.root.join('tmp', 'caching-dev.txt').exist?
+    config.action_controller.perform_caching = true
+    config.action_controller.enable_fragment_cache_logging = true
+
+    # Размер кеша
+
+    config.cache_store = :memory_store, { size: 64.megabytes }
+    config.public_file_server.headers = {
+      'Cache-Control' => "public, max-age=#{2.days.to_i}"
+    }
+    config.action_controller.page_cache_directory = Rails.root.join('public', 'cached_pages')
+  else
+    config.action_controller.perform_caching = false
+    config.cache_store = :null_store
+  end
+end
+
+
+---
+
+
+
+config/environments/development.rb
+----------------------------------
+
+require "active_support/core_ext/integer/time"
+
+Rails.application.configure do
+  if Rails.root.join('tmp', 'caching-dev.txt').exist?
+    config.action_controller.perform_caching = true
+    config.action_controller.enable_fragment_cache_logging = true
+
+    # При подключении гема можем добавить новые параметры
+    # https://github.com/mperham/connection_pool
+
+    config.cache_store = :memory_store, { size: 64.megabytes, pool_size: 5, pool_timeout: 5 }
+    config.public_file_server.headers = {
+      'Cache-Control' => "public, max-age=#{2.days.to_i}"
+    }
+    config.action_controller.page_cache_directory = Rails.root.join('public', 'cached_pages')
+  else
+    config.action_controller.perform_caching = false
+    config.cache_store = :null_store
+  end
+end
+
+
+---
+
+
+
+Хранилища для кеша описаны в документации
+-----------------------------------------
+
+https://guides.rubyonrails.org/caching_with_rails.html#cache-stores
+
+
+---
+
+
+
+<%#  app/views/books/index.html.erb %>
+<%# ... %>
+<% @books.each do |book| %>
+  # Создаются закешированные фрагменты
+  <%# https://apidock.com/rails/v4.0.2/ActionView/Helpers/CacheHelper %>
+  <% cache book do %>
+  <%# cache_if cond, book do %>
+  <%# cache_unless cond, book do %>
+  <tr>
+    <td><%= book.title %></td>
+    <td><%= link_to 'Show', book %></td>
+    <td><%= link_to 'Edit', edit_book_path(book) %></td>
+    <td><%= link_to 'Destroy', book, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %></td>
+  </tr>
+  <% end %>
+<% end %>
+<%# ... %>
+
+
+
+<%# Кеширование паршалла %>
+<tbody>
+  <%= render partial: 'books/books_list', collection: @books, cached: true %>
+</tbody>
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------
+Rails Engine
+------------
+
+
+https://github.com/thredded/thredded
+https://github.com/spree/spree
+
+
+---
+
+
+
+Создаётся изолированный движок
+------------------------------
+
+$ rails plugin new authoree --mountable
+
+
+create
+create  README.md
+create  Rakefile
+create  authoree.gemspec    # Все зависимости для движка указываются в gemspec. Зависимости не указанные в gemspec
+create  MIT-LICENSE
+create  .gitignore
+create  Gemfile
+   run  git init from "."
+create  app
+create  app/controllers/authoree/application_controller.rb
+create  app/helpers/authoree/application_helper.rb
+create  app/jobs/authoree/application_job.rb
+create  app/mailers/authoree/application_mailer.rb
+create  app/models/authoree/application_record.rb
+create  app/views/layouts/authoree/application.html.erb
+create  app/assets/images/authoree
+create  app/assets/images/authoree/.keep
+create  config/routes.rb
+create  lib/authoree.rb
+create  lib/tasks/authoree_tasks.rake
+create  lib/authoree/version.rb
+create  lib/authoree/engine.rb
+create  app/assets/config/authoree_manifest.js
+create  app/assets/stylesheets/authoree/application.css
+create  bin/rails
+create  test/test_helper.rb
+create  test/authoree_test.rb
+append  Rakefile
+create  test/integration/navigation_test.rb
+
+
+---
+
+
+стаб рельсового приложения через которое мы можем запускать движок как обычное приложение
+-----------------------------------------------------------------------------------------
+
+vendor_app  test/dummy
+    append  /tmp/books/Gemfile
+
+
+
+---
+
+
+
+authoree/lib/authoree/engine.rb
+-------------------------------
+
+module Authoree
+  class Engine < ::Rails::Engine
+    # Позволяет изолировать всё внутри движка от основного приложения
+
+    isolate_namespace Authoree
+  end
+end
+
+
+---
+
+
+
+authoree/app/controllers/authoree/application_controller.rb
+-----------------------------------------------------------
+
+Жёстко задаем зависимость, require_dependency позволяет работать автозагрузке
+-----------------------------------------------------------------------------
+
+require_dependency 'autoree/application_controller'
+
+class Web::ApplicationController < ApplicationController
+end
+
+
+---
+
+
+
+authoree/authoree.gemspec
+-------------------------
+
+# Перед работой с движком необходимо поправить Gemspec (убрать todo)
+
+require_relative "lib/authoree/version"
+
+Gem::Specification.new do |spec|
+  spec.name        = "authoree"
+  spec.version     = Authoree::VERSION
+  spec.authors     = ["example"]
+  spec.email       = ["example@mail.com"]
+  spec.homepage    = "http://example.com"
+  spec.summary     = "Summary of Authoree."
+  spec.description = "Description of Authoree."
+  spec.license     = "MIT"
+
+  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
+  # to allow pushing to a single host or delete this section to allow pushing to any host.
+  # spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
+
+  spec.metadata["homepage_uri"] = spec.homepage
+  spec.metadata['rubygems_mfa_required'] = true
+  # spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
+  # spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
+
+  spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+
+  spec.add_dependency "rails", "~> 6.1.4", ">= 6.1.4.1"
+end
+
+
+
+---
+
+
+
+После создания скаффолда внутри движка
+--------------------------------------
+
+$ bin/rails g scaffold user name
+
+
+
+---
+
+
+
+authoree/config/routes.rb#
+--------------------------
+
+Authoree::Engine.routes.draw do
+  resources :users
+end
+
+
+
+---
+
+
+
+authoree/app/models/authoree/user.rb
+------------------------------------
+
+module Authoree
+  class User < ApplicationRecord
+  end
+end
+
+
+
+---
+
+
+
+authoree/app/controllers/authoree/users_controller.rb
+-----------------------------------------------------
+
+require_dependency "authoree/application_controller"
+
+module Authoree
+  class UsersController < ApplicationController
+end
+
+
+
+---
+
+
+
+authoree/config/routes.rb#
+--------------------------
+
+Authoree::Engine.routes.draw do
+  root to: 'users#index'
+  resources :users
+end
+
+
+---
+
+
+
+config/routes.rb
+----------------
+
+Rails.application.routes.draw do
+  resources :books
+
+  # Sidekiq это тоже движок
+  # mount Sidekiq::Web => '/sidekiq'
+
+  mount Authoree::Engine, at: '/users'
+end
+
+
+
+---
+
+
+
+Gemfile
+-------
+
+gem 'authoree', path: 'authoree'
+
+
+---
+
+
+Установка миграций из движка
+----------------------------
+
+$ bin/rails authoree:install:migrations
+
+Copied migration 20211118114102_create_authoree_users.authoree.rb from authoree
+
+
+Установка миграций из всех движков
+----------------------------------
+
+$ bin/rails railties:install:migrations
+$ bin/rails db:migrate
+
+
+---
+
+
+
+module Authoree
+  # Позволяет наследоваться от доступного контроллера в основном приложении
+
+  class ApplicationController < ::ApplicationController
+  end
+end
+
+
+---
+
+
+Ссылки на страницы движка создаются с помощью префикса
+------------------------------------------------------
+
+link_to 'Users', authoree.users_path
+
+
+
+---
+
+
+
+Пример с динамической настройкой движка
+---------------------------------------
+
+authoree/lib/authoree.rb
+------------------------
+
+require "authoree/version"
+require "authoree/engine"
+
+module Authoree
+  mattr_accessor :consumer_class
+
+  def self.consumer_class
+    @@consumer_class.constantize
+  end
+end
+
+
+
+---
+
+
+config/initializers/authoree.rb
+-------------------------------
+
+Authoree.consumer_class = 'Book'
+
+
+
+authoree/app/models/authoree/user.rb
+------------------------------------
+
+module Authoree
+  class User < ApplicationRecord
+    attr_accessor :book_title
+
+    belongs_to :book, class_name: Authoree.consumer_class
+    before_validation :add_book
+
+    private
+
+    def add_book
+      self.book = Book.find_or_create_by(title: book_title, shop_id: Shop.last)
+    end
+  end
+end
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
