@@ -7223,6 +7223,27 @@ Access to app under following URL: <%= @url %>.
 Thanks for joining and have a great day!
 
 
+---
+
+
+Mailtrap
+--------
+
+https://ru.hexlet.io/blog/posts/chto-takoe-mailtrap-ili-kak-testirovat-pisma-na-stadiyah-razrabotki-i-predprodakshena
+https://mailtrap.io/
+
+
+
+Action Mailer basics
+--------------------
+
+https://guides.rubyonrails.org/action_mailer_basics.html
+
+
+
+
+
+
 
 
 
@@ -17774,6 +17795,1741 @@ end
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------
+Account Activation Rails
+------------------------
+
+
+https://www.railstutorial.org/book/account_activation
+
+
+
+---
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+Method                find_by                 String                Digest                Authentication
+
+----------------------------------------------------------------------------------------------------------------------------
+Login                 email                   password              password_digest       authenticate(password)
+----------------------------------------------------------------------------------------------------------------------------
+remember me           id                      remember_token        remember_digest       authenticated?(:remember, token)
+----------------------------------------------------------------------------------------------------------------------------
+account activation    email                   activation_token      activation_digest     authenticated?(:activation, token)
+----------------------------------------------------------------------------------------------------------------------------
+password reset        email                   reset_token           reset_digest          authenticated?(:reset, token)
+----------------------------------------------------------------------------------------------------------------------------
+
+
+
+---
+
+
+topic branch for the new feature
+--------------------------------
+
+$ git checkout -b account-activation
+
+
+
+---
+
+
+$ rails generate controller AccountActivations
+
+
+
+config/routes.rb
+----------------
+
+Rails.application.routes.draw do
+  root   "static_pages#home"
+  get    "/help",    to: "static_pages#help"
+  get    "/about",   to: "static_pages#about"
+  get    "/contact", to: "static_pages#contact"
+  get    "/signup",  to: "users#new"
+  get    "/login",   to: "sessions#new"
+  post   "/login",   to: "sessions#create"
+  delete "/logout",  to: "sessions#destroy"
+  resources :users
+  resources :account_activations, only: [:edit]
+end
+
+
+
+---
+
+
+$ rails generate migration add_activation_to_users \
+> activation_digest:string activated:boolean activated_at:datetime
+
+
+
+db/migrate/[timestamp]_add_activation_to_users.rb
+-------------------------------------------------
+
+class AddActivationToUsers < ActiveRecord::Migration[7.0]
+  def change
+    add_column :users, :activation_digest, :string
+    add_column :users, :activated, :boolean, default: false
+    add_column :users, :activated_at, :datetime
+  end
+end
+
+
+
+$ rails db:migrate
+
+
+---
+
+
+before_create :create_activation_digest
+
+private
+
+def create_activation_digest
+  # Create the token and digest
+end
+
+
+
+---
+
+
+$ rails console
+
+>> User.first.create_activation_digest
+NoMethodError: private method `create_activation_digest' called for #<User>
+
+
+
+self.activation_token  = User.new_token
+self.activation_digest = User.digest(activation_token)
+
+
+
+def remember
+  self.remember_token = User.new_token
+  update_attribute(:remember_digest, User.digest(remember_token))
+  remember_digest
+end
+
+
+
+---
+
+
+app/models/user.rb
+------------------
+
+class User < ApplicationRecord
+  attr_accessor :remember_token, :activation_token
+  before_save   :downcase_email
+  before_create :create_activation_digest
+  validates :name,  presence: true, length: { maximum: 50 }
+  .
+  .
+  .
+  private
+
+  # Converts email to all lowercase.
+  def downcase_email
+    self.email = email.downcase
+  end
+
+  # Creates and assigns the activation token and digest.
+  def create_activation_digest
+    self.activation_token  = User.new_token
+    self.activation_digest = User.digest(activation_token)
+  end
+end
+
+
+---
+
+
+db/seeds.rb
+-----------
+
+User.create!(
+  name:                  "Example User",
+  email:                 "example@railstutorial.org",
+  password:              "foobar",
+  password_confirmation: "foobar",
+  admin:                 true,
+  activated:             true,
+  activated_at:          Time.zone.now
+)
+
+
+99.times do |n|
+  name     = Faker::Name.name
+  email    = "example-#{n+1}@railstutorial.org"
+  password = "password"
+
+  User.create!(
+    name:                  name,
+    email:                 email,
+    password:              password,
+    password_confirmation: password,
+    activated:             true,
+    activated_at:          Time.zone.now
+  )
+end
+
+
+
+
+---
+
+
+test/fixtures/users.yml
+-----------------------
+
+michael:
+  name: Michael Example
+  email: michael@example.com
+  password_digest: <%= User.digest('password') %>
+  admin: true
+  activated: true
+  activated_at: <%= Time.zone.now %>
+
+archer:
+  name: Sterling Archer
+  email: duchess@example.gov
+  password_digest: <%= User.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+
+lana:
+  name: Lana Kane
+  email: hands@example.gov
+  password_digest: <%= User.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+
+malory:
+  name: Malory Archer
+  email: boss@example.gov
+  password_digest: <%= User.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+
+<% 30.times do |n| %>
+user_<%= n %>:
+  name:  <%= "User #{n}" %>
+  email: <%= "user-#{n}@example.com" %>
+  password_digest: <%= User.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+<% end %>
+
+
+---
+
+
+$ rails db:migrate:reset
+$ rails db:seed
+
+
+---
+
+
+
+Mailer templates
+----------------
+
+
+$ rails generate mailer UserMailer account_activation password_reset
+
+
+---
+
+
+app/views/user_mailer/account_activation.text.erb
+-------------------------------------------------
+
+User#account_activation
+
+<%= @greeting %>, find me in app/views/user_mailer/account_activation.text.erb
+
+
+
+---
+
+
+
+app/views/user_mailer/account_activation.html.erb
+-------------------------------------------------
+
+<h1>User#account_activation</h1>
+
+<p>
+  <%= @greeting %>, find me in app/views/user_mailer/account_activation.html.erb
+</p>
+
+
+
+---
+
+
+
+app/mailers/application_mailer.rb
+---------------------------------
+
+
+class ApplicationMailer < ActionMailer::Base
+  default from: "from@example.com"
+  layout "mailer"
+end
+
+
+
+---
+
+
+app/mailers/user_mailer.rb
+--------------------------
+
+class UserMailer < ApplicationMailer
+  def account_activation
+    @greeting = "Hi"
+
+    mail to: "to@example.org"
+  end
+
+  def password_reset
+    @greeting = "Hi"
+
+    mail to: "to@example.org"
+  end
+end
+
+
+
+---
+
+
+
+app/mailers/application_mailer.rb
+---------------------------------
+
+class ApplicationMailer < ActionMailer::Base
+  default from: "user@realdomain.com"
+  layout "mailer"
+end
+
+Listing 11.12: Mailing the account activation link. red
+app/mailers/user_mailer.rb
+
+class UserMailer < ApplicationMailer
+
+  def account_activation(user)
+    @user = user
+    mail to: user.email, subject: "Account activation"
+  end
+
+  def password_reset
+    @greeting = "Hi"
+
+    mail to: "to@example.org"
+  end
+end
+
+
+
+---
+
+
+app/views/user_mailer/account_activation.text.erb
+-------------------------------------------------
+
+Hi <%= @user.name %>,
+
+Welcome to the Sample App! Click on the link below to activate your account:
+
+<%= edit_account_activation_url(@user.activation_token, email: @user.email) %>
+
+
+
+
+app/views/user_mailer/account_activation.html.erb
+-------------------------------------------------
+
+
+<h1>Sample App</h1>
+
+<p>Hi <%= @user.name %>,</p>
+
+<p>
+Welcome to the Sample App! Click on the link below to activate your account:
+</p>
+
+<%= link_to "Activate", edit_account_activation_url(@user.activation_token, email: @user.email) %>
+
+
+
+---
+
+
+
+Email previews
+--------------
+
+
+config/environments/development.rb
+----------------------------------
+
+Rails.application.configure do
+  .
+  .
+  .
+  config.action_mailer.raise_delivery_errors = false
+
+  host = 'example.com' # Don't use this literally; use your local host instead.
+  config.action_mailer.default_url_options = { host: host, protocol: 'https' }
+  # config.action_mailer.default_url_options = { host: host, protocol: 'http' }
+  .
+  .
+  .
+end
+
+
+
+---
+
+
+host = '<hex string>.vfs.cloud9.us-east-2.amazonaws.com'                      # Cloud IDE
+config.action_mailer.default_url_options = { host: host, protocol: 'https' }
+
+
+
+host = 'localhost:3000'                                                       # Local server
+config.action_mailer.default_url_options = { host: host, protocol: 'http' }
+
+
+
+---
+
+
+test/mailers/previews/user_mailer_preview.rb
+--------------------------------------------
+
+class UserMailerPreview < ActionMailer::Preview
+  # Preview this email at
+  # http://localhost:3000/rails/mailers/user_mailer/account_activation
+
+  def account_activation
+    UserMailer.account_activation
+  end
+
+  # Preview this email at
+  # http://localhost:3000/rails/mailers/user_mailer/password_reset
+
+  def password_reset
+    UserMailer.password_reset
+  end
+end
+
+
+
+---
+
+
+test/mailers/previews/user_mailer_preview.rb
+--------------------------------------------
+
+class UserMailerPreview < ActionMailer::Preview
+  # Preview this email at
+  # http://localhost:3000/rails/mailers/user_mailer/account_activation
+
+  def account_activation
+    user = User.first
+    user.activation_token = User.new_token
+    UserMailer.account_activation(user)
+  end
+
+  # Preview this email at
+  # http://localhost:3000/rails/mailers/user_mailer/password_reset
+
+  def password_reset
+    UserMailer.password_reset
+  end
+end
+
+
+
+---
+
+
+
+Email tests
+-----------
+
+
+test/mailers/user_mailer_test.rb
+--------------------------------
+
+require "test_helper"
+
+class UserMailerTest < ActionMailer::TestCase
+  test "account_activation" do
+    mail = UserMailer.account_activation
+    assert_equal "Account activation", mail.subject
+    assert_equal ["to@example.org"], mail.to
+    assert_equal ["from@example.com"], mail.from
+    assert_match "Hi", mail.body.encoded
+  end
+
+  test "password_reset" do
+    mail = UserMailer.password_reset
+    assert_equal "Password reset", mail.subject
+    assert_equal ["to@example.org"], mail.to
+    assert_equal ["from@example.com"], mail.from
+    assert_match "Hi", mail.body.encoded
+  end
+end
+
+
+
+---
+
+
+
+assert_match 'foo', 'foobar'      # true
+assert_match 'baz', 'foobar'      # false
+assert_match /\w+/, 'foobar'      # true
+assert_match /\w+/, '$#!*+@'      # false
+
+
+
+---
+
+
+test/mailers/user_mailer_test.rb
+--------------------------------
+
+require "test_helper"
+
+class UserMailerTest < ActionMailer::TestCase
+
+  test "account_activation" do
+    user = users(:michael)
+    user.activation_token = User.new_token
+    mail = UserMailer.account_activation(user)
+    assert_equal "Account activation", mail.subject
+    assert_equal [user.email], mail.to
+    assert_equal ["user@realdomain.com"], mail.from
+    assert_match user.name,               mail.body.encoded
+    assert_match user.activation_token,   mail.body.encoded
+    assert_match CGI.escape(user.email),  mail.body.encoded
+  end
+end
+
+
+
+---
+
+
+config/environments/test.rb
+---------------------------
+
+Rails.application.configure do
+  .
+  .
+  .
+  config.action_mailer.delivery_method = :test
+  config.action_mailer.default_url_options = { host: 'example.com' }
+  .
+  .
+  .
+end
+
+
+
+---
+
+
+
+$ rails test:mailers
+
+
+
+---
+
+
+Updating the Users create action
+--------------------------------
+
+
+app/controllers/users_controller.rb
+-----------------------------------
+
+class UsersController < ApplicationController
+  .
+  .
+  .
+  def create
+    @user = User.new(user_params)
+
+    if @user.save
+      UserMailer.account_activation(@user).deliver_now
+      flash[:info] = "Please check your email to activate your account."
+      redirect_to root_url
+    else
+      render 'new', status: :unprocessable_entity
+    end
+  end
+  .
+  .
+  .
+end
+
+
+
+---
+
+
+
+test/integration/users_signup_test.rb
+-------------------------------------
+
+require "test_helper"
+
+class UsersSignupTest < ActionDispatch::IntegrationTest
+
+  test "invalid signup information" do
+    get signup_path
+    assert_no_difference 'User.count' do
+      post users_path, params: { user: { name:  "",
+                                         email: "user@invalid",
+                                         password:              "foo",
+                                         password_confirmation: "bar" } }
+    end
+    assert_response :unprocessable_entity
+    assert_template 'users/new'
+    assert_select 'div#error_explanation'
+    assert_select 'div.field_with_errors'
+  end
+
+  test "valid signup information" do
+    assert_difference 'User.count', 1 do
+      post users_path, params: { user: { name:  "Example User",
+                                         email: "user@realdomain.com",
+                                         password:              "password",
+                                         password_confirmation: "password" } }
+    end
+    follow_redirect!
+    # assert_template 'users/show'
+    # assert is_logged_in?
+  end
+end
+
+
+
+---
+
+
+
+UserMailer#account_activation: processed outbound mail in 5.1ms
+Delivered mail 5d606e97b7a44_28872b106582df988776a@ip-172-31-25-202.mail (3.2ms)
+Date: Fri, 11 Mar 2022 22:54:15 +0000
+From: user@realdomain.com
+To: michael@michaelhartl.com
+Message-ID: <5d606e97b7a44_28872b106582df988776a@ip-172-31-25-202.mail>
+Subject: Account activation
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5d606e97b6f16_28872b106582df98876dd";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+----==_mimepart_5d606e97b6f16_28872b106582df98876dd
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Hi Michael Hartl,
+
+Welcome to the Sample App! Click on the link below to activate your account:
+
+https://0ebe1dc6d40e4a4bb06e0ca7fe138127.vfs.cloud9.us-east-2.
+amazonaws.com/account_activations/zdqs6sF7BMiDfXBaC7-6vA/
+edit?email=michael%40michaelhartl.com
+
+----==_mimepart_5d606e97b6f16_28872b106582df98876dd
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+      /* Email styles need to be inline */
+    </style>
+  </head>
+
+  <body>
+    <h1>Sample App</h1>
+
+<p>Hi Michael Hartl,</p>
+
+<p>
+Welcome to the Sample App! Click on the link below to activate your account:
+</p>
+
+<a href="https://0ebe1dc6d40e4a4bb06e0ca7fe138127.vfs.cloud9.us-east-2.
+amazonaws.com/account_activations/zdqs6sF7BMiDfXBaC7-6vA/
+edit?email=michael%40michaelhartl.com">Activate</a>
+  </body>
+</html>
+
+----==_mimepart_5d606e97b6f16_28872b106582df98876dd--
+
+
+
+---
+
+
+
+Generalizing the authenticated? method
+--------------------------------------
+
+user = User.find_by(email: params[:email])
+if user && user.authenticated?(:activation, params[:id])
+
+
+
+---
+
+
+def authenticated?(remember_token)
+  return false if remember_digest.nil?
+  BCrypt::Password.new(remember_digest).is_password?(remember_token)
+end
+
+
+
+---
+
+
+
+>> user = User.first
+
+>> user.activation_digest
+=> "$2a$10$4e6TFzEJAVNyjLv8Q5u22ensMt28qEkx0roaZvtRcp6UZKRM6N9Ae"
+
+>> user.send(:activation_digest)
+=> "$2a$10$4e6TFzEJAVNyjLv8Q5u22ensMt28qEkx0roaZvtRcp6UZKRM6N9Ae"
+
+>> user.send("activation_digest")
+=> "$2a$10$4e6TFzEJAVNyjLv8Q5u22ensMt28qEkx0roaZvtRcp6UZKRM6N9Ae"
+
+>> attribute = :activation
+>> user.send("#{attribute}_digest")
+=> "$2a$10$4e6TFzEJAVNyjLv8Q5u22ensMt28qEkx0roaZvtRcp6UZKRM6N9Ae"
+
+
+
+---
+
+
+def authenticated?(remember_token)
+  digest = self.send("remember_digest")
+  return false if digest.nil?
+  BCrypt::Password.new(digest).is_password?(remember_token)
+end
+
+
+
+---
+
+
+def authenticated?(attribute, token)
+  digest = self.send("#{attribute}_digest")
+  return false if digest.nil?
+  BCrypt::Password.new(digest).is_password?(token)
+end
+
+
+
+---
+
+
+def authenticated?(attribute, token)
+  digest = send("#{attribute}_digest")
+  return false if digest.nil?
+  BCrypt::Password.new(digest).is_password?(token)
+end
+
+
+
+---
+
+
+user.authenticated?(:remember, remember_token)
+
+
+
+---
+
+
+app/models/user.rb
+------------------
+
+class User < ApplicationRecord
+  .
+  .
+  .
+  # Returns true if the given token matches the digest.
+
+  def authenticated?(attribute, token)
+    digest = send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
+  end
+  .
+  .
+  .
+end
+
+
+
+---
+
+
+$ rails test
+
+
+---
+
+
+
+app/helpers/sessions_helper.rb
+------------------------------
+
+module SessionsHelper
+  .
+  .
+  .
+  # Returns the current logged-in user (if any).
+  def current_user
+    if (user_id = session[:user_id])
+      user = User.find_by(id: user_id)
+      @current_user ||= user if session[:session_token] == user.session_token
+    elsif (user_id = cookies.encrypted[:user_id])
+      user = User.find_by(id: user_id)
+      if user && user.authenticated?(:remember, cookies[:remember_token])
+        log_in user
+        @current_user = user
+      end
+    end
+  end
+  .
+  .
+  .
+end
+
+
+
+---
+
+
+
+test/models/user_test.rb
+------------------------
+
+require "test_helper"
+
+class UserTest < ActiveSupport::TestCase
+
+  def setup
+    @user = User.new(name: "Example User", email: "user@realdomain.com",
+                     password: "foobar", password_confirmation: "foobar")
+  end
+  .
+  .
+  .
+  test "authenticated? should return false for a user with nil digest" do
+    assert_not @user.authenticated?(:remember, '')
+  end
+end
+
+
+
+$ rails test
+
+
+
+---
+
+
+Activation edit action
+----------------------
+
+if user && !user.activated? && user.authenticated?(:activation, params[:id])
+
+
+
+---
+
+
+
+user.update_attribute(:activated,    true)
+user.update_attribute(:activated_at, Time.zone.now)
+
+
+
+---
+
+
+app/controllers/account_activations_controller.rb
+-------------------------------------------------
+
+class AccountActivationsController < ApplicationController
+
+  def edit
+    user = User.find_by(email: params[:email])
+    if user && !user.activated? && user.authenticated?(:activation, params[:id])
+      user.update_attribute(:activated,    true)
+      user.update_attribute(:activated_at, Time.zone.now)
+      log_in user
+      flash[:success] = "Account activated!"
+      redirect_to user
+    else
+      flash[:danger] = "Invalid activation link"
+      redirect_to root_url
+    end
+  end
+end
+
+
+
+---
+
+
+
+app/controllers/sessions_controller.rb
+--------------------------------------
+
+class SessionsController < ApplicationController
+
+  def new
+  end
+
+  def create
+    user = User.find_by(email: params[:session][:email].downcase)
+    if user && user.authenticate(params[:session][:password])
+      if user.activated?
+        forwarding_url = session[:forwarding_url]
+        reset_session
+        params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+        log_in user
+        redirect_to forwarding_url || user
+      else
+        message  = "Account not activated. "
+        message += "Check your email for the activation link."
+        flash[:warning] = message
+        redirect_to root_url
+      end
+    else
+      flash.now[:danger] = 'Invalid email/password combination'
+      render 'new', status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    log_out if logged_in?
+    redirect_to root_url, status: :see_other
+  end
+end
+
+
+
+---
+
+
+Activation tests and refactoring
+--------------------------------
+
+test "login with valid information followed by logout" do
+  post login_path, params: { session: { email:    @user.email,
+                                        password: 'password' } }
+  assert is_logged_in?
+  .
+  .
+
+
+
+---
+
+
+
+test "valid login" do
+  .
+  .
+  .
+end
+
+test "redirect after login" do
+  .
+  .
+  .
+end
+
+
+test "successful logout" do
+  .
+  .
+  .
+end
+
+
+---
+
+
+
+test "login with valid email/invalid password" do
+  get login_path
+  assert_template 'sessions/new'
+  post login_path, params: { session: { email:    @user.email,
+                                        password: "invalid" } }
+  assert_not is_logged_in?
+  .
+  .
+  .
+
+
+
+---
+
+
+
+class UsersLogin < ActionDispatch::IntegrationTest
+
+  def setup
+    @user = users(:michael)
+  end
+end
+
+
+
+---
+
+
+
+class InvalidPasswordTest < UsersLogin
+
+  test "login path" do
+    get login_path
+    assert_template 'sessions/new'
+  end
+
+
+
+---
+
+
+
+class ValidLogin < UsersLogin
+
+  def setup
+    super
+    post login_path, params: { session: { email:    @user.email, password: 'password' } }
+  end
+end
+
+
+
+---
+
+
+test/integration/users_login_test.rb
+------------------------------------
+
+require "test_helper"
+
+class UsersLogin < ActionDispatch::IntegrationTest
+
+  def setup
+    @user = users(:michael)
+  end
+end
+
+class InvalidPasswordTest < UsersLogin
+
+  test "login path" do
+    get login_path
+    assert_template 'sessions/new'
+  end
+
+  test "login with valid email/invalid password" do
+    post login_path, params: { session: { email:    @user.email,
+                                          password: "invalid" } }
+    assert_not is_logged_in?
+    assert_template 'sessions/new'
+    assert_not flash.empty?
+    get root_path
+    assert flash.empty?
+  end
+end
+
+class ValidLogin < UsersLogin
+
+  def setup
+    super
+    post login_path, params: { session: { email:    @user.email,
+                                          password: 'password' } }
+  end
+end
+
+class ValidLoginTest < ValidLogin
+
+  test "valid login" do
+    assert is_logged_in?
+    assert_redirected_to @user
+  end
+
+  test "redirect after login" do
+    follow_redirect!
+    assert_template 'users/show'
+    assert_select "a[href=?]", login_path, count: 0
+    assert_select "a[href=?]", logout_path
+    assert_select "a[href=?]", user_path(@user)
+  end
+end
+
+class Logout < ValidLogin
+
+  def setup
+    super
+    delete logout_path
+  end
+end
+
+class LogoutTest < Logout
+
+  test "successful logout" do
+    assert_not is_logged_in?
+    assert_response :see_other
+    assert_redirected_to root_url
+  end
+
+  test "redirect after logout" do
+    follow_redirect!
+    assert_select "a[href=?]", login_path
+    assert_select "a[href=?]", logout_path,      count: 0
+    assert_select "a[href=?]", user_path(@user), count: 0
+  end
+
+  test "should still work after logout in second window" do
+    delete logout_path
+    assert_redirected_to root_url
+  end
+end
+
+class RememberingTest < UsersLogin
+
+  test "login with remembering" do
+    log_in_as(@user, remember_me: '1')
+    assert_not cookies[:remember_token].blank?
+  end
+
+  test "login without remembering" do
+    # Log in to set the cookie.
+    log_in_as(@user, remember_me: '1')
+    # Log in again and verify that the cookie is deleted.
+    log_in_as(@user, remember_me: '0')
+    assert cookies[:remember_token].blank?
+  end
+end
+
+
+
+---
+
+
+
+class UsersLoginTest < ActionDispatch::IntegrationTest
+
+  def setup
+    @user = users(:michael)
+  end
+
+  test "login path" do
+    get login_path
+    assert_template 'sessions/new'
+  end
+  .
+  .
+  .
+
+
+
+---
+
+
+
+class ValidLoginTest < UsersLoginTest
+
+  def setup
+    .
+    .
+    .
+end
+
+
+
+---
+
+
+
+Broken-up activation tests
+--------------------------
+
+class UsersSignup < ActionDispatch::IntegrationTest
+  def setup
+    ActionMailer::Base.deliveries.clear
+  end
+end
+
+
+---
+
+
+class AccountActivationTest < UsersSignup
+
+  def setup
+    super
+    post users_path, params: { user: { name:  "Example User",
+                                       email: "user@example.com",
+                                       password:              "password",
+                                       password_confirmation: "password" } }
+    @user = assigns(:user)
+  end
+  .
+  .
+  .
+end
+
+
+
+---
+
+
+test/integration/users_signup_test.rb
+-------------------------------------
+
+require "test_helper"
+
+class UsersSignup < ActionDispatch::IntegrationTest
+
+  def setup
+    ActionMailer::Base.deliveries.clear
+  end
+end
+
+class UsersSignupTest < UsersSignup
+
+  test "invalid signup information" do
+    assert_no_difference 'User.count' do
+      post users_path, params: { user: { name:  "",
+                                         email: "user@invalid",
+                                         password:              "foo",
+                                         password_confirmation: "bar" } }
+    end
+    assert_response :unprocessable_entity
+    assert_template 'users/new'
+    assert_select 'div#error_explanation'
+    assert_select 'div.field_with_errors'
+  end
+
+  test "valid signup information with account activation" do
+    assert_difference 'User.count', 1 do
+      post users_path, params: { user: { name:  "Example User",
+                                         email: "user@example.com",
+                                         password:              "password",
+                                         password_confirmation: "password" } }
+    end
+    assert_equal 1, ActionMailer::Base.deliveries.size
+  end
+end
+
+class AccountActivationTest < UsersSignup
+
+  def setup
+    super
+    post users_path, params: { user: { name:  "Example User",
+                                       email: "user@example.com",
+                                       password:              "password",
+                                       password_confirmation: "password" } }
+    @user = assigns(:user)
+  end
+
+  test "should not be activated" do
+    assert_not @user.activated?
+  end
+
+  test "should not be able to log in before account activation" do
+    log_in_as(@user)
+    assert_not is_logged_in?
+  end
+
+  test "should not be able to log in with invalid activation token" do
+    get edit_account_activation_path("invalid token", email: @user.email)
+    assert_not is_logged_in?
+  end
+
+  test "should not be able to log in with invalid email" do
+    get edit_account_activation_path(@user.activation_token, email: 'wrong')
+    assert_not is_logged_in?
+  end
+
+  test "should log in successfully with valid activation token and email" do
+    get edit_account_activation_path(@user.activation_token, email: @user.email)
+    assert @user.reload.activated?
+    follow_redirect!
+    assert_template 'users/show'
+    assert is_logged_in?
+  end
+end
+
+
+
+---
+
+
+
+$ rails test
+
+
+
+---
+
+
+app/models/user.rb
+------------------
+
+class User < ApplicationRecord
+  .
+  .
+  .
+  # Activates an account.
+  def activate
+    update_attribute(:activated,    true)
+    update_attribute(:activated_at, Time.zone.now)
+  end
+
+  # Sends activation email.
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
+
+  private
+    .
+    .
+    .
+end
+
+
+
+---
+
+
+
+app/controllers/users_controller.rb
+-----------------------------------
+
+class UsersController < ApplicationController
+  .
+  .
+  .
+  def create
+    @user = User.new(user_params)
+    if @user.save
+      @user.send_activation_email
+      flash[:info] = "Please check your email to activate your account."
+      redirect_to root_url
+    else
+      render 'new', status: :unprocessable_entity
+    end
+  end
+  .
+  .
+  .
+end
+
+
+---
+
+
+app/controllers/account_activations_controller.rb
+-------------------------------------------------
+
+class AccountActivationsController < ApplicationController
+
+  def edit
+    user = User.find_by(email: params[:email])
+    if user && !user.activated? && user.authenticated?(:activation, params[:id])
+      user.activate
+      log_in user
+      flash[:success] = "Account activated!"
+      redirect_to user
+    else
+      flash[:danger] = "Invalid activation link"
+      redirect_to root_url
+    end
+  end
+end
+
+
+
+---
+
+
+
+$ rails test
+
+
+
+---
+
+
+
+app/models/user.rb
+------------------
+
+class User < ApplicationRecord
+  attr_accessor :remember_token, :activation_token
+  before_save   :downcase_email
+  before_create :create_activation_digest
+  .
+  .
+  .
+  # Activates an account.
+  def activate
+    update_columns(activated: FILL_IN, activated_at: FILL_IN)
+  end
+
+  # Sends activation email.
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
+
+  private
+
+  # Converts email to all lowercase.
+  def downcase_email
+    self.email = email.downcase
+  end
+
+  # Creates and assigns the activation token and digest.
+  def create_activation_digest
+    self.activation_token  = User.new_token
+    self.activation_digest = User.digest(activation_token)
+  end
+end
+
+
+
+---
+
+
+
+app/controllers/users_controller.rb
+-----------------------------------
+
+
+
+class UsersController < ApplicationController
+  .
+  .
+  .
+  def index
+    @users = User.where(activated: FILL_IN).paginate(page: params[:page])
+  end
+
+  def show
+    @user = User.find(params[:id])
+    redirect_to root_url and return unless FILL_IN
+  end
+  .
+  .
+  .
+end
+
+
+
+---
+
+
+
+test/integration/users_index_test.rb
+------------------------------------
+
+require "test_helper"
+
+class UsersIndex < ActionDispatch::IntegrationTest
+
+  def setup
+    @admin     = users(:michael)
+    @non_admin = users(:archer)
+  end
+end
+
+class UsersIndexAdmin < UsersIndex
+
+  def setup
+    super
+    log_in_as(@admin)
+    get users_path
+  end
+end
+
+class UsersIndexAdminTest < UsersIndexAdmin
+
+  test "should render the index page" do
+    assert_template 'users/index'
+  end
+
+  test "should paginate users" do
+    assert_select 'div.pagination'
+  end
+
+  test "should have delete links" do
+    first_page_of_users = User.where(activated: true).paginate(page: 1)
+    first_page_of_users.each do |user|
+      assert_select 'a[href=?]', user_path(user), text: user.name
+      unless user == @admin
+        assert_select 'a[href=?]', user_path(user), text: 'delete'
+      end
+    end
+  end
+
+  test "should be able to delete non-admin user" do
+    assert_difference 'User.count', -1 do
+      delete user_path(@non_admin)
+    end
+    assert_response :see_other
+    assert_redirected_to users_url
+  end
+
+  test "should display only activated users" do
+    # Deactivate the first user on the page.
+    # Making an inactive fixture user isn't sufficient because Rails can't
+    # guarantee it would appear on the first page.
+    User.paginate(page: 1).first.toggle!(FILL_IN)
+    # Re-get /users to confirm the deactivated user doesn't appear.
+    get users_path
+    # Ensure that all the displayed users are activated.
+    assigns(:users).each do |user|
+      assert user.FILL_IN
+    end
+  end
+end
+
+class UsersNonAdminIndexTest < UsersIndex
+
+  test "should not have delete links as non-admin" do
+    log_in_as(@non_admin)
+    get users_path
+    assert_select 'a', text: 'delete', count: 0
+  end
+end
+
+
+---
+
+
+
+test/fixtures/users.yml
+-----------------------
+
+michael:
+  name: Michael Example
+  email: michael@example.com
+  password_digest: <%= User.digest('password') %>
+  admin: true
+  activated: true
+  activated_at: <%= Time.zone.now %>
+
+inactive:
+  name: Inactive User
+  email: inactive@example.com
+  password_digest: <%= User.digest('password') %>
+  admin: false
+  activated: false
+.
+.
+
+
+
+---
+
+
+
+test/integration/user_show_test.rb
+----------------------------------
+
+require "test_helper"
+
+class UsersShowTest < ActionDispatch::IntegrationTest
+
+  def setup
+    @inactive_user  = users(:inactive)
+    @activated_user = users(:archer)
+  end
+
+  test "should redirect when user not activated" do
+    get user_path(@inactive_user)
+    assert_response      FILL_IN
+    assert_redirected_to FILL_IN
+  end
+
+  test "should display user when activated" do
+    get user_path(@activated_user)
+    assert_response FILL_IN
+    assert_template FILL_IN
+  end
+end
+
+
+
+---
+
+
+
+Email in production
+-------------------
+
+$ grep heroku .git/config
+
+[remote "heroku"]
+  url = https://git.heroku.com/mysterious-atoll-47182.git
+
+
+
+host = 'https://mysterious-atoll-47182.herokuapp.com'
+
+
+
+---
+
+
+
+config/environments/production.rb
+---------------------------------
+
+Rails.application.configure do
+  .
+  .
+  .
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  host = '<your heroku app>.herokuapp.com'
+  config.action_mailer.default_url_options = { host: host }
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => 'apikey',
+    :password       => ENV['SENDGRID_API_KEY'],
+    :domain         => 'heroku.com',
+    :enable_starttls_auto => true
+  }
+  .
+  .
+  .
+end
+
+
+
+---
+
+
+
+$ heroku config:set SENDGRID_API_KEY=<paste SendGrid API key>
+
+
+
+---
+
+
+$ heroku config:get SENDGRID_API_KEY
+
+<API key displayed>
+
+
+
+---
+
+
+
+app/mailers/application_mailer.rb
+---------------------------------
+
+class ApplicationMailer < ActionMailer::Base
+  default from: "from@example.com"                  # <- Make sure it's not this example adddress
+  layout "mailer"
+end
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
