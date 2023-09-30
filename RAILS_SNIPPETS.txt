@@ -17331,9 +17331,9 @@ gem 'webmock'
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
------------------------------------
-Rails Active Job, callbacks, emails
------------------------------------
+--------------------------------------------
+Rails Active Job, callbacks, emails, sidekiq
+--------------------------------------------
 
 
 $ bin/rails g job fetch_books_titles
@@ -17399,8 +17399,10 @@ $ bin/rails g job fetch_books_titles --queue urgent
 app/jobs/fetch_books_titles_job.rb
 ----------------------------------
 
+--queue задает очередь в которую попадает задача
+------------------------------------------------
+
 class FetchBooksTitlesJob < ApplicationJob
-  # --queue задает очередь в которую попадает задача
   queue_as :urgent
 
   def perform(*args)
@@ -17416,13 +17418,17 @@ end
 
 Вызов джобы
 -----------
+
 FetchBooksTitlesJob.perform_later       --- Джоба выполняется после выполнения основного процесса
 FetchBooksTitlesJob.perform_now         --- Джоба запускается непосредственно
+
+
 
 Выполнить через 5 секунд
 ------------------------
 
 FetchBooksTitlesJob.set(wait: 5.seconds).perform_later
+
 
 
 Запустить через 10 секунд, в определенное время
@@ -17443,8 +17449,8 @@ require_relative "boot"
 
 require "rails/all"
 
-# Require the gems listed in Gemfile, including any gems
-# you've limited to :test, :development, or :production.
+Require the gems listed in Gemfile, including any gems you've limited to :test, :development, or :production
+------------------------------------------------------------------------------------------------------------
 
 Bundler.require(*Rails.groups)
 
@@ -17452,12 +17458,15 @@ module Books
   class Application < Rails::Application
     config.load_defaults 6.1
 
-    # https://api.rubyonrails.org/classes/ActiveJob/QueueAdapters.html
     config.active_job.queue_adapter = :sidekiq
     config.active_job_queue_name_prefix = Rails.new
     config.active_job_queue_name_delimiter = '.'
   end
 end
+
+
+
+https://api.rubyonrails.org/classes/ActiveJob/QueueAdapters.html
 
 
 
@@ -17499,6 +17508,7 @@ after_enqueue
 before_perform
 around_perform
 after_perform
+
 
 
 https://edgeguides.rubyonrails.org/active_job_basics.html#available-callbacks
@@ -17598,7 +17608,9 @@ Gemfile
 gem 'sidekiq'
 
 
+
 ---
+
 
 
 config/application.rb
@@ -17608,8 +17620,8 @@ require_relative "boot"
 
 require "rails/all"
 
-# Require the gems listed in Gemfile, including any gems
-# you've limited to :test, :development, or :production.
+Require the gems listed in Gemfile, including any gems you've limited to :test, :development, or :production
+------------------------------------------------------------------------------------------------------------
 
 Bundler.require(*Rails.groups)
 
@@ -17617,11 +17629,12 @@ module Books
   class Application < Rails::Application
     config.load_defaults 6.1
 
-    # https://api.rubyonrails.org/classes/ActiveJob/QueueAdapters.html
-
     config.active_job.queue_adapter = :sidekiq
   end
 end
+
+
+https://api.rubyonrails.org/classes/ActiveJob/QueueAdapters.html
 
 
 
@@ -17685,6 +17698,466 @@ FetchBooksTitlesJob.perform_in(5.seconds)
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+-------------
+Sidekiq guide
+-------------
+
+
+Gemfile
+-------
+
+gem 'sidekiq'
+
+
+
+---
+
+
+
+Define a Worker
+---------------
+
+class SampleWorker
+  include Sidekiq::Worker
+  include Sidekiq::Schedulable
+  
+  def perform(args)
+    # Logic defining your task
+  end 
+end
+
+
+
+---
+
+
+
+Calling Workers Methods
+-----------------------
+
+SampleWorker.perform_in(10.days, record_id: 10)
+SampleWorker.perform_at(10.days.from_now, record_id: 10)
+SampleWorker.perform_now
+SampleWorker.perform_later
+
+
+
+---
+
+
+
+Start SideKiq In Development
+----------------------------
+
+$ bundle exec sidekiq
+
+
+
+---
+
+
+
+Sidekiq On Production
+---------------------
+
+RAILS_ENV=production nohup bundle exec sidekiq &
+
+
+
+---
+
+
+
+Sidekiq Dashboard
+-----------------
+
+require 'sidekiq/web'
+mount Sidekiq::Web => '/sidekiq'
+
+
+
+---
+
+
+
+authenticate :user, lambda { |u| u.admin? } do
+  mount Sidekiq::Web => '/sidekiq'
+end
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------
+Rails, Sidekiq : full tutorial
+------------------------------
+
+
+$ ruby -v
+
+ruby 3.1.0p0 // you need at least version 3 here
+
+
+
+$ bundle -v
+
+Bundler version 2.2.11
+
+
+
+$ npm -v
+
+8.3.0 // you need at least version 7.1 here
+
+
+
+$ yarn -v
+
+1.22.10
+
+
+
+$ psql --version
+
+psql (PostgreSQL) 13.1
+
+
+
+$ redis-cli ping
+
+PONG
+
+
+
+$ foreman -v
+
+0.87.2
+
+
+
+---
+
+
+
+Create a fresh new Rails app – without Sidekiq first
+----------------------------------------------------
+
+
+$ mkdir sidekiqrails && cd sidekiqrails  
+$ echo "source 'https://rubygems.org'" > Gemfile  
+$ echo "gem 'rails', '7.0.1'" >> Gemfile  
+$ bundle install  
+$ bundle exec rails new . --force -d=postgresql --minimal
+
+
+
+---
+
+
+
+
+Create a default controller
+---------------------------
+
+$ echo "class WelcomeController < ApplicationController" > app/controllers/welcome_controller.rb
+$ echo "end" >> app/controllers/welcome_controller.rb
+
+
+
+Create a default route
+----------------------
+
+$ echo "Rails.application.routes.draw do" > config/routes.rb
+$ echo '  get "welcome/index"' >> config/routes.rb
+$ echo '  root to: "welcome#index"' >> config/routes.rb
+$ echo 'end' >> config/routes.rb
+
+
+
+Create a default view
+---------------------
+
+$ mkdir app/views/welcome
+$ echo '<h1>This is h1 title</h1>' > app/views/welcome/index.html.erb
+
+
+
+Create database and schema.rb
+-----------------------------
+
+$ bin/rails db:create
+$ bin/rails db:migrate
+
+
+
+---
+
+
+
+config/application.rb
+---------------------
+
+require_relative "boot"
+
+require "rails"
+require "active_model/railtie"
+require "active_job/railtie"
+
+
+
+---
+
+
+
+app/jobs/application_job.rb
+---------------------------
+
+class ApplicationJob < ActiveJob::Base
+end
+
+
+
+---
+
+
+
+Add redis and sidekiq gems to your Rails app
+--------------------------------------------
+
+
+Gemfile
+-------
+
+gem 'redis'
+gem 'sidekiq'
+
+
+$ bundle install && bundle update
+
+
+
+---
+
+
+
+config/application.rb
+---------------------
+
+class Application < Rails::Application
+  config.active_job.queue_adapter = :sidekiq
+end
+
+
+
+---
+
+
+
+Create a hello world job
+------------------------
+
+app/jobs/hello_world_job.rb
+---------------------------
+
+
+class HelloWorldJob < ApplicationJob
+  queue_as :default
+
+  def perform(*args)
+    sleep 5
+    p "hello from HelloWorldJob #{Time.now().strftime('%F - %H:%M:%S.%L')}"
+  end
+end
+
+
+
+---
+
+
+
+Call the hello world job from the view
+--------------------------------------
+
+
+config/routes.rb
+----------------
+
+Rails.application.routes.draw do
+  get "welcome/index"
+  post "welcome/trigger_job"
+  get "other/job_done"
+  root to: "welcome#index"
+end
+
+
+
+---
+
+
+
+app/controllers/other_controller.rb
+-----------------------------------
+
+class OtherController < ApplicationController
+  def job_done
+  end
+end
+
+
+
+---
+
+
+
+app/views/other/job_done.html.erb
+---------------------------------
+
+<h1>Job was called</h1>
+
+
+
+---
+
+
+
+app/views/welcome/index.html.erb
+--------------------------------
+
+<h1>This is h1 title</h1>
+
+<%= form_with url: welcome_trigger_job_path do |f| %>
+ <%= f.submit 'Launch job' %>
+<% end %>
+
+
+
+---
+
+
+
+app/controllers/welcome_controller.rb
+-------------------------------------
+
+class WelcomeController < ApplicationController
+  def trigger_job
+    HelloWorldJob.perform_later
+    redirect_to other_job_done_path
+  end
+end
+
+
+
+---
+
+
+
+Add a Procfile.dev
+------------------
+
+$ rails s
+$ bundle exec sidekiq -C config/sidekiq.yml
+
+
+
+---
+
+
+
+config/sidekiq.yml
+------------------
+
+development:
+  :concurrency: 5
+
+production:
+  :concurrency: 10
+
+:max_retries: 1
+
+:queues:
+  - default
+
+
+
+
+---
+
+
+
+config/initializers/sidekiq.rb
+------------------------------
+
+Sidekiq.configure_server do |config|
+  config.redis = { url: ENV.fetch('REDIS_URL', 'redis://localhost:6379/1') }
+end
+
+Sidekiq.configure_client do |config|
+  config.redis = { url: ENV.fetch('REDIS_URL', 'redis://localhost:6379/1') }
+end
+
+
+
+---
+
+
+
+Launch local app
+----------------
+
+$ foreman start -f Procfile.dev
+
+
+
+---
+
+
+
+Push Rails and Sidekiq to production
+------------------------------------
+
+heroku is connected
+-------------------
+
+$ heroku login  
+$ heroku create  
+
+
+
+This will modify local files
+----------------------------
+
+$ echo "web: bundle exec puma -C config/puma.rb" > Procfile  
+$ echo "worker: bundle exec sidekiq -e production -C config/sidekiq.yml" >> Procfile  
+$ bundle lock --add-platform x86_64-linux  
+
+
+
+This will modify you heroku app
+-------------------------------
+
+$ heroku addons:create heroku-postgresql:hobby-dev  
+$ heroku addons:create heroku-redis:hobby-dev
+$ heroku buildpacks:add heroku/ruby  
+
+
+
+$ git add . && git commit -m 'ready for prod'  
+$ git push heroku main  
+
+app works, but worker (for background jobs) is missing
+------------------------------------------------------
+
+$ heroku ps:scale worker=1
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 
@@ -17702,6 +18175,7 @@ https://guides.rubyonrails.org/caching_with_rails.html
 https://github.com/rails/actionpack-page_caching
 
 
+
 ---
 
 
@@ -17715,6 +18189,7 @@ Gemfile
 gem "actionpack-page_caching"
 
 
+
 ---
 
 
@@ -17722,26 +18197,26 @@ gem "actionpack-page_caching"
 config/environments/development.rb
 ----------------------------------
 
-$ bin/rails dev:cache - включить кеширование командой
+включить кеширование командой
+-----------------------------
+
+$ bin/rails dev:cache
+
+
+
+Задаём директорию для хранения статических файлов страниц
+---------------------------------------------------------
 
 
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  # Enable/disable caching. By default caching is disabled.
-  # Run rails dev:cache to toggle caching.
-
   if Rails.root.join('tmp', 'caching-dev.txt').exist?
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
 
     config.cache_store = :memory_store
-    config.public_file_server.headers = {
-      'Cache-Control' => "public, max-age=#{2.days.to_i}"
-    }
-
-    # Задаём директорию для хранения статических файлов страниц
-
+    config.public_file_server.headers = { 'Cache-Control': "public, max-age = #{ 2.days.to_i }" }
     config.action_controller.page_cache_directory = Rails.root.join('public', 'cached_pages')
   else
     config.action_controller.perform_caching = false
@@ -17750,14 +18225,16 @@ Rails.application.configure do
 end
 
 
+
 ---
 
 
 
+создает статический файл, например public/books.html
+----------------------------------------------------
+
 
 class BooksController < ApplicationController
-  # создает статический файл, например public/books.html
-
   caches_page :index
 
   def index
@@ -17766,15 +18243,18 @@ class BooksController < ApplicationController
 end
 
 
+
 ---
 
 
 
-class Book < ApplicationRecord
-  # Обновление зависимой сущности приводит к обновлению updated_at у основной, что позволяет инвалидировать кеш
+Обновление зависимой сущности приводит к обновлению updated_at у основной, что позволяет инвалидировать кеш
+-----------------------------------------------------------------------------------------------------------
 
+class Book < ApplicationRecord
   belongs_to :shop, touch: true
 end
+
 
 
 ---
@@ -17785,14 +18265,17 @@ Low level caching
 -----------------
 
 Rails.cache.write('my-cache-key', 123)
-Rails.cache.read('my-cache-key') # 123
-Rails.cache.read('my-not-written') # nil
+Rails.cache.read('my-cache-key')                                  # 123
+Rails.cache.read('my-not-written')                                # nil
+
+
 
 fetch создаёт ключ в кеше, если его не было ранее и возвращает это значение
 ---------------------------------------------------------------------------
 
 Rails.cache.fetch('my-cache-key2') { 123 }
-Rails.cache.read('my-cache-key2') # 123
+Rails.cache.read('my-cache-key2')                                 # 123
+
 
 
 ---
@@ -17801,13 +18284,16 @@ Rails.cache.read('my-cache-key2') # 123
 
 class Book < ApplicationRecord
   def cached_books
-    Rails.cache.fetch("#{cache_key_with_version}/cached_books", expires_in: 5.seconds) do
+    Rails.cache.fetch("#{ cache_key_with_version }/cached_books", expires_in: 5.seconds) do
       Book.limit(30)
     end
   end
 end
 
+
+
 Book.last.cached_books
+
 
 
 ---
@@ -17819,8 +18305,13 @@ Book.last.cached_books
 
 Rails.cache.instance_variable_get(:@data).keys
 
+
+
 config/environments/development.rb
 ----------------------------------
+
+Размер кеша
+-----------
 
 require "active_support/core_ext/integer/time"
 
@@ -17829,12 +18320,8 @@ Rails.application.configure do
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
 
-    # Размер кеша
-
     config.cache_store = :memory_store, { size: 64.megabytes }
-    config.public_file_server.headers = {
-      'Cache-Control' => "public, max-age=#{2.days.to_i}"
-    }
+    config.public_file_server.headers = { 'Cache-Control': "public, max-age = #{ 2.days.to_i }" }
     config.action_controller.page_cache_directory = Rails.root.join('public', 'cached_pages')
   else
     config.action_controller.perform_caching = false
@@ -17850,6 +18337,13 @@ end
 config/environments/development.rb
 ----------------------------------
 
+При подключении гема можем добавить новые параметры
+---------------------------------------------------
+
+https://github.com/mperham/connection_pool
+
+
+
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
@@ -17857,19 +18351,15 @@ Rails.application.configure do
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
 
-    # При подключении гема можем добавить новые параметры
-    # https://github.com/mperham/connection_pool
-
     config.cache_store = :memory_store, { size: 64.megabytes, pool_size: 5, pool_timeout: 5 }
-    config.public_file_server.headers = {
-      'Cache-Control' => "public, max-age=#{2.days.to_i}"
-    }
+    config.public_file_server.headers = { 'Cache-Control': "public, max-age = #{ 2.days.to_i }" }
     config.action_controller.page_cache_directory = Rails.root.join('public', 'cached_pages')
   else
     config.action_controller.perform_caching = false
     config.cache_store = :null_store
   end
 end
+
 
 
 ---
@@ -17882,18 +18372,28 @@ end
 https://guides.rubyonrails.org/caching_with_rails.html#cache-stores
 
 
+
 ---
 
 
 
-<%#  app/views/books/index.html.erb %>
-<%# ... %>
+Создаются закешированные фрагменты
+----------------------------------
+
+
+app/views/books/index.html.erb
+------------------------------
+
+https://apidock.com/rails/v4.0.2/ActionView/Helpers/CacheHelper
+
+
+
 <% @books.each do |book| %>
-  # Создаются закешированные фрагменты
-  <%# https://apidock.com/rails/v4.0.2/ActionView/Helpers/CacheHelper %>
   <% cache book do %>
-  <%# cache_if cond, book do %>
-  <%# cache_unless cond, book do %>
+
+  # cache_if cond, book do
+  # cache_unless cond, book do
+
   <tr>
     <td><%= book.title %></td>
     <td><%= link_to 'Show', book %></td>
@@ -17902,14 +18402,36 @@ https://guides.rubyonrails.org/caching_with_rails.html#cache-stores
   </tr>
   <% end %>
 <% end %>
-<%# ... %>
 
 
 
-<%# Кеширование паршалла %>
+Кеширование паршалла
+--------------------
+
 <tbody>
   <%= render partial: 'books/books_list', collection: @books, cached: true %>
 </tbody>
+
+
+
+---
+
+
+
+Caching resources
+-----------------
+
+https://guides.rubyonrails.org/caching_with_rails.html
+https://guides.rubyonrails.org/caching_with_rails.html#low-level-caching
+https://guides.rubyonrails.org/caching_with_rails.html#activesupport-cache-filestore
+https://guides.rubyonrails.org/layouts_and_rendering.html#rendering-collections
+https://guides.rubyonrails.org/caching_with_rails.html#cache-stores
+
+https://github.com/mperham/connection_pool
+https://github.com/rails/actionpack-page_caching
+https://github.com/rails/actionpack-action_caching
+
+https://apidock.com/rails/v4.0.2/ActionView/Helpers/CacheHelper
 
 
 
@@ -20201,27 +20723,6 @@ config.active_storage.service = :yandex
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-{
-  "id":113629430,
-  "email":"three@test.io",
-  "address":"three",
-  "full_name":"three three",
-  "posts":[
-    {
-      "id":298486374,
-      "title":"MyString"
-    },
-    {
-      "id":980190962,
-      "title":"MyString"
-    }
-  ]
-}
-
-
-
 
 
 
