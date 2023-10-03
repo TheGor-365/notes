@@ -1,0 +1,697 @@
+------
+PYTHON
+------
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------
+algorithms
+----------
+
+
+cipher_ceasar.py
+----------------
+
+def caesar(text, key):
+    alphabet = ' abcdefghijklmnopqrstuvwxyz'
+    res = ''
+    for c in text:
+        res += alphabet[(alphabet.index(c) + key) % len(alphabet)]
+        print(res)
+
+
+
+
+
+---
+
+
+
+
+cipher_vigener.py
+-----------------
+
+alpha = 'abcdefghijklmnopqrstuvwxyz'
+
+message = 'python'
+key = 'java'
+
+encrypt_text = str()
+
+for i, letter in enumerate(message):
+index = alpha.index(letter)
+
+key_index = alpha.index(key[i % len(key)])
+
+index = (index + key_index) % len(alpha)
+encrypt_text += alpha[index]
+
+print(encrypt_text)
+
+
+
+
+
+---
+
+
+
+
+
+recursion.py
+------------
+
+def fibonacci(n):
+    if n == 1 or n == 2:
+        return 1
+        return fibonacci(n-1) + fibonacci(n-2)
+
+
+
+
+
+---
+
+
+
+
+
+search_binary.py
+----------------
+
+
+def binary_search(arr, element):
+    left = 0
+    right = len(arr)-1
+    index = -1
+    while (left <= right) and (index == -1):
+        mid = (left+right)//2
+        if arr[mid] == element:
+            index = mid
+        else:
+            if element < arr[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+                return index
+
+
+
+
+
+---
+
+
+
+
+
+search_by_jumping.py
+--------------------
+
+
+def jump_search(arr, element):
+    length = len(arr)
+    jump = int(math.sqrt(length))
+    left, right = 0, 0
+    while left < length and arr[left] <= element:
+        right = min(length - 1, left + jump)
+        if arr[left] <= element and arr[right] >= element:
+            break
+            left += jump
+            if left >= length or arr[left] > element:
+                return -1
+                right = min(length - 1, right)
+                i = left
+                while i <= right and arr[i] <= element:
+                    if arr[i] == element:
+                        return i
+                        i += 1
+                        return -1
+
+
+
+
+
+---
+
+
+
+
+search_in_depth.py
+------------------
+
+
+def dfs(matrix, node):
+    visited = set()
+    visited.add(node)
+
+    for coherence in range(len(matrix)):
+        if matrix[node][coherence] == 1 and coherence not in visited:
+            print(coherence)
+            dfs(matrix, coherence)
+
+
+
+
+
+
+---
+
+
+
+
+search_interpolation.py
+-----------------------
+
+
+def interpolation_search(arr, element):
+    left = 0
+    right = (len(arr) - 1)
+    while left <= right and element >= arr[left] and element <= arr[right]:
+        index = left + \
+            int(((float(right - left)
+                / (arr[right] - arr[left])) * (element - arr[left])))
+        if arr[index] == element:
+            return index
+            if arr[index] < element:
+                left = index + 1
+            else:
+                right = index - 1
+                return -1
+
+
+
+
+
+
+---
+
+
+
+
+search_linear.py
+----------------
+
+
+arr = [1, 2, 3]
+
+
+def linear_search(arr, element):
+    for i in range:
+        if arr[i] == element:
+            return i
+        return -1
+
+
+
+
+
+---
+
+
+
+
+sorting_bubble.py
+-----------------
+
+
+def bubble_sort(arr):
+    n = len(arr)
+
+    for i in range(n-1):
+        for j in range(n-i-1):
+            if(arr[j] > arr[j + 1]:
+                b=arr[j]
+                arr[j]=arr[j + 1]
+                arr[j + 1]=b
+
+
+
+
+
+---
+
+
+
+
+sorting_by_choice.py
+--------------------
+
+
+def selection_sort(arr):
+    for i in range(len(arr)):
+        min_index = i
+        for j in range(i + 1, len(arr)):
+            if arr[j] < arr[min_index]:
+                min_index = j
+                arr[i], arr[min_index] = arr[min_index], arr[i]
+
+
+
+
+
+
+---
+
+
+
+
+sorting_dwarves.py
+------------------
+
+
+def gnome(arr):
+    i, size = 1, len(arr)
+    while i < size:
+        if arr[i - 1] <= arr[i]:
+            i += 1
+        else:
+            arr[i - 1], arr[i] = arr[i], arr[i - 1]
+            if i > 1:
+                i -= 1
+                return arr
+
+
+
+
+---
+
+
+
+
+sorting_merge.py
+----------------
+
+
+def merge(left_list, right_list):
+    sorted_list = []
+    left_list_index = right_list_index = 0
+    left_list_length, right_list_length = len(left_list), len(right_list)
+    for _ in range(left_list_length + right_list_length):
+        if left_list_index < left_list_length and right_list_index < right_list_length:
+            if left_list[left_list_index] <= right_list[right_list_index]:
+                sorted_list.append(left_list[left_list_index])
+                left_list_index += 1
+            else:
+                sorted_list.append(right_list[right_list_index])
+                right_list_index += 1
+            elif left_list_index == left_list_length:
+                sorted_list.append(right_list[right_list_index])
+                right_list_index += 1
+            elif right_list_index == right_list_length:
+                sorted_list.append(left_list[left_list_index])
+                left_list_index += 1
+                return sorted_list
+
+                def merge_sort(arr):
+                    if len(arr) <= 1:
+                        return arr
+                        mid = len(arr) // 2
+                        left_list = merge_sort(arr[:mid])
+                        right_list = merge_sort(arr[mid:])
+                        return merge(left_list, right_list)
+
+
+
+
+
+
+---
+
+
+
+
+sorting_shells.py
+-----------------
+
+
+def shell_sort(arr):
+
+    gap = len(arr)/2
+    while gap > 0:
+
+        for i in range(gap, len(arr)):
+            b = arr[i]
+            j = id
+
+            while j >= gap and arr[j-gap] > b:
+                arr[j] = arr[j - gap]
+                j = j - gap
+                arr[j] = temp
+
+                gap = gap/2
+
+
+
+
+
+---
+
+
+
+
+structure_linked_list.py
+------------------------
+
+
+class Node:
+
+
+def __init__(self, value):
+
+
+self.next = None
+self.value = value
+
+
+def append(self, value):
+
+
+end = Node(value)
+n = self
+while (n.next):
+n = n.next
+n.next = end
+
+
+
+
+
+---
+
+
+
+
+structure_queue.py
+------------------
+
+
+class Queue:
+
+
+def __init__(self):
+
+
+self.queue = []
+
+
+def push(self, element):
+
+
+self.queue.append(element)
+
+
+def pop(self):
+
+
+if len(self.queue) == 0:
+return None
+element = self.queue.pop(0)
+return element
+
+
+
+
+
+---
+
+
+
+
+structure_stack.py
+------------------
+
+
+class Stack:
+
+
+def __init__(self):
+
+
+self.stack = []
+
+
+def push(self, element):
+
+
+self.stack.append(element)
+
+
+def pop(self):
+
+
+if len(self.stack) == 0:
+return None
+element = self.stack.pop()
+return element
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------
+pandas
+------
+
+
+
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+import pandas as pd
+
+path_to_train = "files/train.csv"
+path_to_test = "files/test.csv"
+
+train_df = pd.read_csv(path_to_train)
+test_df = pd.read_csv(path_to_test)
+
+# print(train_df)
+# print(test_df)
+
+null_count = train_df.isnull().sum().sum()
+print(f"null_count:\n {null_count}\n------------------")
+
+nans = train_df[train_df.isna().any(axis=1)]
+print(f"nans:\n {nans}\n------------------")
+
+no_train_line = train_df[train_df['metro_line'].str.match('Ветка не указана')]
+print(f"no_train_line:\n {no_train_line}\n------------------")
+
+train_df = train_df.dropna()
+print(f"nans:\n {nans}\n------------------")
+
+
+train_df = train_df[['price', 'type_']]
+train_df = pd.DataFrame(train_df)
+
+sns.boxplot(y='price', x='type_', data=train_df)
+
+plt.xticks(rotation=5000)
+plt.ylabel('Price')
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------
+scrapping
+---------
+
+
+from bs4 import BeautifulSoup
+
+with open("/home/gor/Downloads/page9.html", "r") as f:
+
+    contents = f.read()
+
+soup = BeautifulSoup(contents, 'html.parser')
+
+print(soup.h2)
+print(soup.head)
+print(soup.li)
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------
+python, docker
+--------------
+
+
+app.py
+------
+
+
+import time
+
+import redis
+from flask import Flask
+
+app = Flask(__name__)
+cache = redis.Redis(host='redis', port=6379)
+
+
+def get_hit_count():
+    retries = 5
+    while True:
+        try:
+            return cache.incr('hits')
+        except redis.exceptions.ConnectionError as exc:
+            if retries == 0:
+                raise exc
+            retries -= 1
+            time.sleep(0.5)
+
+
+@app.route('/')
+def hello():
+    count = get_hit_count()
+    return 'Hello World! World! I have been seen {} times.\n'.format(count)
+
+
+
+
+
+---
+
+
+
+
+docler.yml
+----------
+
+
+version: "3.9"
+services:
+  web:
+    build: .
+    ports:
+      - "8000:5000"
+    volumes:
+      - .:/code
+    environment:
+      FLASK_ENV: development
+  redis:
+    image: "redis:alpine"
+
+
+
+
+
+---
+
+
+
+
+
+Dockerfile
+----------
+
+
+# syntax=docker/dockerfile:1
+FROM python:3.7-alpine
+WORKDIR /code
+ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
+RUN apk add --no-cache gcc musl-dev linux-headers
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+EXPOSE 5000
+COPY . .
+CMD ["flask", "run"]
+
+
+
+
+
+---
+
+
+
+
+
+requirements.txt
+----------------
+
+
+flask
+redis
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

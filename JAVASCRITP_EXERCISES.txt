@@ -1,0 +1,1544 @@
+--------------------
+JAVASCRITP EXERCISES
+--------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------
+basic exercises
+---------------
+
+
+bind.js
+-------
+
+export default (context, fn) => (...args) => fn.apply(context, args);
+
+
+
+
+
+---
+
+
+
+
+
+capitalize.js
+-------------
+
+const capitalize = (word) => {
+  return word.slice(0, 1).toUpperCase() + word.slice(1, word.length);
+};
+
+console.log(capitalize('wikipedia'))
+
+
+
+
+
+---
+
+
+
+
+
+cart.js
+-------
+
+export default class Cart {
+  constructor() {
+    this.items = [];
+  }
+
+  addItem(item, count) {
+    const items = this.getItems();
+    items.push({ item, count });
+  }
+
+  getItems() {
+    return this.items;
+  }
+
+  getCount() {
+    return _.sumBy(this.getItems(), (goods) => goods.count);
+  }
+
+  getCost() {
+    return _.sumBy(this.getItems(), (goods) => goods.item.price * goods.count);
+  }
+}
+
+
+
+
+
+---
+
+
+
+
+cell.js
+-------
+
+const number = 923.2238;
+
+console.log(Math.ceil(923.2238));
+
+
+
+
+
+---
+
+
+
+
+chainOfEvents.js
+------------------
+
+function bodyEvent () {
+  window.alert('onclick for Document');
+}
+
+function pEvent () {
+  window.alert('onclick for Paragraph');
+}
+
+function spanEvent () {
+  window.alert('onclick for Span');
+}
+
+
+
+
+
+---
+
+
+
+
+class.js
+--------
+
+class Human {
+  constructor(year, hname) {
+    this.year = year;
+    this.hname = hname;
+  }
+
+  scream () {
+    return this;
+  }
+
+  static listen () {
+    return this;
+  }
+
+  static displayName = "man"
+}
+
+let Den = new Human(1980, "Den")
+
+console.log(Den);
+console.log(Human.displayName);
+
+
+let obj = new Human();
+obj.scream();
+let scream = obj.scream();
+
+
+
+
+
+---
+
+
+
+
+collection.js
+-------------
+
+export default (objects, callback) => objects.forEach((object) => callback.call(object));
+
+
+
+
+
+---
+
+
+
+
+console.js
+----------
+
+console.log('Robert')
+console.log('Stannis')
+console.log('Renly')
+
+
+
+
+
+---
+
+
+
+
+convert.js
+----------
+
+const eurosCount = 100;
+
+const dollarsCount = eurosCount * 1.25;
+const ruCount = dollarsCount * 60;
+
+console.log(dollarsCount);
+console.log(ruCount);
+
+
+
+
+
+---
+
+
+
+
+convertText.js
+---------------
+
+const convertText = (text) => {
+  if (text === '') {
+    return '';
+  }
+
+  const reversable = text[0] !== text[0].toUpperCase();
+  return reversable ? reverse(text) : text;
+};
+
+console.log(convertText('Hello'));
+
+
+
+
+
+---
+
+
+
+
+countChars.js
+-------------
+
+const countChars = (str, char) => {
+  let i = 0;
+  let count = 0;
+  while (i < str.length) {
+    if (str[i].toLowerCase() === char.toLowerCase()) {
+      count = count + 1;
+    }
+    i = i + 1;
+  }
+
+  return count;
+};
+
+
+
+
+
+---
+
+
+
+
+customObjects.js
+-----------------
+
+var Human = {
+  firstName: "John",
+  lastName: "Doe",
+  getFullName: function () {
+    var fname = this.firstName + ' ' + this.lastName;
+    return fname;
+  }
+}
+
+console.log(Human)
+console.log(Human.firstName)
+console.log(Human.lastName)
+console.log(Human.getFullName())
+
+
+
+
+
+---
+
+
+
+
+date.js
+-------
+
+var date = new Date();
+
+console.log(date.toString());
+console.log(date.valueOf());
+console.log(date.getDate());
+console.log(date.getDay());
+console.log(date.getMonth());
+console.log(date.getFullYear());
+console.log(date.getHours());
+console.log(date.getMilliseconds());
+console.log(date.valueOf().toString() + date.getMilliseconds().toString());
+console.log(date.getTime());
+
+
+
+
+
+---
+
+
+
+
+elementary.js
+-------------
+
+let a;
+let b;
+let c;
+console.log(a = 3 ** 5);
+console.log(b = -8 / -4);
+console.log(c = 100 % 3);
+console.log(a + b + c);
+
+
+
+
+
+---
+
+
+
+
+encrypt.js
+----------
+
+const encrypt = (str) => {
+  let result = '';
+  for (let i = 0; i < str.length; i += 2) {
+    const nextSymbol = str[i + 1] || '';
+    result = `${result}${nextSymbol}${str[i]}`;
+  }
+
+  return result;
+};
+
+
+
+
+
+---
+
+
+
+
+expression.js
+-------------
+
+const text = 'Never forget what you are, for surely the world will not';
+
+const letters = `First: ${text[0]}\nLast: ${text.at(-1)}`
+console.log(letters)
+
+
+
+
+
+---
+
+
+
+
+function.js
+-----------
+
+const printMotto = () => {
+
+  console.log('Winter is coming')
+}
+
+printMotto()
+
+
+
+
+
+---
+
+
+
+
+functionArguments.js
+---------------------
+
+function SumArgs () {
+  var r = 0;
+  for (var i = 0; i < arguments.length; i++) {
+    r += arguments[i];
+    return r;
+  }
+}
+
+console.log(SumArgs(1, 2, 93));
+
+
+
+
+
+---
+
+
+
+
+getHiddenCard.js
+----------------
+
+const getHiddenCard = (cardNumber, starsCount = 4) => {
+  const visibleDigitsLine = cardNumber.slice(12);
+  return `${'*'.repeat(starsCount)}${visibleDigitsLine}`;
+};
+
+console.log(getHiddenCard('235467857654'))
+
+
+
+
+
+---
+
+
+
+
+getLetter.js
+------------
+
+const getLetter = (text, position) => text[position - 1] || '';
+
+let name = 'Hexlet'
+console.log(getLetter(name, 3));
+
+
+
+
+
+---
+
+
+
+
+getMutualFriends.js
+-------------------
+
+export const getMutualFriends = (user1, user2) => {
+  const friends1 = user1.getFriends();
+  const friends2 = user2.getFriends();
+  const friends2Ids = friends2.map(({ id }) => id);
+  return friends1.filter(({ id }) => friends2Ids.includes(id));
+};
+
+
+
+
+
+---
+
+
+
+
+getNumberExplanation.js
+-----------------------
+
+const getNumberExplanation = (number) => {
+  switch (number) {
+    case 666:
+      return 'devil number';
+    case 7:
+      return 'prime number';
+    case 42:
+      return 'answer for everything';
+    default:
+      return null;
+  }
+};
+
+
+
+
+
+---
+
+
+
+
+getRational.js
+--------------
+
+const make = (numer, denom) => ({
+  numer,
+  denom,
+  setNumer(newNumer) {
+    this.numer = newNumer;
+  },
+  setDenom(newDenom) {
+    this.denom = newDenom;
+  },
+  getNumer() {
+    return this.numer;
+  },
+  getDenom() {
+    return this.denom;
+  },
+  toString() {
+    return `${this.getNumer()}/${this.getDenom()}`;
+  },
+  add(rational) {
+    const newNumer = this.getNumer() * rational.getDenom() + rational.getNumer() * this.getDenom();
+    const newDenom = this.getDenom() * rational.getDenom();
+    return make(newNumer, newDenom);
+  },
+});
+
+export default make;
+
+
+
+
+
+---
+
+
+
+
+getTriangleArea.js
+------------------
+
+export const getTrianglePerimeter = (a, b, c) => a + b + c;
+
+export const getTriangleArea = (h, b) => {
+  const area = (h * b) / 2;
+  return area;
+};
+
+
+import square from './square.js';
+
+import { getTriangleArea } from './myMathModule.js';
+
+const solution = (n) => getTriangleArea(n, square(n) / 2);
+
+export default solution;
+
+
+
+
+
+---
+
+
+
+
+hasfStrung.js
+-------------
+
+const getHalfString = (str) => {
+  let result = '';
+  for (let i = 0; i < str.length / 2; i += 1) {
+    result += str[i];
+  }
+  return result;
+};
+
+
+
+
+
+---
+
+
+
+
+internationalPhone.js
+---------------------
+
+const isInternationalPhone = (num) => {
+  return num.toString()[0] === '+';
+};
+
+console.log(isInternationalPhone('+79602223423'))
+
+
+
+
+
+---
+
+
+
+
+isLeapYear.js
+-------------
+
+const isLeapYear = (year) => {
+  return year % 400 === 0 || year % 4 === 0 && year % 100 !== 0;
+};
+
+console.log(isLeapYear(2016)); 
+
+
+
+
+
+---
+
+
+
+
+joinNumberFromRange.js
+----------------------
+
+const joinNumbersFromRange = (start, finish) => {
+  let i = start;
+  let result = '';
+
+  while (i <= finish) {
+    result = `${result}${i}`;
+    i = i + 1;
+  }
+
+  return result;
+};
+
+
+
+
+
+---
+
+
+
+
+json.js
+-------
+
+export const parseJson = (json) => {
+  try {
+    return JSON.parse(json);
+  } catch (e) {
+    throw new ParseError('Invalid JSON string');
+  }
+};
+
+
+
+
+
+---
+
+
+
+
+letters.js
+----------
+
+const text = 'Never forget what you are, for surely the world will not';
+
+const letters = `First: ${text[0]}\nLast: ${text.at(-1)}`
+console.log(letters)
+
+
+
+
+
+---
+
+
+
+
+logic.js
+--------
+
+const getLetter = (text, position) => text[position - 1] || '';
+
+console.log(getLetter('Some', 3));
+
+
+
+
+
+---
+
+
+
+
+magic.js
+--------
+
+const f = (...numbers) => {
+  const sum = numbers.reduce((acc, x) => (x + acc), 0);
+  const inner = (...rest) => f(sum, ...rest);
+  inner.valueOf = () => sum;
+  return inner;
+};
+
+
+
+
+
+---
+
+
+
+
+makeFunny.js
+------------
+
+const makeItFunny = (str, n) => {
+  let i = 0;
+  let result = '';
+  while (i < str.length) {
+    const current = str[i];
+    if ((i + 1) % n === 0) {
+      result = `${result}${current.toUpperCase()}`;
+    } else {
+      result = `${result}${current}`;
+    }
+    i++;
+  }
+
+  return result;
+};
+
+
+
+
+
+---
+
+
+
+
+mathAbs.js
+----------
+
+const soldiersCount = -2309;
+
+console.log(Math.abs(soldiersCount))
+
+
+
+
+
+---
+
+
+
+
+mathCeil.js
+-----------
+
+const number = 923.2238;
+
+console.log(Math.ceil(923.2238));
+
+
+
+
+
+---
+
+
+
+
+mathMin.js
+----------
+
+console.log(Math.min(3,10,22,-3,0))
+
+
+
+
+
+---
+
+
+
+
+mathRandom.js
+-------------
+
+console.log(Math.ceil(Math.random() * 10))
+
+
+
+
+
+---
+
+
+
+
+money.js
+--------
+
+const rates = {
+  usd: {
+    eur: 0.7,
+  },
+  eur: {
+    usd: 1.2,
+  },
+};
+
+export default function Money(value, currency = 'usd') {
+  this.value = value;
+  this.currency = currency;
+}
+
+Money.prototype.format = function format() {
+  // bad design (pass undefined to the function), but it is js
+  return this.getValue().toLocaleString(undefined, { style: 'currency', currency: this.getCurrency() });
+};
+
+Money.prototype.getValue = function getValue() {
+  return this.value;
+};
+
+Money.prototype.getCurrency = function getCurrency() {
+  return this.currency;
+};
+
+Money.prototype.exchangeTo = function exchangeTo(newCurrency) {
+  const currency = this.getCurrency();
+  const currentValue = this.getValue();
+  if (currency === newCurrency) {
+    return new Money(currentValue, currency);
+  }
+  const newValue = currentValue * rates[currency][newCurrency];
+  return new Money(newValue, newCurrency);
+};
+
+Money.prototype.add = function add(money) {
+  const currency = this.getCurrency();
+  const convertedMoney = money.exchangeTo(currency);
+  const additionalValue = convertedMoney.getValue();
+  return new Money(this.getValue() + additionalValue, currency);
+};
+
+
+
+
+
+---
+
+
+
+
+naming.js
+---------
+
+const king = 'King Balon the 6th';
+
+const newHouse = 6
+const rooms = 17
+
+console.log(king + ' has ' + (newHouse * rooms) + ' rooms.')
+
+
+
+
+
+---
+
+
+
+
+normalizer.js
+-------------
+
+const normalizeUrl = (url) => {
+  if (url.startsWith('https://')) {
+    return url;
+  } else if (!url.startsWith('https://')) {
+    return 'https://' + url;
+  };
+};
+
+console.log(normalizeUrl('google.com'))
+
+
+
+
+
+---
+
+
+
+
+normalizeUrl.js
+---------------
+
+const normalizeUrl = (url) => {
+  if (url.startsWith('https://')) {
+    return url;
+  } else if (!url.startsWith('https://')) {
+    return 'https://' + url;
+  };
+};
+
+console.log(normalizeUrl("google.com"));
+console.log(normalizeUrl("https://ai.fi"));
+
+
+
+
+
+---
+
+
+
+
+onload.js
+---------
+
+function greeting (name) {
+  name = 'John'
+  document.write("<h1>HEY </h1>" + `<h2>${name}</h2>`);
+  console.log('hey ' + name);
+  window.alert('hey ' + name);
+}
+
+
+
+
+
+---
+
+
+
+
+open.js
+-------
+
+function newOpen () {
+  var options = "status = no, toolbar = no";
+  return window.open("https://youtube.com", "youtube", options)
+}
+
+
+
+
+
+---
+
+
+
+
+point.js
+--------
+
+function getX() {
+  return this.x;
+}
+
+function getY() {
+  return this.y;
+}
+
+export default function Point(x, y) {
+  this.x = x;
+  this.y = y;
+  this.getX = getX;
+  this.getY = getY;
+}
+
+
+
+
+function getBeginPoint() {
+  return this.beginPoint;
+}
+
+function getEndPoint() {
+  return this.endPoint;
+}
+
+export default function Segment(beginPoint, endPoint) {
+  this.beginPoint = beginPoint;
+  this.endPoint = endPoint;
+  this.getBeginPoint = getBeginPoint;
+  this.getEndPoint = getEndPoint;
+}
+
+
+
+
+export default (segment) => {
+  const beginPoint = segment.getBeginPoint();
+  const endPoint = segment.getEndPoint();
+  const newEndPoint = new Point(beginPoint.getX(), beginPoint.getY());
+  const newBeginPoint = new Point(endPoint.getX(), endPoint.getY());
+
+  return new Segment(newBeginPoint, newEndPoint);
+};
+
+
+
+
+
+---
+
+
+
+
+predicate.js
+------------
+
+const isInternationalPhone = (num) => {
+  return num.toString()[0] === '+'
+}
+
+console.log(isInternationalPhone('+79174568787'));
+
+
+
+
+
+---
+
+
+
+
+predicate_2.js
+--------------
+
+const isLeapYear = (year) => {
+  return year % 400 === 0 || year % 4 === 0 && year % 100 !== 0;
+};
+
+console.log(isLeapYear(1999))
+
+
+
+
+
+---
+
+
+
+
+printNumber.js
+--------------
+
+const printNumbers = (initialNumber) => {
+  let i = initialNumber;
+  while (i >= 1) {
+    console.log(i);
+    i -= 1;
+  }
+  console.log('finished!');
+};
+
+
+
+
+
+---
+
+
+
+
+
+random.js
+---------
+
+const getRandomNumber = () => {
+  return Math.round(Math.random() * 10);
+};
+
+console.log(getRandomNumber());
+
+
+
+
+
+---
+
+
+
+
+
+randomRound.js
+--------------
+
+console.log(Math.round(Math.random() * 10))
+
+
+
+
+
+---
+
+
+
+
+recursion.js
+------------
+
+function f_Factorial (x) {
+  if (x == 0 || x == 1) return 1;
+  else return (x + f_Factorial (x - 1));
+}
+
+console.log(f_Factorial(7));
+
+
+
+
+
+---
+
+
+
+
+regexp.js
+---------
+
+let reg = new RegExp("abc[de]");
+let str = "abc abcd abce abcs"
+
+console.log(str.search(reg));
+
+
+let reg2 = new RegExp("abc[de]");
+let m = [];
+
+m = str.match(reg2);
+
+for (let i = 0, c = m.length; c < 0; i++) {
+  console.log(m[i] + " ");
+}
+
+
+var p = new RegExp("abc[de]", "g");
+
+let S = ''
+let reg3 = new RegExp("abc[de]", "g");
+S.replace(reg, "match");
+console.log(S);
+
+
+
+
+
+---
+
+
+
+
+reverse.js
+----------
+
+const reverse = (s) => s.split('').reverse().join('');
+
+
+
+
+
+---
+
+
+
+
+reverseMethod.js
+----------------
+
+import reverse from './reverse';
+
+const convertText = (text) => {
+  if (text === '') {
+    return '';
+  }
+
+  const reversable = text[0] !== text[0].toUpperCase();
+  return reversable ? reverse(text) : text;
+};
+
+let string = 'string';
+
+console.log(convertText(string));
+
+
+
+
+
+---
+
+
+
+
+stringInterpolation.js
+----------------------
+
+const stark = 'Arya';
+
+console.log(`Do you want to eat, ${stark}?`)
+
+
+
+
+
+---
+
+
+
+
+stringWork.js
+-------------
+
+const word = 'Na\nharis';
+
+console.log(word[7]);
+
+
+
+
+
+---
+
+
+
+
+subString.js
+------------
+
+const mySubstr = (string, length) => {
+  let resultString = '';
+  let i = 0;
+  while (i < length) {
+    resultString += string[i];
+    i += 1;
+  }
+
+  return resultString;
+};
+
+
+
+
+
+---
+
+
+
+
+switch.js
+---------
+
+const getNumberExplanation = (number) => {
+  switch (number) {
+    case 666:
+      return 'devil number';
+    case 7:
+      return 'prime number';
+    case 42:
+      return 'answer for everything';
+    default:
+      return null;
+  }
+};
+
+console.log(getNumberExplanation(666));
+console.log(getNumberExplanation(7));
+console.log(getNumberExplanation(42));
+
+
+
+
+
+---
+
+
+
+
+time.js
+-------
+
+export default class Time {
+  static fromString(time) {
+    const [hours, minutes] = time.split(':');
+    return new Time(hours, minutes);
+  }
+
+  constructor(hours, minutes) {
+    this.minutes = minutes;
+    this.hours = hours;
+  }
+
+  toString() {
+    return `${this.hours}:${this.minutes}`;
+  }
+}
+
+
+
+
+
+
+---
+
+
+
+
+toString.js
+-----------
+
+export default function Point(x, y) {
+  this.x = x;
+  this.y = y;
+}
+
+Point.prototype.getX = function getX() {
+  return this.x;
+};
+
+Point.prototype.getY = function getY() {
+  return this.y;
+};
+
+Point.prototype.toString = function toString() {
+  return `(${this.getX()}, ${this.getY()})`;
+};
+
+
+
+
+
+export default function Segment(beginPoint, endPoint) {
+  this.beginPoint = beginPoint;
+  this.endPoint = endPoint;
+}
+
+Segment.prototype.getBeginPoint = function getBeginPoint() {
+  return this.beginPoint;
+};
+
+Segment.prototype.getEndPoint = function getEndPoint() {
+  return this.endPoint;
+};
+
+Segment.prototype.toString = function toString() {
+  return `[${this.getBeginPoint()}, ${this.getEndPoint()}]`;
+};
+
+
+
+
+
+---
+
+
+
+
+trim.js
+-------
+
+let firstName = '  Grigor   \n';
+
+console.log(firstName.trim())
+
+
+
+
+
+---
+
+
+
+
+truncate.js
+-----------
+
+const truncate = (text, length) => {
+  const result = `${text.slice(0, length)}...`;
+  return result;
+};
+
+console.log(truncate('hello', 4))
+
+
+
+
+
+---
+
+
+
+
+typeOff.js
+----------
+
+const motto = 'Family, Duty, Honor';
+
+console.log(typeof motto);
+
+
+
+
+
+---
+
+
+
+
+windowObject.js
+---------------
+
+if (window.confirm("Push OK or CANCEL")) {
+  console.log("You pushed OK");
+} else {
+  console.log("You pushed CANCEL");
+}
+
+window.alert('hey')
+
+var UNname = window.prompt("What is your name?", "NoName");
+
+if (UNname == null) {
+  alert("Bye!");
+} else {
+  document.write("Hey " + UNname);
+}
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----
+test
+----
+
+
+import factorial from '../src';
+
+test('factorial', () => {
+  expect(factorial(5)).toBe(120);
+  expect(factorial(1)).toBe(1);
+  expect(factorial(0)).toBe(1);
+  expect(factorial(-1)).toBe(NaN);
+});
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
