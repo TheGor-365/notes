@@ -870,6 +870,486 @@ Reading messages... (press Ctrl-C to quit)
 
 
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------
+redis key value storage | | exists, set, get
+--------------------------------------------
+
+
+> exists session:abc
+> set session:abc 245
+> get session:abc
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------------
+redis cach | | ex, px, ttl, pttl, set, expire
+---------------------------------------------
+
+
+> set user:33:deals_count 5 ex 120
+> ttl user:33:deals_count
+
+> set user:33:deals_count 5 px 10000
+> pttl user:33:deals_count
+
+> expire user:33:deals_count 300
+> ttl user:33:deals_count
+
+> del user:33:deals_count
+
+> unlink user:1:deals_count user:2:deals_count user:3:deals_count
+
+> set user:788:last_viewed_item 29
+> expire user:788:last_viewed_item 300
+> set user:1024:last_viewed_item 56 px 300000
+> ttl user:788:last_viewed_item
+> pttl user:788:last_viewed_item
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------
+redis increment and decrement | | incr, incrby, decr, decrby, get, expire, ttl, del
+-----------------------------------------------------------------------------------
+
+
+> incr page:hexlet.io/courses:online_count
+> incrby page:hexlet.io/courses:online_count 27
+
+> decr page:hexlet.io/courses:online_count
+> decrby page:hexlet.io/courses:online_count 19
+
+> get page:hexlet.io/courses:online_count
+> expire page:hexlet.io/courses:online_count 60
+
+> ttl page:hexlet.io/courses:online_count
+> del page:hexlet.io/courses:online_count
+
+
+
+
+---
+
+
+
+
+INSERT INTO visits (url, count, date) 
+VALUES ('hexlet.io/courses', 1, '2022-01-01') 
+ON DUPLICATE KEY UPDATE count = count + 1
+
+
+
+
+---
+
+
+
+------------------------------------------
+
+ID        URL       COUNT       DATE
+
+------------------------------------------
+1         x.com     123         2022-01-01
+------------------------------------------
+2         y.io      65          2023-02-12
+------------------------------------------
+
+
+
+
+---
+
+
+
+
+> incr page:250:online
+> incrby page:250:online 30
+> decrby page:250:online 20
+> decr page:250:online
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------
+redis lists storage | | lpush, rpush, lrange, lpop, rpop, lrem
+--------------------------------------------------------------
+
+
+> lpush user:14:recent_posts 10
+> lpush user:14:recent_posts 20 30
+
+> lrange key start_index stop_index
+> lrange user:14:recent_posts 0 -1
+
+> lpop user:14:recent_posts
+> rpop user:14:recent_posts
+
+> lrem user:14:recent_posts 0 120
+> lrem user:14:recent_posts 0 20
+
+> expire user:14:recent_posts 3600
+> ttl user:14:recent_posts
+
+
+> lpush user:50:last_tweets 10 20 30 40 50
+> lrange user:50:last_tweets 0 -1
+> rpop user:50:last_tweets
+> lpush user:50:last_tweets 60
+> lrange user:50:last_tweets 0 -1
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------
+redis complex structures with Hashes | | set, hset, hget, hgetall
+-----------------------------------------------------------------
+
+
+> set user:56:email user@test.com
+> set user:56:phone '+7-111-111-11-11'
+
+> set user:56:profile '{"email":"user@test.com","phone":"+7-111-111-11-11"}'
+
+
+> hset key field value
+> hset translates:hello en hello ru привет
+> hset translates:bye en bye ru пока
+> hset translates:name en name ru имя
+> hset translates:hello ru здравствуйте
+
+> hget translates:hello ru
+> hgetall translates:name
+
+
+> hdel key field
+> hdel translates:bye ru
+> hgetall translates:bye
+
+
+> hset user:100 email tester@gmail.com phone +71234567890 sign_up_date 2022-02-02
+> hget user:100 phone
+> hset user:100 email developer@gmail.com
+> hgetall user:100
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------------------
+redis uniqness validation with Sets | | set, exists, keys, lpush, llen, hset, hlen, sadd, scard, sismember, srem, smembers, sinter
+----------------------------------------------------------------------------------------------------------------------------------
+
+
+> set page:/courses:user:22 1
+> set page:/courses:user:33 1
+> exists page:/courses:user:22
+> keys page:/courses:user:*
+
+
+> lpush page:/courses 22 33 44
+> llen page:/courses
+
+
+> hset page:/courses 11 1 22 1 33 1
+> hlen page:/courses
+
+
+> sadd key member
+> sadd page:/courses 11 22 33 44
+> sadd page:/courses 22
+
+> scard key
+> scard page:/courses
+
+> sismember key member
+> sismember page:/courses 33
+> sismember page:/courses 12222
+
+> srem key member
+> srem page:/courses 44
+> smembers page:/courses
+
+> sinter key
+> sadd page:/courses 1 2 3 4 5 6 7 8 9 10
+> sadd page:/courses/java 1 2 3 4 5 6 7
+> sadd page:/courses/php 5 6 7 8 9
+> sinter page:/courses page:/courses/java page:/courses/php
+
+
+> sadd content:filters bad_word
+
+> sadd content:filters drugs
+> sadd content:filters:post:50 what a wonderful day
+> sinter content:filters content:filters:post:50
+> sadd content:filters murder cat bitcoin drugs
+> sadd content:filters:post:100 my cat is broken
+> sinter content:filters content:filters:post:100
+> srem content:filters cat
+> scard content:filters
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+redis rates with Sorted Sets | | zadd, zincrby, zrange, REV, WITHSCORES
+-----------------------------------------------------------------------
+
+
+leaderboard
+-----------
+
+------------------------------------------------
+
+place       name      id        $
+
+------------------------------------------------
+1           John      [id:55]   $100500
+------------------------------------------------
+2           Nina      [id:22]   $500
+------------------------------------------------
+3           David     [id:33]   $100
+------------------------------------------------
+
+
+
+> zadd key score member
+
+> zadd leaderboard 100500 55
+> zadd leaderboard 500 22
+> zadd leaderboard 100 33
+
+> zincrby key increment member
+> zincrby leaderboard 500 22
+
+> zrange key min max
+
+> zrange leaderboard 0 2 REV
+> zrange leaderboard 0 2 REV WITHSCORES
+
+> zadd post:100:answers 0 10 0 20 0 30
+> zincrby post:100:answers 5 10
+> zincrby post:100:answers -3 30
+> zrevrange post:100:answers 0 -1 WITHSCORES
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------
+redis uniqness validation with HyperLogLog | | sadd, sinter, pfadd, pfmerge, pfcount
+------------------------------------------------------------------------------------
+
+
+> sadd article:1 220.6.122.77 35.64.194.82 38.175.235.3
+> sadd article:2 220.6.122.77 140.45.246.108
+> sinter article:1 article:2
+
+
+> pfadd key
+
+> pfadd article:1 4.218.89.25 255.194.94.209 81.64.119.92 226.110.217.208 68.199.143.222
+> pfadd article:2 14.193.144.176 132.231.108.228 81.64.119.92 226.110.217.208 68.199.143.222
+> pfadd article:3 4.218.89.25 255.194.94.209 81.64.119.92 225.109.160.131 85.83.185.103
+
+> pfadd article:1 4.218.89.25
+
+> pfmerge destkey sourcekey
+
+> pfmerge articles article:1 article:2 article:3
+> pfcount articles
+
+
+> pfadd search:words:australia what is a difference between signup and sign up
+> pfadd search:words:usa what is the time in moscow just now
+> pfcount search:words:usa
+> pfcount search:words:australia
+> pfadd search:words:usa how to get free nft
+> pfmerge search:words search:words:usa search:words:australia
+> pfcount search:words
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------
+redis messages broker | | rpush, lrange, blpop, blmove
+------------------------------------------------------
+
+
+> rpush queue:order:mail_notification '{"user_id":33,"order_id":12345}'
+> rpush queue:order:processing '{"user_id":33,"order_id":12345}'
+
+> lrange queue:order:mail_notification 0 -1
+> lrange queue:order:processing 0 -1
+
+> blpop key timeout
+
+> blpop queue:order:mail_notification 10
+> blpop queue:order:processing 10
+
+
+> blmove source destination LEFT|RIGHT LEFT|RIGHT timeout
+> rpush queue:order:mail_notification '{"user_id":33,"order_id":12345}'
+> blmove queue:order:mail_notification queue:order:mail_notification:fallback LEFT RIGHT 10
+
+> rpush queue:emails {"email":"nikko@gmail.com","text":"Your payment has been proceeded successfully"}
+> rpush queue:emails {"email":"johndoe@rambler.com","text":"Password has been changed"}
+
+
+> blpop queue:emails 0
+> blpop queue:emails 0
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------
+redis realtime chat with Redis PubSub | | subscribe, publish
+------------------------------------------------------------
+
+
+
+> subscribe channel
+
+> subscribe messages
+
+> publish channel message
+
+> publish messages '{"user_id":55,"message_id":"d1356e62-f33f-412c-b47c-ff107f3e88b1","message_text":"Oh, hi Mark!","sent_at":1642741377}'
+
+> publish websocket '{"user_id":128,"event_id":200,"payload":{"message":"How r u?"}}'
+> publish websocket '{"user_id":22,"event_id":200,"payload":{"message":"Im doing great, thanks!"}}'
+> subscribe websocket
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 
