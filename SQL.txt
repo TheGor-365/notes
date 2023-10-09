@@ -7,6 +7,7 @@ SQL Postgresql
 
 
 SQL train https://www.db-fiddle.com/
+------------------------------------
 
 
 
@@ -22,26 +23,27 @@ JOIN, LEFT JOIN                                                                 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-ps aux | grep postgres                                                                  --- запущен ли PostgreSQL
-sudo -u postgres psql                                                                   --- запуск программы от имени другого пользователя (postgres)
-psql postgres                                                                           --- запуск программы от имени текущего пользователя к БД postgres
+$ ps aux | grep postgres                                                                  --- запущен ли PostgreSQL
+$ sudo -u postgres psql                                                                   --- запуск программы от имени другого пользователя (postgres)
+$ psql postgres                                                                           --- запуск программы от имени текущего пользователя к БД postgres
 
-\q                                                                                      --- выход
-\?                                                                                      --- список команд
+# \q                                                                                      --- выход
+# \?                                                                                      --- список команд
 
-https://postgrespro.ru/docs/postgrespro/11/database-roles                               --- roles
+$ whoami                                                                                  --- current user
+$ sudo -u postgres createuser --createdb tirion                                           --- флаг --createdb добавляет нашей роли возможность создавать базы данных
+$ sudo -u postgres createdb --owner=tirion hexlet                                         --- опция --owner позволяет указать владельца создаваемой базы данных
 
-whoami                                                                                  --- current user
 
-sudo -u postgres createuser --createdb tirion                                           --- флаг --createdb добавляет нашей роли возможность создавать базы данных. По умолчанию этой возможности нет
-sudo -u postgres createdb --owner=tirion hexlet                                         --- опция --owner позволяет указать владельца создаваемой базы данных
+
+https://postgrespro.ru/docs/postgrespro/11/database-roles
 
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-psql -l                                                                                 --- Посмотреть список баз данных
-dropdb                                                                                  --- delete db
+$ psql -l                                                                                 --- Посмотреть список баз данных
+$ dropdb                                                                                  --- delete db
 
 
 
@@ -50,6 +52,7 @@ dropdb                                                                          
 -------------
 DROP DATABASE
 -------------
+
 
 DROP DATABASE hexlet;
 
@@ -61,6 +64,7 @@ DROP DATABASE hexlet;
 CREATE DATABASE
 ---------------
 
+
 CREATE DATABASE hexlet;
 
 
@@ -70,6 +74,7 @@ CREATE DATABASE hexlet;
 ------------
 CREATE TABLE
 ------------
+
 
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
@@ -85,6 +90,7 @@ CREATE TABLE users (
 ------
 SELECT
 ------
+
 
 SELECT FROM users;
 
@@ -103,6 +109,7 @@ WHERE birthday < '2018-10-21'
 ORDER BY birthday DESC
 LIMIT 2;
 
+article_categories
 
 
 
@@ -112,10 +119,11 @@ LIMIT 2;
 CREATE
 ------
 
+
 CREATE TABLE courses (
     name          varchar(255),
     slug          varchar(255),
-    lessons_count integer,
+    lessons_count integer,article_categoriesarticle_categories
     body          text
 );
 
@@ -127,28 +135,33 @@ CREATE TABLE cars (
 );
 
 
+
+numeric -- специальный тип данных, подходящий под работу с деньгами. Обеспечивает высокую точность при расчетах
+---------------------------------------------------------------------------------------------------------------
+
+
+
 CREATE TABLE products (
-    id bigint PRIMARY KEY,
-    first_name varchar(255),
-    last_name varchar(255),
-    address varchar(255),
-    item varchar(255),
-    price numeric -- специальный тип данных, подходящий под работу с деньгами. Обеспечивает высокую точность при расчетах.
+  id bigint PRIMARY KEY,
+  first_name varchar(255),
+  last_name varchar(255),
+  address varchar(255),
+  item varchar(255),
+  price numeric
 );
 
 
-CREATE TABLE City
-(
+CREATE TABLE City (
   id   INTEGER NOT NULL PRIMARY KEY,
   name CHAR(40)
-)
+);
 
-CREATE TABLE Street
-(
+
+CREATE TABLE Street (
   id      INTEGER NOT NULL PRIMARY KEY,
   name    CHAR(40),
   id_city INTEGER NOT NULL FOREIGN KEY REFERENCES City(id)
-)
+);
 
 
 
@@ -157,6 +170,7 @@ CREATE TABLE Street
 ----
 DROP
 ----
+
 
 DROP TABLE courses;
 
@@ -167,6 +181,7 @@ DROP TABLE courses;
 -----------
 INSERT INTO
 -----------
+
 
 INSERT INTO courses (name, slug, lessons_count, body)
   VALUES ('basics of programming', 'basics', 10, 'this is theory');
@@ -188,6 +203,7 @@ INSERT INTO courses VALUES ('linux', 'linux', 3, 'something about linux');
 INSERT INTO users VALUES
     ('arya', 'Mike'),
     ('sansa', 'Eric');
+
 
 INSERT INTO cars VALUES
     ('arya', 'BMW'),
@@ -810,6 +826,9 @@ SELECT * FROM order_items WHERE item = "?";
 
 ------------------------------------------------
 
+numeric -- специальный тип данных, который подходит под работу с деньгами. Обеспечивает высокую точность при расчетах
+---------------------------------------------------------------------------------------------------------------------
+
 
 CREATE TABLE products (
   id bigint PRIMARY KEY,
@@ -817,7 +836,7 @@ CREATE TABLE products (
   last_name varchar(255),
   address varchar(255),
   item varchar(255),
-  price numeric -- специальный тип данных, который подходит под работу с деньгами. Обеспечивает высокую точность при расчетах.
+  price numeric
 );
 
 
@@ -976,7 +995,8 @@ SELECT * FROM emails WHERE user_id = 1;
 ------------------------------------------------
 
 
-one-to-one:
+one-to-one
+----------
 
 
 countries
@@ -1011,7 +1031,8 @@ SELECT * FROM cities WHERE country_id = 38 AND capital = true;
 ------------------------------------------------
 
 
-many-to-many:
+many-to-many
+------------
 
 
 
@@ -1103,7 +1124,7 @@ CREATE TABLE orders (
 
 
 CREATE TABLE orders (
-    product_id bigint REFERENCES products (id) ON DELETE CASCADE,
+  product_id bigint REFERENCES products (id) ON DELETE CASCADE,
 );
 
 
@@ -1113,7 +1134,7 @@ CREATE TABLE orders (
 
 
 CREATE TABLE orders (
-    product_id bigint REFERENCES products (id) ON DELETE SET NULL
+  product_id bigint REFERENCES products (id) ON DELETE SET NULL
 );
 
 
@@ -1122,9 +1143,9 @@ CREATE TABLE orders (
 
 
 CREATE TABLE products (
-    id bigint PRIMARY KEY,
-    name text NOT NULL,
-    price numeric
+  id bigint PRIMARY KEY,
+  name text NOT NULL,
+  price numeric
 );
 
 
@@ -1133,9 +1154,9 @@ CREATE TABLE products (
 
 
 CREATE TABLE orders (
-    id bigint PRIMARY KEY,
-    product_id bigint REFERENCES products (id) NOT NULL,
-    quantity integer
+  id bigint PRIMARY KEY,
+  product_id bigint REFERENCES products (id) NOT NULL,
+  quantity integer
 );
 
 
@@ -1145,9 +1166,9 @@ CREATE TABLE orders (
 
 
 CREATE TABLE products (
-    id bigint PRIMARY KEY,
-    name text UNIQUE,
-    price numeric
+  id bigint PRIMARY KEY,
+  name text UNIQUE,
+  price numeric
 );
 
 
@@ -1156,11 +1177,11 @@ CREATE TABLE products (
 
 
 CREATE TABLE products (
-    id bigint PRIMARY KEY,
-    name text,
-    locale varchar,
-    price numeric,
-    UNIQUE(name, locale)
+  id bigint PRIMARY KEY,
+  name text,
+  locale varchar,
+  price numeric,
+  UNIQUE(name, locale)
 );
 
 
@@ -1205,14 +1226,14 @@ ALTER TABLE courses DROP COLUMN example2;
 
 
 ALTER TABLE addresses
-    ADD PRIMARY KEY (id);
+  ADD PRIMARY KEY (id);
 
 ALTER TABLE addresses
-    ALTER COLUMN created_at SET DATA TYPE timestamp,
-    ALTER COLUMN street DROP NOT NULL;
+  ALTER COLUMN created_at SET DATA TYPE timestamp,
+  ALTER COLUMN street DROP NOT NULL;
 
 ALTER TABLE addresses
-    ALTER COLUMN city SET NOT NULL;
+  ALTER COLUMN city SET NOT NULL;
 
 ALTER TABLE products ADD UNIQUE (product_id);
 
@@ -1564,6 +1585,8 @@ DISTINCT позволяет указывать не одно, а сразу не
 
 SELECT DISTINCT first_name, last_name FROM users;
 
+
+
  first_name |   last_name
 ------------+---------------
  Rhiannon   | Tremblay
@@ -1592,6 +1615,7 @@ DISTINCT ON позволяет отдельно указывать два тип
 
 
 SELECT DISTINCT ON (user_id) * FROM topics;
+
 
 
  id | user_id |              title              | body                  |       created_at
@@ -1649,10 +1673,13 @@ functions
 
 
 
-COUNT() — функция, которая считает количество записей в выборке. Обратите внимание, что она считает именно в выборке, а не в таблице:
+COUNT() — функция, которая считает количество записей в выборке. Обратите внимание, что она считает именно в выборке, а не в таблице
+------------------------------------------------------------------------------------------------------------------------------------
 
 
 SELECT COUNT(*) FROM users WHERE birthday < '2018-10-21';
+
+
 
  count
 -------
@@ -1664,11 +1691,14 @@ SELECT COUNT(*) FROM users WHERE birthday < '2018-10-21';
 ------------------------------------------------
 
 
-MAX и MIN помогают находить максимальное и минимальное значение соответственно:
+MAX и MIN помогают находить максимальное и минимальное значение соответственно
+------------------------------------------------------------------------------
 
 
 
 SELECT MAX(birthday) FROM users WHERE gender = 'male';
+
+
 
     max
 ------------
@@ -1678,6 +1708,8 @@ SELECT MAX(birthday) FROM users WHERE gender = 'male';
 
 
 SELECT MIN(birthday) FROM users WHERE gender = 'female';
+
+
 
     min
 ------------
@@ -1689,7 +1721,8 @@ SELECT MIN(birthday) FROM users WHERE gender = 'female';
 ------------------------------------------------
 
 
-SUM находит сумму всех значений:
+SUM находит сумму всех значений
+-------------------------------
 
 
 SELECT SUM(amount) FROM orders
@@ -1700,7 +1733,8 @@ SELECT SUM(amount) FROM orders
 ------------------------------------------------
 
 
-AVG находит среднее арифметическое всех значений:
+AVG находит среднее арифметическое всех значений
+------------------------------------------------
 
 
 SELECT AVG(amount) FROM orders
@@ -1736,6 +1770,8 @@ SELECT COUNT(*) FROM topics WHERE user_id = 4;
 
 SELECT user_id, COUNT(*) FROM topics GROUP BY user_id;
 
+
+
  user_id | count
 ---------+-------
       71 |     1
@@ -1756,6 +1792,8 @@ SELECT user_id, COUNT(*) FROM topics GROUP BY user_id;
 
 
 SELECT user_id, COUNT(*) FROM topics GROUP BY user_id ORDER BY count DESC LIMIT 3;
+
+
 
  user_id | count
 ---------+-------
@@ -1807,6 +1845,7 @@ SELECT user_id, created_at, COUNT(*) AS topics_count
   GROUP BY user_id, created_at;
 
 
+
  user_id |       created_at        | topics_count
 ---------+-------------------------+--------------
       40 | 2018-12-05 18:40:05.603 |            1
@@ -1822,6 +1861,7 @@ SELECT user_id, EXTRACT(day from created_at) AS day, COUNT(*) AS topics_count
 FROM topics
 GROUP BY user_id, day
 ORDER BY user_id;
+
 
 
 user_id | day | topics_count
@@ -1844,6 +1884,8 @@ SELECT user_id, MAX(created_at), COUNT(*) AS topics_count
 FROM topics
 GROUP BY user_id;
 
+
+
 user_id |           max           | topics_count
 --------+-------------------------+--------------
      40 | 2018-12-05 18:40:05.603 |            1
@@ -1862,6 +1904,8 @@ user_id |           max           | topics_count
 SELECT user_id, COUNT(*) FROM topics
   GROUP BY user_id
   HAVING COUNT(*) > 1;
+
+
 
  user_id | count
 ---------+-------
@@ -1919,6 +1963,8 @@ SELECT * FROM users
 SELECT first_name, title
   FROM users JOIN topics ON users.id = topics.user_id LIMIT 5;
 
+
+
  first_name |            title
 ------------+------------------------------
  Sean       | beatae voluptatem commodi
@@ -1950,6 +1996,8 @@ JOIN topics ON users.id = topics.user_id LIMIT 5;
 
 SELECT users.id AS user_id, topics.id AS topic_id
   FROM users JOIN topics ON users.id = topics.user_id LIMIT 5;
+
+
 
  user_id | topic_id
 ---------+----------
@@ -2160,6 +2208,72 @@ SELECT * from users WHERE birthday = '2000-01-01';
 
 
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------
+exercises
+---------
+
+
+CREATE DATABASE "test";
+
+
+---
+
+
+
+SELECT name, price + 1 AS new_price
+FROM products;
+
+
+---
+
+
+
+
+SELECT name FROM goods 
+WHERE category = 'products' AND price BETWEEN 3 AND 5;
+
+
+---
+
+
+
+
+SELECT name FROM products 
+WHERE name LIKE 'but%';
+
+
+---
+
+
+
+
+CREATE TABLE cars (
+  id integer,
+  name character varying,
+  price numeric,
+  created_at timestamp
+);
+
+
+---
+
+
+
+
+CREATE TABLE cars (
+  id bigint PRIMARY KEY,
+  name character varying UNIQUE NOT NULL,
+  price numeric,
+  created_at timestamp NOT NULL
+);
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -2168,15 +2282,7 @@ SELECT * from users WHERE birthday = '2000-01-01';
 
 
 
-
-
-
-
-
-
-
-
-
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
