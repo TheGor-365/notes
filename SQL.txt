@@ -2813,6 +2813,96 @@ WHERE name LIKE 'but%';
 
 
 
+SELECT name, price + 1 AS new_price
+FROM products;
+
+
+
+---
+
+
+
+SELECT name FROM goods 
+WHERE category = 'products' AND price BETWEEN 3 AND 5;
+
+
+
+---
+
+
+
+SELECT name FROM products 
+WHERE name LIKE 'but%';
+
+
+
+---
+
+
+
+SELECT name
+FROM goods
+WHERE category = 'cars'
+ORDER BY price DESC;
+
+
+
+---
+
+
+
+SELECT name FROM goods 
+ORDER BY price LIMIT 1;
+
+
+
+---
+
+
+
+SELECT distinct name FROM goods 
+WHERE category ='cars';
+
+
+
+---
+
+
+
+SELECT category, COUNT(*) AS count FROM goods 
+GROUP BY category HAVING COUNT(*) > 1;
+
+
+
+---
+
+
+
+SELECT goods.name, categories.name AS category_name
+FROM goods INNER JOIN categories ON goods.category_id = categories.id
+WHERE goods.price > 2
+ORDER BY goods.name DESC
+LIMIT 2;
+
+
+
+---
+
+
+
+SELECT * FROM users
+WHERE birthday > '1999-10-23'
+ORDER BY first_name
+LIMIT 3;
+
+
+
+
+---
+
+
+
+
 CREATE TABLE cars (
   id         integer,
   name       character varying,
@@ -2833,6 +2923,303 @@ CREATE TABLE cars (
   price      numeric,
   created_at timestamp NOT NULL
 );
+
+
+
+
+---
+
+
+
+
+CREATE TABLE cars (
+  id         integer,
+  name       character varying,
+  price      numeric,
+  created_at timestamp
+);
+
+
+
+---
+
+
+
+CREATE TABLE courses (
+  name       varchar(255),
+  body       text,
+  created_at timestamp
+);
+
+
+CREATE TABLE users (
+  first_name varchar(255),
+  email      varchar(255),
+  manager    boolean
+);
+
+
+CREATE TABLE course_members (
+  user_id    bigint,
+  course_id  bigint,
+  created_at timestamp
+);
+
+
+
+
+---
+
+
+
+
+CREATE TABLE cars (
+  id    integer PRIMARY KEY,
+  name  character varying UNIQUE NOT NULL,
+  price numeric
+);
+
+
+
+INSERT INTO cars 
+VALUES (1, 'nissan', 1.12);
+
+
+INSERT INTO cars (id, name) 
+VALUES (10, 'kia');
+
+
+
+
+---
+
+
+
+
+CREATE TABLE cars (
+  id    integer PRIMARY KEY,
+  name  character varying UNIQUE NOT NULL,
+  price numeric
+);
+
+
+INSERT INTO cars 
+VALUES (1, 'nissan', 1.12);
+
+
+INSERT INTO cars (id, name) 
+VALUES (10, 'kia');
+
+
+UPDATE cars 
+SET price = price * 2 
+WHERE name = 'nissan';
+
+
+UPDATE cars 
+SET name = 'bmw' 
+WHERE id = 10;
+
+
+
+
+---
+
+
+
+
+
+CREATE TABLE cars (
+  id    SERIAL,
+  name  character varying,
+  price numeric DEFAULT 1.22
+);
+
+
+INSERT INTO cars (name) 
+VALUES ('first'), ('second');
+
+
+
+
+
+---
+
+
+
+
+CREATE TABLE products (
+  id    SERIAL PRIMARY KEY,
+  name  text,
+  price numeric DEFAULT 1
+);
+
+
+ALTER TABLE products 
+ALTER COLUMN name 
+SET NOT NULL;
+
+
+ALTER TABLE products 
+ADD CONSTRAINT name UNIQUE (name);
+
+
+ALTER TABLE products 
+ALTER COLUMN name TYPE character varying;
+
+
+ALTER TABLE products 
+ADD COLUMN amount integer;
+
+
+ALTER TABLE products 
+ALTER COLUMN price DROP DEFAULT;
+
+
+ALTER TABLE users 
+ADD COLUMN age int;
+
+
+ALTER TABLE courses 
+RENAME COLUMN example1 TO example2;
+
+
+ALTER TABLE courses 
+DROP COLUMN example2;
+
+
+ALTER TABLE addresses
+ADD PRIMARY KEY (id);
+
+
+ALTER TABLE addresses
+ALTER COLUMN created_at SET DATA TYPE timestamp,
+ALTER COLUMN street DROP NOT NULL;
+
+
+ALTER TABLE addresses
+ALTER COLUMN city SET NOT NULL;
+
+
+ALTER TABLE products 
+ADD UNIQUE (product_id);
+
+
+
+
+---
+
+
+
+DELETE FROM users 
+WHERE first_name = 'Sansa';
+
+
+INSERT INTO users (first_name, email) 
+VALUES ('Arya', 'arya@winter.com');
+
+
+UPDATE users SET manager = TRUE 
+WHERE email = 'tirion@got.com';
+
+
+
+
+---
+
+
+
+DROP SEQUENCE IF EXISTS custom.serial;
+DROP SCHEMA IF EXISTS custom;
+
+
+CREATE SCHEMA custom;
+CREATE SEQUENCE custom.serial;
+
+
+
+
+---
+
+
+
+
+DROP VIEW IF EXISTS cars_without_price;
+DROP TABLE IF EXISTS cars;
+
+CREATE TABLE cars (
+  id    bigint PRIMARY KEY,
+  name  character varying UNIQUE NOT NULL,
+  price numeric
+);
+
+INSERT INTO cars 
+VALUES (1, 'nissan', 1.12);
+
+
+CREATE VIEW cars_without_price AS SELECT id, name FROM cars;
+
+
+
+
+---
+
+
+
+CREATE TABLE users (
+  id bigint  PRIMARY KEY,
+  first_name varchar(255),
+  created_at timestamp
+);
+
+CREATE TABLE orders (
+  id              bigint PRIMARY KEY,
+  user_first_name varchar(255),
+  months          integer,
+  created_at      timestamp
+);
+
+
+INSERT INTO users VALUES (1, 'Tom', '1832-11-23');
+
+
+INSERT INTO orders VALUES (1, 'Tom', 3, '2012-10-1');
+INSERT INTO orders VALUES (2, 'Tom', 3, '2012-10-1');
+
+
+
+---
+
+
+
+CREATE TABLE cars (
+  user_first_name varchar(255),
+  brand           varchar(255),
+  model           varchar(255)
+);
+
+
+INSERT INTO users VALUES ('arya', 'two', '1832-10-11');
+INSERT INTO users VALUES ('sansa', 'four', '1832-10-11');
+
+
+INSERT INTO cars VALUES ('arya', 'bmw', 'x5');
+INSERT INTO cars VALUES ('arya', 'bmw', 'x3');
+INSERT INTO cars VALUES ('sansa', 'kia', 'rio');
+INSERT INTO cars VALUES ('sansa', 'kia', 'sorento');
+INSERT INTO cars VALUES ('sansa', 'kia', 'sportage');
+
+
+
+---
+
+
+
+
+
+
+
+
 
 
 
