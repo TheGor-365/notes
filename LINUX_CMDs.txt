@@ -87,7 +87,7 @@ cp file.txt ..							                          --- копировать файл
 cp /opt/app/log /home/olga 					                  --- копировать папку рекурсивно ( cp -r  путь_к_папке  путь_к_новому_месту )
 cat file.txt							                            --- вывести файл на экран
 cat > filename 							                          --- creates a new file
-cat > file.txt							                          --- ранить в файл прямо из консоли
+cat > file.txt							                          --- сохранить в файл прямо из консоли
 cat >> file.txt							                          --- добавить в конец файла
 cat filename1 filename2 > filename3 				          --- joins two files (1 and 2) and stores the output of them in a new file (3)
 cat filename | tr a-z A-Z > output.txt 				        --- convert a file to upper or lower case use
