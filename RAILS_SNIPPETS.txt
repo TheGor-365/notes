@@ -2,34 +2,42 @@
 Useful snippents for Rails app building
 ---------------------------------------
 
-------------------------
+
+
+
 Pluralize helper example
 ------------------------
 
 <%= pluralize @subscriber_count %>
 
 
+
 ---
 
-----------------------------
+
+
 Simple format helper example
 ----------------------------
 
 <%= simple_format @community.rules %>
 
 
+
 ---
 
---------------------------------
+
+
 Time ago in words helper example
 --------------------------------
 
 <%= time_ago_in_words post.created_at %>
 
 
+
 ---
 
----------------------------
+
+
 Datetime helpers for footer
 ---------------------------
 
@@ -40,27 +48,33 @@ Datetime helpers for footer
 <%= account.created_at > 2.days.ago ? 'New to instagramm' : "Followed by #{account.total_followers} users" %>
 
 
+
 ---
 
------------------------
+
+
 Truncate helper example
 -----------------------
 
 <%= truncate post.body, length: 200 %>
 
 
+
 ---
 
--------------------------------
+
+
 Date time format helper example
 -------------------------------
 
 <%= @profile.created_at.strftime('%d/%m/%Y') %>
 
 
+
 ---
 
-----------------------
+
+
 Rails options snippets
 ----------------------
 
@@ -68,9 +82,11 @@ Rails options snippets
 <%= form.select(:category_id, options_from_collection_for_select(Category.all, :id, :heading, (@product.category.id if @product.category.present?)), {}, {class: 'form-control'}) %>
 
 
+
 ---
 
-----------------------
+
+
 Customize rails option
 ----------------------
 
@@ -82,9 +98,11 @@ Customize rails option
 <% end %>
 
 
+
 ---
 
------------------
+
+
 Blank link in app
 -----------------
 
@@ -92,22 +110,26 @@ Blank link in app
 <%= link_to "path_title", "https://path", target: :_blank if path_title.present? %>
 
 
+
 ---
 
--------------------------
+
+
 Check output info snippet
 -------------------------
 
-------------------
+
 some_controller.rb
 ------------------
 
 render plain: params[:technology].inspect
 
 
+
 ---
 
-------------------------------------------------
+
+
 Rails console cmd for checking entity attributes
 ------------------------------------------------
 
@@ -116,42 +138,50 @@ $ rails c
 Contact.attribute_names
 
 
+
 ---
 
---------------------------------------------
+
+
 Restart page with get request syntax example
 --------------------------------------------
 
----------
+
 routes.rb
 ---------
 
 resource :contacts, only: [:new, :create], path_names: { :new => '' }
 
 
+
 ---
 
-------------------------------
+
+
 Link for sign out with helpers
 ------------------------------
 
 <%= link_to 'Delete', technology_path(technology), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary btn-sm' %>
 
 
+
 ---
 
-----------------------------
+
+
 Usefull sqlite3 helpfull cmd
 ----------------------------
 
 $ rails c
 
-pragma table_info(technologies);
+> pragma table_info(technologies);
+
 
 
 ---
 
-----------------------------
+
+
 Form with collection example
 ----------------------------
 
@@ -160,27 +190,33 @@ Form with collection example
 <% end %>
 
 
+
 ---
 
------------------------
+
+
 Index migration example
 -----------------------
 
 add_index :users, :username, unique: true
 
 
+
 ---
 
-----------------
+
+
 Helpfull snippet
 ----------------
 
 value: current_user.try(:username)
 
 
+
 ---
 
------------------------------------
+
+
 DRY snippet example for controllers
 -----------------------------------
 
@@ -194,13 +230,16 @@ Class ApplicationController < ActionController::Base
   end
 end
 
+
+
 ---
 
---------------------------------------
+
+
 Rails js.erb view file snippet example
 --------------------------------------
 
----------------------
+
 _some_template.js.erb
 ---------------------
 
@@ -210,9 +249,11 @@ $("#initiate-conversation").hide();
 $("#conversation_messages").html("<%= escape_javascript(render partial: 'browse/messages') %>");
 
 
+
 ---
 
----------------------------------------------------------
+
+
 The way to turn off CSRF that won't render a null session
 ---------------------------------------------------------
 
@@ -221,28 +262,32 @@ class ApplicationController < ActionController::Base
 end
 
 
+
 ---
 
-------------------------
+
+
 Rendering the new action
 ------------------------
 
 redirect_to :action => 'new'
 
 
+
 ---
 
---------------------------------------------------------------------
+
+
 Redirecting / Rendering a different page when Javascript is disabled
 --------------------------------------------------------------------
 
-------------------
+
 your.html.erb file
 ------------------
 
 <%= link_to "New Building", new_building_path, :id => 'new_building_link' %>
 
----------------
+
 javascript file
 ---------------
 
@@ -258,18 +303,22 @@ $(document).load(function() {
 });
 
 
+
 ---
 
---------------------------------------
+
+
 Combining link_to with render :partial
 --------------------------------------
 
 <%= link_to render(:partial => 'shared/logo'), root_url %>
 
 
+
 ---
 
---------------------------
+
+
 Add to controller snippets
 --------------------------
 
@@ -292,6 +341,7 @@ def create
 end
 
 
+
 ---
 
 
@@ -304,6 +354,7 @@ def create
 end
 
 
+
 ---
 
 
@@ -314,6 +365,7 @@ def create
   @comment.save
   redirect_to @commentable, notice: "Your comment was successfully posted."
 end
+
 
 
 ---
@@ -340,6 +392,7 @@ def stripe_connect
 end
 
 
+
 ---
 
 
@@ -347,11 +400,13 @@ end
 @post = Post.includes(:comments).find(params[:id])
 
 
+
 ---
 
 
 
 Subscription.where(community_id: params[:community_id], account_id: current_account.id)
+
 
 
 ---
@@ -375,6 +430,7 @@ def update
   @order_item.update_attributes(order_params)
   @order_items = current_order.order_items
 end
+
 
 
 ---
@@ -412,6 +468,7 @@ def create
 end
 
 
+
 ---
 
 
@@ -422,6 +479,7 @@ def create
 
   redirect_to article_path(@article)
 end
+
 
 
 ---
@@ -446,7 +504,9 @@ def edit
 end
 
 
+
 ---
+
 
 
 def create
@@ -469,13 +529,17 @@ def create
 end
 
 
+
 ---
+
 
 
 @users = Account.where.not(id: current_account.id)
 
 
+
 ---
+
 
 
 def create
@@ -486,7 +550,9 @@ def create
 end
 
 
+
 ---
+
 
 
 def new
@@ -510,10 +576,11 @@ def create
 end
 
 
+
 ---
 
 
-------------------------------
+
 Add categories options to form
 ------------------------------
 
@@ -521,10 +588,11 @@ Add categories options to form
 <%= form.select(:category_id, options_from_collection_for_select(Category.all, :id, :heading, (@product.category.id if @product.category.present?)), {}, { class: 'form-control' }) %>
 
 
+
 ---
 
 
--------------------------------------------
+
 Bootstrap buttons styles for CRUD Rails app
 -------------------------------------------
 
@@ -576,7 +644,6 @@ _form.html.erb
 
 
 
----------------------------------------
 Active storage attachment view snippets
 ---------------------------------------
 
@@ -600,6 +667,7 @@ end
 
 or
 --
+
 
 def create
   @book = Book.new(book_params)
@@ -809,7 +877,7 @@ $ kill -9 pid_number
 
 
 Interesting rails cmd's
---------------------
+-----------------------
 
 $ rails db:prepare
 $ rails db:reset
@@ -1085,8 +1153,8 @@ class Supplier < ApplicationRecord
 end
 
 
-migration.rb:
--------------
+migration.rb
+------------
 
 class CreateSuppliers < ActiveRecord::Migration[6.0]
   def change
@@ -1107,19 +1175,19 @@ end
 ---
 
 
-has_many:
----------
+has_many
+--------
 
-class.rb:
----------
+class.rb
+--------
 
 class Author < ApplicationRecord
   has_many :books
 end
 
 
-migration.rb:
--------------
+migration.rb
+------------
 
 class CreateAuthors < ActiveRecord::Migration[6.0]
   def change
@@ -1140,11 +1208,11 @@ end
 ---
 
 
-has_many :through :
--------------------
+has_many :through
+-----------------
 
-class.rb:
----------
+class.rb
+--------
 
 class Physician < ApplicationRecord
   has_many :appointments
@@ -1162,8 +1230,8 @@ class Patient < ApplicationRecord
 end
 
 
-migration.rb:
--------------
+migration.rb
+------------
 
 class CreateAppointments < ActiveRecord::Migration[6.0]
   def change
@@ -1187,8 +1255,8 @@ class CreateAppointments < ActiveRecord::Migration[6.0]
 end
 
 
-class.rb:
----------
+class.rb
+--------
 
 class Document < ApplicationRecord
   has_many :sections
@@ -1204,8 +1272,8 @@ class Paragraph < ApplicationRecord
   belongs_to :section
 end
 
-view.html.erb:
---------------
+view.html.erb
+-------------
 
 @document.paragraphs
 
@@ -1213,11 +1281,11 @@ view.html.erb:
 ---
 
 
-has_one :through :
-------------------
+has_one :through 
+-----------------
 
-class.rb:
----------
+class.rb
+--------
 
 class Supplier < ApplicationRecord
   has_one :account
@@ -1233,8 +1301,10 @@ class AccountHistory < ApplicationRecord
   belongs_to :account
 end
 
-migrations.rb:
---------------
+
+
+migrations.rb
+-------------
 
 class CreateAccountHistories < ActiveRecord::Migration[6.0]
   def change
@@ -1261,11 +1331,11 @@ end
 ---
 
 
-has_and_belongs_to_many:
-------------------------
+has_and_belongs_to_many
+-----------------------
 
-class.rb:
----------
+class.rb
+--------
 
 class Assembly < ApplicationRecord
   has_and_belongs_to_many :parts
@@ -1275,8 +1345,10 @@ class Part < ApplicationRecord
   has_and_belongs_to_many :assemblies
 end
 
-migration.rb:
--------------
+
+
+migration.rb
+------------
 
 class CreateAssembliesAndParts < ActiveRecord::Migration[6.0]
   def change
@@ -1301,11 +1373,11 @@ end
 ---
 
 
-Polymorphic Associations:
--------------------------
+Polymorphic Associations
+------------------------
 
-class.rb:
----------
+class.rb
+--------
 
 class Picture < ApplicationRecord
   belongs_to :imageable, polymorphic: true
@@ -1319,8 +1391,10 @@ class Product < ApplicationRecord
   has_many :pictures, as: :imageable
 end
 
-migration.rb:
--------------
+
+
+migration.rb
+------------
 
 class CreatePictures < ActiveRecord::Migration[6.0]
   def change
@@ -1349,19 +1423,21 @@ end
 ---
 
 
-Self Joins:
------------
+Self Joins
+----------
 
-model.rb:
----------
+model.rb
+--------
 
 class Employee < ApplicationRecord
   has_many :subordinates, class_name: "Employee", foreign_key: "manager_id"
   belongs_to :manager, class_name: "Employee", optional: true
 end
 
-migration.rb:
--------------
+
+
+migration.rb
+------------
 
 class CreateEmployees < ActiveRecord::Migration[6.0]
   def change
@@ -1373,21 +1449,23 @@ class CreateEmployees < ActiveRecord::Migration[6.0]
 end
 
 
-Methods Added by belongs_to:
-----------------------------
+Methods Added by belongs_to
+---------------------------
 
-model.rb:
----------
+model.rb
+--------
 
 class Book < ApplicationRecord
   belongs_to :author
 end
 
-Book methods:
--------------
 
-rails c:
---------
+
+Book methods
+------------
+
+rails c
+-------
 
 @author = @book.author
 @author = @book.reload_author
@@ -1399,14 +1477,14 @@ rails c:
 ---
 
 
-Options for belongs_to:
------------------------
+Options for belongs_to
+----------------------
 
 :autosave
 :class_name
 
-:counter_cache :
-----------------
+:counter_cache
+--------------
 
 class Book < ApplicationRecord
   belongs_to :author, counter_cache: :count_of_books
@@ -1420,8 +1498,8 @@ end
 :dependent
 :foreign_key
 
-:primary_key :
---------------
+:primary_key
+------------
 
 class User < ApplicationRecord
   self.primary_key = 'guid' # primary key is guid and not id
@@ -1439,8 +1517,8 @@ end
 :optional
 
 
-model.rb:
----------
+model.rb
+--------
 
 class Book < ApplicationRecord
   belongs_to :author, touch: :books_updated_at, counter_cache: true
@@ -1450,19 +1528,19 @@ end
 ---
 
 
-Scopes for belongs_to:
-----------------------
+Scopes for belongs_to
+---------------------
 
-where :
--------
+where
+-----
 
 class Book < ApplicationRecord
   belongs_to :author, -> { where active: true }
 end
 
 
-includes :
-----------
+includes
+--------
 
 class Chapter < ApplicationRecord
   belongs_to :book, -> { includes :author }
@@ -1485,19 +1563,20 @@ select
 ---
 
 
-Do Any Associated Objects Exist:
---------------------------------
+Do Any Associated Objects Exist
+-------------------------------
 
 if @book.author.nil?
   @msg = "No author found for this book"
 end
 
 
-Methods by has_one:
--------------------
 
-model.rb:
----------
+Methods by has_one
+------------------
+
+model.rb
+--------
 
 class Supplier < ApplicationRecord
   has_one :account
@@ -1512,11 +1591,12 @@ end
 @account = @supplier.build_account(terms: "Net 30")
 
 
-Options for has_one:
---------------------
 
-model.rb:
----------
+Options for has_one
+-------------------
+
+model.rb
+--------
 
 class Supplier < ApplicationRecord
   has_one :account, class_name: "Billing", dependent: :nullify
@@ -1526,8 +1606,8 @@ end
 ---
 
 
-menthods:
----------
+menthods
+--------
 
 :as
 :autosave
@@ -1546,19 +1626,20 @@ menthods:
 ---
 
 
-Scopes for has_one:
--------------------
+Scopes for has_one
+------------------
 
-where:
-------
+where
+-----
 
 class Supplier < ApplicationRecord
   has_one :account, -> { where "confirmed = 1" }
 end
 
 
-includes:
----------
+
+includes
+--------
 
 class Supplier < ApplicationRecord
   has_one :account, -> { includes :representative }
@@ -1581,8 +1662,8 @@ select
 ---
 
 
-Methods by has_many:
---------------------
+Methods by has_many
+-------------------
 
 collection
 collection<<(object, ...)
@@ -1603,8 +1684,9 @@ collection.create!(attributes = {})
 collection.reload
 
 
-model.rb:
----------
+
+model.rb
+--------
 
 class Author < ApplicationRecord
   has_many :books
@@ -1633,8 +1715,9 @@ end
 > author.books.reload
 
 
-controller.rb:
---------------
+
+controller.rb
+-------------
 
 @books = @author.books
 @author.books << @book1
@@ -1664,8 +1747,8 @@ controller.rb:
 ---
 
 
-The has_many association supports these options:
-------------------------------------------------
+The has_many association supports these options
+-----------------------------------------------
 
 :as
 :autosave
@@ -1681,28 +1764,33 @@ The has_many association supports these options:
 :validate
 
 
-Scopes for has_many:
---------------------
+
+Scopes for has_many
+-------------------
 
 where
 extending
 
-group:
-------
+
+
+group
+-----
 
 class Author < ApplicationRecord
   has_many :chapters, -> { group 'books.id' }, through: :books
 end
 
 
-includes:
----------
+
+includes
+--------
 
 person.articles << article unless person.articles.include?(article)
 
 
-limit:
-------
+
+limit
+-----
 
 class Author < ApplicationRecord
   has_many :recent_books, -> { order('published_at desc').limit(100) }, class_name: "Book"
@@ -1711,8 +1799,9 @@ end
 
 offset
 
-order:
-------
+
+order
+-----
 
 class Author < ApplicationRecord
   has_many :books, -> { order "date_confirmed DESC" }
@@ -1721,8 +1810,8 @@ end
 
 readonly
 select
-distinct:
----------
+distinct
+--------
 
 class Person
   has_many :readings
@@ -1733,8 +1822,8 @@ end
 ---
 
 
-Methods Added by has_and_belongs_to_many:
------------------------------------------
+Methods Added by has_and_belongs_to_many
+----------------------------------------
 
 collection
 collection<<(object, ...)
@@ -1755,8 +1844,9 @@ collection.create!(attributes = {})
 collection.reload
 
 
-model.rb:
----------
+
+model.rb
+--------
 
 class Part < ApplicationRecord
   has_and_belongs_to_many :assemblies
@@ -1786,11 +1876,12 @@ $ rails c
 > part.assemblies.reload
 
 
-controller.rb:
---------------
 
-collection:
------------
+controller.rb
+-------------
+
+collection
+----------
 
 @assemblies = @part.assemblies
 @part.assemblies << @assembly1
@@ -1813,19 +1904,19 @@ collection:
 ---
 
 
-Options for has_and_belongs_to_many:
-------------------------------------
+Options for has_and_belongs_to_many
+-----------------------------------
 
-model.rb:
----------
+model.rb
+--------
 
 class Parts < ApplicationRecord
   has_and_belongs_to_many :assemblies, -> { readonly }, autosave: true
 end
 
 
-The has_and_belongs_to_many association supports these options:
----------------------------------------------------------------
+The has_and_belongs_to_many association supports these options
+--------------------------------------------------------------
 
 :association_foreign_key
 :autosave
@@ -1835,27 +1926,30 @@ The has_and_belongs_to_many association supports these options:
 :validate
 
 
-model.rb:
----------
+
+model.rb
+--------
 
 class User < ApplicationRecord
   has_and_belongs_to_many :friends, class_name: "User", foreign_key: "this_user_id", association_foreign_key: "other_user_id"
 end
 
 
-Scopes for has_and_belongs_to_many:
------------------------------------
 
-model.rb:
----------
+Scopes for has_and_belongs_to_many
+----------------------------------
+
+model.rb
+--------
 
 class Parts < ApplicationRecord
   has_and_belongs_to_many :assemblies, -> { where active: true }
 end
 
 
-standard querying methods:
---------------------------
+
+standard querying methods
+-------------------------
 
 where
 -----
@@ -1905,11 +1999,11 @@ distinct
 ---
 
 
-Association Callbacks:
-----------------------
+Association Callbacks
+---------------------
 
-controller.rb:
---------------
+controller.rb
+-------------
 
 before_add
 after_add
@@ -1917,8 +2011,9 @@ before_remove
 after_remove
 
 
-model.rb:
----------
+
+model.rb
+--------
 
 class Author < ApplicationRecord
   has_many :books, before_add: :check_credit_limit
@@ -1953,11 +2048,11 @@ end
 ---
 
 
-Association Extensions:
------------------------
+Association Extensions
+----------------------
 
-model.rb:
----------
+model.rb
+--------
 
 class Author < ApplicationRecord
   has_many :books do
@@ -1983,22 +2078,26 @@ class Supplier < ApplicationRecord
 end
 
 
-Single Table Inheritance (STI):
--------------------------------
+
+
+Single Table Inheritance (STI)
+------------------------------
 
 $ rails generate model vehicle type:string color:string price:decimal{ 10.2 }
 $ rails generate model car --parent=Vehicle
 
 
-model.rb:
----------
+
+model.rb
+--------
 
 class Car < Vehicle
 end
 
 
-controller.rb:
---------------
+
+controller.rb
+-------------
 
 > rails c
 ---------
@@ -2269,6 +2368,7 @@ User.create([
 
 
 
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -2287,25 +2387,45 @@ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliqu
 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
+deserunt mollit anim id est laborum.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum 
+dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+
+Lorem ipsum dolor sit amet, consectetur 
+adipiscing elit, sed do eiusmod tempor 
+incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud 
+exercitation ullamco laboris nisi ut aliquip 
+ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in 
+voluptate velit esse cillum dolore eu fugiat 
+nulla pariatur.
+Excepteur sint occaecat cupidatat non proident, 
+sunt in culpa qui officia deserunt mollit anim 
+id est laborum.
+
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum 
+dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum 
+dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum 
+dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
 
 
 
@@ -2448,7 +2568,6 @@ class CommentsController < ApplicationController
     respond_to do |format|
       format.js {
         if @comment.save
-
           @comments = Comment.where(post_id: @comment.post_id)
           render 'comments/create'
         else
@@ -2595,9 +2714,7 @@ https://ru.hexlet.io/blog/posts/how-to-test-code
 Good practice check list
 ------------------------
 
-https://guides.hexlet.io
-/ru
-/check-list-of-engineering-practices
+https://guides.hexlet.io/ru/check-list-of-engineering-practices
 /?_gl=1*fn31i6*_ga*MjI5MDExNTEyLjE2NjM1MDQzNzU.*_ga_PM3R85EKHN*MTY4NDIzNjUyMi41OC4xLjE2ODQyMzc4MTUuMC4wLjA.*_ga_WWGZ6EVHEY*MTY4NDIzNjUyMi44LjEuMTY4NDIzNzc1NS4wLjAuMA..
 
 
@@ -3190,8 +3307,7 @@ https://happyhours.io/
 New reloc One account
 ---------------------
 
-https://one.newrelic.com/launcher
-/nr1-core.home?pane=eyJuZXJkbGV0SWQiOiJucjEtY29yZS5saXN0aW5nLWVtcHR5LXN0YXRlIn0=&cards[0]
+https://one.newrelic.com/launcher/nr1-core.home?pane=eyJuZXJkbGV0SWQiOiJucjEtY29yZS5saXN0aW5nLWVtcHR5LXN0YXRlIn0=&cards[0]
 =eyJuZXJkbGV0SWQiOiJzZXR1cC1uZXJkbGV0cy5zZXR1cC1ydWJ5LWludGVncmF0aW9uIiwiYWNjb3VudElkIjozMDg4OTg1fQ==&platform[accountId]
 =3088985&platform[timeRange][duration]=1800000&platform[$isFallbackTimeRange]=true
 
@@ -3568,15 +3684,15 @@ Deploing rails app on heroku
 ----------------------------
 
 
-1) heroku apps:create rails-geo-example
-2) heroku open
-3) git remote -v
-4) git push heroku master
-5) heroku rails db:migrate
-   heroku run rails db:create
-6) heroku logs
-7) https://rails-geo-example.herokuapp.com/
-8) https://git.heroku.com/rails-geo-example.git
+1. $ heroku apps:create rails-geo-example
+2. $ heroku open
+3. $ git remote -v
+4. $ git push heroku master
+5. $ heroku rails db:migrate
+   $ heroku run rails db:create
+6. $ heroku logs
+7. $ https://rails-geo-example.herokuapp.com/
+8. $ https://git.heroku.com/rails-geo-example.git
 
 
 
@@ -3856,8 +3972,9 @@ end
 
 $ rails g migration create_sessions
 
-  invoke  active_record
-  create    db/migrate/20210312165940_create_sessions.rb
+invoke  active_record
+create    db/migrate/20210312165940_create_sessions.rb
+
 
 
 class CreateSessions < ActiveRecord::Migration[6.0]
@@ -3884,7 +4001,6 @@ C:\Projects\rails_basics\oauth_app\app\models\user.rb
 -----------------------------------------------------
 
 class User < ApplicationRecord
-
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 
   devise :database_authenticatable, :registerable,
@@ -4028,14 +4144,11 @@ gem "omniauth", "~> 1.9.1"
 
 
 
-https://developers.facebook.com/
-
 
 
 ---5---
 
 class Accounts::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-
   def facebook
     @account = Account.from_omniauth(request.env['omniauth.auth'])
 
@@ -4051,13 +4164,12 @@ class Accounts::OmniauthCallbacksController < Devise::OmniauthCallbacksControlle
   def failure
     redirect_to root_path
   end
-
 end
 
 
 
 https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview
-
+https://developers.facebook.com/
 
 
 
@@ -4292,12 +4404,15 @@ config/routes.rb
 Rails.application.routes.draw do
   get 'home', to: 'static_pages#home'  devise_for :users, controllers: {
     sessions: 'users/sessions'
-  }  devise_scope :user do
+  }  
+
+  devise_scope :user do
     root to: 'users/sessions#new'
     get 'sign_in', to: 'users/sessions#new'
     get '/users/sign_out', to: 'users/sessions#destroy'
   end
 end
+
 
 
 app/controllers/application_controller.rb
@@ -4521,8 +4636,8 @@ current_user.user_role?
 
 ---7---
 
-Views:
-------
+Views
+-----
 
 <% if current_user.superadmin_role? || current_user.supervisor_role? %>
   <p>Visible only for superadmins and supervisors! </p>
@@ -4604,8 +4719,8 @@ end
 
 ---4---
 
-Manage User accounts:
----------------------
+Manage User accounts
+--------------------
 
 add can :manage, :all for any user in app/models/ability.rb
 -----------------------------------------------------------
@@ -4665,30 +4780,43 @@ Simple form Rails
 
 gem 'simple_form'
 
-rails generate simple_form:install
-rails generate simple_form:install --bootstrap
-rails generate simple_form:install --foundation
+
+---
 
 
 
-http://simple-form-bootstrap.plataformatec.com.br/
+$ rails generate simple_form:install
+$ rails generate simple_form:install --bootstrap
+$ rails generate simple_form:install --foundation
+
 
 
 ---
 
 
 Country Select
-If you want to use the country select, you will need the country_select gem, add it to your Gemfile
----------------------------------------------------------------------------------------------------
+--------------
+
+Gemfile
+-------
 
 gem 'country_select'
 
 
-If you don't want to use the gem you can easily override this behaviour by mapping the country inputs to
-something else, with a line like this in your simple_form.rb initializer
-------------------------------------------------------------------------
+
+
+simple_form.rb initializer
+--------------------------
 
 config.input_mappings = { /country/ => :string }
+
+
+
+---
+
+
+
+http://simple-form-bootstrap.plataformatec.com.br/
 
 
 
@@ -5170,10 +5298,11 @@ module ApplicationHelper
     file = File.read("node_modules/bootstrap-icons/icons/#{icon}.svg")
     doc = Nokogiri::HTML::DocumentFragment.parse file
     svg = doc.at_css 'svg'
+
     if options[:class].present?
       svg['class'] += " " + options[:class]
     end
-      doc.to_html.html_safe
+    doc.to_html.html_safe
   end
 end
 
@@ -5190,8 +5319,8 @@ view.html.erb
 
 ---4---
 
-Find Icon:
-----------
+Find Icon
+---------
 
 https://icons.getbootstrap.com/
 
@@ -5406,6 +5535,7 @@ Include bootstrap-datepicker-rails in Gemfile
 gem 'bootstrap-datepicker-rails'
 
 
+
 or you can install from latest build
 ------------------------------------
 
@@ -5430,7 +5560,11 @@ Add this line to app/assets/stylesheets/application.css
 
 *= require bootstrap-datepicker
 
-# Or if using bootstrap v3:
+
+
+Or if using bootstrap v3
+------------------------
+
 *= require bootstrap-datepicker3
 
 
@@ -5471,7 +5605,6 @@ Or call datepicker() with any selector
 <input type="text" class='datepicker' >
 
 <script type="text/javascript">
-
   $(document).ready(function(){
     $('.datepicker').datepicker();
   });
@@ -5591,8 +5724,8 @@ end
 
 
 
-gems
-----
+Gemfile
+-------
 
 ruby "3.1.2"
 gem "rails", "~> 7.0.4", ">= 7.0.4.1"
@@ -5813,10 +5946,11 @@ https://stackoverflow.com/questions/58777081/how-do-you-add-toastr-rails-gem-to-
 Flash messages for Rails app
 ----------------------------
 
-Gemfile:
---------
+Gemfile
+-------
 
 gem 'flash_rails_messages'
+
 
 
 layout.html.erb
@@ -5859,14 +5993,12 @@ application.html.erb
 
 <% case @info %>
 <% when notice.present? %>
-
   <% @info = notice %>
 
   <div class="container alert alert-success">
     <%= @info %>
   </div>
 <% when alert.present? %>
-
   <% @info = alert %>
 
   <div class="container alert alert-danger">
@@ -5975,6 +6107,7 @@ scoped views
 $ rails generate devise:views users
 
 
+
 ones for the registerable and confirmable module:
 -------------------------------------------------
 
@@ -5993,7 +6126,9 @@ $ rails generate devise:controllers [scope]
 devise_for :users, controllers: { sessions: 'users/sessions' }
 
 
+
 Copy the views from devise/sessions to users/sessions. Since the controller was changed, it won't use the default views located in devise/sessions
+--------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 class Users::SessionsController < Devise::SessionsController
@@ -6407,7 +6542,6 @@ registrations/edit.html.erb
       </div>
     </div>
   </div>
-
 </div>
 
 
@@ -6421,7 +6555,10 @@ sessions/new.html.erb
 <%= f.label :login %>
 <%= f.text_field :login %>
 
+
 or
+--
+
 
 <%= f.label :username %>
 <%= f.text_field :username %>
@@ -6577,6 +6714,7 @@ views/devise/menu/_login_items.html.erb
 <% end %>
 
 
+
 views/devise/menu/_registration_items.html.erb
 ----------------------------------------------
 
@@ -6591,6 +6729,7 @@ views/devise/menu/_registration_items.html.erb
 <% end %>
 
 
+
 layouts/application.html.erb
 ----------------------------
 
@@ -6599,6 +6738,7 @@ layouts/application.html.erb
   <%= render 'devise/menu/login_items' %>
 </ul>
 <%= yield %>
+
 
 
 Sign_in, sign_out links
@@ -6636,6 +6776,7 @@ Sign_in, sign_out links
   <%= link_to('Register', new_user_registration_path)  %>
   <%= link_to('Login', new_user_session_path)  %>
 <% end %>
+
 
 
 styles.scss
@@ -6727,8 +6868,8 @@ end
 ---
 
 
-Devise How To's:
-----------------
+Devise How To's
+---------------
 
 https://github.com/heartcombo/devise/wiki/How-Tos
 
@@ -6873,7 +7014,6 @@ $ touch views/layouts/_nav.html.erb
   <nav class="my-2 my-md-0 mr-md-3">
     <%= link_to 'Home', root_path, class: "text-dark mr-3 text-decoration-none" %>
   </nav>
-
 </div>
 
 
@@ -6887,7 +7027,6 @@ $ touch views/layouts/_nav.html.erb
   </nav>
 
   <% if user_signed_in? %>
-
     <span class="badge badge-success float-right mr-5">
       <%= current_user.username %>
     </span>
@@ -6898,10 +7037,8 @@ $ touch views/layouts/_nav.html.erb
 
     <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "btn btn-outline-danger" %>
   <% else %>
-
     <%= link_to 'Sign in', new_user_session_path, class: "btn btn-success mr-3" %>
     <%= link_to 'Sign up', new_user_registration_path, class: "btn btn-secondary" %>
-
   <% end %>
 </div>
 
@@ -6911,7 +7048,6 @@ $ touch views/layouts/_nav.html.erb
 <header class="p-3 mb-3 border-bottom">
   <div class="container">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-
       <h5 class="d-flex align-items-center mb-2 mb-lg-0 me-5">
         <%= link_to 'Devise Bootstrap', root_path, class: 'bi me-2 text-dark text-decoration-none' %>
       </h5>
@@ -6923,13 +7059,11 @@ $ touch views/layouts/_nav.html.erb
       </ul>
 
       <% if user_signed_in? %>
-
         <ul class="nav col-12 col-lg-auto me-lg-right mb-2 justify-content-center mb-md-0 me-3">
           <li><span class="badge bg-success"><%= current_user.username %></span></li>
         </ul>
 
         <div class="dropdown text-end">
-
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
@@ -6938,20 +7072,15 @@ $ touch views/layouts/_nav.html.erb
             <li><a class="dropdown-item" href="#">New project</a></li>
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><%= link_to 'Settings', edit_user_registration_path, class: "dropdown-item" %></li>
-
             <li><hr class="dropdown-divider"></li>
             <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "dropdown-item text-danger" %></li>
           </ul>
-
         <% else %>
-
           <ul class="nav">
             <li class="nav-item"><%= link_to 'Sign in', new_user_session_path, class: "nav-link link-dark px-2" %></li>
             <li class="nav-item"><%= link_to 'Sign up', new_user_registration_path, class: "nav-link link-dark px-2" %></li>
           </ul>
-
         <% end %>
-
       </div>
     </div>
   </div>
@@ -6981,30 +7110,24 @@ $ touch views/layouts/_nav.html.erb
         <ul class="nav col-12 col-lg-auto me-lg-right mb-2 justify-content-center mb-md-0 me-3">
           <li><span class="badge bg-success"><%= current_user.username %></span></li>
         </ul>
-
         <div class="dropdown text-end">
-
           <a
             href="#"
             class="d-block link-dark text-decoration-none dropdown-toggle"
             id="dropdownUser1"
             data-bs-toggle="dropdown"
-            aria-expanded="false">
-
+            aria-expanded="false"
+          >
             <%= user_avatar(current_user, 40) %>
           </a>
-
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
             <li><%= link_to 'Articles', articles_path, class: 'dropdown-item' %></li>
             <li><%= link_to 'New article', new_article_path, class: 'dropdown-item' %></li>
             <li><%= link_to 'Settings', edit_user_registration_path, class: "dropdown-item" %></li>
-
             <li><hr class="dropdown-divider"></li>
             <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "dropdown-item text-danger" %></li>
           </ul>
-
         <% else %>
-
           <ul class="nav">
             <li class="nav-item"><%= link_to 'Sign in', new_user_session_path, class: "nav-link link-dark px-2" %></li>
             <li class="nav-item"><%= link_to 'Sign up', new_user_registration_path, class: "nav-link link-dark px-2" %></li>
@@ -7143,6 +7266,7 @@ config.mailer_sender = 'test@example.com'
 ---4---
 
 Open in web browser: /users/password/new . And try to send reset password instructions.
+---------------------------------------------------------------------------------------
 
 
 Alternative is changing
@@ -7151,6 +7275,7 @@ Alternative is changing
 config.action_mailer.smtp_settings.port to 465
 
 may help.
+
 
 
 Welcome email
@@ -7227,11 +7352,17 @@ $ touch send_welcome_mail.text.erb
 ---7---
 
 Welcome, <%= @user.email %>
-===============================================
 
-Access to app under following URL: <%= @url %>.
 
-Thanks for joining and have a great day!
+Access to app under following URL
+---------------------------------
+
+<%= @url %>
+
+
+
+Thanks for joining and have a great day
+---------------------------------------
 
 
 ---
@@ -7386,6 +7517,7 @@ Configuration for gmail (mailer)
 https://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration-for-gmail
 
 
+
 Generate mailer cmd example
 ---------------------------
 
@@ -7472,11 +7604,11 @@ class TestMailer < ApplicationMailer
 
   def hello
     mail(
-      subject: 'Hello from Postmark',
-      to: 'sender@example.org',
-      from: 'sender@example.org',
-      html_body: '<strong>Hello</strong> dear Postmark user.',
-      track_opens: 'true',
+      subject:        'Hello from Postmark',
+      to:             'sender@example.org',
+      from:           'sender@example.org',
+      html_body:      '<strong>Hello</strong> dear Postmark user.',
+      track_opens:    'true',
       message_stream: 'outbound')
   end
 end
@@ -7697,8 +7829,8 @@ Add avatar with carrierwave gem
 
 ---v1---
 
-Gemfile:
---------
+Gemfile
+-------
 
 gem 'carrierwave', '~> 2.0'
 gem 'mini_magick'
@@ -7741,7 +7873,6 @@ end
 
 
 class MyUploader < CarrierWave::Uploader::Base
-
   include CarrierWave::MiniMagick
 
   process resize_to_fit: [800, 800]
@@ -7749,7 +7880,6 @@ class MyUploader < CarrierWave::Uploader::Base
   version :thumb do
     process resize_to_fill: [200,200]
   end
-
 end
 
 
@@ -7803,7 +7933,11 @@ Cache files by assigning them to the attribute
 u = User.new
 u.avatar = params[:file] # Assign a file like this, or
 
-# like this
+
+
+like this
+---------
+
 File.open('somewhere') do |f|
   u.avatar = f
 end
@@ -7839,6 +7973,7 @@ Upload controller permits
 params.require(:user).permit(:email, :first_name, :last_name, :avatar, :avatar_cache)
 
 
+
 application_controller.rb
 -------------------------
 
@@ -7861,8 +7996,8 @@ end
 Add avatar_cache it to the attr_accessible
 ------------------------------------------
 
-_form.html.erb:
----------------
+_form.html.erb
+--------------
 
 <%= form_for @user, html: { multipart: true } do |f| %>
   <%= f.label :avatar %>
@@ -7872,6 +8007,7 @@ _form.html.erb:
 
 
 <%= f.hidden_field :avatar_cache %>
+
 
 
 Add input field to _form.html.erb
@@ -7896,8 +8032,8 @@ Add input field to _form.html.erb
 Removing uploaded files
 -----------------------
 
-_form.html.erb:
----------------
+_form.html.erb
+--------------
 
 ---v1---
 
@@ -7924,6 +8060,7 @@ _form.html.erb:
 </div>
 
 
+
 Remove the file manually
 ------------------------
 
@@ -7937,8 +8074,8 @@ Remove the file manually
 Uploading files from a remote location (from internet)
 ------------------------------------------------------
 
-_form.html.erb:
----------------
+_form.html.erb
+--------------
 
 <%= form_for @user, html: { multipart: true } do |f| %>
   <%= f.label :avatar %>
@@ -7953,8 +8090,8 @@ _form.html.erb:
 Providing a default URL
 -----------------------
 
-Uploader.rb:
-------------
+Uploader.rb
+-----------
 
 ---v1---
 
@@ -8127,8 +8264,8 @@ Multiple file uploads with carrierwave
 
 ---v1---
 
-Gemfile:
---------
+Gemfile
+-------
 
 gem 'carrierwave', '~> 2.0'
 gem 'mini_magick'
@@ -8210,10 +8347,12 @@ Add _form to template.html.erb
 <%= form.file_field :avatars, multiple: true %>
 
 
+
 Upload controller permits
 -------------------------
 
 params.require(:user).permit(:email, :first_name, :last_name, { avatars: [] })
+
 
 
 application_controller.rb
@@ -8230,6 +8369,7 @@ def configure_permitted_parameters
   devise_parameter_sanitizer.permit :sign_in, keys: [:login, :password]
   devise_parameter_sanitizer.permit :account_update, keys: added_attrs
 end
+
 
 
 Select multiple files in the upload dialog
@@ -8255,6 +8395,7 @@ Preserve existing files on uploading new one
 <%= form.file_field :avatars, multiple: true %>
 
 
+
 Changing the storage directory
 ------------------------------
 
@@ -8266,6 +8407,7 @@ class MyUploader < CarrierWave::Uploader::Base
     'public/my/upload/directory'
   end
 end
+
 
 
 if storage == file
@@ -8297,6 +8439,7 @@ class MyUploader < CarrierWave::Uploader::Base
 end
 
 
+
 uploader that accepts only images
 ---------------------------------
 
@@ -8307,6 +8450,7 @@ class MyUploader < CarrierWave::Uploader::Base
 end
 
 
+
 reject content types
 --------------------
 
@@ -8315,6 +8459,7 @@ class NoJsonUploader < CarrierWave::Uploader::Base
     ['application/text', 'application/json']
   end
 end
+
 
 
 Filenames and unicode chars
@@ -8353,6 +8498,7 @@ class MyUploader < CarrierWave::Uploader::Base
 end
 
 
+
 Nested versions
 ---------------
 
@@ -8369,6 +8515,7 @@ class MyUploader < CarrierWave::Uploader::Base
 end
 
 
+
 Conditional versions
 --------------------
 
@@ -8380,7 +8527,7 @@ class MyUploader < CarrierWave::Uploader::Base
   version :monkey, if: :is_monkey?
   version :banner, if: :is_landscape?
 
-private
+  private
 
   def is_human? picture
     model.can_program?(:ruby)
@@ -8395,6 +8542,7 @@ private
     image[:width] > image[:height]
   end
 end
+
 
 
 Create versions from existing versions
@@ -8433,6 +8581,7 @@ _form.html.erb
 
 
 <%= f.hidden_field :avatar_cache %>
+
 
 
 Add input field to _form.html.erb
@@ -8501,6 +8650,7 @@ _form.html.erb
 </div>
 
 
+
 Remove the file manually
 ------------------------
 
@@ -8514,11 +8664,10 @@ Remove the file manually
 Uploading files from a remote location (from internet)
 ------------------------------------------------------
 
-_form.html.erb:
----------------
+_form.html.erb
+--------------
 
 <%= form_for @user, html: { multipart: true } do |f| %>
-
   <%= f.label :avatar %>
   <%= image_tag(@user.avatar_url) if @user.avatar? %>
 
@@ -8538,7 +8687,6 @@ Uploader.rb
 ---v1---
 
 class MyUploader < CarrierWave::Uploader::Base
-
   def default_url(*args)
     "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   end
@@ -8551,7 +8699,6 @@ If using the Rails asset pipeline
 ---------------------------------
 
 class MyUploader < CarrierWave::Uploader::Base
-
   def default_url(*args)
     ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
   end
@@ -8607,7 +8754,6 @@ end
 ---v2---
 
 class AvatarUploader < CarrierWave::Uploader::Base
-
   permissions 0777
 end
 
@@ -8717,7 +8863,6 @@ HTML5 Datalist using Ruby on Rails form_for
 ---v1---
 
 <%= form_for @person do |f| %>
-
   <%= f.label :first_name, "First Name" %>:
   <%= f.text_field :first_name, list: 'first-name' %>
 
@@ -8731,7 +8876,8 @@ HTML5 Datalist using Ruby on Rails form_for
 <% end %>
 
 
-You may also want to do distinct:
+You may also want to do distinct
+--------------------------------
 
 <% Person.select(:first_name).distinct.each do |person| %>
 
@@ -8857,10 +9003,10 @@ puts "\nTotal cart count: #{Cart.all.count}"
 Rails generate Controller commands
 ----------------------------------
 
-rails g controller Products index new edit
-rails g controller LineItems
-rails g controller Carts show
-rails g controller Orders index show new
+$ rails g controller Products index new edit
+$ rails g controller LineItems
+$ rails g controller Carts show
+$ rails g controller Orders index show new
 
 
 
@@ -8884,6 +9030,7 @@ resources :products
 resources :orders
 
 
+
 links
 -----
 
@@ -8891,6 +9038,7 @@ Link from the Product index page (erb tags)
 -------------------------------------------
 
 button_to "Add to cart", line_items_path(:product_id => product.id)
+
 
 
 Link from the Cart show (erb tags)
@@ -8969,6 +9117,7 @@ Product Index show page
 <%= link_to "New product", new_product_path
 
 
+
 Product New and Edit form partial
 ---------------------------------
 
@@ -9006,6 +9155,7 @@ class ApplicationController < ActionController::Base
   def current_cart
     if session[:cart_id]
       cart = Cart.find_by(:id => session[:cart_id])
+
       if cart.present?
         @current_cart = cart
       else
@@ -9045,7 +9195,6 @@ Cart View
 
 <ul>
   <% @cart.line_items.each do |line_item| %>
-
     <li>Item: <%= line_item.product.name %>/ Price: <%= number_to_currency(line_item.product.price) %>/ Quantity: <%= line_item.quantity %>/ Total Price: <%= number_to_currency(line_item.total_price) %>
     <ul>
       <li>
@@ -9129,16 +9278,19 @@ def line_item_params
 end
 
 
+
 View link
 ---------
 
 button_to "Add #{product.name} to cart", line_items_path(:product_id => product.id)
 
 
+
 Routes url
 ----------
 
 post 'line_items' => "line_items#create"
+
 
 
 Destroy LineItem
@@ -9154,10 +9306,12 @@ def destroy
 end
 
 
+
 View link
 ---------
 
 link_to "Remove item", line_item_path(line_item), method: :delete
+
 
 
 Routes url
@@ -9165,6 +9319,7 @@ Routes url
 
 get 'line_items/:id' => "line_items#show", as: "line_item"
 delete 'line_items/:id' => "line_items#destroy"
+
 
 
 add_quantity and remove_quantity
@@ -9194,11 +9349,13 @@ def reduce_quantity
 end
 
 
+
 View link
 ---------
 
 link_to "Add one", line_item_add_path(:id => line_item), method: :post
 link_to "Reduce one", line_item_reduce_path(:id => line_item), method: :post
+
 
 
 Routes url
@@ -9288,7 +9445,6 @@ Index page listing out all orders
 <h2>All Orders</h2>
 
 <% @orders.each do |order| %>
-
   <p>Name: <%= order.name %></p>
   <p>Email: <%= order.email %></p>
   <p>Line Items: </p>
@@ -9794,7 +9950,8 @@ Partial Layouts
 Passing Local Variables
 -----------------------
 
-new.html.erb:
+new.html.erb
+------------
 
 <h1>New zone</h1>
 <%= render partial: "form", locals: {zone: @zone} %>
@@ -10365,12 +10522,14 @@ end
 $ bin/rake
 
 
+
 app/models/user.rb
 ------------------
 
 def profile_photo_url
   "https://s.gravatar.com/avatar/#{Digest::MD5.hexdigest(email)}"
 end
+
 
 
 app/models/user.rb
@@ -10421,6 +10580,7 @@ file_path = "config/plans.yml"
 if File.exist?(file_path)
   PLANS = YAML.load(File.read(file_path)).with_indifferent_access
 end
+
 
 
 plan.rb
@@ -10752,6 +10912,7 @@ $ curl -X GET localhost:9292
 Rails credentials
 -----------------
 
+
 Create credentials
 ------------------
 
@@ -10772,6 +10933,7 @@ Logs for -e production
 ----------------------
 
 $ export RAILS_LOG_TO_STDOUT=true
+
 
 
 In production.rb you can add this option
@@ -10859,6 +11021,7 @@ application.html.erb
 </body>
 
 
+
 new.html.erb
 ------------
 
@@ -10874,6 +11037,7 @@ new.html.erb
 <% end %>
 
 
+
 index.html.erb
 --------------
 
@@ -10887,6 +11051,7 @@ index.html.erb
 <%= link_to "New post", new_post_path, data: { turbo_frame: "modal" } %>
 
 
+
 show.html.erb
 -------------
 
@@ -10895,6 +11060,7 @@ show.html.erb
 <div>
   <%= link_to "Edit post", edit_post_path(@post), data: { turbo_frame: "modal" } %>
 </div>
+
 
 
 edit.html.erb
@@ -11213,6 +11379,7 @@ Rails middlewares
 
 $ Rails.application
 $ Rails.application.root
+
 
 
 Start rack server
@@ -11601,6 +11768,7 @@ end
 $ bin/rails routes -g publish
 
 book_publish POST   /books/:book_id/publish(.:format) web/books#publish
+-----------------------------------------------------------------------
 
 
 ---
@@ -11623,6 +11791,7 @@ end
 $ bin/rails routes -g publish
 
 publish_books POST   /books/publish(.:format)  web/books#publish
+----------------------------------------------------------------
 
 
 ---
@@ -11645,6 +11814,7 @@ end
 $ bin/rails routes -g publish
 
 publish_book POST /books/:id/publish(.:format) web/books#publish
+----------------------------------------------------------------
 
 
 
@@ -12450,6 +12620,7 @@ helpers
 <p><%= link_to "Term of service", page_path(:term_of_service) %></p>
 
 
+
 params for partials
 -------------------
 
@@ -12479,8 +12650,11 @@ $ erb2slim app/views -d
 ---
 
 
-code                                                                                                result
+
 -------------------------------------------------------------------------------------------------------------------------------------------
+
+code                                                                                                result
+
 -------------------------------------------------------------------------------------------------------------------------------------------
 /!                                                                                                  comment
 
@@ -12626,6 +12800,8 @@ $ curl --head https://ru.hexlet.io
 
 ---
 
+
+
 HTTP/2 200
 server: nginx/1.21.1
 date: Wed, 01 Dec 2021 12:50:51 GMT
@@ -12642,12 +12818,18 @@ referrer-policy: strict-origin-when-cross-origin
 $ curl -X GET https://ru.hexlet.io
 
 
----------------------------------------------------------
+
+---
+
+
 
 Rackup::Handler::WEBrick
 
 
----------------------------------------------------------
+
+---
+
+
 
 require 'rackup'
 
@@ -12661,7 +12843,8 @@ Rackup::Handler::WEBrick.run MyApp.new, :Port => 3000
 
 
 
----------------------------------------------------------
+---
+
 
 
 class MyApp
@@ -12673,7 +12856,9 @@ end
 run MyApp.new
 
 
----------------------------------------------------------
+
+---
+
 
 
 $ rackup
@@ -12684,10 +12869,13 @@ $ unicorn
 $ passenger start
 
 
----------------------------------------------------------
+
+---
 
 
-# config.ru
+
+config.ru
+---------
 
 class MyMiddleware
   def initialize(app1)
@@ -12725,7 +12913,8 @@ use MyMiddleware
 run App.new
 
 
----------------------------------------------------------
+
+---
 
 
 
@@ -12762,6 +12951,7 @@ use MyMiddleware
 run App.new
 
 
+
 ---
 
 
@@ -12770,7 +12960,8 @@ $ curl -x POST localhost:9292/users?sort=desc -d "{\"login\":\"admin\",\"passwor
 
 
 
----------------------------------------------------------
+---
+
 
 
 use Rack::Auth::Basic do |username, password|
@@ -12786,7 +12977,9 @@ end
 run App.new
 
 
+
 ---
+
 
 
 $ rackup
@@ -12794,11 +12987,14 @@ $ curl -u admin:password -i http://localhost:9292
 
 
 
----------------------------------------------------------
+---
+
+
 
 rack test
 
-# test.rb
+test.rb
+-------
 
 require 'minitest/autorun'
 require 'rack/test'
@@ -12835,7 +13031,8 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 Rack Gem
@@ -12876,11 +13073,13 @@ overview
 
 
 
-gem install rails
+$ gem install rails
 
 
 
----------------------------------------------------------
+---
+
+
 
 $ rails -v
 $ rails new example_app
@@ -12893,7 +13092,8 @@ $ bin/rails help
 
 
 
----------------------------------------------------------
+---
+
 
 
 $ bin/rails generate
@@ -12901,7 +13101,9 @@ $ bin/rails g
 
 
 
----------------------------------------------------------
+---
+
+
 
 $ bin/rails generate model --help
 $ bin/rails generate model user login:string age:integer
@@ -12911,7 +13113,8 @@ $ bin/rails d model user login:string age:integer
 
 
 
----------------------------------------------------------
+---
+
 
 
 $ bin/rails generate controller --help
@@ -12919,14 +13122,17 @@ $ bin/rails generate controller user login:string age:integer
 
 
 
----------------------------------------------------------
+---
+
 
 
 $ bin/rails generate scaffold User name:string age:integer
 
 
 
----------------------------------------------------------
+---
+
+
 
 $ bin/rails db:create
 $ bin/rails db:drop
@@ -12936,7 +13142,8 @@ $ bin/rails db:seed
 
 
 
----------------------------------------------------------
+---
+
 
 
 $ bin/rails console
@@ -12966,6 +13173,7 @@ $ bin/rails d controller pages index
 
 
 ---
+
 
 Rails.application.routes.draw do
   get 'pages/index'
@@ -13012,7 +13220,9 @@ end
 
 
 
----------------------------------------------------------
+---
+
+
 
 <%= params[:id] %>
 
@@ -13021,13 +13231,16 @@ end
 
 
 
----------------------------------------------------------
+---
+
+
 
 <%= link_to "Term of service", page_path(:term_of_service) %>
 
 
 
----------------------------------------------------------
+---
+
 
 
 <!DOCTYPE html>
@@ -13049,21 +13262,23 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 <%= render 'about' >
 
 
 
----------------------------------------------------------
+---
+
 
 
 <%= render partial: "pages/partial/links", locals: {} %>
 
 
 
----------------------------------------------------------
+---
 
 
 
@@ -13077,7 +13292,8 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 class PagesController < ApplicationController
@@ -13089,7 +13305,8 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 Rails.application.routes.draw do
@@ -13103,7 +13320,8 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 <%= render params[:id] %>
@@ -13141,9 +13359,10 @@ end
 
 
 
----------------------------------------------------------
+---
 
 
+------------------------
 Class       Table name
 ------------------------
 Article     articles
@@ -13154,7 +13373,8 @@ Person      people
 
 
 
----------------------------------------------------------
+---
+
 
 
 $ bin/rails g model User first_name last_name is_active:boolean
@@ -13170,7 +13390,7 @@ end
 
 
 
----------------------------------------------------------
+---
 
 
 
@@ -13195,7 +13415,7 @@ end
 
 
 
----------------------------------------------------------
+---
 
 
 $ bin/rails db:migrate
@@ -13216,7 +13436,9 @@ end
 
 
 
----------------------------------------------------------
+---
+
+
 
 $ bin/rails db:create
 $ bin/rails db:drop
@@ -13238,7 +13460,8 @@ $ bin/rails -T 'db'
 
 
 
----------------------------------------------------------
+---
+
 
 
 admin = User.create(first_name: 'John', last_name: 'Doe', role: 'admin')
@@ -13248,7 +13471,7 @@ user.save
 
 
 
----------------------------------------------------------
+---
 
 
 
@@ -13287,7 +13510,7 @@ User.destroy_all
 
 
 
----------------------------------------------------------
+---
 
 
 User.create(first_name: 'John', last_name: 'Doe', role: 'admin')
@@ -13312,7 +13535,7 @@ $ bin/rails db:seed
 
 
 
----------------------------------------------------------
+---
 
 default: &default
   adapter: sqlite3
@@ -13333,7 +13556,8 @@ production:
 
 
 
----------------------------------------------------------
+---
+
 
 
 User.where.not(role: :admin)
@@ -13348,7 +13572,7 @@ User.group(:age).count
 User.none
 
 
----------------------------------------------------------
+---
 
 
 class User < ApplicationRecord
@@ -13390,7 +13614,8 @@ User.customers.where("age > ?", 45).select(:email)
 
 
 
----------------------------------------------------------
+---
+
 
 
 class User < ApplicationRecord
@@ -13444,10 +13669,11 @@ $ bin/rails test:integration
 
 
 
----------------------------------------------------------
+---
 
 
-Gemfile:
+Gemfile
+-------
 
 
 source 'https://rubygems.org'
@@ -13467,7 +13693,7 @@ gem 'rubocop-rails', require: false
 
 
 
----------------------------------------------------------
+---
 
 
 
@@ -13490,7 +13716,7 @@ end
 
 
 
----------------------------------------------------------
+---
 
 
 <h1>Notes</h1>
@@ -13502,7 +13728,7 @@ end
 
 
 
----------------------------------------------------------
+---
 
 
 <h1>Note page</h1>
@@ -13513,7 +13739,7 @@ end
 
 
 
----------------------------------------------------------
+---
 
 Rails.application.routes.draw do
   root 'notes#index'
@@ -13526,7 +13752,7 @@ end
 
 
 
----------------------------------------------------------
+---
 
 
 require "test_helper"
@@ -13563,7 +13789,9 @@ end
 
 
 
----------------------------------------------------------
+---
+
+
 
 notes_list = notes()
 note = notes(:one)
@@ -13592,7 +13820,7 @@ production
 
 
 
----------------------------------------------------------
+---
 
 
 staging_unmerged:
@@ -13601,21 +13829,25 @@ staging_unmerged:
 
 
 
----------------------------------------------------------
+---
+
 
 
 $ bin/rails s -e test
 
 
 
----------------------------------------------------------
+---
+
 
 
 $ RAILS_ENV=staging_unmerged bin/rails c
 
 
 
----------------------------------------------------------
+---
+
+
 
 Rails.application.config.before_initialize do
   # initialization code goes here
@@ -13628,14 +13860,16 @@ Aws.config.update(
 
 
 
----------------------------------------------------------
+---
+
 
 
 $ EDITOR=vim bin/rails credentials:edit
 
 
 
----------------------------------------------------------
+---
+
 
 
 $ bundle exec spring binstub --all
@@ -13645,7 +13879,8 @@ $ bin/rails restart
 
 
 
----------------------------------------------------------
+---
+
 
 
 class PagesController < ApplicationController
@@ -13656,7 +13891,8 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 Rails.application.configure do
@@ -13669,7 +13905,8 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 module RailsConfiguration
@@ -13681,7 +13918,8 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 worker_timeout 3600 if ENV.fetch("RAILS_ENV", "staging_unmerged") == "staging_unmerged"
@@ -13691,7 +13929,8 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 
 
 
----------------------------------------------------------
+---
+
 
 
 $ rails new test_rollbar_app
@@ -13699,14 +13938,16 @@ $ cd test_rollbar_app
 
 
 
----------------------------------------------------------
+---
+
 
 
 $ bin/rails generate rollbar
 
 
 
----------------------------------------------------------
+---
+
 
 
 require_relative "application"
@@ -13733,14 +13974,15 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 $ export ROLLBAR_ACCESS_TOKEN=<ваш токен>
 
 
 
----------------------------------------------------------
+---
 
 
 
@@ -13769,7 +14011,8 @@ $ bin/rails g controller articles index
 
 
 
----------------------------------------------------------
+---
+
 
 
 $ bin/rails g model articles title:string body:text author
@@ -13777,16 +14020,14 @@ $ bin/rails db:migrate
 
 
 
----------------------------------------------------------
+---
+
 
 
 $ bundle
 $ bin/rails g annotate:install
 $ bundle exec annotate
 
-
-
----------------------------------------------------------
 
 
 # == Schema Information
@@ -13805,7 +14046,7 @@ end
 
 
 
----------------------------------------------------------
+---
 
 
 
@@ -13821,7 +14062,7 @@ end
 
 
 
----------------------------------------------------------
+---
 
 
 $ bin/rails db:seed
@@ -13830,12 +14071,16 @@ $ pp Article.all
 
 
 
----------------------------------------------------------
+---
+
+
 
 $ bin/rails routes -g article
 
 
----------------------------------------------------------
+
+---
+
 
 
 class ArticlesController < ApplicationController
@@ -13900,7 +14145,8 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 class ErrorsController < ApplicationController
@@ -13915,7 +14161,8 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 Rails.application.routes.draw do
@@ -13928,7 +14175,8 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 module CrudExample
@@ -13940,12 +14188,14 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 Rails.application.configure do
   config.consider_all_requests_local = false
 end
+
 
 
 
@@ -13981,7 +14231,8 @@ $ git push --set-upstream origin main
 
 
 
----------------------------------------------------------
+---
+
 
 
 $ ssh root@<server_ip>
@@ -13997,7 +14248,8 @@ $ logout                                                        # exit
 
 
 
----------------------------------------------------------
+---
+
 
 
 $ cap -T
@@ -14011,7 +14263,8 @@ $ lsof -wni tcp:3000
 
 
 
----------------------------------------------------------
+---
+
 
 
 $ docker -v
@@ -14028,10 +14281,13 @@ $ docker stop <hash>
 $ docker rm <hash>
 
 
+
 ---
 
 
-Dockerfile:
+
+Dockerfile
+----------
 
 
 FROM ruby:3.0.1
@@ -14048,11 +14304,13 @@ RUN chmod +x scripts/start.sh
 CMD ["./scripts/start.sh"]
 
 
+
 ---
 
 
 
-start.sh:
+start.sh
+--------
 
 
 if [ -e /home/app ]; then
@@ -14071,16 +14329,22 @@ if [ -e /home/app ]; then
   popd
 fi
 
+
+
 ---
+
 
 
 $ bin/rails server -p 3001 -b 0.0.0.0
 
 
+
 ---
 
 
-Gemfile:
+
+Gemfile
+-------
 
 
 ruby '3.0.2'
@@ -14096,7 +14360,8 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 $ curl -fsSL https://railway.app/install.sh | sh
@@ -14130,6 +14395,7 @@ template engines
 
 
 index.html.slim
+---------------
 
 
 
@@ -14151,7 +14417,8 @@ forms
 gem 'simple_form'
 
 
----------------------------------------------------------
+---
+
 
 
 $ bin/rails g simple_form:install
@@ -14163,7 +14430,7 @@ $ rails generate simple_form:install --bootstrap
 
 
 
----------------------------------------------------------
+---
 
 
 
@@ -14175,7 +14442,8 @@ $ rails generate simple_form:install --bootstrap
 
 
 
----------------------------------------------------------
+---
+
 
 
 f.input :title
@@ -14215,7 +14483,7 @@ f.button :submit, class: 'btn-success', id: 'submit'
 
 
 
----------------------------------------------------------
+---
 
 
 
@@ -14224,7 +14492,8 @@ f.input :title, as: :currency
 
 
 
----------------------------------------------------------
+---
+
 
 
 app/inputs/currency_input.rb
@@ -14261,7 +14530,8 @@ Article.where(published: true).order(created_at: :desc)
 
 
 
----------------------------------------------------------
+---
+
 
 
 scope :published, -> { where(published: true) }
@@ -14275,14 +14545,16 @@ scope :by_creation_date_asc, -> { order(created_at: :asc) }
 
 
 
----------------------------------------------------------
+---
+
 
 
 Article.published.by_creation_date_desc
 
 
 
----------------------------------------------------------
+---
+
 
 
 $ bin/rails g migration remove_author_from_articles
@@ -14302,14 +14574,17 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 $ bin/rails g model author name
 $ bin/rails db:migrate
 
 
+
 ---
+
 
 
 class Article < ApplicationRecord
@@ -14318,14 +14593,16 @@ end
 
 
 
----------------------------------------------------------
+---
 
 
 
 $ bin/rails g migration add_author_to_articles author:references
 
 
+
 ---
+
 
 
 article.author
@@ -14337,6 +14614,7 @@ author = article.build_author
 
 
 ---
+
 
 
 = simple_form_for article do |f|
@@ -14357,6 +14635,7 @@ author = article.build_author
 ---
 
 
+
 def create
   author = Author.create(author_params)
   @article = Article.new(article_params)
@@ -14366,6 +14645,7 @@ end
 def author_params
   params.require(:article).require(:author).permit(:name)
 end
+
 
 
 ---
@@ -14392,7 +14672,7 @@ author.articles.pluck(:title, :id)
 
 
 
----------------------------------------------------------
+---
 
 
 
@@ -14422,7 +14702,7 @@ doctor.patients.pluck(:name)                                      # ["Alice"]
 
 
 
----------------------------------------------------------
+---
 
 
 
@@ -14469,6 +14749,7 @@ $ bin/rails db:migrate
 ---
 
 
+
 class Book < ApplicationRecord
   has_many :pages
 end
@@ -14478,6 +14759,7 @@ end
 ---
 
 
+
 class Page < ApplicationRecord
   belongs_to :book
 end
@@ -14485,6 +14767,7 @@ end
 
 
 ---
+
 
 
 ails.application.routes.draw do
@@ -14603,7 +14886,8 @@ end
 <br>
 
 
----------------------------------------------------------
+
+---
 
 
 
@@ -14613,7 +14897,8 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 class Web::BooksController < Web::ApplicationController
@@ -14621,7 +14906,8 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 class Web::PagesController < Web::ApplicationController
@@ -14629,12 +14915,11 @@ end
 
 
 
----------------------------------------------------------
+---
 
 
 
 Rails.application.routes.draw do
-
   scope module: :web do
     root 'books#index'
     resources :books, except: [:index] do
@@ -14649,7 +14934,8 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 Rails.application.routes.draw do
@@ -14664,7 +14950,8 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 Rails.application.routes.draw do
@@ -14680,7 +14967,7 @@ end
 
 
 
----------------------------------------------------------
+---
 
 
 
@@ -14717,7 +15004,8 @@ I18n.default_locale
 
 
 
----------------------------------------------------------
+---
+
 
 
 class ApplicationController < ActionController::Base
@@ -14769,7 +15057,9 @@ end
 ---
 
 
-# config/routes.rb
+
+config/routes.rb
+----------------
 
 
 Rails.application.routes.draw do
@@ -14780,10 +15070,13 @@ Rails.application.routes.draw do
 end
 
 
+
 ---
 
 
-# config/application.rb
+
+config/application.rb
+---------------------
 
 
 require_relative "boot"
@@ -14804,7 +15097,8 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 translate(:welcome_title)
@@ -14829,7 +15123,8 @@ User.model_name.human(count: 100)
 
 
 
----------------------------------------------------------
+---
+
 
 
 t('.created_count', count: User.count)
@@ -14844,7 +15139,8 @@ number_to_percentage(5)
 
 
 
----------------------------------------------------------
+---
+
 
 
 ru:
@@ -14867,7 +15163,8 @@ ru:
 
 
 
----------------------------------------------------------
+---
+
 
 
 ru:
@@ -14879,7 +15176,8 @@ ru:
 
 
 
----------------------------------------------------------
+---
+
 
 
 ru:
@@ -14908,10 +15206,12 @@ ru:
 
 
 
----------------------------------------------------------
+---
 
 
-# Переводы кнопок simple_form
+
+Переводы кнопок simple_form
+---------------------------
 
 helpers:
   submit:
@@ -14941,7 +15241,9 @@ $ Rails.application
 $ Rails.application.root
 
 
+
 ---
+
 
 
 $ racup
@@ -14951,7 +15253,7 @@ $ rackup config.ru
 
 
 
----------------------------------------------------------
+---
 
 
 
@@ -14975,7 +15277,7 @@ end
 
 
 
----------------------------------------------------------
+---
 
 
 
@@ -14984,7 +15286,8 @@ $ bin/rails middleware
 
 
 
----------------------------------------------------------
+---
+
 
 
 module MiddlewareApp
@@ -15003,7 +15306,8 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 lib/request_time_logger.rb
@@ -15043,7 +15347,7 @@ end
 
 
 
----------------------------------------------------------
+---
 
 
 
@@ -15067,7 +15371,8 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 config/environments/development.rb
@@ -15138,7 +15443,8 @@ $ bin/rails users:create
 
 
 
----------------------------------------------------------
+---
+
 
 
 namespace :users do
@@ -15198,7 +15504,8 @@ end
 
 
 
----------------------------------------------------------
+---
+
 
 
 $ bin/rails g task
@@ -15263,7 +15570,7 @@ end
 ---
 
 
-----------------------------
+
 Пример с получением страницы
 ----------------------------
 
@@ -15279,11 +15586,12 @@ request = Net::HTTP::Get.new uri
 response = http.request request
 
 
+
 ---
 
 
 
-----------------------------------------
+
 Если нам нужно получить куки со страницы
 ----------------------------------------
 
@@ -15299,6 +15607,7 @@ request = Net::HTTP::Post.new URI.join(hostname, '/register')
 request.body = URI.encode_www_form(params)
 
 
+
 Добавляем куки в запрос
 -----------------------
 
@@ -15311,18 +15620,19 @@ response = http.request request
 
 
 
----------------------------------------
+
 При успешной отправке формы как правило
 ---------------------------------------
 
 response.code == '302'
 
 
+
 ---
 
 
 
------------------------------------
+
 Пример скрапинга данных со страницы
 -----------------------------------
 
@@ -15333,7 +15643,7 @@ html = Nokogiri::HTML(response.body)
 
 
 
----------------------------------------
+
 Поиск нужного тега с помощью селекторов
 ---------------------------------------
 
@@ -15441,6 +15751,7 @@ Gemfile
 gem 'aasm'
 
 
+
 ---
 
 
@@ -15452,11 +15763,9 @@ class Job
   include AASM
 
   aasm do
-    # Начальное состояние
     state :sleeping, initial: true
     state :running, :cleaning
 
-    # Событие и переходы
     event :run do
       transitions from: :sleeping, to: :running
     end
@@ -15466,7 +15775,6 @@ class Job
     end
 
     event :sleep do
-      # Одинаковое событие для перехода из нескольких состояний
       transitions from: [:running, :cleaning], to: :sleeping
     end
   end
@@ -15479,6 +15787,7 @@ end
 
 
 job = Job.new
+
 
 У модели появляются функции-предикаты, которые позволяют определить состояние
 -----------------------------------------------------------------------------
@@ -15497,11 +15806,13 @@ job.run       # => raises AASM::InvalidTransition
 
 
 
+По дефолту используется имя колонки aasm_state
+----------------------------------------------
+
+
 class CreateExamples < ActiveRecord::Migration[6.1]
   def change
     create_table :examples do |t|
-      # По дефолту используется имя колонки aasm_state
-
       t.string :aasm_state
 
       t.timestamps
@@ -15518,6 +15829,8 @@ end
 job = Job.new
 job.run                         # not saved
 
+
+
 События с ! сохраняют модель
 ----------------------------
 
@@ -15528,26 +15841,33 @@ job.run!                        # saved
 or
 --
 
+
+
+Запрос на изменение состояния выполняется с глаголом PATCH
+----------------------------------------------------------
+
+
 job.aasm.fire(:run) # not saved
 job.aasm.fire!(:run) # saved
 
 resources :vacancies do
-  # Запрос на изменение состояния выполняется с глаголом PATCH
-  # https://www.restapitutorial.com/lessons/httpmethods.html
-
   member do
     patch :run
   end
 end
 
 
+
 ---
+
 
 
 AASM
 ----
 
 https://github.com/aasm/aasm
+https://www.restapitutorial.com/lessons/httpmethods.html
+
 
 
 
@@ -15600,15 +15920,14 @@ end
 Если в конфиге подключен Simpleform для ransack, используем его
 ---------------------------------------------------------------
 
+Можем отключить показ лейблов
+Ransack ищет по полям в БД
+Для фильтров необходимо использовать определенные имена. Например, Если поле "содержит" текст, то имя инпута формы - column_cont
+--------------------------------------------------------------------------------------------------------------------------------
+
 = search_form_for @q do |f|
   .row.my-2
     .col-5
-
-    # Можем отключить показ лейблов
-    # Ransack ищет по полям в БД
-    # Для фильтров необходимо использовать определенные имена. Например, Если поле "содержит" текст, то имя инпута формы - column_cont
-
-      https://github.com/activerecord-hackery/ransack#search-matchers
       = f.input :name_cont, label: false
     .col-4
 
@@ -15640,8 +15959,8 @@ end
 ---
 
 
-https://github.com/activerecord-hackery/ransack#search-matchers
 
+https://github.com/activerecord-hackery/ransack#search-matchers
 
 
 
@@ -15704,16 +16023,18 @@ end
 
 
 
+Нажатие по ссылке будет подгружать на страницу новые поля
+---------------------------------------------------------
+
+
+
 = simple_form_for @project do |f|
   = f.input :name
   = f.input :description
   %h3 Tasks
-  #tasks
     = f.simple_fields_for :tasks do |task|
       = render 'task_fields', f: task
     .links
-    # Нажатие по ссылке будет подгружать на страницу новые поля
-
       = link_to_add_association t('.add_task'), f, :tasks
   = f.submit
 
@@ -15738,6 +16059,7 @@ _task_fields.slim
 
 
 ---
+
 
 
 exercises/nested-forms/app/javascript/packs/application.js
@@ -15874,6 +16196,13 @@ end
 или
 ---
 
+
+
+Вторым параметром можно передать имя привилегии, которое нужно проверить, если имя экшена отличается
+----------------------------------------------------------------------------------------------------
+
+
+
 class PostPolicy < ApplicationPolicy
   def update?
     user.admin? || !record.published?
@@ -15884,14 +16213,13 @@ class PostsController < ActionController
   def update
     @post = Post.find(params[:id])
     authorize @post
+
     if @post.update(post_params)
       redirect_to @post
     else
       render :edit
     end
   end
-
-  # Вторым параметром можно передать имя привилегии, которое нужно проверить, если имя экшена отличается
 
   def publish
     @post = Post.find(params[:id])
@@ -15915,8 +16243,7 @@ class PostPolicy < ApplicationPolicy
 end
 
 def admin_list
-  authorize Post # we don't have a particular post to authorize
-  # Rest of controller action
+  authorize Post                                                # we don't have a particular post to authorize
 end
 
 
@@ -15964,9 +16291,7 @@ $ bin/rails db:migrate
 class User < ApplicationRecord
   has_one_attached :avatar
 
-  validates :avatar, attached: true,
-                    content_type: %i[png jpg jpeg],
-                    size: { less_than: 5.megabytes }
+  validates :avatar, attached: true, content_type: %i[png jpg jpeg], size: { less_than: 5.megabytes }
 end
 
 
@@ -16089,6 +16414,7 @@ Rails.application.routes.draw do
 end
 
 
+
 ---
 
 
@@ -16101,6 +16427,7 @@ app/controllers/web/application_controller.rb
 
 class Web::ApplicationController < ActionController::Base
 end
+
 
 
 ---
@@ -16122,6 +16449,7 @@ class Web::Books::ApplicationController < Web::ApplicationController
 end
 
 
+
 ---
 
 
@@ -16138,6 +16466,7 @@ end
 
 
 ---
+
 
 
 https://habr.com/ru/articles/136461/
@@ -16163,37 +16492,26 @@ Rails API, api versioning, responders
 Scaffold генерирует в контроллерах методы, которые работают с несколькими форматами
 -----------------------------------------------------------------------------------
 
+Также как с шаблонами, ищется во вью файл для показа в нужном формате (html, json)
+----------------------------------------------------------------------------------
+
+
 class BooksController < ApplicationController
   before_action :set_book, only: %i[ show edit update destroy ]
-
-  # Также как с шаблонами, ищется во вью файл для показа в нужном формате (html, json)
-  # GET /books or /books.json
 
   def index
     @books = Book.all
   end
 
-
-  # GET /books/1 or /books/1.json
-
   def show
   end
-
-
-  # GET /books/new
 
   def new
     @book = Book.new
   end
 
-
-  # GET /books/1/edit
-
   def edit
   end
-
-
-  # POST /books or /books.json
 
   def create
     @book = Book.new(book_params)
@@ -16209,9 +16527,6 @@ class BooksController < ApplicationController
     end
   end
 
-
-  # PATCH/PUT /books/1 or /books/1.json
-
   def update
     respond_to do |format|
       if @book.update(book_params)
@@ -16224,9 +16539,6 @@ class BooksController < ApplicationController
     end
   end
 
-
-  # DELETE /books/1 or /books/1.json
-
   def destroy
     @book.destroy
     respond_to do |format|
@@ -16235,16 +16547,11 @@ class BooksController < ApplicationController
     end
   end
 
-
   private
-
-  # Use callbacks to share common setup or constraints between actions.
 
   def set_book
     @book = Book.find(params[:id])
   end
-
-  # Only allow a list of trusted parameters through.
 
   def book_params
     params.require(:book).permit(:title)
@@ -16258,17 +16565,19 @@ end
 
 
 
+respond_to переопределяет стандартное поведение
+-----------------------------------------------
+
+запрос к /books.json выводит { "hi": "books" }
+----------------------------------------------
+
+
+
 class BooksController < ApplicationController
   before_action :set_book, only: %i[ show edit update destroy ]
 
-  # GET /books or /books.json
-
   def index
     @books = Book.all
-
-    # respond_to переопределяет стандартное поведение
-    # запрос к /books.json выводит {"hi": "books"}
-    # https://apidock.com/rails/ActionController/MimeResponds/InstanceMethods/respond_to
 
     respond_to do |format|
       format.html do
@@ -16282,13 +16591,16 @@ class BooksController < ApplicationController
 end
 
 
+
 format приходит в переменную params
 -----------------------------------
 
 { "controller":"books", "action":"index", "format":"json" }
 
 
+
 $ bin/rails routes -g books
+
 
 #    Prefix Verb   URI Pattern               Controller#Action
 #     books GET    /books(.:format)          books#index
@@ -16306,15 +16618,15 @@ $ bin/rails routes -g books
 
 
 
+метод принимает только запросы вида /books.json и отвечает только в json
+------------------------------------------------------------------------
+
+
 
 class BooksController < ApplicationController
   before_action :set_book, only: %i[ show edit update destroy ]
 
-  # GET /books or /books.json
-
   def index
-    # метод принимает только запросы вида /books.json и отвечает только в json
-
     respond_to :json
 
     @books = Book.all
@@ -16327,16 +16639,17 @@ end
 
 
 
+
+При преобразовании вызывается метод to_json()
+---------------------------------------------
+
+
 class BooksController < ApplicationController
   before_action :set_book, only: %i[ show edit update destroy ]
 
   def show
     respond_to do |format|
       format.html { redirect_to root_path }
-
-      # При преобразовании вызывается метод to_json()
-      # https://apidock.com/rails/ActiveRecord/Serialization/to_json
-
       format.json { render json: @book.to_json, root: true }
 
       # root: true кладет сущность в под ключем
@@ -16352,12 +16665,14 @@ end
 
 
 
-class BooksController < ApplicationController
-  # GET /books/1 or /books/1.json
+as_json позволяет выводить только определенные поля
+---------------------------------------------------
 
+
+
+class BooksController < ApplicationController
   def show
     respond_to :json
-    # as_json позволяет выводить только определенные поля
 
     render json: @book.as_json(
       root: true,
@@ -16373,19 +16688,23 @@ end
 
 
 
+api логика лежит отдельно
+-------------------------
+
+изолируем изменения на каждой версии api
+----------------------------------------
+
+
 Rails.application.routes.draw do
   resources :books
 
-  # api логика лежит отдельно
-
   namespace :api do
-    # изолируем изменения на каждой версии api
-
     namespace :v1 do
       resources :books
     end
   end
 end
+
 
 
 #     api_v1_books GET    /api/v1/books(.:format)          api/v1/books#index
@@ -16406,8 +16725,12 @@ end
 app/controllers/api/application_controller.rb
 ---------------------------------------------
 
-# Работает для всех версий
-# Перед этим необходимо подключить гем gem "responders"
+Работает для всех версий
+------------------------
+
+Перед этим необходимо подключить гем gem "responders"
+-----------------------------------------------------
+
 
 class Api::ApplicationController < ApplicationController
   respond_to :json
@@ -16427,17 +16750,23 @@ app/controllers/api/v1/books_controller.rb
 ------------------------------------------
 
 class Api::V1::BooksController < Api::V1::ApplicationController
-  # /api/v1/books.json
-
   def index
     @books = Books.all
-
-    # Без гема responders выглядело бы так
-    # render json: @books.as_json(only: :title)
 
     respond_with @books.as_json(only: :title)
   end
 end
+
+
+Без гема responders выглядело бы так
+------------------------------------
+
+render json: @books.as_json(only: :title)
+
+
+
+---
+
 
 
 class Api::V1::BooksControllerTest < ActionDispatch::IntegrationTest
@@ -16459,6 +16788,15 @@ end
 
 
 
+---
+
+
+
+https://apidock.com/rails/ActionController/MimeResponds/InstanceMethods/respond_to
+https://apidock.com/rails/ActiveRecord/Serialization/to_json
+
+
+
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -16472,8 +16810,12 @@ jbuilder for json Rails
 app/views/books/index.json.builder
 ----------------------------------
 
-# Jbuilder позволяет использовать синтаксис и все конструкции ruby
-# .jbuilder похож на шаблоны и позволяет также погружать паршеллы из других файлов
+Jbuilder позволяет использовать синтаксис и все конструкции ruby
+----------------------------------------------------------------
+
+.jbuilder похож на шаблоны и позволяет также погружать паршеллы из других файлов
+--------------------------------------------------------------------------------
+
 
 json.array! @books, partials: "books/book", as: book
 
@@ -16494,25 +16836,33 @@ json.url book_url(book, format: :json)
 app/views/books/_book.json.builder
 ----------------------------------
 
-# Поле добавляется при выполнении условия
+Поле добавляется при выполнении условия
+---------------------------------------
 
 unless book.title == 'Example'
   json.title book.title
 end
 
 
-# Значение поля устанавливается в зависимости от условия
+
+
+Значение поля устанавливается в зависимости от условия
+------------------------------------------------------
 
 json.author book.author == 'Tirion' ? boo.author : nil
 
 
-# Добавляется поле, которое будет в каждом элементе списка или в структуре
+
+
+Добавляется поле, которое будет в каждом элементе списка или в структуре
+------------------------------------------------------------------------
 
 json.set! :category, 'Non-Fiction'
 
 hash = { genre: 'Fantasy' }
 
 json.merge!(hash)
+
 
 
 
@@ -16525,6 +16875,7 @@ json.array! @books, :id
 
 
 
+
 app/views/books/index.json.builder
 ----------------------------------
 
@@ -16532,11 +16883,16 @@ json.partial! 'books/book', books: @books
 
 json.extract! book, :title, :description, :created_at, :updated_at
 
-# Передача блока позволяет создавать вложенные структуры (объекты)
+
+
+
+Передача блока позволяет создавать вложенные структуры (объекты)
+----------------------------------------------------------------
 
 json.book_title do
   json.title book.title
 end
+
 
 
 ---
@@ -16847,11 +17203,14 @@ end
 app/services/fetch_name_information_service.rb
 ----------------------------------------------
 
-# Сервис возвращает информацию об имени и верояность его использования в странах
-# http://api.nationalize.io/?name=David
+Сервис возвращает информацию об имени и верояность его использования в странах
+------------------------------------------------------------------------------
+
+
 
 class FetchNameInformationService
   FETCH_NAME_BASE_URL = 'http://api.nationalize.io'
+
   def call(name:)
     uri = URI("#{FETCH_NAME_BASE_URL}?name=#{name}")
     response = Net::HTTP.get(uri)
@@ -16874,6 +17233,7 @@ require_relative 'app/services/fetch_name_information_service.rb'
 
 
 
+
 При каждом запуске тестов выполняется реальный запрос к API
 -----------------------------------------------------------
 
@@ -16884,6 +17244,14 @@ class FetchNameInformationServiceTest < ActiveSupport::TestCase
     assert result['country'].is_a? Array
   end
 end
+
+
+
+---
+
+
+
+http://api.nationalize.io/?name=David
 
 
 
@@ -16910,8 +17278,6 @@ group :test do
   gem "webmock"
 end
 
-
-https://github.com/bblimke/webmock
 
 
 ---
@@ -16953,6 +17319,7 @@ http://api.nationalize.io/?name=David
 
 class FetchNameInformationService
   FETCH_NAME_BASE_URL = 'http://api.nationalize.io'
+
   def call(name:)
     uri = URI("#{FETCH_NAME_BASE_URL}?name=#{name}")
     response = Net::HTTP.get(uri)
@@ -17112,6 +17479,7 @@ http://api.nationalize.io/?name=David
 
 class FetchNameInformationService
   FETCH_NAME_BASE_URL = 'http://api.nationalize.io'
+
   def call(name:)
     uri = URI("#{FETCH_NAME_BASE_URL}?name=#{name}")
     response = Net::HTTP.get(uri)
@@ -17209,6 +17577,7 @@ http://api.nationalize.io/?name=David
 
 class FetchNameInformationService
   FETCH_NAME_BASE_URL = 'http://api.nationalize.io'
+
   def call(name:)
     uri = URI("#{FETCH_NAME_BASE_URL}?name=#{name}")
     response = Net::HTTP.get(uri)
@@ -17268,8 +17637,8 @@ end
 Webmock может подменять ответы от внешних сервисов
 --------------------------------------------------
 
-stub_request(:get, "www.example.com").
-  to_return({body: "abc"}, {body: "def"})
+stub_request(:get, "www.example.com").to_return({body: "abc"}, {body: "def"})
+
 Net::HTTP.get('www.example.com', '/')    # ===> "abc\n"
 Net::HTTP.get('www.example.com', '/')    # ===> "def\n"
 
@@ -17482,11 +17851,14 @@ FetchBooksTitlesJob.set(queue: :low_priority).perform_later
 app/jobs/fetch_books_titles_job.rb
 ----------------------------------
 
+Очередь задается динамически
+----------------------------
+
+queue_as { cond ? :default : :high_priority }
+
+
+
 class FetchBooksTitlesJob < ApplicationJob
-
-  # Очередь задается динамически
-  # queue_as { cond ? :default : :high_priority }
-
   def perform
     titles = Book.pluck(:title)
     pp titles
@@ -17547,6 +17919,7 @@ create    test/mailers/new_book_mailer_test.rb
 create    test/mailers/previews/new_book_mailer_preview.rb
 
 
+
 https://guides.rubyonrails.org/action_mailer_basics.html
 
 
@@ -17592,9 +17965,10 @@ NewBookMailer.new_book.deliver_now
 
 https://github.com/mperham/sidekiq
 
-# Для работы sidekiq требуется запущенный redis
-# Для выполнения задач требуется запущенный sidekiq
-# bundle exec sidekiq
+
+- Для работы sidekiq требуется запущенный redis
+- Для выполнения задач требуется запущенный sidekiq
+- bundle exec sidekiq
 
 
 
@@ -18496,7 +18870,9 @@ append  Rakefile
 create  test/integration/navigation_test.rb
 
 
+
 ---
+
 
 
 стаб рельсового приложения через которое мы можем запускать движок как обычное приложение
@@ -18514,13 +18890,16 @@ vendor_app  test/dummy
 authoree/lib/authoree/engine.rb
 -------------------------------
 
+Позволяет изолировать всё внутри движка от основного приложения
+---------------------------------------------------------------
+
+
 module Authoree
   class Engine < ::Rails::Engine
-    # Позволяет изолировать всё внутри движка от основного приложения
-
     isolate_namespace Authoree
   end
 end
+
 
 
 ---
@@ -18546,7 +18925,9 @@ end
 authoree/authoree.gemspec
 -------------------------
 
-# Перед работой с движком необходимо поправить Gemspec (убрать todo)
+Перед работой с движком необходимо поправить Gemspec (убрать todo)
+------------------------------------------------------------------
+
 
 require_relative "lib/authoree/version"
 
@@ -18649,11 +19030,15 @@ end
 config/routes.rb
 ----------------
 
+Sidekiq это тоже движок
+-----------------------
+
+mount Sidekiq::Web => '/sidekiq'
+
+
+
 Rails.application.routes.draw do
   resources :books
-
-  # Sidekiq это тоже движок
-  # mount Sidekiq::Web => '/sidekiq'
 
   mount Authoree::Engine, at: '/users'
 end
@@ -18681,6 +19066,7 @@ $ bin/rails authoree:install:migrations
 Copied migration 20211118114102_create_authoree_users.authoree.rb from authoree
 
 
+
 Установка миграций из всех движков
 ----------------------------------
 
@@ -18688,13 +19074,17 @@ $ bin/rails railties:install:migrations
 $ bin/rails db:migrate
 
 
+
 ---
 
 
 
-module Authoree
-  # Позволяет наследоваться от доступного контроллера в основном приложении
 
+Позволяет наследоваться от доступного контроллера в основном приложении
+-----------------------------------------------------------------------
+
+
+module Authoree
   class ApplicationController < ::ApplicationController
   end
 end
@@ -18719,6 +19109,7 @@ link_to 'Users', authoree.users_path
 
 authoree/lib/authoree.rb
 ------------------------
+
 
 require "authoree/version"
 require "authoree/engine"
@@ -18786,6 +19177,7 @@ https://www.railstutorial.org/book/account_activation
 ---
 
 
+
 ----------------------------------------------------------------------------------------------------------------------------
 
 Method                find_by                 String                Digest                Authentication
@@ -18805,6 +19197,7 @@ password reset        email                   reset_token           reset_digest
 ---
 
 
+
 topic branch for the new feature
 --------------------------------
 
@@ -18813,6 +19206,7 @@ $ git checkout -b account-activation
 
 
 ---
+
 
 
 $ rails generate controller AccountActivations
@@ -18840,6 +19234,7 @@ end
 ---
 
 
+
 $ rails generate migration add_activation_to_users \
 > activation_digest:string activated:boolean activated_at:datetime
 
@@ -18864,6 +19259,7 @@ $ rails db:migrate
 ---
 
 
+
 before_create :create_activation_digest
 
 private
@@ -18875,6 +19271,7 @@ end
 
 
 ---
+
 
 
 $ rails console
@@ -18898,6 +19295,7 @@ end
 
 
 ---
+
 
 
 app/models/user.rb
@@ -18928,7 +19326,9 @@ class User < ApplicationRecord
 end
 
 
+
 ---
+
 
 
 db/seeds.rb
@@ -18964,6 +19364,7 @@ end
 
 
 ---
+
 
 
 test/fixtures/users.yml
@@ -19008,11 +19409,14 @@ user_<%= n %>:
 <% end %>
 
 
+
 ---
+
 
 
 $ rails db:migrate:reset
 $ rails db:seed
+
 
 
 ---
@@ -19026,7 +19430,9 @@ Mailer templates
 $ rails generate mailer UserMailer account_activation password_reset
 
 
+
 ---
+
 
 
 app/views/user_mailer/account_activation.text.erb
@@ -19071,6 +19477,7 @@ end
 ---
 
 
+
 app/mailers/user_mailer.rb
 --------------------------
 
@@ -19111,7 +19518,6 @@ app/mailers/user_mailer.rb
 --------------------------
 
 class UserMailer < ApplicationMailer
-
   def account_activation(user)
     @user = user
     mail to: user.email, subject: "Account activation"
@@ -19298,6 +19704,7 @@ assert_match /\w+/, '$#!*+@'      # false
 ---
 
 
+
 test/mailers/user_mailer_test.rb
 --------------------------------
 
@@ -19323,6 +19730,7 @@ end
 ---
 
 
+
 config/environments/test.rb
 ---------------------------
 
@@ -19342,6 +19750,7 @@ $ rails test:mailers
 
 
 ---
+
 
 
 Updating the Users create action
@@ -19597,9 +20006,11 @@ $ rails test
 app/helpers/sessions_helper.rb
 ------------------------------
 
-module SessionsHelper
-  # Returns the current logged-in user (if any)
+Returns the current logged-in user (if any)
+-------------------------------------------
 
+
+module SessionsHelper
   def current_user
     if (user_id = session[:user_id])
       user = User.find_by(id: user_id)
@@ -19627,7 +20038,6 @@ test/models/user_test.rb
 require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
-
   def setup
     @user = User.new(name: "Example User", email: "user@realdomain.com", password: "foobar", password_confirmation: "foobar")
   end
@@ -19644,6 +20054,7 @@ $ rails test
 
 
 ---
+
 
 
 Activation edit action
@@ -19665,11 +20076,11 @@ user.update_attribute(:activated_at, Time.zone.now)
 ---
 
 
+
 app/controllers/account_activations_controller.rb
 -------------------------------------------------
 
 class AccountActivationsController < ApplicationController
-
   def edit
     user = User.find_by(email: params[:email])
 
@@ -19755,6 +20166,7 @@ test "successful logout" do
 end
 
 
+
 ---
 
 
@@ -19794,6 +20206,7 @@ class InvalidPasswordTest < UsersLogin
 end
 
 
+
 ---
 
 
@@ -19808,6 +20221,7 @@ end
 
 
 ---
+
 
 
 test/integration/users_login_test.rb
@@ -19984,6 +20398,7 @@ end
 ---
 
 
+
 test/integration/users_signup_test.rb
 -------------------------------------
 
@@ -20092,15 +20507,18 @@ $ rails test
 app/models/user.rb
 ------------------
 
-class User < ApplicationRecord
-  # Activates an account
+Activates an account
+--------------------
 
+Sends activation email
+----------------------
+
+
+class User < ApplicationRecord
   def activate
     update_attribute(:activated,    true)
     update_attribute(:activated_at, Time.zone.now)
   end
-
-  # Sends activation email
 
   def send_activation_email
     UserMailer.account_activation(self).deliver_now
@@ -20335,6 +20753,7 @@ inactive:
   activated:       false
 
 
+
 ---
 
 
@@ -20422,6 +20841,7 @@ $ heroku config:set SENDGRID_API_KEY=<paste SendGrid API key>
 ---
 
 
+
 $ heroku config:get SENDGRID_API_KEY
 
 <API key displayed>
@@ -20485,7 +20905,9 @@ gem 'dotenv-rails', groups: [:development, :test]
 $ bundle
 
 
+
 ---
+
 
 
 config/application.rb
@@ -20503,14 +20925,18 @@ end
 HOSTNAME = ENV['HOSTNAME']
 
 
+
 ---
+
 
 
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'gem-that-requires-env-variables'
 
 
+
 ---
+
 
 
 Sinatra or Plain ol' Ruby
@@ -20521,14 +20947,20 @@ $ gem install dotenv
 
 require 'dotenv/load'
 
+
+
 or
 --
+
+
 
 require 'dotenv'
 Dotenv.load
 
 
+
 ---
+
 
 
 dotenv usage
@@ -20543,6 +20975,7 @@ SECRET_KEY=YOURSECRETKEYGOESHERE
 
 
 ---
+
 
 
 config.fog_directory  = ENV['S3_BUCKET']
@@ -20592,6 +21025,7 @@ $ dotenv -t .env
 
 .env
 ----
+
 
 S3_BUCKET=YOURS3BUCKET
 SECRET_KEY=YOURSECRETKEYGOESHERE
