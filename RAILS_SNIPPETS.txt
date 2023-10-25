@@ -743,6 +743,7 @@ Make online video in browser faster
 
 
 
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -1142,6 +1143,7 @@ $ rails g migration add_category_to_products category:references
 Associations (Rails 6)
 ----------------------
 
+
 Association types
 -----------------
 
@@ -1328,6 +1330,8 @@ end
 class Paragraph < ApplicationRecord
   belongs_to :section
 end
+
+
 
 view.html.erb
 -------------
@@ -2208,6 +2212,7 @@ SELECT "vehicles".* FROM "vehicles" WHERE "vehicles"."type" IN ('Car')
 
 
 
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -2219,6 +2224,7 @@ SELECT "vehicles".* FROM "vehicles" WHERE "vehicles"."type" IN ('Car')
 ----------
 PostgreSQL
 ----------
+
 
 PosgreSQL guide, get starting: (windows)
 ----------------------------------------
@@ -2324,13 +2330,25 @@ CREATE DATABASE music2
 Database optimization in Rails
 ------------------------------
 
+
 gem 'activerecord-analyze'
+
+
+
+---
+
+
+
 
 $ User.count
 $ User.all.explain
 $ User.all.analyze
 $ User.where(id: 3).analyze
 $ User.where(name: 'Dave').analyze
+
+
+
+---
 
 
 
@@ -2342,6 +2360,7 @@ class AddIndexToUserName < ActiveRecord::Migration[6.1]
     add_index :users, :name
   end
 end
+
 
 
 
@@ -2550,6 +2569,7 @@ dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
 Rails ActiveStorage
 -------------------
 
+
 ---1---
 
 $ rails active_storage:install
@@ -2572,6 +2592,7 @@ local:
 
 
 
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -2583,6 +2604,7 @@ local:
 -------------------------------------------------------------------
 Render partial on the same page after clicking on link_to with AJAX
 -------------------------------------------------------------------
+
 
 ---1---
 
@@ -2657,6 +2679,7 @@ customers/index.html.erb
 
 
 
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -2668,6 +2691,7 @@ customers/index.html.erb
 --------------------------------------------
 Using javascript in rails controller example
 --------------------------------------------
+
 
 class CommentsController < ApplicationController
   def create
@@ -2697,6 +2721,7 @@ file.js.erb
 -----------
 
 document.getElementById('post-comments').innerHTML = "<%= escape_javascript(render partial: 'posts/comments', locals: { comments: @comments }) %>";
+
 
 
 
@@ -3747,6 +3772,7 @@ https://www.templatefreebies.com/
 Frontend resources
 ------------------
 
+
 css web helper
 --------------
 
@@ -3972,6 +3998,10 @@ $ git push heroku master
 
 $ heroku run rails db:create
 $ heroku run rails db:migrate
+
+
+
+---
 
 
 
@@ -4360,6 +4390,7 @@ end
 OmniAuth Facebook for insta_clone
 ---------------------------------
 
+
 ---1---
 
 gem 'omniauth-facebook'
@@ -4416,6 +4447,10 @@ end
 
 
 
+---
+
+
+
 https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview
 https://developers.facebook.com/
 
@@ -4427,6 +4462,7 @@ https://developers.facebook.com/
 -----------------------------
 Oauth authentication tutorial
 -----------------------------
+
 
 ruby gem for oauth authentication
 ---------------------------------
@@ -4503,6 +4539,10 @@ Devise LDAP
 
 
 https://github.com/cschiewek/devise_ldap_authenticatable
+
+
+
+---
 
 
 
@@ -4738,6 +4778,10 @@ class TurboDeviseController < ApplicationController
   self.responder = Responder
   respond_to :html, :turbo_stream
 end
+
+
+
+---
 
 
 
@@ -5158,6 +5202,7 @@ $ rails routes
 
 
 
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -5342,6 +5387,10 @@ environment.plugins.prepend('Provide',
     Popper: ['popper.js', 'default']
   })
 )
+
+
+
+---
 
 
 
@@ -5902,6 +5951,7 @@ https://github.com/Nerian/bootstrap-datepicker-rails
 
 
 
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ----------------------------
@@ -6016,6 +6066,10 @@ end
 
 
 
+---
+
+
+
 Gemfile
 -------
 
@@ -6057,6 +6111,10 @@ end
 
 
 
+---
+
+
+
 layouts/application.html.erb
 ----------------------------
 
@@ -6077,6 +6135,7 @@ layouts/application.html.erb
 ----------------------------
 Database.yml config template
 ----------------------------
+
 
 default: &default
   adapter: postgresql
@@ -6100,7 +6159,12 @@ production:
 
 
 
+---
+
+
+
 https://betterprogramming.pub/devise-auth-setup-in-rails-7-44240aaed4be
+
 
 
 
@@ -6116,6 +6180,7 @@ https://betterprogramming.pub/devise-auth-setup-in-rails-7-44240aaed4be
 ----------------------------
 Create new Rails app with pg
 ----------------------------
+
 
 $ rails new myapp --database=postgresql -j esbuild --css bootstrap
 $ rails new tailwind_rails --database=postgresql -c tailwind -j esbuild
@@ -6148,6 +6213,8 @@ application.js
 --------------
 
 import "@fortawesome/fontawesome-free/css/all.css"
+
+
 
 
 
@@ -6246,6 +6313,10 @@ Gemfile
 -------
 
 gem 'flash_rails_messages'
+
+
+
+---
 
 
 
@@ -7058,21 +7129,16 @@ Sign_in, sign_out links
 ---v1---
 
 <% if current_user.nil? %>
-
   <%= link_to new_user_session_path, class: 'login-button' do %>
     Sign in
   <% end %>
-
 <% else %>
-
   <%= link_to app_dashboard_index_path, class: 'login-button' do %>
     Go to App
   <% end %>
-
   <%= link_to destroy_user_session_path, method: :delete do %>
     Log out
   <% end %>
-
 <% end %>
 
 
@@ -18547,6 +18613,7 @@ create  test/jobs/fetch_books_titles_job_test.rb
 create  app/jobs/fetch_books_titles_job.rb
 
 
+
 ---
 
 
@@ -19543,6 +19610,7 @@ Rails.application.configure do
 end
 
 
+
 ---
 
 
@@ -19864,6 +19932,7 @@ Authoree::Engine.routes.draw do
 end
 
 
+
 ---
 
 
@@ -19896,7 +19965,9 @@ Gemfile
 gem 'authoree', path: 'authoree'
 
 
+
 ---
+
 
 
 Установка миграций из движка
@@ -19931,7 +20002,9 @@ module Authoree
 end
 
 
+
 ---
+
 
 
 Ссылки на страницы движка создаются с помощью префикса
@@ -20746,6 +20819,7 @@ if user && user.authenticated?(:activation, params[:id])
 ---
 
 
+
 def authenticated?(remember_token)
   return false if remember_digest.nil?
   BCrypt::Password.new(remember_digest).is_password?(remember_token)
@@ -20777,6 +20851,7 @@ end
 ---
 
 
+
 def authenticated?(remember_token)
   digest = self.send("remember_digest")
   return false if digest.nil?
@@ -20798,6 +20873,7 @@ end
 
 
 ---
+
 
 
 def authenticated?(attribute, token)
@@ -21753,7 +21829,9 @@ S3_REGION=                                  # например eu-central-1
 S3_SECRET_ACCESS_KEY=                       # Получено в AWS
 
 
+
 ---
+
 
 
 Gemfile
