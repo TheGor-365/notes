@@ -1,0 +1,346 @@
+--------------------------
+JAVASCRITP ASYNC EXERCISES
+--------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------
+basic async exercises
+---------------------
+
+
+ackermanFunction.js
+-------------------
+
+
+const m = 12;
+const n = 11;
+
+const ackermann = (m, n) => {
+   if (m === 0) {
+      return n+1
+   }
+   if (n === 0) {
+      return ackermann((m - 1), 1);
+   }
+   if (m !== 0 && n !== 0) {
+      return ackermann((m-1), ackermann(m, (n-1)))
+   }
+}
+
+
+console.log(ackermann(m, n));
+
+
+
+
+
+---
+
+
+
+
+asyncAwain.js
+-------------
+
+
+export const exchange = async (filepath1, filepath2) => {
+  const reading1 = fsp.readFile(filepath1);
+  const reading2 = fsp.readFile(filepath2);
+  const [data1, data2] = await Promise.all([reading1, reading2]);
+  const writing1 = fsp.writeFile(filepath1, data2);
+  const writing2 = fsp.writeFile(filepath2, data1);
+  await Promise.all([writing1, writing2]);
+};
+
+
+
+
+---
+
+
+
+
+asyncErrorsInPromises.js
+------------------------
+
+
+import fsp from 'fs/promises';
+
+export const touch = (filepath) => fsp.access(filepath)
+.catch(() => fsp.writeFile(filepath, ''));
+
+
+
+
+---
+
+
+
+
+asyncFile.js
+------------
+
+
+export const move = (from, to, cb) => {
+  fs.readFile(from, 'utf-8', (error1, data) => {
+    if (error1) {
+      cb(error1);
+      return;
+    }
+    fs.writeFile(to, data, (error2) => {
+      if (error2) {
+        cb(error2);
+        return;
+      }
+      fs.unlink(from, cb);
+    });
+  });
+};
+
+
+
+
+---
+
+
+
+
+asyncHTTP.js
+------------
+
+
+import { URL } from 'url';
+import axios from 'axios';
+
+const extractLinks = (content) => {
+  const host = 'http://localhost:8080';
+  const linkRx = /href="(.+?)"/ig;
+  const results = content.matchAll(linkRx);
+  return Array.from(results).map((r) => r[1])
+  .map((rawLink) => new URL(rawLink, host).toString());
+};
+
+export default async (initialLink) => {
+  const response = await axios.get(initialLink);
+  const links = extractLinks(response.data);
+  const request = (link) => axios.get(link).then(() => null).catch(() => link);
+  const promises = links.map(request);
+  const results = await Promise.all(promises);
+  return results.filter((result) => result !== null);
+};
+
+
+
+
+
+---
+
+
+
+
+asyncInfo.js
+------------
+
+
+export const compareFileSizes = (filepath1, filepath2, cb) => {
+  fs.stat(filepath1, (_error1, { size: size1 }) => {
+    fs.stat(filepath2, (_error2, { size: size2 }) => {
+      cb(null, Math.sign(size1 - size2));
+    });
+  });
+};
+
+
+
+
+---
+
+
+
+
+asyncNewPromise.js
+------------------
+
+
+export default (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+
+
+
+---
+
+
+
+
+asyncOperation.js
+-----------------
+
+
+export const getDirectorySize = (dirpath, cb) => {
+  fs.readdir(dirpath, (error1, filenames) => {
+    if (error1) {
+      cb(error1);
+      return;
+    }
+    const filepaths = filenames.map((name) => path.join(dirpath, name));
+    async.map(filepaths, fs.stat, (error2, stats) => {
+      if (error2) {
+        cb(error2);
+        return;
+      }
+      const sum = _.sumBy(stats.filter((stat) => stat.isFile()), 'size');
+      cb(null, sum);
+    });
+  });
+};
+
+
+
+
+---
+
+
+
+
+asyncPrinter.js
+---------------
+
+
+export default (filepath) => fs.readFile(
+  filepath,
+  'utf-8',
+  (_error, data) => console.log(data),
+);
+
+
+
+
+---
+
+
+
+
+asyncPromises.js
+----------------
+
+
+import fsp from 'fs/promises';
+
+export const reverse = (filepath) => fsp.readFile(filepath, 'utf-8')
+.then((data) => {
+  const preparedData = data.split('\n').reverse().join('\n');
+  return fsp.writeFile(filepath, preparedData);
+});
+
+
+
+
+---
+
+
+
+
+asyncPromisesAll.js
+-------------------
+
+
+import path from 'path';
+import _ from 'lodash';
+import fsp from 'fs/promises';
+
+export const getDirectorySize = (dirpath) => {
+  const promise = fsp.readdir(dirpath).then((filenames) => {
+    const filepaths = filenames.map((name) => path.join(dirpath, name));
+    const promises = filepaths.map((filePath) => fsp.stat(filePath));
+    return Promise.all(promises);
+  });
+  return promise.then((stats) => _.sumBy(stats.filter((stat) => stat.isFile()), 'size'));
+};
+
+
+
+
+---
+
+
+
+
+asyncPromisesFew.js
+-------------------
+
+
+import fsp from 'fs/promises';
+
+const getTypeName = (stat) => (stat.isDirectory() ? 'directory' : 'file');
+
+export const getTypes = (filesPath) => {
+  const processPath = (filepath, result) => fsp.stat(filepath)
+  .then((data) => [...result, getTypeName(data)])
+  .catch(() => [...result, null]);
+
+  const resultPromise = filesPath.reduce(
+    (promise, filepath) => promise.then((result) => processPath(filepath, result)),
+    Promise.resolve([]),
+  );
+  return resultPromise;
+};
+
+
+
+
+---
+
+
+
+
+asyncTimer.js
+-------------
+
+
+export default (filepath, period, cb) => {
+  let lastCheckTime = Date.now();
+  const check = (timerId) => {
+    fs.stat(filepath, (err, stats) => {
+      if (err) {
+        clearInterval(timerId);
+        cb(err);
+        return;
+      }
+      const { mtimeMs } = stats;
+      if (mtimeMs > lastCheckTime) {
+        cb(null);
+        lastCheckTime = mtimeMs;
+      }
+    });
+  };
+  const timerId = setInterval(() => check(timerId), period);
+  return timerId;
+};
+
+
+
+
+---
+
+
+
+
+asyncWinter.js
+--------------
+
+
+export default (filepath, data, cb) => {
+  fs.writeFile(filepath, data, cb);
+};
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

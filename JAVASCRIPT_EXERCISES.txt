@@ -177,7 +177,7 @@ export default (objects, callback) => objects.forEach((object) => callback.call(
 
 
 
-console.js
+consoleLog.js
 ----------
 
 console.log('Robert')
@@ -306,6 +306,59 @@ console.log(date.getTime());
 
 
 
+---
+
+
+
+
+date_2.js
+---------
+
+const date = new Date();
+
+
+
+console.log('const date = new Date();\n')
+
+console.log('date.toString()');
+console.log(date.toString());
+
+console.log('date.valueOf()');
+console.log(date.valueOf());
+
+console.log('date.getDate()');
+console.log(date.getDate());
+
+console.log('date.getDay()');
+console.log(date.getDay());
+
+console.log('date.getMonth()');
+console.log(date.getMonth());
+
+console.log('date.getFullYear()');
+console.log(date.getFullYear());
+
+console.log('date.getHours()');
+console.log(date.getHours());
+
+console.log('date.getMinutes()');
+console.log(date.getMinutes());
+
+console.log('date.getMilliseconds()');
+console.log(date.getMilliseconds());
+
+console.log('date.valueOf().toString() + date.getMilliseconds().toString()');
+console.log(date.valueOf().toString() + date.getMilliseconds().toString());
+
+console.log('date.getTime()');
+console.log(date.getTime());
+
+console.log('date.getTime().toMinutes()');
+console.log(toMinutes(date.getTime()));
+
+
+
+
 
 ---
 
@@ -362,6 +415,242 @@ const text = 'Never forget what you are, for surely the world will not';
 const letters = `First: ${text[0]}\nLast: ${text.at(-1)}`
 console.log(letters)
 
+
+
+
+
+---
+
+
+
+
+factorial.js
+------------
+
+const factorial = (number) => {
+  if (number === 0) {
+    return 1;
+  } else {
+    return number * factorial(number - 1);
+  }
+}
+
+const answer = factorial(3);
+
+
+
+
+
+---
+
+
+
+
+fibonacci.js
+------------
+
+const fibonacci1 = (num) => {
+  let num1 = 0;
+  let num2 = 1;
+  let sum;
+  let i = 0;
+
+  for (i = 0; i < num; i++) {
+    sum  = num1 + num2;
+    num1 = num2;
+    num2 = sum;
+  }
+  return num2;
+}
+
+console.log('fibonacci1');
+console.log(fibonacci1(0));
+console.log(fibonacci1(1));
+console.log(fibonacci1(2));
+console.log(fibonacci1(3));
+console.log(fibonacci1(4));
+console.log(fibonacci1(5));
+console.log(fibonacci1(10));
+
+
+
+
+
+const fibonacci2 = (num) => {
+  if (num == 1) return 0;
+  if (num == 2) return 1;
+
+  let num1 = 0;
+  let num2 = 1;
+  let sum;
+  let i = 2;
+
+  while (i < num) {
+    sum = num1 + num2;
+    num1 = num2;
+    num2 = sum;
+    i += 1;
+  }
+  return num2;
+}
+
+console.log('fibonacci2');
+console.log(fibonacci2(0));
+console.log(fibonacci2(1));
+console.log(fibonacci2(2));
+console.log(fibonacci2(3));
+console.log(fibonacci2(4));
+console.log(fibonacci2(5));
+console.log(fibonacci2(10));
+
+
+
+
+
+
+const fibonacci3 = (num) => {
+  if (num == 0) return 0;
+  if (num == 1) return 1;
+
+  return fibonacci3(num - 1) + fibonacci3(num - 2);
+}
+
+console.log('fibonacci3');
+console.log(fibonacci3(0));
+console.log(fibonacci3(1));
+console.log(fibonacci3(2));
+console.log(fibonacci3(3));
+console.log(fibonacci3(4));
+console.log(fibonacci3(5));
+console.log(fibonacci3(10));
+
+
+
+
+
+const fibonacci4 = number => {
+  let num1 = 0, num2 = 1, result = number;
+  
+  for(let i = 2; i <= number; i++) {
+    result = num1 + num2;
+    num1 = num2;
+    num2 = result;
+  }
+  
+  return result;
+};
+
+console.log('fibonacci4');
+console.log(fibonacci4(0));
+console.log(fibonacci4(1));
+console.log(fibonacci4(2));
+console.log(fibonacci4(3));
+console.log(fibonacci4(4));
+console.log(fibonacci4(5));
+console.log(fibonacci4(10));
+
+
+
+
+
+const fibonacci5 = (n) => {
+  if (n <= 1) return n;
+
+  const result = [0, 1];
+
+  for (let i = 2; i <= n; i++) {
+    result[i] = result[i - 2] + result[i - 1];
+  }
+
+  return result[result.length - 1];
+}
+
+console.log('fibonacci5');
+console.log(fibonacci5(0));
+console.log(fibonacci5(1));
+console.log(fibonacci5(2));
+console.log(fibonacci5(3));
+console.log(fibonacci5(4));
+console.log(fibonacci5(5));
+console.log(fibonacci5(10));
+
+
+
+
+---
+
+
+
+
+fizzBuzz.js
+-----------
+
+const fizzBuzz = (start, end) => {
+  const result = [];
+  const list = Array.from({length: end - start + 1}, (_, a) => a + start);
+  console.log(list);
+
+  if (start <= end) {
+    for (const number of list) {
+      if (number % 3 === 0 && number % 5 === 0) {
+        result.push("FizzBuzz");
+      } else if (number % 3 === 0) {
+        result.push("Fizz");
+      } else if (number % 5 === 0) {
+        result.push("Buzz");
+      } else {
+        result.push(number);
+      }
+    }
+    console.log(result.join('\n'));
+  } else {
+    false
+  }
+};
+
+
+console.log('1 - 30')
+fizzBuzz(1, 30);
+console.log('41 - 60')
+fizzBuzz(41, 60);
+console.log('77 - 97')
+fizzBuzz(77, 97);
+console.log('45 - 45')
+fizzBuzz(45, 45);
+console.log('35 - 25')
+fizzBuzz(35, 25);
+console.log('35')
+fizzBuzz(35);
+
+
+
+
+---
+
+
+
+
+formattedTime.js
+----------------
+
+const formattedTime = (num) => {
+
+}
+
+
+console.log(formattedTime(5));
+console.log(formattedTime(15));
+console.log(formattedTime(60));
+console.log(formattedTime(67));
+console.log(formattedTime(130));
+console.log(formattedTime(175));
+console.log(formattedTime(549));
+console.log(formattedTime(600));
+console.log(formattedTime(754));
+console.log(formattedTime(1293));
+console.log(formattedTime(1440));
+console.log(formattedTime(1504));
+console.log(formattedTime(2881));
 
 
 
@@ -559,6 +848,29 @@ export default solution;
 
 
 
+grade.js
+--------
+
+function finalGrade(exam, projects) {
+  if (exam > 90 || projects > 10) {
+    return 100
+  } else if (exam > 75 && projects >= 5) {
+    return 90
+  } else if (exam > 50 && projects >= 2) {
+    return 75
+  } else {
+    return 0
+  }
+};
+
+
+
+
+---
+
+
+
+
 hasfStrung.js
 -------------
 
@@ -579,6 +891,49 @@ const getHalfString = (str) => {
 
 
 
+happyTicket.js
+--------------
+
+const isHappyTicket = (num) => {
+  let nums = num.split('');
+  nums = nums.map((element)=> parseInt(element));
+
+  const numsHalf  = Math.ceil(nums.length / 2);
+
+  const elementsSum = (numbers) => {
+    let sum = 0;
+
+    for (const number of numbers) {
+      sum += number;
+    }
+    return sum;
+  };
+
+  const startNums = nums.splice(0, numsHalf);
+  let start = elementsSum(startNums);
+
+  const endNums   = nums.splice(-numsHalf);
+  let end = elementsSum(endNums);
+
+  return start === end
+};
+
+
+
+console.log(isHappyTicket('385916')); // true
+console.log(isHappyTicket('231002')); // false
+console.log(isHappyTicket('1222'));   // false
+console.log(isHappyTicket('054702')); // true
+console.log(isHappyTicket('00'));     // true
+
+
+
+
+---
+
+
+
+
 internationalPhone.js
 ---------------------
 
@@ -586,7 +941,94 @@ const isInternationalPhone = (num) => {
   return num.toString()[0] === '+';
 };
 
-console.log(isInternationalPhone('+79602223423'))
+console.log(isInternationalPhone('+79602223423'));
+
+
+
+
+---
+
+
+
+
+invertCase.js
+-------------
+
+const invertCase = (string) => {
+  const letters = string.split('');
+  const result = [];
+
+  const isLowerCase = (letter) => { return letter === letter.toLowerCase() };
+  const isUpperCase = (letter) => { return letter === letter.toUpperCase() };
+
+  for (let letter of letters) {
+    if (isLowerCase(letter)) {
+      result.push(letter.toUpperCase())
+    } else if (isUpperCase(letter)) {
+      result.push(letter.toLowerCase())
+    } else {
+      result.push(letter)
+    }
+  };
+
+  return result.join('');
+};
+
+
+console.log(invertCase('Hello, World!'));
+console.log(invertCase('I loVe JS'));
+
+
+
+
+---
+
+
+
+
+isHappyNumber.js
+----------------
+
+const sumOfSquareDigits = (num) => {
+  const numAsStr = String(num);
+  let sum = 0;
+
+  for (let i = 0; i < numAsStr.length; i += 1) {
+    const digit = Number(numAsStr[i]);
+    sum += digit * digit;
+  }
+
+  return sum;
+};
+
+
+
+const isHappyNumber = (number) => {
+  const result = [];
+
+  for (let i = 0; i < 10; i++) {
+    result.push(sumOfSquareDigits(number^2));
+    console.log(result);
+  }
+  
+}
+
+
+
+console.log(isHappyNumber(1));
+console.log(isHappyNumber(7));
+console.log(isHappyNumber(13));
+console.log(isHappyNumber(0));
+console.log(isHappyNumber(2));
+console.log(isHappyNumber(90));
+
+
+// 7   => 7^2 = 49,
+// 49  => 4^2 + 9^2 = 16 + 81 = 97,
+// 97  => 9^2 + 7^2 = 81 + 49 = 130,
+// 130 => 1^2 + 3^2 + 0^2 = 10,
+// 10  => 1^2 + 0^2 = 1.
+
 
 
 
@@ -605,6 +1047,103 @@ const isLeapYear = (year) => {
 };
 
 console.log(isLeapYear(2016)); 
+
+
+
+
+
+---
+
+
+
+
+isPerfect.js
+------------
+
+const isPerfect = (number) => {
+  let result;
+  let sum = 0;
+  const list = [];
+
+  if (number > 0) {
+    for (let i = 1; i < number; i++) {
+      result = number / i;
+      if (Number.isInteger(result)) list.push(i);
+    }
+  }
+
+  for (const index in list) {
+    sum += list[index];
+  }
+
+  return number > 0 && number === sum;
+}
+
+
+
+console.log('Should be true')
+console.log(isPerfect(6));
+console.log(isPerfect(28));
+console.log(isPerfect(496));
+console.log(isPerfect(8128));
+
+
+console.log('Should be false')
+console.log(isPerfect(-6));
+console.log(isPerfect(-28));
+console.log(isPerfect(44));
+console.log(isPerfect(0));
+console.log(isPerfect(10));
+
+
+
+
+
+---
+
+
+
+
+isPrime.js
+----------
+
+const isPrime = (number) => {
+  if (number < 2) { return false };
+
+  for (let i = 2; i <= number / 2; i += 1) {
+    if (number % i === 0) { return false };
+  }
+
+  return true;
+};
+
+
+console.log(isPrime(1));
+console.log(isPrime(7));
+console.log(isPrime(10));
+
+
+
+
+
+---
+
+
+
+
+iterativeProcess.js
+-------------------
+
+const factorial = (n) => {
+  if (n === 0) { return 1 };
+
+  const iter = (counter, acc) => {
+    if (counter === 1) { return acc };
+    return iter(counter - 1, counter * acc);
+  };
+
+  return iter(n, 1);
+};
 
 
 
@@ -655,6 +1194,55 @@ export const parseJson = (json) => {
 
 
 ---
+
+
+
+
+lessGreaterEqual.js
+-------------------
+
+import { length, toUpperCase } from './strings.js';
+
+const bigLettersCount = (str) => {
+  let result = 0;
+
+  for (let i = 0; i < length(str); i += 1) {
+    if (toUpperCase(str[i]) === str[i]) {
+      result += 1;
+    }
+  }
+
+  return result;
+};
+
+
+const compare = (first, second) => {
+  const firstCount = bigLettersCount(first);
+  const secondCount = bigLettersCount(second);
+
+  if (firstCount > secondCount) {
+    return 1;
+  }
+  if (firstCount < secondCount) {
+    return -1;
+  }
+
+  return 0;
+};
+
+export const greaterThan = (first, second) => (
+  compare(first, second) === 1);
+
+export const lessThan = (first, second) => (
+  compare(first, second) === -1);
+
+export const isEqual = (first, second) => (
+  compare(first, second) === 0);
+
+
+
+
+  ---
 
 
 
@@ -874,7 +1462,7 @@ console.log(king + ' has ' + (newHouse * rooms) + ' rooms.')
 
 
 
-normalizer.js
+normalizeUrl.js
 -------------
 
 const normalizeUrl = (url) => {
@@ -944,7 +1532,45 @@ open.js
 function newOpen () {
   var options = "status = no, toolbar = no";
   return window.open("https://youtube.com", "youtube", options)
+};
+
+
+
+
+---
+
+
+
+
+oopCircleArea.js
+----------------
+
+class Circle {
+  constructor(radius) {
+    this.radius = radius;
+  }
+
+  getArea() {
+    return Math.PI * this.radius * this.radius;
+  }
+
+  getCircumference() {
+    return Math.PI * 2 * this.radius;
+  }
 }
+
+
+const circle_1 = new Circle(1);
+const circle_2 = new Circle(3);
+const circle_3 = new Circle(11);
+
+console.log(circle_1.getArea());
+console.log(circle_2.getArea());
+console.log(circle_3.getArea());
+
+console.log(circle_1.getCircumference());
+console.log(circle_2.getCircumference());
+console.log(circle_3.getCircumference());
 
 
 
@@ -1103,7 +1729,7 @@ console.log(Math.round(Math.random() * 10))
 
 
 
-recursion.js
+recursionFactorial.js
 ------------
 
 function f_Factorial (x) {
@@ -1171,6 +1797,44 @@ const reverse = (s) => s.split('').reverse().join('');
 
 
 
+reverseInt.js
+-------------
+
+const reverseInt = (number) => {
+  let string = number.toString();
+  let charList = string.split('');
+
+  while (charList[charList.length - 1] === '0') {
+    charList.pop();
+  }
+
+  if (charList[0] === '-') {
+    charList.reverse().join('');
+    charList.splice(0, -1, '-');
+    charList.pop();
+  } else {
+    charList.reverse().join('');
+  }
+
+  return parseInt(charList.join(''));
+};
+
+export default reverseInt;
+
+
+console.log(reverseInt(12));
+console.log(reverseInt(-122));
+console.log(reverseInt(8900));
+
+
+
+
+
+---
+
+
+
+
 reverseMethod.js
 ----------------
 
@@ -1189,6 +1853,103 @@ let string = 'string';
 
 console.log(convertText(string));
 
+
+
+
+
+---
+
+
+
+
+shouldBeBig.js
+--------------
+
+export default (str) => {
+  let result = '';
+  
+  for (let i = 0; i < length(str); i += 1) {
+    const shouldBeBig = (i === 0 || str[i - 1] === ' ');
+    result += shouldBeBig ? toUpperCase(str[i]) : str[i];
+  }
+
+  return result;
+};
+
+
+
+
+---
+
+
+
+
+smallerDivisor.js
+-----------------
+
+const smallestDivisor = (num) => {
+  if (num === 1) return 1;
+
+  for (let i = 2; i <= num; i++) {
+    let result = num % i;
+    if (result === 0) return i;
+  }
+}
+
+
+
+console.log(smallestDivisor(9))
+console.log(smallestDivisor(17))
+console.log(smallestDivisor(1))
+
+
+
+
+
+
+---
+
+
+
+
+smallerDivisor_2.js
+-------------------
+
+const smallestDivisor = (num) => {
+  if (num === 1) return 1;
+  let nan = NaN
+  if (num < 1) return nan;
+
+  let i = 1;
+
+  while (i <= num) {
+    i++
+    let result = num % i;
+    if (result === 0) return i;
+  }
+}
+
+
+
+console.log(smallestDivisor(9))
+console.log(smallestDivisor(17))
+console.log(smallestDivisor(1))
+console.log(smallestDivisor(0))
+
+
+
+
+---
+
+
+
+
+squares.js
+----------
+
+const square = (num) => num**2
+const sumOfSquares = (num1, num2) => square(num1) + square(num2)
+const squareSumOfSquares = (num1, num2) => square(sumOfSquares(num1, num2));
 
 
 
@@ -1282,6 +2043,112 @@ console.log(getNumberExplanation(42));
 
 
 
+sumOfSquareDigits.js
+--------------------
+
+const sumOfSquareDigits = (num) => {
+  const numAsStr = String(num);
+  let sum = 0;
+  
+  for (let i = 0; i < numAsStr.length; i += 1) {
+    const digit = Number(numAsStr[i]);
+    sum += digit * digit;
+  }
+
+  return sum;
+};
+
+
+
+
+---
+
+
+
+
+surfaceArea.js
+--------------
+
+const surfaceAreaCalculator = (radius) => {
+  return 4 * 3.14 * square(radius);
+}
+
+const square = (num) => {
+  return num * num;
+};
+
+
+
+
+---
+
+
+
+
+switch.js
+---------
+
+const getNumberExplanation = (number) => {
+  switch (number) {
+    case 666:
+      return 'devil number';
+    case 7:
+      return 'prime number';
+    case 42:
+      return 'answer for everything';
+    default:
+      return null;
+  }
+};
+
+
+
+console.log(getNumberExplanation(666));
+console.log(getNumberExplanation(7));
+console.log(getNumberExplanation(42));
+
+
+
+
+
+---
+
+
+
+
+switch_2.js
+-----------
+
+let answer;
+
+if (num === 1) {
+  answer = "One";
+} else if (num === 2) {
+  answer = "Two";
+} else {
+  answer = "Nothing";
+}
+
+
+
+switch(num) {
+  case 1: 
+    answer = "One";
+    break;
+
+  case 2:
+    answer = "Two";
+    break;
+
+  default:
+    answer = "Nothing";
+    break;
+}
+
+
+
+
+
 time.js
 -------
 
@@ -1302,6 +2169,31 @@ export default class Time {
 }
 
 
+
+
+
+
+---
+
+
+
+
+timeCover.js
+------------
+
+const timeConvert = (num) => {
+  let number        = num;
+  let hours         = (number / 60);
+  let returnHours   = Math.floor(hours);
+  let minutes       = (hours - returnHours) * 60;
+  let returnMinutes = Math.round(minutes);
+
+  return `${number} minutes = ${returnHours} hour(s) ${returnMinutes} minute(s)`;
+}
+
+
+console.log(timeConvert(200));
+console.log(timeConvert(457));
 
 
 
@@ -1403,6 +2295,39 @@ const motto = 'Family, Duty, Honor';
 
 console.log(typeof motto);
 
+
+
+
+
+---
+
+
+
+
+typization.js
+-------------
+
+const sumDigits = (num) => {
+  const str = String(num);
+  let result = 0;
+
+  for (let i = 0; i < length(str); i += 1) {
+    result += Number(str[i]);
+  }
+  return result;
+};
+
+
+const addDigits = (num) => {
+  let result = num;
+
+  while (result >= 10) {
+    result = sumDigits(result);
+  }
+  return result;
+};
+
+export default addDigits;
 
 
 
