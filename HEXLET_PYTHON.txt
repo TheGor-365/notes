@@ -1262,7 +1262,7 @@ functions params
 
 print('я параметр')
 
-'google'.replace('go', 'mo')  # moogle
+'google'.replace('go', 'mo')
 
 round(10.23456, 3)
 
@@ -3395,6 +3395,174 @@ def sort_pair(napy):
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+exercises
+---------
+
+
+def invert_case(text):
+    result = ''
+    for char in text:
+        if char.isupper():
+            result += char.lower()
+        elif not char.isupper():
+            result += char.upper()
+        else:
+            result += char
+    return result
+
+
+
+
+
+---
+
+
+
+
+def rotate_left(triple):
+    a, b, c = triple
+    triple = (b, c, a)
+    return triple
+
+def rotate_right(triple):
+    a, b, c = triple
+    triple = (c, a, b)
+    return triple
+
+
+
+
+
+---
+
+
+
+
+def is_power_of_three(number):
+    if (number == 0):
+        return False
+    while (number != 1):
+        if (number % 3 != 0):
+            return False
+        number = number // 3
+    return True
+
+
+
+
+
+---
+
+
+
+
+def fizz_buzz(begin, end):
+    result = []
+    if begin > end:
+        return ''
+    for i in range(begin, end + 1):
+        if i % 3 == 0 and i % 5 == 0:
+            result.append('FizzBuzz')
+        elif i % 3 == 0:
+            result.append('Fizz')
+        elif i % 5 == 0:
+            result.append('Buzz')
+        else:
+            result.append(str(i))
+    final = ' '.join(result)
+    return final
+
+
+
+
+
+---
+
+
+
+
+def is_perfect(number):
+    sum = 0
+    if number == 0:
+        return False
+    for i in range(1, number):
+        if number % i == 0:
+            sum += i
+    return sum == number
+
+
+    
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
