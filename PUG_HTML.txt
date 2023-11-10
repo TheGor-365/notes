@@ -247,7 +247,17 @@ mixins
 ------
 
 
-
+mixin table(headers, rows)
+  table
+    thead
+      tr
+        each header in headers
+          th= header
+    tbody
+      each row in rows
+        tr
+          each content in row
+            td= content
 
 
 

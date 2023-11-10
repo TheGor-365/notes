@@ -3492,6 +3492,70 @@ def is_perfect(number):
     return sum == number
 
 
+
+
+
+---
+
+
+
+
+def fib(n):
+    if n in {0, 1}:
+        return n
+    previous, fib_number = 0, 1
+
+    for _ in range(2, n + 1):
+        previous, fib_number = fib_number, previous + fib_number
+    return fib_number
+
+
+
+
+
+---
+
+
+
+
+def sum_of_square_digits(number):
+    return sum(int(x) ** 2 for x in str(number))
+
+
+def is_happy_number(n):
+    past = set()
+    while n != 1:
+        n = sum_of_square_digits(n)
+        if n in past:
+            return False
+        past.add(n)
+    return True
+
+
+
+
+
+---
+
+
+
+
+def binary_sum(a, b):
+    result = ""
+    carry = 0
+    i, j = len(a)-1, len(b)-1
+    while i >= 0 or j >= 0 or carry:
+        total = carry
+        if i >= 0:
+            total += int(a[i])
+            i -= 1
+        if j >= 0:
+            total += int(b[j])
+            j -= 1
+        result = str(total % 2) + result
+        carry = total // 2
+    return result
+
     
 
 
