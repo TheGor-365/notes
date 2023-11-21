@@ -11,6 +11,2991 @@ JAVA BASICS
 
 
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+first app
+---------
+
+
+class App {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+
+
+
+
+
+---
+
+
+
+
+System.out.println(85 * 3);
+System.out.println("I am the King");
+System.out.println("I am the King");
+
+
+
+
+---
+
+
+
+
+comments
+--------
+
+//
+
+/* content */
+
+/** documentation */
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+instructions (statements)
+-------------------------
+
+
+System.out.println("Mother of Dragons");
+System.out.println("Dracarys!");
+
+
+
+
+---
+
+
+
+
+System.out.println("Mother of Dragons."); System.out.println("Dracarys!");
+
+
+
+
+---
+
+
+
+
+package io.hexlet;
+
+
+class App {
+    public static void printNames(String[] args) {
+        System.out.println("Robert");
+        System.out.println("Stannis");
+        System.out.println("Renly");
+    }
+}
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+design, syntax, and linter errors
+---------------------------------
+
+
+System.out.println("alala
+
+|  Error:
+|  unclosed string literal
+|  System.out.println("alala
+
+
+
+
+---
+
+
+
+
+System.out.println("Hello, World!");
+System.out.println("I'm a developer!");
+
+
+
+
+
+---
+
+
+
+
+
+package io.hexlet;
+
+public class App {
+    public static void main(String[] args) {
+        System.out.println("What Is Dead May Never Die!")
+    }
+}
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+arithmetic operations
+---------------------
+
+
+class App {
+    public static void main(String[] args) {
+        3 + 4;
+    }
+}
+
+
+
+
+
+---
+
+
+
+
+System.out.println(3 + 4);
+
+
+
+
+---
+
+
+
+
+
+* — умножение
+/ — деление
+- — вычитание
+% — остаток от деления
+
+
+
+
+
+---
+
+
+
+
+System.out.println(8 / 2);
+System.out.println(3 * 3 * 3);
+System.out.println(7 % 2);
+
+
+
+
+---
+
+
+
+
+
+package io.hexlet;
+
+
+class App {
+    public static void printResult(String[] args) {
+        System.out.println(-8 / -4);
+        System.out.println(100 % 3);
+        System.out.println((-8 / -4) + (100 % 3));
+    }
+}
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+strings
+-------
+
+
+System.out.println("- Are you hungry?\n- Aaaarrrgh!");
+
+- Are you hungry?
+- Aaaarrrgh!
+
+
+
+
+---
+
+
+
+
+"a".length();
+"\n".length();
+"\n\n".length();
+
+
+
+
+---
+
+
+
+
+System.out.println("Gregor Clegane\nDunsen\nPolliver\nChiswyck");
+
+Gregor Clegane
+Dunsen
+Polliver
+Chiswyck
+
+
+
+
+---
+
+
+
+
+System.out.println("Polliver");
+System.out.println("Gregor Clegane");
+System.out.println();
+System.out.println("Chiswyck\n");
+System.out.println("Dunsen");
+
+Polliver
+Gregor Clegane
+
+Chiswyck
+
+Dunsen
+
+
+
+
+---
+
+
+
+
+System.out.println("Joffrey loves using \\n");
+
+Joffrey loves using \n
+
+
+
+
+---
+
+
+
+
+System.out.println("Dragon" + "stone");
+
+
+
+
+---
+
+
+
+
+package io.hexlet;
+
+
+class App {
+    public static void printTalk(String[] args) {
+        System.out.println("- Did Joffrey agree?\n- He did. He also said \"I'm using this \\n\".");
+    }
+}
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+variables
+---------
+
+
+var greeting = "Father!";
+
+System.out.println(greeting);
+System.out.println(greeting);
+
+
+
+
+---
+
+
+
+
+var greeting1 = "Father!";
+
+System.out.println(greeting1);
+System.out.println(greeting1);
+
+
+var greeting2 = "Mother!";
+
+System.out.println(greeting2);
+System.out.println(greeting2);
+
+
+
+
+---
+
+
+
+
+var greeting = "Father!";
+
+System.out.println(greeting);
+System.out.println(greeting);
+
+
+greeting = "Mother!";
+
+System.out.println(greeting);
+System.out.println(greeting);
+
+
+
+
+---
+
+
+
+
+greeting = 5;
+
+Error:
+
+incompatible types: int cannot be converted to java.lang.String
+несовместимые типы: число не может быть превращено в строку
+
+
+
+
+---
+
+
+
+
+
+System.out.println(greeting);
+var greeting = "Father!";
+
+Error: java: cannot find symbol
+symbol: variable greeting
+
+
+
+
+---
+
+
+
+
+var dollarsCount = 50 * 1.25;
+System.out.println(dollarsCount);
+
+
+
+
+---
+
+
+
+
+expression
+----------
+
+62.5
+50 * 1.25
+120 / 10 * 2
+"Hexlet"
+"Good" + "will"
+
+
+
+
+---
+
+
+
+
+var rublesPerDollar = 60;
+var dollarsCount = 50 * 1.25;
+var rublesCount = dollarsCount * rublesPerDollar;
+System.out.println("The price is " + rublesCount + " rubles");
+
+
+
+
+---
+
+
+
+
+var what = "Kings" + "road";
+System.out.println(what);
+
+
+
+
+---
+
+
+
+
+var first = "Kings";
+var what = first + "road";
+System.out.println(what);
+
+
+
+
+---
+
+
+
+
+var first = "Kings";
+var last = "road";
+var what = first + last;
+System.out.println(what);
+
+
+
+
+---
+
+
+
+
+constants
+---------
+
+final var pi = 3.14;
+System.out.println(pi);
+
+
+
+
+---
+
+
+
+
+package io.hexlet;
+
+class App {
+    public static void main(String[] args) {
+        var family = "Targaryen";
+        var pet = "Dragon";
+
+        System.out.print(family);
+        System.out.print(" and ");
+        System.out.print(pet);
+    }
+
+}
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+naming
+------
+
+
+var firstName = "John";
+System.out.println(firstName);
+
+var playerNumber = 24;
+System.out.println(playerNumber);
+
+
+
+
+---
+
+
+
+
+var euros = 1000;
+var dollars = euros * 1.25;
+var rubles = dollars * 60;
+System.out.println(rubles);
+
+
+
+
+---
+
+
+
+
+var dollarsInEuro = 1.25;
+var roublesInDollar = 60;
+
+var euros = 1000;
+var dollars = euros * dollarsInEuro;
+var rubles = dollars * roublesInDollar;
+System.out.println(rubles);
+
+
+
+
+---
+
+
+
+
+
+public class App {
+    public static void main(String[] args) {
+        var king = "King Balon the 6th";
+
+        var numberOfCastles = 6;
+        var roomsPerCastle = 17;
+        System.out.println(king + " has " + (numberOfCastles * roomsPerCastle) + " rooms.");
+    }
+}
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+data types
+----------
+
+
+var age = 33;
+
+
+
+
+---
+
+
+
+
+int x = 3;
+String greeting = "Hello Hexlet!";
+
+// Error: incompatible types: java.lang.String cannot be converted to int
+int ops = "test";
+
+
+
+
+
+---
+
+
+
+
+Всего в Java восемь примитивных типов данных
+--------------------------------------------
+
+byte
+short
+int
+long
+float
+double
+boolean
+char
+
+
+byte  — занимает в памяти 1 байт (-128 до 127)
+short — занимает в памяти 2 байта
+int   — занимает в памяти 4 байта
+long  — занимает в памяти 8 байт
+
+
+
+
+
+---
+
+
+
+
+byte x = 3;
+
+// Error: incompatible types: possible lossy conversion from int to byte
+byte y = 270;
+
+
+
+
+---
+
+
+
+
+
+
+char ch = 'a';
+
+char ch2 = "b";
+// Error: incompatible types: java.lang.String cannot be converted to char
+
+
+
+
+---
+
+
+
+
+"hexlet".charAt(1);
+
+
+
+
+---
+
+
+
+
+int a;
+System.out.println(a);
+
+
+
+
+---
+
+
+
+
+byte    0
+short   0
+int     0
+long    0
+float   0.0
+double  0.0
+char    ''
+boolean false
+
+
+
+
+---
+
+
+
+
+String a;
+
+
+
+
+---
+
+
+
+
+int x = null;
+// Error: incompatible types: <nulltype> cannot be converted to int
+
+
+
+
+---
+
+
+
+
+var number = Integer.parseInt("345");
+System.out.println(number);
+
+
+
+
+---
+
+
+
+
+var result = (int) 5.1;
+System.out.println(result);
+
+
+
+
+---
+
+
+
+
+
+var result = 10 + ((int) 5.1);
+System.out.println(result);
+
+
+
+
+---
+
+
+
+
+public class App {
+    public static void main(String[] args) {
+        var result = (int) 2.9;
+        System.out.println(result + " times");
+    }
+}
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+method calling
+--------------
+
+
+"Hexlet".length();
+"ABBA".length();
+
+
+
+
+---
+
+
+
+
+
+
+var company = "Hexlet";
+
+var companyLength = company.length();
+System.out.println(companyLength);
+
+company.toUpperCase();
+
+
+
+
+---
+
+
+
+
+var company = "Hexlet";
+System.out.println(company.length());
+
+
+
+
+---
+
+
+
+
+var searchEngine = "google";
+searchEngine.charAt(0);
+
+
+
+
+---
+
+
+
+
+searchEngine.replace("go", "mo");
+
+
+
+
+---
+
+
+
+
+"hexlet".substring(1);
+"hexlet".substring(1, 2);
+"hexlet".substring(1, 3);
+"hexlet".substring(3, 6);
+
+
+
+
+---
+
+
+
+
+public class App {
+    public static void printTotalLength() {
+        var company1 = "Apple";
+        var company2 = "Samsung";
+
+        System.out.println(company1.length() + company2.length());
+    }
+}
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+method Invocation, ixpression, string immutability
+--------------------------------------------------
+
+
+10 + var sum = 1 + 5;
+// Бессмысленный код, который не сработает
+
+
+
+
+---
+
+
+
+
+var name = "Java";
+
+var lastIndex = name.length() - 1;
+System.out.println(lastIndex);
+
+
+
+
+---
+
+
+
+
+var name = "Java";
+
+System.out.println("Привет " + name.toUpperCase());
+
+
+
+
+---
+
+
+
+
+var language = "JAVA";
+language = language.toLowerCase();
+System.out.println(language);
+
+
+
+
+---
+
+
+
+
+var language = "JAVA";
+var processedLanguage = language.toLowerCase();
+System.out.println(processedLanguage);
+
+
+
+
+---
+
+
+
+
+
+public class App {
+    public static void main(String[] args) {
+        var text = "Never forget what you are, for surely the world will not";
+
+        System.out.println("First: " + text.substring(0, 1));
+        System.out.println("Last: " + text.substring(text.length() - 1));
+    }
+}
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+method call chains
+------------------
+
+
+var name = " How much is the fish?   \n";
+
+name = name.trim();
+name = name.replace("?", "");
+name = name.replace(" ", "-");
+name = name.toLowerCase();
+System.out.println(name);
+
+
+
+
+---
+
+
+
+
+var name = " How much is the fish?   ";
+name = name.trim().replace("?", "").replace(" ", "-").toLowerCase();
+System.out.println(name);
+
+
+
+
+---
+
+
+
+
+name = name.trim()
+    .replace("?", "")
+    .replace(" ", "-")
+    .toLowerCase();
+
+
+
+
+
+---
+
+
+
+
+
+public class App {
+    public static void printCapitalize(String[] args) {
+        var name = "heXlEt";
+
+        System.out.println(name.substring(0, 1).toUpperCase() + name.substring(1, name.length()).toLowerCase());
+    }
+}
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+determinism
+-----------
+
+
+"wow".charAt(1);
+"wow".charAt(1);
+
+
+
+
+---
+
+
+
+
+Math.random();
+Math.random();
+
+
+
+
+---
+
+
+
+
+public class App {
+    public static void printRandomNumber(String[] args) {
+        System.out.println((int) (Math.random() * 10));
+    }
+}
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+standart library
+----------------
+
+
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
+
+public class App {
+    public static void main(String[] args) {
+        LocalDate dateFrom = LocalDate.of(2017, Month.MAY, 24);
+        LocalDate dateTo = LocalDate.of(2017, Month.JULY, 29);
+        long noOfDaysBetween = ChronoUnit.DAYS.between(dateFrom, dateTo);
+        System.out.println(noOfDaysBetween);
+    }
+}
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+what are the methods
+--------------------
+
+
+System.out.println();
+varname.toLowerCase();
+varname.substring();
+Integer.parseInt();
+ChronoUnit.DAYS.between();
+
+
+
+
+---
+
+
+
+var user = new User();
+
+user.getName();
+
+
+currentDate.getDayOfMonth();
+file.exists();
+
+
+
+
+---
+
+
+
+
+static methods
+--------------
+
+Math.random();
+
+Files.readString(path);
+
+
+
+
+---
+
+
+
+
+Files.readString(path);
+
+path.read();
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+defining methods
+----------------
+
+
+import com.example.Mailer;
+
+var email = "support@hexlet.io";
+var title = "Помогите";
+var body = "Я написал историю успеха, как я могу получить скидку?";
+
+Mailer.send(email, title, body);
+
+
+
+
+---
+
+
+
+
+import java.time.LocalDate;
+
+public class App {
+    public static void showCurrentDate() {
+        var currentDate = LocalDate.now();
+        var text = "Today is: " + currentDate;
+        System.out.println(text);
+    }
+}
+
+App.showCurrentDate();
+
+
+
+
+
+---
+
+
+
+
+public class App {
+    public static void noop() {
+    }
+}
+App.noop();
+
+
+
+
+---
+
+
+
+
+public class App {
+    public static void printMotto() {
+        System.out.println("Winter is coming");
+    }
+}
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+main method
+-----------
+
+
+public class App {
+    public static void main(String[] args) {
+    }
+}
+
+
+
+
+
+---
+
+
+
+
+class MySuperClassName {
+    public static void oneMethod() {
+    }
+    public static void twoMethod() {
+    }
+    public static void threeMethod() {
+    }
+}
+
+
+
+
+
+---
+
+
+
+
+class MySuperClassName {
+    public static void oneMethod() {
+        MySuperClassName.twoMethod();
+    }
+
+    public static void twoMethod() {
+        MySuperClassName.threeMethod();
+    }
+
+    public static void threeMethod() {
+    }
+}
+
+
+
+
+---
+
+
+
+
+public class App {
+    public static void main(String[] args) {
+        App.gogo();
+    }
+    public static void gogo() {
+        System.out.println("It works!");
+    }
+}
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+returning values
+----------------
+
+
+public class App {
+    public static void greeting() {
+        System.out.println("Winter is coming");
+    }
+}
+
+
+
+
+---
+
+
+
+
+class App {
+    public static void main(String[] args) {
+        var email = "  SuppORT@hexlet.IO";
+        var trimmedEmail = email.trim();
+        var preparedEmail = trimmedEmail.toLowerCase();
+        System.out.println(preparedEmail);
+    }
+}
+
+
+
+
+---
+
+
+
+
+class App {
+    public static String greeting() {
+        return "Winter is coming!";
+    }
+}
+
+
+
+
+---
+
+
+
+
+var message = App.greeting();
+System.out.println(message.toUpperCase());
+
+
+
+
+---
+
+
+
+
+class App {
+    public static String greeting() {
+        return "Winter is coming!";
+        System.out.println("Я никогда не выполнюсь");
+    }
+}
+
+
+
+
+---
+
+
+
+
+class App {
+    public static String greeting() {
+        System.out.println("Я появлюсь в консоли");
+        return "Winter is coming!";
+    }
+}
+
+var value = App.greeting();
+
+
+
+
+---
+
+
+
+
+class App {
+    public static String greeting() {
+        var message = "Winter is coming!";
+        return message;
+    }
+}
+
+
+
+
+---
+
+
+
+
+class App {
+    public static long doubleFive() {
+        var result = 5 + 5;
+        return result;
+    }
+}
+
+
+
+
+---
+
+
+
+
+class App {
+    public static int run() {
+        return 5;
+        return 10;
+    }
+}
+
+
+
+
+---
+
+
+
+
+
+public class App {
+    public static String sayHurrayThreeTimes() {
+        var word = "hurray!";
+        return word + " " + word + " " + word;
+    }
+}
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+method params
+-------------
+
+
+System.out.println("я параметр");
+"какой-то текст".charAt(3); // 'о'
+"google".replace("go", "mo"); // "moogle"
+"hexlet".substring(1, 3);
+
+
+
+
+---
+
+
+
+
+App.getLastChar("Hexlet");
+App.getLastChar("Goo");
+
+var name1 = "Hexlet";
+App.getLastChar(name1);
+
+var name2 = "Goo";
+App.getLastChar(name2);
+
+
+
+
+---
+
+
+
+
+class App {
+    public static char getLastChar(String str) {
+        return str.charAt(str.length() - 1);
+    }
+}
+
+
+
+
+---
+
+
+
+
+class App {
+    public static double average(int x, int y) {
+        return (x + y) / 2.0;
+    }
+}
+
+App.average(1, 5); // 3.0
+App.average(1, 2); // 1.5
+
+
+
+
+---
+
+
+
+
+"google".replace("go", "mo");
+
+
+
+
+---
+
+
+
+
+class App {
+    public static String replace(String text, String from, String to) {
+    }
+}
+
+App.replace("google", "go", "mo");
+
+
+
+
+---
+
+
+
+
+App.replace("google", "mo", "go");
+
+
+
+
+---
+
+
+
+
+public class App {
+    public static String truncate(String text, int length) {
+        return text.substring(0, length) + "...";
+    }
+}
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+optional method parameters
+--------------------------
+
+
+class App {
+    function pow(x, base = 2) {
+      return x ** base;
+    }
+}
+
+App.pow(3);
+App.pow(3, 3);
+
+
+
+
+---
+
+
+
+
+class App {
+    public static int sum(int x, int y) {
+        return x + y;
+    }
+}
+
+App.sum(2, 3);
+
+
+
+
+---
+
+
+
+
+class App {
+    public static int sum(int x, int y) {
+        return x + y;
+    }
+
+    public static int sum(int x) {
+        return x + 10;
+    }
+}
+
+App.sum(2);
+App.sum(2, 1);
+
+
+
+
+---
+
+
+
+
+"hexlet".substring(3);
+"hexlet".substring(3, 5);
+
+
+
+
+---
+
+
+
+
+class App {
+    public static int sum(int x, int y) {
+        return x + y;
+    }
+
+    public static int sum(int x) {
+        return sum(x, 10);
+    }
+}
+
+
+
+
+---
+
+
+
+
+
+public class App {
+    public static String getHiddenCard(String cardNumber, int starsCount) {
+        var visibleDigitsLine = cardNumber.substring(12);
+        return "*".repeat(starsCount) + visibleDigitsLine;
+    }
+
+    public static String getHiddenCard(String cardNumber) {
+        return App.getHiddenCard(cardNumber, 4);
+    }
+}
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+logic operations
+----------------
+
+
+
+<  — меньше
+<= — меньше или равно
+>  — больше
+>= — больше или равно
+== — равно
+!= — не равно
+
+
+
+
+---
+
+
+
+
+var result = 5 > 4;
+System.out.println(result);
+
+
+
+
+---
+
+
+
+
+public static boolean isInfant(int age) {
+    return age < 1;
+}
+
+System.out.println(App.isInfant(3));
+System.out.println(App.isInfant(0));
+
+
+
+
+---
+
+
+
+
+4 == 4;
+true == true;
+10.0 == 10.0;
+
+
+
+
+---
+
+
+
+
+int[] a = {1, 2}
+int[] b = {1, 2}
+
+a == b; // false
+
+
+
+
+---
+
+
+
+
+var name1 = "java".toUpperCase();
+var name2 = "java".toUpperCase();
+name1.equals(name2);
+
+
+
+
+---
+
+
+
+
+var name1 = "java".toUpperCase();
+var name2 = "java".toLowerCase();
+name1.equalsIgnoreCase(name2);
+
+
+
+
+---
+
+
+
+
+public static boolean isEven(int number) {
+    return number % 2 == 0;
+}
+
+App.isEven(10);
+App.isEven(3);
+
+
+
+
+
+---
+
+
+
+
+
+public static boolean isFirstLetterInUpperCase(String string) {
+    var firstLetter = string.charAt(0);
+    return Character.isUpperCase(firstLetter);
+}
+
+App.isFirstLetterInUpperCase("marmont");
+App.isFirstLetterInUpperCase("Robb");
+
+
+
+
+---
+
+
+
+
+
+import org.apache.commons.lang3.StringUtils;
+
+public class App {
+    public static boolean isPalindrome(String word) {
+        var reversedWord = StringUtils.reverse(word);
+        return word.equalsIgnoreCase(reversedWord);
+    }
+}
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+logic operators
+---------------
+
+
+public static boolean isCorrectPassword(String password) {
+    var length = password.length();
+    return length > 8 && length < 20;
+}
+
+isCorrectPassword("qwerty");
+isCorrectPassword("qwerty1234");
+
+
+
+
+---
+
+
+
+
+a && b || c;
+a && (b || c)
+
+
+
+
+---
+
+
+
+
+isGoodApartment(91, "Queens Street");   // false
+isGoodApartment(78, "Queens Street");   // false
+isGoodApartment(70, "Main Street");     // false
+
+isGoodApartment(120, "Queens Street");  // true
+isGoodApartment(120, "Main Street");    // true
+isGoodApartment(80, "Main Street");     // true
+
+public static boolean isGoodApartment(int area, String street) {
+  return area >= 100 || (area >= 80 && "Main Street".equals(street));
+}
+
+
+
+
+---
+
+
+
+
+A       B       A && B
+-----------------------
+TRUE    TRUE    TRUE
+TRUE    FALSE   FALSE
+FALSE   TRUE    FALSE
+FALSE   FALSE   FALSE
+
+
+
+
+---
+
+
+
+
+A       B       A ❘❘ B
+-----------------------
+TRUE    TRUE    TRUE
+TRUE    FALSE   TRUE
+FALSE   TRUE    TRUE
+FALSE   FALSE   FALSE
+
+
+
+
+---
+
+
+
+
+public static boolean isEven(int number) {
+    return number % 2 == 0;
+}
+
+isEven(10);
+!isEven(10);
+
+
+
+
+---
+
+
+
+
+!(x == 5 || x == 3)
+x != 5 && x != 3
+
+
+
+
+---
+
+
+
+
+
+public class App {
+    public static boolean isLeapYear(int year) {
+        var isLeapYear = (year % 4 == 0);
+
+        isLeapYear = isLeapYear && (year % 100 != 0 || year % 400 == 0);
+
+        if (isLeapYear) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+conditional constructions
+-------------------------
+
+
+public static String getTypeOfSentence(String sentence) {
+    if (sentence.endsWith("?")) {
+        return "question";
+    }
+
+    return "general";
+}
+
+App.getTypeOfSentence("Hodor");
+App.getTypeOfSentence("Hodor?");
+
+
+
+
+---
+
+
+
+
+if (x > 5) {
+    // Если условие true
+} else {
+    // Если условие false
+}
+
+
+
+
+---
+
+
+
+
+if (email.equals("")) {
+    email = "support@hexlet.io";
+} else { // Иначе выполняем нормализацию
+    email = email.trim().toLowerCase();
+}
+
+
+
+
+---
+
+
+
+
+if (/* что-то */) {
+
+} else if (/* другая проверка */) {
+
+} else if (/* другая проверка */) {
+
+} else {
+
+}
+
+
+
+
+---
+
+
+
+
+App.getTypeOfSentence("Who?"); // "Sentence is question"
+App.getTypeOfSentence("No");   // "Sentence is general"
+App.getTypeOfSentence("No!");  // "Sentence is exclamation"
+
+public static String getTypeOfSentence(String sentence)
+{
+    var sentenceType = "";
+
+    if (sentence.endsWith("?")) {
+        sentenceType = "question";
+    } else if (sentence.endsWith("!")) {
+        sentenceType = "exclamation";
+    } else {
+        sentenceType = "general";
+    }
+
+    return "Sentence is " + sentenceType;
+}
+
+
+
+
+---
+
+
+
+
+public static int abs(int number) {
+    if (number >= 0) {
+        return number;
+    }
+
+    return -number;
+}
+
+App.abs(10);
+App.abs(-10);
+
+
+
+
+---
+
+
+
+
+public static int abs(int number) {
+    return number >= 0 ? number : -number;
+}
+
+
+
+
+---
+
+
+
+
+import org.apache.commons.lang3.StringUtils;
+
+public class App {
+        public static String convertString(String str) {
+        if (str.equals("")) {
+            return "";
+        }
+
+        return Character.isUpperCase(str.charAt(0)) ? str : StringUtils.reverse(str);
+    }
+}
+
+
+
+
+---
+
+
+
+
+public static String convertString(String str) {
+   if (str.equals("")) {
+       return "";
+   }
+
+   if (Character.isUpperCase(str.charAt(0))) {
+       return str;
+   }
+
+   return StringUtils.reverse(str);
+}
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Switch construction
+-------------------
+
+
+if (status.equals("processing")) {
+    // Делаем раз
+} else if (status.equals("paid")) {
+    // Делаем два
+} else if (status.equals("new")) {
+    // Делаем три
+} else {
+    // Делаем четыре
+}
+
+
+
+
+---
+
+
+
+
+switch (status) {
+    case "processing":
+        // Делаем раз
+        break;
+    case "paid":
+        // Делаем два
+        break;
+    case "new":
+        // Делаем три
+        break;
+    default: // else
+        // Делаем четыре
+}
+
+
+
+
+---
+
+
+
+
+witch (count) {
+  case 1:
+    // Делаем что-то полезное
+    break;
+  case 2:
+    // Делаем что-то полезное
+    break;
+  default:
+    // Что-то делаем
+}
+
+
+
+
+---
+
+
+
+
+class App {
+    public static String getExplanation(int count) {
+        // Объявляем переменную
+        String result;
+
+        // Заполняем
+        switch(count) {
+            case 1:
+                result = "one";
+                break;
+            case 2:
+                result = "two";
+                break;
+            default:
+                result = null;
+        }
+
+        // Возвращаем
+        return result;
+    }
+}
+
+
+
+
+---
+
+
+
+
+class App {
+    public static String getExplanation(int count) {
+
+        switch (count) {
+            case 1:
+                return "one";
+            case 2:
+                return "two";
+            default:
+                return null;
+        }
+    }
+}
+
+
+
+
+---
+
+
+
+
+public static String getNumberExplanation(int number) {
+    switch (number) {
+        case 666:
+            return "devil number";
+        case 7:
+            return "prime number";
+        case 42:
+            return "answer for everything";
+        default:
+            return "just a number";
+    }
+}
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+while loop
+----------
+
+
+public static void printNumbers(int lastNumber) {
+    var i = 1;
+
+    while (i <= lastNumber) {
+        System.out.println(i);
+        i = i + 1;
+    }
+    System.out.println("finished!");
+}
+
+App.printNumbers(3);
+
+
+
+
+---
+
+
+
+
+
+a = a + 1 → a += 1
+a = a - 1 → a -= 1
+a = a * 2 → a *= 2
+a = a / 1 → a /= 1
+a = a + "foo" → a += "foo"
+
+
+
+
+---
+
+
+
+
+
+var i = firstNumber;
+while (i >= 1) {
+    System.out.println(i);
+    i = i - 1;
+}
+System.out.println("finished!");
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+loops usage
+-----------
+
+
+App.sumNumbersFromRange(5, 7);
+App.sumNumbersFromRange(1, 2);
+
+App.sumNumbersFromRange(1, 1);
+App.sumNumbersFromRange(100, 100);
+
+
+
+
+---
+
+
+
+
+public static int sumNumbersFromRange(int start, int finish) {
+    var i = start;
+    var sum = 0;
+
+    while (i <= finish) {
+        sum = sum + i;
+        i = i + 1;
+    }
+
+    return sum;
+}
+
+
+
+
+---
+
+
+
+
+App.repeat("hexlet", 3);
+
+
+
+
+---
+
+
+
+
+public static String repeat(String text, int times) {
+    var result = "";
+    var i = 1;
+
+    while (i <= times) {
+        result = result + text;
+        i = i + 1;
+    }
+
+    return result;
+}
+
+
+
+
+---
+
+
+
+
+var result = "";
+result = result + "hexlet";
+result = result + "hexlet";
+result = result + "hexlet";
+
+
+
+
+---
+
+
+
+
+public static void printNameBySymbol(String name) {
+    var i = 0;
+    while (i < name.length()) {
+        System.out.println(name.charAt(i));
+        i += 1;
+    }
+}
+
+var name = "Arya";
+App.printNameBySymbol(name);
+
+
+
+
+---
+
+
+
+
+App.reverse("Hexlet");
+
+
+
+
+---
+
+
+
+
+public static String reverse(String str) {
+    var i = 0;
+    var result = "";
+    while (i < str.length()) {
+        result = str.charAt(i) + result;
+        i += 1;
+    }
+
+    return result;
+}
+
+var name = "Bran";
+App.reverse(name);
+App.reverse("");
+
+
+
+
+---
+
+
+
+
+
+
+public class App {
+    public static String joinNumbersFromRange(int start, int finish) {
+        var i = start;
+        var result = "";
+
+        while (i <= finish) {
+            result = result + i;
+            i = i + 1;
+        }
+
+        return result;
+    }
+}
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+conditions inside the loop and return values
+--------------------------------------------
+
+
+App.countChars("Fear cuts deeper than swords.", 'e');
+App.countChars("Sansa", 'y');
+
+
+
+
+---
+
+
+
+
+public static int countChars(String str, char ch) {
+    var i = 0;
+    var count = 0;
+    while (i < str.length()) {
+        if (str.charAt(i) == ch) {
+            count = count + 1;
+        }
+        i += 1;
+    }
+
+    return count;
+}
+
+
+
+
+---
+
+
+
+
+public static boolean isPrime(int number) {
+    if (number < 2) {
+        return false;
+    }
+
+    var divider = 2;
+
+    while (divider <= number / 2) {
+        if (number % divider == 0) {
+            return false;
+        }
+
+        divider += 1;
+    }
+
+    return true;
+}
+
+App.isPrime(1);
+App.isPrime(2);
+App.isPrime(3);
+App.isPrime(4);
+
+
+
+
+---
+
+
+
+
+
+public class App {
+    public static int countChars(String str, char ch) {
+        var i = 0;
+        var count = 0;
+        var lowerChar = Character.toLowerCase(ch);
+        while (i < str.length()) {
+            var currentChar = Character.toLowerCase(str.charAt(i));
+            if (currentChar == lowerChar) {
+                count = count + 1;
+            }
+            i = i + 1;
+        }
+
+        return count;
+    }
+}
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+for loop
+--------
+
+
+public static String reverseString(String str) {
+    var result = "";
+    for (var i = 0; i < str.length(); i++) {
+        result = str.charAt(i) + result;
+    }
+
+    return result;
+}
+
+
+
+
+---
+
+
+
+
+
+public class App {
+    public static String encrypt(String str) {
+        var result = "";
+        for (var i = 0; i < str.length(); i += 2) {
+            var nextSymbol = (i + 2 > str.length()) ? "" : str.charAt(i + 1);
+            result = result + nextSymbol + str.charAt(i);
+        }
+
+        return result;
+    }
+}
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+packages
+--------
+
+
+package example.package1;
+
+class User {
+    public static String getGreeting(String userName) {
+        return "Hello, " + userName + "!";
+    }
+}
+
+
+
+
+---
+
+
+
+
+package example.package1;
+
+class App {
+    public static void main(String[] args) {
+        var greeting = User.getGreeting("John");
+        System.out.println(greeting);
+}
+
+
+
+
+---
+
+
+
+
+package example.package1;
+public class User {
+    public static String getGreeting(String userName) {
+        return "Hello, " + userName + "!";
+    }
+}
+
+
+
+
+---
+
+
+
+
+package example;
+
+class App {
+    public static void main(String[] args) {
+        var greeting = example.package1.User.getGreeting("John");
+        System.out.println(greeting);
+    }
+}
+
+
+
+
+---
+
+
+
+
+package example;
+
+import example.package1.User;
+
+class App {
+    public static void main(String[] args) {
+        var greeting = User.getGreeting("John");
+        System.out.println(greeting);
+    }
+}
+
+
+
+
+---
+
+
+
+
+
+import io.hexlet.counter.Counter;
+
+public class App {
+    public static boolean greaterThan(String text1, String text2) {
+        return Counter.bigLettersCount(text1) > Counter.bigLettersCount(text2);
+    }
+}
+
+
+
+package io.hexlet.counter;
+
+public class Counter {
+    public static int bigLettersCount(String text) {
+        var result = 0;
+
+        for (var i = 0; i < text.length(); i++) {
+            var current = text.charAt(i);
+            if (Character.toUpperCase(current) == current) {
+                result += 1;
+            }
+        }
+
+        return result;
+    }
+}
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -23,6 +3008,1177 @@ JAVA BASICS
 
 
 
+--------
+JAVA OOP
+--------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+static methods
+--------------
+
+
+function greeting() {
+  return 'just a string';
+}
+greeting();
+
+
+
+
+---
+
+
+
+
+class App {
+    public static String greeting() {
+        return "just a string";
+    }
+}
+
+
+class SomeName {
+    public static void someMethod() {
+        App.greeting();
+    }
+}
+
+
+
+
+---
+
+
+
+
+
+class App {
+    public static String greeting() {
+        return "just a string";
+    }
+
+    public static void main(String[] args) {
+        greeting();
+    }
+}
+
+
+
+
+---
+
+
+
+
+int y = Math.abs(-30);
+
+int m = Math.min(10, 11);
+
+
+int x = RandomUtils.nextInt(1, 1000);
+
+
+
+
+---
+
+
+
+
+class App {
+    public static double getSquare(int side1, int side2, int angle) {
+        var angleInRadians = angle * Math.PI / 180;
+        var sin = Math.sin(angleInRadians);
+        return (side1 * side2 * sin) / 2;
+    }
+}
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+objects
+-------
+
+
+var user = new User("Danil", "Miloshin");
+
+user.getFirstName(); // "Danil"
+user.getLastName(); // "Miloshin"
+user.getFullName();
+
+
+
+
+---
+
+
+
+
+var user = new User("admin@hexlet.io", 25);
+
+user.getEmail();
+
+
+
+
+---
+
+
+
+
+var course = new Course("java", "тут описание", new Date());
+var lesson1 = new Lesson("строки", "тут текст");
+course.addLesson(lesson1);
+var lesson2 = new Lesson("числа", "тут текст");
+course.addLesson(lesson2);
+repository.save(course);
+course.getLessons();
+
+
+
+
+---
+
+
+
+
+
+class App {
+    public static Point getNewPoint() {
+        var point = new Point(5, 10);
+        return point;
+    }
+}
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+classes
+-------
+
+
+var user = new User("Danil", "Miloshin");
+
+user.getFirstName();
+user.getLastName();
+user.getFullName();
+
+
+
+
+---
+
+
+
+
+class User {
+    User(String firstName, String lastName) {
+    }
+}
+
+
+
+
+---
+
+
+
+
+class User {
+    public String firstName;
+    public String lastName;
+}
+
+
+
+
+---
+
+
+
+
+class User {
+    public String firstName;
+    public String lastName;
+
+    User(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+}
+
+
+
+
+---
+
+
+
+
+var user1 = new User("Jonny", "Depp");
+var user2 = new User("Selina", "Dion");
+
+user1.firstName;
+user2.firstName;
+
+
+
+
+---
+
+
+
+
+user1.firstName = "Maya";
+user1.firstName;
+
+
+
+
+---
+
+
+
+
+class Car {
+    public String make;
+
+    Car() {
+
+    }
+}
+
+var car = new Car();
+car.make = "bmw";
+System.out.println(car.make);
+
+
+
+
+---
+
+
+
+
+class Course {
+    public String name;
+    public int duration;
+
+    Course(String name, int duration) {
+        this.name = name;
+        this.duration = duration;
+    }
+
+    Course(String name) {
+        this.name = name;
+    }
+}
+
+var course1 = new Course("Java", 18);
+var course2 = new Course("PHP");
+
+
+
+
+---
+
+
+
+
+
+App.java
+--------
+
+package io.hexlet;
+
+class App {
+    public static double getCircumference(Circle circle) {
+        return 2 * Math.PI * circle.radius;
+    }
+}
+
+
+
+Circle.java
+-----------
+
+package io.hexlet;
+
+class Circle {
+    public int x;
+    public int y;
+    public int radius;
+
+    Circle(int x, int y, int radius) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+    }
+}
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+access to object properties
+---------------------------
+
+
+var user = new User("Jonny", "Depp");
+
+user.getFirstName();
+user.setFirstName("Monika");
+user.getFirstName();
+
+
+
+
+---
+
+
+
+
+class User {
+    private String firstName;
+    private String lastName;
+
+    User(String fName, String lName) {
+        this.firstName = fName;
+        this.lastName = lName;
+    }
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public void setFirstName(String name) {
+        this.firstName = name;
+    }
+}
+
+
+
+
+---
+
+
+
+
+class User {
+    private String firstName;
+    private String lastName;
+
+    User(String fName, String lName) {
+        firstName = fName;
+        lastName = lName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String name) {
+        firstName = name;
+    }
+}
+
+
+
+
+---
+
+
+
+
+public String getFullName() {
+    return firstName + " " + lastName;
+}
+
+
+
+
+---
+
+
+
+
+class User {
+    private String firstName;
+
+    User(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void getFirstName() {
+        var firstName = /* что-то */;
+        return this.firstName;
+    }
+}
+
+
+
+
+---
+
+
+
+
+App.java
+--------
+
+package io.hexlet;
+
+class App {
+    public static String checkSecurity(Url url) {
+        var protocol = url.getProtocol();
+        var securePart = protocol.equals("https") ? "" : "not ";
+
+        return "Connection to "
+            + url.getHost()
+            + " is "
+            + securePart
+            + "secure";
+    }
+}
+
+
+
+Uri.java
+--------
+
+class Url {
+    private String protocol;
+    private String host;
+
+    Url(String url) {
+        String[] data = url.split("://");
+        this.protocol = data[0];
+        this.host = data[1];
+    }
+
+    public String getProtocol() {
+        return protocol;
+    }
+
+    public String getHost() {
+        return host;
+    }
+}
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+reference data types
+--------------------
+
+
+var user = new User("Danil", "Miloshin");
+
+User user = new User("Danil", "Miloshin");
+
+
+
+
+---
+
+
+
+
+class User {
+    public String firstName;
+    public String lastName;
+
+    public User(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+}
+
+
+
+
+---
+
+
+
+
+int a;
+System.out.println(a);
+
+
+
+
+---
+
+
+
+
+User u;
+System.out.println(u);
+
+
+
+
+---
+
+
+
+
+var a = 5;
+var b = a;
+
+
+
+
+---
+
+
+
+
+var u1 = new User("Igor", "Mon");
+var u2 = u1;
+
+u2.firstName = "Nina";
+
+System.out.println(u1.firstName);
+
+u1 == u2;
+
+u2 = new User("Igor", "Mon");
+
+
+
+
+---
+
+
+
+
+class UserController {
+    public static void replaceName(User user, String newFirstName) {
+        user.firstName = newFirstName;
+    }
+}
+
+var u = new User("Igor", "Mon");
+UserController.replaceName(u, "Nina");
+System.out.println(u.firstName);
+
+
+
+
+---
+
+
+
+
+var a = 5;
+var b = 5;
+
+a == b;
+
+var t1 = true;
+var t2 = true;
+
+t1 == t2;
+
+
+
+
+---
+
+
+
+
+var u1 = new User("Igor", "Mon");
+var u2 = new User("Igor", "Mon");
+
+u1 == u2;
+
+
+
+
+---
+
+
+
+
+
+
+class User {
+
+    private int id;
+    private String name;
+
+    User(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean isEqual(User anotherUser) {
+        return id == anotherUser.getId();
+    }
+}
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+strings
+-------
+
+
+var name1 = "Hexlet";
+name1.toUpperCase();
+
+var name2 = new String("Hexlet");
+name2.toUpperCase();
+
+
+
+
+---
+
+
+
+
+var name1 = "Hexlet";
+var name2 = "Hexlet";
+
+name1 == name2;
+
+
+
+
+---
+
+
+
+
+var lang1 = "Java";
+var lang2 = "Java";
+var lang3 = "Java";
+
+lang1 == lang2;
+lang2 == lang3;
+lang1 == lang3;
+
+
+
+
+---
+
+
+
+
+var lang1 = new String("Java");
+var lang2 = new String("Java");
+
+lang1 == lang2;
+
+
+
+
+---
+
+
+
+
+var lang = "Java";
+
+lang.toUpperCase();
+lang.toUpperCase();
+
+lang.toUpperCase() == lang.toUpperCase();
+
+
+
+
+---
+
+
+
+
+var lang1 = new String("Java");
+var lang2 = new String("Java");
+
+lang1.equals(lang2);
+
+
+
+
+---
+
+
+
+
+
+import org.apache.commons.lang3.StringUtils;
+
+class App {
+    public static boolean isPalindrome(String word) {
+        var reversedWord = StringUtils.reverse(word);
+        return word.equalsIgnoreCase(reversedWord);
+    }
+}
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+interfaces
+----------
+
+
+var generator = new SimplePasswordGenerator();
+generator.generate();
+generator.generate();
+
+
+
+
+---
+
+
+
+
+interface PasswordGenerator {
+    String generate();
+    String generate(int length);
+}
+
+
+
+
+---
+
+
+
+
+class SimplePasswordGenerator implements PasswordGenerator {
+    public String generate() {
+        return this.generate(16);
+    }
+
+    public String generate(int length) {
+    }
+}
+
+
+
+
+---
+
+
+
+
+class UserController {
+    public void create() {
+        var generator = new SimplePasswordGenerator();
+        var password = generator.generate();
+    }
+}
+
+
+
+
+---
+
+
+
+
+var generator;
+if (userChooseSomething) {
+    generator = new SimplePasswordGenerator();
+} else {
+    generator = new SuperPasswordGenerator();
+}
+
+
+
+
+
+---
+
+
+
+
+class SuperPasswordGenerator implements PasswordGenerator {
+    public String generate() {
+        return this.generate(16);
+    }
+
+    public String generate(int length) {
+    }
+}
+
+
+
+
+---
+
+
+
+
+class UserController {
+    public void create(PasswordGenerator generator) {
+        var password = generator.generate();
+    }
+}
+
+
+
+
+
+---
+
+
+
+
+
+
+
+App.java
+--------
+
+class App {
+    public static String getFigureSquare(Geometric figure) {
+        var figureName = figure.getName();
+        var square = figure.getSquare();
+        return "Square of " + figureName + " is " + square;
+    }
+}
+
+
+
+
+Genetic.java
+------------
+
+interface Geometric {
+    String getName();
+    double getSquare();
+}
+
+
+
+
+Quadrate.java
+-------------
+
+class Quadrate implements Geometric {
+
+    private int side;
+
+    Quadrate(int side) {
+        this.side = side;
+    }
+
+    public double getSquare() {
+        return side * side;
+    }
+
+    public String getName() {
+        return "quadrate";
+    }
+}
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+packages
+--------
+
+
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
+
+public class App {
+    public static void main(String[] args) {
+        LocalDate dateFrom = LocalDate.of(2017, Month.MAY, 24);
+        LocalDate dateTo = LocalDate.of(2017, Month.JULY, 29);
+        long noOfDaysBetween = ChronoUnit.DAYS.between(dateFrom, dateTo);
+        System.out.println(noOfDaysBetween);
+    }
+}
+
+
+
+
+---
+
+
+
+
+import java.time.*;
+import java.time.temporal.*;
+
+public class App {
+    public static void main(String[] args) {
+        LocalDate dateFrom = LocalDate.of(2017, Month.MAY, 24);
+        LocalDate dateTo = LocalDate.of(2017, Month.JULY, 29);
+        long noOfDaysBetween = ChronoUnit.DAYS.between(dateFrom, dateTo);
+        System.out.println(noOfDaysBetween);
+    }
+}
+
+
+
+
+---
+
+
+
+
+import org.apache.commons.lang3.RandomUtils;
+
+public class App {
+    public static void main(String[] args) {
+        var x = RandomUtils.nextInt(1, 1000);
+    }
+}
+
+
+
+
+---
+
+
+
+
+package io.hexlet;
+
+public class Course {
+}
+
+package com.google;
+
+import io.hexlet.Course;
+
+public class App {
+    public static void main(String args[]) {
+        var course = new Course("Java");
+    }
+}
+
+
+
+
+---
+
+
+
+
+package io.hexlet;
+
+public class Lesson {
+    private Course course;
+
+}
+
+
+
+
+---
+
+
+
+
+import static java.lang.System.*;
+
+class App {
+   public static void main(String args[]) {
+      out.println("GeeksforGeeks");
+   }
+}
+
+
+
+
+---
+
+
+
+
+
+App.java
+--------
+
+package io.hexlet;
+
+import io.hexlet.geometry.Quadrate;
+
+class App {
+    public static Quadrate enlargeQuadrate(Quadrate figure) {
+        var side = figure.getSide();
+        var enlargedSide = side * 2;
+        return new Quadrate(enlargedSide);
+    }
+}
+
+
+
+
+Quadrate.java
+-------------
+
+package io.hexlet.geometry;
+
+public final class Quadrate {
+    private int side;
+
+    public Quadrate(int side) {
+        this.side = side;
+    }
+
+    public int getSide() {
+        return side;
+    }
+}
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -35,6 +4191,9 @@ JAVA BASICS
 
 
 
+--------------
+JAVA EXERCISES
+--------------
 
 
 
@@ -44,6 +4203,29 @@ JAVA BASICS
 
 
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+fizzBuzz
+--------
+
+
+public class App {
+    public static void fizzBuzz(int begin, int end) {
+        for(int i = begin ; i <= end ; ++i) {
+            String str;
+
+            if (i % (5 * 3) == 0) {
+                str = "FizzBuzz";
+            } else if (i % 3 == 0) {
+                str = "Fizz";
+            } else if (i % 5 == 0) {
+                str = "Buzz";
+            } else
+                str = Integer.toString(i);
+            System.out.println(str);
+        }
+    }
+}
 
 
 
@@ -52,6 +4234,50 @@ JAVA BASICS
 
 
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+fibonacci
+---------
+
+
+public class App {
+    public static int fib(int n) {
+        if (n == 0) {
+          return 0;
+        }
+
+        if (n == 1 || n == 2) {
+          return 1;
+        }
+        
+        return fib(n - 2) + fib(n - 1);
+    }
+}
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
