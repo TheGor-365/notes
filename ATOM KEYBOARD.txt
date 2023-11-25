@@ -5,6 +5,10 @@ ATOM KEYBOARD
 
 
 
+
+
+
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /	                  	    github:toggle-patch-selection-mode		   GitHub		                             .github-FilePatchView atom-text-editor:not([mini])

@@ -5,12 +5,19 @@ RUBY ON RAILS
 
 
 
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
 https://guides.rubyonrails.org/routing.html
 
 
----
 
----------------
 Generalizations
 ---------------
 
@@ -30,9 +37,9 @@ Generalizations
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
--------------
 Hello Rails I
 -------------
+
 
 $ rails new MySite
 $ bundle install
@@ -48,9 +55,9 @@ $ rails server
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
---------------
 Hello Rails II
 --------------
+
 
 ---1---
 
@@ -67,7 +74,11 @@ def home
 end
 
 
+
 ---
+
+
+
 
 class PagesController < ApplicationController
   def home
@@ -84,9 +95,9 @@ end
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-------
 Routes
 ------
+
 
 config/routes.rb
 ----------------
@@ -94,7 +105,10 @@ config/routes.rb
 get 'welcome' => 'pages#home'
 
 
+
 ---
+
+
 
 Rails.application.routes.draw do
   get 'welcome' => 'pages#home'
@@ -152,17 +166,18 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
------
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Views
 -----
+
 
 app/views/pages/home.html.erb
 -----------------------------
@@ -184,15 +199,15 @@ http://localhost:8000/welcome
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
------
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Model
 -----
 
@@ -200,7 +215,10 @@ Model
 $ rails generate model Message 
 
 
+
 ---
+
+
 
 db/migrate
 ----------
@@ -208,7 +226,10 @@ db/migrate
 t.text :content 
 
 
+
 ---
+
+
 
 class CreateMessages < ActiveRecord::Migration
   def change
@@ -220,22 +241,25 @@ class CreateMessages < ActiveRecord::Migration
 end
 
 
+
 ---
+
+
 
 $ bundle exec rake db:migrate
 $ bundle exec rake db:seed
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-----------
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Controller
 ----------
 
@@ -243,7 +267,10 @@ Controller
 $ rails g controller Messages
 
 
+
 ---
+
+
 
 app/config/routes.rb
 --------------------
@@ -251,7 +278,10 @@ app/config/routes.rb
 get 'messages' => 'message#index'
 
 
+
 ---
+
+
 
 app/controllers/messages_controller.rb
 --------------------------------------
@@ -261,7 +291,10 @@ def index
 end
 
 
+
 ---
+
+
 
 class MessagesController < ApplicationController
   def index
@@ -280,9 +313,9 @@ end
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-----
 View
 ----
+
 
 app/views/messages/index.html.erb
 ---------------------------------
@@ -295,7 +328,10 @@ app/views/messages/index.html.erb
 <% end %>
 
 
+
 ---
+
+
 
 <div class="header">
   <div class="container">
@@ -316,7 +352,10 @@ app/views/messages/index.html.erb
 </div>
 
 
+
 ---
+
+
 
 http://localhost:8000/messages
 
@@ -330,17 +369,20 @@ http://localhost:8000/messages
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
------------------
 Create messages I
 -----------------
 
 config/routes.rb
 ----------------
 
+
 get 'messages/new' => 'messages#new'
 
 
+
 ---
+
+
 
 app/controllers/messages_controller.rb
 --------------------------------------
@@ -350,7 +392,10 @@ def new
 end 
 
 
+
 ---
+
+
 
 class MessagesController < ApplicationController
   def index
@@ -363,7 +408,10 @@ class MessagesController < ApplicationController
 end
 
 
+
 ---
+
+
 
 config/routes.rb
 ----------------
@@ -371,7 +419,10 @@ config/routes.rb
 post 'messages' => 'messages#create'
 
 
+
 ---
+
+
 
 app/controllers/messages_controller.rb
 --------------------------------------
@@ -383,7 +434,10 @@ def message_params
 end
 
 
+
 ---
+
+
 
 def create 
   @message = Message.new(message_params)
@@ -396,7 +450,10 @@ def create
 end 
 
 
+
 ---
+
+
 
 app/views/messages/new.html.erb
 -------------------------------
@@ -412,7 +469,10 @@ app/views/messages/new.html.erb
 <% end %>
 
 
+
 ---
+
+
 
 <% @messages.each do |message| %>                     - перебирает каждое сообщение в массиве @messages
 @messages                                             - array
@@ -420,7 +480,10 @@ app/views/messages/new.html.erb
 <%= message.created_at %>                             - отображение времени его создания
 
 
+
 ---
+
+
 
 <div class="header">
   <div class="container">
@@ -444,7 +507,10 @@ app/views/messages/new.html.erb
 </div>
 
 
+
 ---
+
+
 
 app/views/messages/index.html.erb
 ---------------------------------
@@ -452,7 +518,10 @@ app/views/messages/index.html.erb
 <%= link_to 'New Message', "messages/new" %>
 
 
+
 ---
+
+
 
 <div class="header">
   <div class="container">
@@ -474,9 +543,13 @@ app/views/messages/index.html.erb
 </div>
 
 
+
 ---
 
+
+
 http://localhost:8000/messages
+
 
 
 
@@ -503,7 +576,10 @@ $ rails g model Signup
 $ bundle exec rake db:migrate
 
 
+
 ---
+
+
 
 app/controllers/pages_controller.rb
 -----------------------------------
@@ -513,7 +589,10 @@ def thanks
 end
 
 
+
 ---
+
+
 
 config/routes.rb:
 -----------------
@@ -524,7 +603,10 @@ resources :signups
 $ bundle exec rake routes
 
 
+
 ---
+
+
 
 app/controllers/signup_controller.rb
 ------------------------------------
@@ -534,7 +616,10 @@ def new
 end
 
 
+
 ---
+
+
 
 app/views/signups/new.html.erb
 ------------------------------
@@ -545,7 +630,10 @@ app/views/signups/new.html.erb
 <% end %>
 
 
+
 ---
+
+
 
 config/routes.rb
 ----------------
@@ -553,7 +641,10 @@ config/routes.rb
 root 'signup#new'
 
 
+
 ---
+
+
 
 app/controllers/signups_controller.rb
 -------------------------------------
@@ -575,17 +666,24 @@ def signup_params
 end
 
 
+
 ---
+
+
 
 $ cd innovation-cloud
 $ rails console
 
 
+
 ---
+
+
 
 Signup.all
 
 Ctrl + d
+
 
 
 
@@ -609,7 +707,10 @@ $ touch app/assets/stylesheets/posts.css
 $ rails g model Post
 
 
+
 ---
+
+
 
 db/migrate/...
 --------------
@@ -619,7 +720,10 @@ t.string :comment
 $ bundle exec rake db:migrate
 
 
+
 ---
+
+
 
 app/controllers/posts_controller.rb
 -----------------------------------
@@ -627,12 +731,18 @@ app/controllers/posts_controller.rb
 resources :posts
 
 
+
 ---
+
+
 
 $ bundle exec rake routes
 
 
+
 ---
+
+
 
 app/controllers/posts_controller.rb
 -----------------------------------
@@ -647,7 +757,10 @@ def index
 end
 
 
+
 ---
+
+
 
 app/views/posts/index.html
 --------------------------
@@ -660,15 +773,15 @@ app/views/posts/index.html
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-------------
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ASSOCIATIONS
 ------------
 
@@ -677,6 +790,7 @@ Models
 
 Tag, Destination
 ----------------
+
 
 class Tag < ActiveRecord::Base
   has_many :destinations
@@ -687,29 +801,35 @@ class Destination < ActiveRecord::Base
 end
 
 
+
 ---
+
+
 
 has_many :destinations  - обозначает, что один Tag может иметь несколько Destinations
 belongs_to :tag         - обозначает, что каждый Destination принадлежит одному Tag
 has_many / belongs_to   - часто используется для определения отношений один-ко-многим
 
 
+
 ---
+
+
 
 t.references :some_table          - добавляет внешний ключ, указывающий на таблицу
 @destinations = @tag.destinations - извлекает все пункты назначения, принадлежащие тегу, и сохраняет их в файле @destinations
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-------
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ROR 37
 ------
 
@@ -718,25 +838,37 @@ $ rails new blog
 $ rails server
 
 
+
 ---
+
+
 
 http://localhost:3000
 
 
+
 ---
+
+
 
 $ rails server -e (envairment key)
 $ rails server -e development
 
 
+
 ---
+
+
 
 $ rails server
 $ rails generate Some_Generator params
 $ rails g
 
 
+
 ---
+
+
 
 Generators
 ----------
@@ -745,7 +877,10 @@ controller
 model
 
 
+
 ---
+
+
 
 $ rails g controller home index
 
@@ -753,12 +888,18 @@ $ rails g controller home index
 http://localhost:3000/home/index
 
 
+
 ---
+
+
 
 $ rails g model Article title:string text:text
 
 
+
 ---
+
+
 
 app/db/migrate/111_create_migrate.rb
 ------------------------------------
@@ -775,7 +916,10 @@ class Create Articles < ActiveRecord::Migration
 end
 
 
+
 ---
+
+
 
 app/models/article.rb
 ---------------------
@@ -784,12 +928,18 @@ class Article < ActiveRecord::Base
 end
 
 
+
 ---
+
+
 
 $ rake db:migrate
 
 
+
 ---
+
+
 
 app/db/development.sqlite3
 --------------------------
@@ -799,19 +949,28 @@ sqlite3 development.sqlite
 .tables
 
 
+
 ---
+
+
 
 articles	schime_migrations
 
 $ rake routes
 
 
+
 ---
+
+
 
 home_index GET /home/index(.:format) home#index
 
 
+
 ---
+
+
 
 blog/config/routes.rb
 ---------------------
@@ -821,7 +980,10 @@ Rails.application.routes.draw do
 end
 
 
+
 ---
+
+
 
 blog/config/routes.rb
 ---------------------
@@ -829,7 +991,10 @@ blog/config/routes.rb
 resources :articles
 
 
+
 ---
+
+
 
 $ rake routs
 
@@ -842,12 +1007,18 @@ http://localhost:3000/articles/new
 ! Routing error
 
 
+
 ---
+
+
 
 $ rails g controller articles
 
 
+
 ---
+
+
 
 app/controllers/articles_controller.rb
 --------------------------------------
@@ -856,7 +1027,10 @@ class ArticlesController < ApplicationController
 end	
 
 
+
 ---
+
+
 
 http://localhost:3000/articles/new
 ----------------------------------
@@ -865,7 +1039,10 @@ http://localhost:3000/articles/new
 
 
 
+
 ---
+
+
 
 app/controllers/articles_controller.rb
 --------------------------------------
@@ -874,7 +1051,10 @@ def new
 end
 
 
+
 ---
+
+
 
 class ArticlesController < ApplicationController
 	def new
@@ -882,7 +1062,10 @@ class ArticlesController < ApplicationController
 end
 
 
+
 ---
+
+
 
 http://localhost:3000/articles/new
 ----------------------------------
@@ -890,7 +1073,10 @@ http://localhost:3000/articles/new
 ! Template missing
 
 
+
 ---
+
+
 
 app/views/articles
 ------------------
@@ -901,7 +1087,10 @@ new.html.erb
 <h1>New article</h1>
 
 
+
 ---
+
+
 
 http://localhost:3000/articles/new
 ----------------------------------
@@ -909,7 +1098,10 @@ http://localhost:3000/articles/new
 => New article
 
 
+
 ---
+
+
 
 app/views/articles/new.html.erb
 -------------------------------
@@ -931,26 +1123,41 @@ app/views/articles/new.html.erb
 <% end %>
 
 
+
 ---
+
+
 
 $ rake routes
 
 
+
 ---
+
+
 ...
 new_article	GET	/articles/new	articles#new
 ...
+
 ---
+
+
 new.html.erb:
 url: '/articles'(or articles_path)
 
 
+
 ---
+
+
 
 <%= from_for :article, url: articles_path do |f| %>
 
 
+
 ---
+
+
 
 app/controllers/articles_controller.rb
 --------------------------------------
@@ -959,7 +1166,10 @@ def create
 end
 
 
+
 ---
+
+
 
 class ArticlesController < ApplicationController
   def new
@@ -970,7 +1180,10 @@ class ArticlesController < ApplicationController
 end
 
 
+
 ---
+
+
 
 localhost:3000/articles
 -----------------------
@@ -978,7 +1191,10 @@ localhost:3000/articles
 ! Template missing
 
 
+
 ---
+
+
 
 articles_controller.rb
 ----------------------
@@ -986,19 +1202,26 @@ articles_controller.rb
 render plain: params[:article].inspect
 
 
+
 ---
+
+
 
 def create
 	render plain: params[:article].inspect
 end
 
 
+
 ---
+
+
 
 localhost:3000/articles
 -----------------------
 
 {"title" => "123", "text" => "123"}
+
 
 
 
@@ -1021,7 +1244,10 @@ localhost:3000/contacts
 $ rails g controller contacts
 
 
+
 ---
+
+
 
 app/controllers/contacts_controller.rb
 --------------------------------------
@@ -1030,13 +1256,19 @@ class ContactsController < ApplecationController
 end
 
 
+
 ---
+
+
 
 def index
 end
 
 
+
 ---
+
+
 
 class ContactsController < ApplecationController
   def index
@@ -1044,7 +1276,10 @@ class ContactsController < ApplecationController
 end
 
 
+
 ---
+
+
 
 config/routes.rb
 ----------------
@@ -1052,7 +1287,10 @@ config/routes.rb
 get 'contacts/index'
 
 
+
 ---
+
+
 
 Rails.application.routes.draw do
   get '/' => 'home/index'
@@ -1062,17 +1300,23 @@ Rails.application.routes.draw do
 end
 
 
+
 ---
 
--------
+
+
 REVERSE
 -------
+
 
 a. GET page (new)
 b. POST data (create)
 
 
+
 ---
+
+
 
 contacts_controller.rb
 ----------------------
@@ -1086,7 +1330,10 @@ class ContactsController < ApplecationController
 end
 
 
+
 ---
+
+
 
 config/routes.rb
 ----------------
@@ -1094,7 +1341,10 @@ config/routes.rb
 resource :contacts, only: [:new, :create]
 
 
+
 ---
+
+
 
 Rails.application.routes.draw do
   get '/' => 'home/index'
@@ -1104,18 +1354,27 @@ Rails.application.routes.draw do
 end
 
 
+
 ---
+
+
 
 $ rake routes
 
 
+
 ---
+
+
 
 contacts	POST	/contacts	contacts#create
 new_contacts	GET	/contacts/new	contacts#new
 
 
+
 ---
+
+
 
 localhost:3000/contacts/new
 ---------------------------
@@ -1123,7 +1382,10 @@ localhost:3000/contacts/new
 ! template error
 
 
+
 ---
+
+
 
 app/views/contacts
 ------------------
@@ -1134,18 +1396,27 @@ new.html.erb
 <h1>Contact us</h1>
 
 
+
 ---
+
+
 
 localhost:3000/contacts/new
 => Contact us
 
 
+
 ---
+
+
 
 $ rails g model Contact email:string message:text
 
 
+
 ---
+
+
 
 $ rake db:migrate
 $ sqlite3 evelopment.sqlite
@@ -1153,7 +1424,10 @@ $ sqlite3 evelopment.sqlite
 .tables
 
 
+
 ---
+
+
 
 $ rails console
 
@@ -1169,7 +1443,10 @@ Article.attribute_names
 exit
 
 
+
 ---
+
+
 
 app/views/contacts/new.html.erb
 -------------------------------
@@ -1191,12 +1468,18 @@ app/views/contacts/new.html.erb
 <% end %>
 
 
+
 ---
+
+
 
 http://guades.rubyonrails.org/routing.html
 
 
+
 ---
+
+
 
 app/views/contacts/create.html.erb
 ----------------------------------
@@ -1204,7 +1487,10 @@ app/views/contacts/create.html.erb
 <h1>Thanks</h1>
 
 
+
 ---
+
+
 
 app/controllers/contacts_controller.rb
 --------------------------------------
@@ -1214,7 +1500,10 @@ def create
 end
 
 
+
 ---
+
+
 
 class ContactsController < ApplecationController
   def new
@@ -1226,7 +1515,10 @@ class ContactsController < ApplecationController
 end
 
 
+
 ---
+
+
 
 private
 
@@ -1235,7 +1527,10 @@ def contact_params
 end
 
 
+
 ---
+
+
 
 class ContactsController < ApplecationController
   def new
@@ -1253,7 +1548,10 @@ class ContactsController < ApplecationController
 end
 
 
+
 ---
+
+
 
 app/controllers/contacts_controller.rb
 --------------------------------------
@@ -1263,7 +1561,10 @@ def create
 end
 
 
+
 ---
+
+
 
 class ContactsController < ApplecationController
   def new
@@ -1282,7 +1583,10 @@ class ContactsController < ApplecationController
 end
 
 
+
 ---
+
+
 
 $ rails console
 
@@ -1290,17 +1594,26 @@ Contact.all
 (SELECT * FROM contacts;)
 
 
+
 ---
+
+
 
 input info
 
 
+
 ---
+
+
 
 Contact.all
 
 
+
 ---
+
+
 
 ----------
 Validation
@@ -1313,7 +1626,10 @@ validates :email, presence: true
 validates :message, presence: true
 
 
+
 ---
+
+
 
 class Contact < ActiveRecord::Base
   validates :email, presence: true
@@ -1321,7 +1637,10 @@ class Contact < ActiveRecord::Base
 end
 
 
+
 ---
+
+
 
 app/controllers/contacts_controller.rb
 --------------------------------------
@@ -1333,7 +1652,10 @@ else
 end
 
 
+
 ---
+
+
 
 class ContactsController < ApplecationController
   def new
@@ -1357,7 +1679,10 @@ class ContactsController < ApplecationController
 end
 
 
+
 ---
+
+
 
 app/assets/stylesheets/applecation.css
 --------------------------------------
@@ -1371,7 +1696,10 @@ app/assets/stylesheets/applecation.css
 }
 
 
+
 ---
+
+
 
 localhost:3000/contacts
 -----------------------
@@ -1379,7 +1707,10 @@ localhost:3000/contacts
 ! Routing error
 
 
+
 ---
+
+
 
 config/router.rb
 ----------------
@@ -1388,7 +1719,10 @@ get '/contacts' => 'contacts#new'
 resource :contacts, only: [:create]
 
 
+
 ---
+
+
 
 Rails.application.routes.draw do
   get '/' => 'home/index'
@@ -1399,12 +1733,18 @@ Rails.application.routes.draw do
 end
 
 
+
 ---
+
+
 
 path_names: {:new => ''}
 
 
+
 ---
+
+
 
 Rails.application.routes.draw do
   get 'home/index'
@@ -1414,7 +1754,10 @@ Rails.application.routes.draw do
 end
 
 
+
 ---
+
+
 
 Output errors
 -------------
@@ -1427,7 +1770,10 @@ app/vews/contacts/new.html.erb
 </p>
 
 
+
 ---
+
+
 
 <%= from_for :contact, url: contacts_path do |f| %>
   <p>
@@ -1450,7 +1796,10 @@ app/vews/contacts/new.html.erb
 <% end %>
 
 
+
 ---
+
+
 
 <% if @contact && @contact.errors.any? %>
   <p>
@@ -1459,7 +1808,10 @@ app/vews/contacts/new.html.erb
 <% end %>
 
 
+
 ---
+
+
 
 <h1>Contact us</h1>
 
@@ -1486,13 +1838,17 @@ app/vews/contacts/new.html.erb
 <% end %>
 
 
+
 ---
+
+
 
 Display error message
 ---------------------
 
 app/vews/contacts/new.html.erb
 ------------------------------
+
 
 <ul>
   <% @contact.errors.full_messages.each do |msg| %>
@@ -1501,7 +1857,10 @@ app/vews/contacts/new.html.erb
 </ul>
 
 
+
 ---
+
+
 
 <h1>Contact us</h1>
 
@@ -1532,17 +1891,19 @@ app/vews/contacts/new.html.erb
 <% end %>
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-----
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
 REST
 ----
+
 
 resource
 resources
@@ -1557,7 +1918,10 @@ resource		resources
 profile			articles
 
 
+
 ---
+
+
 
 resource list
 -------------
@@ -1589,7 +1953,10 @@ new		create
 GET form	POST form
 
 
+
 ---
+
+
 
 resources create: (7 methods)
 -----------------------------
@@ -1599,7 +1966,10 @@ new		create
 GET form	POST form
 
 
+
 ---
+
+
 
 resource edit
 -------------
@@ -1630,7 +2000,10 @@ destroy
 -------
 
 
+
 ---
+
+
 
 $ rails console
 
@@ -1638,14 +2011,20 @@ Article.attribute_names
 Article.all
 
 
+
 ---
+
+
 
 $ sqlite3 development.sqlite
 
 DELETE FROM atrticles;
 
 
+
 ---
+
+
 
 app/controllers/articles_controller.rb
 --------------------------------------
@@ -1659,7 +2038,10 @@ else
 end
 
 
+
 ---
+
+
 
 class ArticlesController < ApplicationController
   def new
@@ -1677,7 +2059,10 @@ class ArticlesController < ApplicationController
 end
 
 
+
 ---
+
+
 
 private
 
@@ -1686,7 +2071,10 @@ def article_params
 end
 
 
+
 ---
+
+
 
 class ArticlesController < ApplicationController
   def new
@@ -1710,12 +2098,18 @@ class ArticlesController < ApplicationController
 end
 
 
+
 ---
+
+
 
 => ! Template missing
 
 
+
 ---
+
+
 
 app/views/articles/create.html.erb
 ----------------------------------
@@ -1723,7 +2117,10 @@ app/views/articles/create.html.erb
 => Thank you!
 
 
+
 ---
+
+
 
 app/views/articles/create.html.erb
 ----------------------------------
@@ -1731,24 +2128,36 @@ app/views/articles/create.html.erb
 <a href="/articles">Show all articles</a>
 
 
+
 ---
+
+
 
 <h1>Thank you!</h1>
 <p>Article has been created!</p>
 <a href="/articles">Show all articles</a>
 
 
+
 ---
+
+
 
 localhost:3000/articles/new
 
 
+
 ---
+
+
 
 ! Unknown action (GET only)
 
 
+
 ---
+
+
 
 Pattern PRG
 -----------
@@ -1756,19 +2165,28 @@ Pattern PRG
 POST Redirect Get
 
 
+
 ---
+
+
 
 <%= link_to 'Show all articles', articles_path %>
 
 
+
 ---
+
+
 
 <h1>Thank you!</h1>
 <p>Article has been created!</p>
 <%= link_to 'Show all articles', articles_path %>
 
 
+
 ---
+
+
 
 app/controllers/articles_controller.rb
 --------------------------------------
@@ -1776,7 +2194,10 @@ app/controllers/articles_controller.rb
 redirect_to @article
 
 
+
 ---
+
+
 
 class ArticlesController < ApplicationController
   def new
@@ -1800,12 +2221,18 @@ class ArticlesController < ApplicationController
 end
 
 
+
 ---
+
+
 
 => ! Unknown action (show)
 
 
+
 ---
+
+
 
 app/controllers/articles_controller.rb
 --------------------------------------
@@ -1815,7 +2242,10 @@ def show
 end
 
 
+
 ---
+
+
 
 class ArticlesController < ApplicationController
   def show
@@ -1843,7 +2273,10 @@ class ArticlesController < ApplicationController
 end
 
 
+
 ---
+
+
 
 app/views/articles/show.html.erb
 --------------------------------
@@ -1854,18 +2287,27 @@ app/views/articles/show.html.erb
 </p>
 
 
+
 ---
+
+
 
 => Hello ...
 
 
+
 ---
+
+
 
 edit - GET
 update - PUT/PATCH
 
 
+
 ---
+
+
 
 app/controllers/articles_controller.rb
 --------------------------------------
@@ -1875,7 +2317,10 @@ def index
 end
 
 
+
 ---
+
+
 
 class ArticlesController < ApplicationController
   def index
@@ -1908,7 +2353,10 @@ class ArticlesController < ApplicationController
 end
 
 
+
 ---
+
+
 
 app/views/articles/index.html.erb
 ---------------------------------
@@ -1928,7 +2376,10 @@ app/views/articles/index.html.erb
 <% end %>
 
 
+
 ---
+
+
 
 app/views/articles/index.html.erb
 ---------------------------------
@@ -1938,7 +2389,10 @@ app/views/articles/index.html.erb
 </p>
 
 
+
 ---
+
+
 
 <h1>List of articles:</h1>
 
@@ -1960,7 +2414,10 @@ app/views/articles/index.html.erb
 
 
 
+
 ---
+
+
 
 app/views/articles/index.html.erb
 ---------------------------------
@@ -1968,7 +2425,10 @@ app/views/articles/index.html.erb
 <%= link_to 'Edit', edit_article_path(article) %>
 
 
+
 ---
+
+
 
 <h1>List of articles:</h1>
 
@@ -1990,12 +2450,18 @@ app/views/articles/index.html.erb
 <% end %>
 
 
+
 ---
+
+
 
 Edit => ! Unknown action
 
 
+
 ---
+
+
 
 app/controllers/articles_controller.rb
 --------------------------------------
@@ -2005,7 +2471,10 @@ def edit
 end
 
 
+
 ---
+
+
 
 class ArticlesController < ApplicationController
   def index
@@ -2041,7 +2510,10 @@ class ArticlesController < ApplicationController
 end
 
 
+
 ---
+
+
 
 app/views/articles/edit.html.erb
 --------------------------------
@@ -2065,7 +2537,10 @@ app/views/articles/edit.html.erb
 <% end %>
 
 
+
 ---
+
+
 
 localhost:3000/aticles/edit
 ---------------------------
@@ -2073,12 +2548,17 @@ localhost:3000/aticles/edit
 => Hello ...
 
 
+
 ---
+
+
 
 warkaround for PUT/PATCH
 
 
+
 ---
+
 
 app/views/articles/edit.html.erb
 --------------------------------
@@ -2086,7 +2566,10 @@ app/views/articles/edit.html.erb
 article_path(@article)
 
 
+
 ---
+
+
 
 <h1>Edit article</h1>
 
@@ -2107,17 +2590,26 @@ article_path(@article)
 <% end %>
 
 
+
 ---
+
+
 
 => /article/6
 
 
+
 ---
+
+
 
 method: :put
 
 
+
 ---
+
+
 
 <h1>Edit article</h1>
 
@@ -2138,12 +2630,18 @@ method: :put
 <% end %>
 
 
+
 ---
+
+
 
 => ! Unknown acion (update)
 
 
+
 ---
+
+
 
 app/controllers/articles_controller.rb
 --------------------------------------
@@ -2159,7 +2657,10 @@ def update
 end
 
 
+
 ---
+
+
 
 class ArticlesController < ApplicationController
   def index
@@ -2205,7 +2706,10 @@ class ArticlesController < ApplicationController
 end
 
 
+
 ---
+
+
 
 Create static pages
 -------------------
@@ -2213,7 +2717,10 @@ Create static pages
 $ rails g controller Pages
 
 
+
 ---
+
+
 
 app/controllers/pages_controller.rb
 -----------------------------------
@@ -2222,7 +2729,10 @@ class PagesController < ApplicationController
 end
 
 
+
 ---
+
+
 
 def terms
 end
@@ -2231,7 +2741,10 @@ def about
 end
 
 
+
 ---
+
+
 
 class PagesController < ApplicationController
   def terms
@@ -2242,7 +2755,10 @@ class PagesController < ApplicationController
 end
 
 
+
 ---
+
+
 
 app/config/routes.rb
 --------------------
@@ -2251,7 +2767,10 @@ app/config/routes.rb
   get '/about' => 'pages#about'
 
 
+
 ---
+
+
 
 Rails.application.routes.draw do
   get 'home/index'
@@ -2264,14 +2783,20 @@ Rails.application.routes.draw do
 end
 
 
+
 ---
+
+
 
 localhost:3000/terms:
 
 => ! Template missing
 
 
+
 ---
+
+
 
 app/views/pages/about.html.erb
 ------------------------------
@@ -2283,7 +2808,10 @@ app/views/pages/about.html.erb
 </p>
 
 
+
 ---
+
+
 
 localhost:3000/about:
 
@@ -2291,16 +2819,15 @@ localhost:3000/about:
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
---------------------------
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Show page: (/terms /about)
 --------------------------
 
@@ -2308,7 +2835,10 @@ Show page: (/terms /about)
 $ rails g controller Name
 
 
+
 ---
+
+
 
 app/controllers/page_controller.rb
 ----------------------------------
@@ -2317,7 +2847,10 @@ def some
 end
 
 
+
 ---
+
+
 
 app/views/page_dir/touch page_name.html.erb
 -------------------------------------------
@@ -2327,6 +2860,12 @@ config/routes.rb
 ----------------
 
 get '/some' => 'page_name#some'
+
+
+
+
+
+
 
 
 -------
@@ -2345,7 +2884,10 @@ get '/some' do
 end
 
 
+
 ---
+
+
 
 view
 ----
@@ -2353,7 +2895,10 @@ view
 views/some.html.erb
 
 
+
 ---
+
+
 
 model
 -----
@@ -2361,7 +2906,10 @@ model
 Article
 
 
+
 ---
+
+
 
 model
 -----
@@ -2371,7 +2919,10 @@ $ rake db:migrate
 
 
 
+
 ---
+
+
 
 route
 -----
@@ -2384,12 +2935,18 @@ resources
 
 
 
+
 ---
+
+
 
 $ rake g controller Name
 
 
+
 ---
+
+
 
 app/controllers/name_controller.rb
 ----------------------------------
@@ -2406,18 +2963,27 @@ views
 app/views/.../...html.erb
 
 
+
 ---
+
+
 
 
 $ rails server (localhost:3000)
 
 
+
 ---
+
+
 
 http://github.com/ro31337/sample-blog
 
 
+
 ---
+
+
 
 app/controllers/articles_controller.rb
 --------------------------------------
@@ -2444,7 +3010,10 @@ Article.all
 (SELECT * FROM articles;)
 
 
+
 ---
+
+
 
 def destroy
   @article = Article.find(params[:id])
@@ -2452,7 +3021,10 @@ def destroy
 end
 
 
+
 ---
+
+
 
 class ArticlesController < ApplicationController
   def index
@@ -2511,7 +3083,10 @@ app/controllers/articles_controller.rb
 redirect_to articles_path
 
 
+
 ---
+
+
 
 def destroy
   @article = Article.find(params[:id])
@@ -2521,7 +3096,10 @@ def destroy
 end
 
 
+
 ---
+
+
 
 app/views/articles/index.html.erb
 ---------------------------------
@@ -2529,7 +3107,10 @@ app/views/articles/index.html.erb
 <%= link_to 'Destroy', article_path(article), method: :delete %>
 
 
+
 ---
+
+
 
 <h1>List of articles:</h1>
 
@@ -2552,22 +3133,34 @@ app/views/articles/index.html.erb
 <% end %>
 
 
+
 ---
+
+
 
 https://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to
 
 
+
 ---
+
+
 
 <%= link_to "Romove", article, method: :delete, data: { confirm: "Are you sure?" } %>
 
 
+
 ---
+
+
 
 http://railsguides.net/advaced-rails-model-generators/
 
 
+
 ---
+
+
 
 one-to-many
 -----------
@@ -2575,12 +3168,18 @@ one-to-many
 Article1		*Comment
 
 
+
 ---
+
+
 
 $ rails g model Comment autor:string body:text article:references
 
 
+
 ---
+
+
 
 app/models/comment.rb
 ---------------------
@@ -2590,7 +3189,10 @@ class Comment < ActiveRecord::Base
 end
 
 
+
 ---
+
+
 
 app/db/migrate/333_create_comments.rb
 -------------------------------------
@@ -2608,7 +3210,10 @@ class CreateComments < ActiveRecord::Migration
 end
 
 
+
 ---
+
+
 
 $ rake db:migrate
 $ sqlite3 developer.sqlite
@@ -2622,7 +3227,10 @@ SELECT * FROM articles;
 articles	comments	contacts	schema_migrations
 
 
+
 ---
+
+
 
 .mode columns
 .header on
@@ -2634,13 +3242,19 @@ pragma table_info(articles);
 pragma table_info(comments); (article_id)
 
 
+
 ---
+
+
 
 - every comment => article
 - every article << many comments
 
 
+
 ---
+
+
 
 app/models/article.rb
 ---------------------
@@ -2648,14 +3262,20 @@ app/models/article.rb
 has_many :comments
 
 
+
 ---
+
+
 
 class Article < ActiveRecord::Base
   has_many :comments
 end
 
 
+
 ---
+
+
 
 config/routes.rb
 ----------------
@@ -2665,7 +3285,10 @@ resources :articles do
 end
 
 
+
 ---
+
+
 
 Rails.application.routes.draw do
   get 'home/index'
@@ -2681,22 +3304,34 @@ Rails.application.routes.draw do
 end
 
 
+
 ---
+
+
 
 $ rake routes
 
 
+
 ---
+
+
 
 https://sql.ru
 
 
+
 ---
+
+
 
 $ rails g controller Comments
 
 
+
 ---
+
+
 
 app/controllers/comments_controller.rb
 --------------------------------------
@@ -2707,7 +3342,10 @@ class CommmentsController < ApplicationController
 end
 
 
+
 ---
+
+
 
 $ rails console
 
@@ -2720,7 +3358,10 @@ Article.comments
 VALUES (?, ?), ['Mike', 'Hello'])
 
 
+
 ---
+
+
 
 app/controllers/comments_controller.rb
 --------------------------------------
@@ -2729,7 +3370,10 @@ app/controllers/comments_controller.rb
 @article.comments.create({ autor: 'Mike', body: 'Hello' })
 
 
+
 ---
+
+
 
 class CommmentsController < ApplicationController
   def create
@@ -2739,7 +3383,10 @@ class CommmentsController < ApplicationController
 end
 
 
+
 ---
+
+
 
 app/controllers/comments_controller.rb
 --------------------------------------
@@ -2751,7 +3398,10 @@ def comment_params
 end
 
 
+
 ---
+
+
 
 class CommmentsController < ApplicationController
   def create
@@ -2767,12 +3417,18 @@ class CommmentsController < ApplicationController
 end
 
 
+
 ---
+
+
 
 redirect_to article_path(@article)
 
 
+
 ---
+
+
 
 class CommmentsController < ApplicationController
   def create
@@ -2790,7 +3446,10 @@ class CommmentsController < ApplicationController
 end
 
 
+
 ---
+
+
 
 app/views/articles/show.html.erb
 --------------------------------
@@ -2799,23 +3458,35 @@ POST /articles/:article_id/comments	comments#create
 /articles/3/comments			comments@create
 
 
+
 ---
+
+
 
 https://github.com/rails/rails/blob/7a085dac2a2820856cde6c2ca8c69779ac766a97
 /actionview/lib/action_view/helpers/form_helper.rb
 
 
+
 ---
+
+
 
 <%= form_for([@document, @comment]) do |f| %>
 
 
+
 ---
+
+
 
 api.rubyonrails.org/classes/ActiveRecord/Associations/Class/Methods.html
 
 
+
 ---
+
+
 
 @article.comments - collection
 
@@ -2825,22 +3496,34 @@ Returns a new object of the collection type that has been instantiated with
 attributes and linked to this object through the join table, but has not yet been saved.
 
 
+
 ---
+
+
 
 @article.comments.build
 
 
+
 ---
+
+
 
 @comment = @article.comments.build
 
 
+
 ---
+
+
 
 <%= form_for([@article, @article.comments.build]) do |f| %>
 
 
+
 ---
+
+
 
 <h1><%= @article.title %></h1>
 <p>
@@ -2864,13 +3547,18 @@ attributes and linked to this object through the join table, but has not yet bee
 <% end %>
 
 
+
 ---
+
+
 
 $ rails console
 
 @article = Article.find(3)
 @article.comments
 Comment.all
+
+
 
 
 

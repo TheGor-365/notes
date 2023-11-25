@@ -4,6 +4,12 @@ DOCKER
 
 
 
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 docker --version                                                                            --- docker version
 docker run -i -t ubuntu /bin/bash                                                           --- run ubuntu image
 docker ps                                                                                   --- see started containers
@@ -12,7 +18,12 @@ docker ps -a                                                                    
 docker-compose up                                                                           --- run services from docker-compose.yml
 
 
+
+
 ---
+
+
+
 
 docker pull                                                                                 --- pull images from the docker repository
 docker exec                                                                                 --- access the running container
@@ -38,9 +49,9 @@ docker build                                                                    
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-------
 Docker
 ------
+
 
 $ docker -v
 $ docker build -t <username>/simple-blog .
@@ -116,10 +127,16 @@ group :production do
 end
 
 
+
+
 ---
+
+
+
 
 https://guides.hexlet.io/ru/docker/
 https://hub.docker.com/
+
 
 
 
