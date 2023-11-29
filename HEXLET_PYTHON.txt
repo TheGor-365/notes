@@ -3560,6 +3560,17 @@ def binary_sum(a, b):
         carry = total // 2
     return result
 
+
+
+
+
+---
+
+
+
+
+def is_happy_ticket(ticket):
+    return any(sum(map(int, ticket[i:])) == sum(map(int, ticket[:i])) for i in range(len(ticket)))
     
 
 

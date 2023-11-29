@@ -580,7 +580,9 @@ x := int(a)           // 0
 
 
 
-
+func MinInt(x, y int) int {
+  return int(math.Min(float64(x), float64(y)))
+}
 
 
 
@@ -693,7 +695,9 @@ flag && text != ""
 
 
 
-
+func IsValid(id int, text string) bool {
+  return id > 0 && text != ""
+}
 
 
 
@@ -798,7 +802,18 @@ len("го")
 
 
 
+import (
+  "fmt"
+  "strings"
+)
 
+func Greetings(name string) string {
+  name = strings.Trim(name, " ")
+  name = strings.ToLower(name)
+  name = strings.Title(name) //nolint
+
+  return fmt.Sprintf("Привет, %s!", name)
+}
 
 
 

@@ -2740,7 +2740,24 @@ printf("%g \n", 1.234);
 
 
 
+function invertCase($text)
+{
+    $len = mb_strlen($text);
+    $result = '';
 
+    for ($i = 0; $i < $len; $i++) {
+        $symbol = mb_substr($text, $i, 1);
+        $lowerSymbol = mb_strtolower($symbol);
+
+        if ($symbol === $lowerSymbol) {
+            $result .= mb_strtoupper($symbol);
+        } else {
+            $result .= $lowerSymbol;
+        }
+    }
+
+    return $result;
+}
 
 
 
@@ -2831,7 +2848,10 @@ mktime(0, 0, 0, 7, 1, 2000);
 
 
 
-
+function getCustomDate($timestamp)
+{
+    return date('d/m/Y', $timestamp);
+}
 
 
 
@@ -2909,7 +2929,21 @@ dump($var);
 
 
 
+function isPalindrome(string $word)
+{
+    $lastIndex = mb_strlen($word) - 1;
+    $middleIndex = $lastIndex / 2;
 
+    for ($i = 0; $i < $middleIndex; $i++) {
+        $symbol = mb_substr($word, $i, 1);
+        $mirroredSymbol = mb_substr($word, $lastIndex - $i, 1);
+        
+        if ($symbol !== $mirroredSymbol) {
+            return false;
+        }
+    }
+    return true;
+}
 
 
 
@@ -3080,7 +3114,12 @@ print_r("Hi from index.php!\n");
 
 
 
+require_once 'Strings.php';
 
+function isPalindrome($word)
+{
+    return $word === reverse($word);
+}
 
 
 
@@ -3214,6 +3253,14 @@ function all()
 
 
 
+namespace Solution;
+
+require_once "Strings.php";
+
+function isPalindrome($word)
+{
+    return $word === \Strings\reverse($word);
+}
 
 
 
@@ -3288,7 +3335,27 @@ namespace My\Site\Generator;
 
 
 
+Solution.php
+------------
 
+namespace App\Solution;
+
+function hello()
+{
+    return 'solution';
+}
+
+
+
+NS.php
+------
+
+namespace App\Internal\NS;
+
+function hello()
+{
+    return 'ns';
+}
 
 
 
@@ -3387,7 +3454,21 @@ function generate($data)
 
 
 
+use function App\Symbols\isVowel;
 
+function countVowels($text)
+{
+    $len = strlen($text);
+    $result = 0;
+
+    for ($i = 0; $i < $len; $i++) {
+        if (isVowel($text[$i])) {
+            $result += 1;
+        }
+    }
+
+    return $result;
+}
 
 
 
@@ -3603,7 +3684,11 @@ public function getName(string $person): ?string
 
 
 
-
+function reverse(int $num): int
+{
+    $reverse = (int) strrev((string) abs($num));
+    return $num >= 0 ? $reverse : -$reverse;
+}
 
 
 
@@ -3684,7 +3769,12 @@ echo $text;
 
 
 
-
+function swap(&$a, &$b)
+{
+    $c = $a;
+    $a = $b;
+    $b = $c;
+}
 
 
 
@@ -3702,6 +3792,8 @@ echo $text;
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 
 
@@ -3757,6 +3849,8 @@ function binarySum($first, $second) {
 
 
 
+
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -3782,6 +3876,8 @@ function fib($i) {
         return fib($i - 1) + fib($i - 2);
     }
 }
+
+
 
 
 
@@ -3817,6 +3913,8 @@ function fizzBuzz($begin, $end) {
         }
     }
 }
+
+
 
 
 
@@ -3859,6 +3957,8 @@ function isPerfect($num) {
 
 
 
+
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -3890,14 +3990,6 @@ function isPowerOfThree($n) {
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -3910,10 +4002,46 @@ function isPowerOfThree($n) {
 
 
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+isBalanced.php
+--------------
+
+function isBalanced($string) {
+    $string = str_split($string);
+    $stack = array();
+
+    foreach ($string as $key => $value) {
+        switch ($value) {
+            case '(': array_push($stack, 0); break;
+            case ')': 
+                if (array_pop($stack) !== 0) return false;
+                break;
+        }
+    }
+    return (empty($stack));
+}
 
 
 
 
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 

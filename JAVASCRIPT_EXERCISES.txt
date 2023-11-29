@@ -2359,6 +2359,38 @@ if (UNname == null) {
 
 
 
+---
+
+
+
+
+isHappyNumber.js
+----------------
+
+const sumOfSquareDigits = (num) => {
+  const numAsStr = String(num);
+  let sum = 0;
+  for (let i = 0; i < numAsStr.length; i += 1) {
+    const digit = Number(numAsStr[i]);
+    sum += digit * digit;
+  }
+
+  return sum;
+};
+
+const isHappyNumber = (num) => {
+  const seen = new Set();
+  while (num != 1 && !seen.has(num)) {
+    seen.add(num);
+    num = sumOfSquareDigits(num);
+  }
+  return num == 1;
+}
+
+export default isHappyNumber;
+
+
+
 
 
 
