@@ -2392,6 +2392,72 @@ export default isHappyNumber;
 
 
 
+---
+
+
+
+
+dnaToRna.js
+-----------
+
+const dnaToRna = (dna) => {
+  let arrayedRNA = ""
+  for (let i = 0; i < dna.length; i++) {
+    if (dna[i] == "G") {
+      arrayedRNA += "C"
+    } else if (dna[i] == "C") {
+      arrayedRNA += "G"
+    } else if (dna[i] == "T") {
+      arrayedRNA += "A"
+    } else if (dna[i] == "A") {
+      arrayedRNA += "U"
+    }
+  }
+  return arrayedRNA
+}
+
+export default dnaToRna;
+
+
+
+
+---
+
+
+
+
+sumSquareDifference.js
+----------------------
+
+function sumSquareDifference(n) {
+  const sumOfN = (n * (n + 1)) / 2;
+  const sumOfNSquare = (n * (n + 1) * (2 * n + 1)) / 6;
+
+  return (sumOfN ** 2) - sumOfNSquare;
+}
+
+export default sumSquareDifference;
+
+
+
+
+---
+
+
+
+
+isPowerOfThree.js
+-----------------
+
+const isPowerOfThree = (num) => {
+  return (Math.log10(num) / Math.log10(3)) % 1 == 0;
+}
+
+export default isPowerOfThree;
+
+
+
+
 
 
 

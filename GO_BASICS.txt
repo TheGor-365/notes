@@ -892,7 +892,20 @@ func main() {
 
 
 
+import (
+  "fmt"
+)
 
+func DomainForLocale(domain, locale string) string {
+  subdomain := ""
+  if locale == "" {
+    subdomain = "en"
+  } else {
+    subdomain = locale
+  }
+
+  return fmt.Sprintf("%s.%s", subdomain, domain)
+}
 
 
 
@@ -968,7 +981,22 @@ less or equal 10 case
 
 
 
+import "strings"
 
+func ModifySpaces(s, mode string) string {
+  var replacement string
+
+  switch mode {
+  case "dash":
+    replacement = "-"
+  case "underscore":
+    replacement = "_"
+  default:
+    replacement = "*"
+  }
+
+  return strings.ReplaceAll(s, " ", replacement)
+}
 
 
 
@@ -1149,7 +1177,30 @@ Key: 'User.FirstName' Error:Field validation for 'FirstName' failed on the 'requ
 
 
 
+import (
+  "strings"
+)
 
+type UserCreateRequest struct {
+  FirstName string
+  Age       int
+}
+
+var (
+  invalidRequest = "invalid request"
+)
+
+func Validate(req UserCreateRequest) string {
+  if req.FirstName == "" || strings.Contains(req.FirstName, " ") {
+    return invalidRequest
+  }
+
+  if req.Age <= 0 || req.Age > 150 {
+    return invalidRequest
+  }
+
+  return ""
+}
 
 
 
@@ -1303,7 +1354,27 @@ func main() {
 
 
 
+const (
+  OkMsg        = "OK"
+  CancelledMsg = "CANCELLED"
+)
 
+const (
+  OkCode = iota
+  CancelledCode
+  UnknownCode
+)
+
+func ErrorMessageToCode(msg string) int {
+  switch msg {
+  case OkMsg:
+    return OkCode
+  case CancelledMsg:
+    return CancelledCode
+  }
+
+  return UnknownCode
+}
 
 
 
@@ -1440,7 +1511,13 @@ fmt.Println(len([10]int{}))
 
 
 
+func SafeWrite(nums [5]int, i, val int) [5]int {
+  if i >= 0 && i < len(nums) {
+    nums[i] = val
+  }
 
+  return nums
+}
 
 
 
@@ -1550,7 +1627,15 @@ func modifySlice(nums []int) {
 
 
 
+func Remove(nums []int, i int) []int {
+  if i < 0 || i > len(nums)-1 {
+    return nums
+  }
 
+  nums[i] = nums[len(nums)-1]
+
+  return nums[:len(nums)-1]
+}
 
 
 
@@ -1702,7 +1787,14 @@ fmt.Println(nums)
 
 
 
+func Map(strs []string, mapFunc func(s string) string) []string {
+  mapped := make([]string, len(strs))
+  for i, s := range strs {
+    mapped[i] = mapFunc(s)
+  }
 
+  return mapped
+}
 
 
 
@@ -1776,7 +1868,22 @@ fmt.Println(numsCp)
 
 
 
+import "sort"
 
+func IntsCopy(src []int, maxLen int) []int {
+  if maxLen <= 0 {
+    return []int{}
+  }
+
+  if maxLen > len(src) {
+    maxLen = len(src)
+  }
+
+  cp := make([]int, maxLen)
+  copy(cp, src)
+
+  return cp
+}
 
 
 
@@ -1861,7 +1968,24 @@ fmt.Println(nums)
 
 
 
+import "sort"
 
+func UniqueSortedUserIDs(userIDs []int64) []int64 {
+  if len(userIDs) < 2 {
+    return userIDs
+  }
+
+  sort.SliceStable(userIDs, func(i, j int) bool { return userIDs[i] < userIDs[j] })
+  uniqPointer := 0
+  for i := 1; i < len(userIDs); i++ {
+    if userIDs[uniqPointer] != userIDs[i] {
+      uniqPointer++
+      userIDs[uniqPointer] = userIDs[i]
+    }
+  }
+
+  return userIDs[:uniqPointer+1]
+}
 
 
 
