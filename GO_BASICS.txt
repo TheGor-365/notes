@@ -2108,6 +2108,24 @@ func modifyMap(m map[int]string) {
 
 
 
+func UniqueUserIDs(userIDs []int64) []int64 {
+  processed := make(map[int64]struct{})
+
+  uniqUserIDs := make([]int64, 0)
+  for _, uid := range userIDs {
+    _, ok := processed[uid]
+    if ok {
+      continue
+    }
+
+    uniqUserIDs = append(uniqUserIDs, uid)
+    processed[uid] = struct{}{}
+  }
+
+  return uniqUserIDs
+}
+
+
 
 
 
@@ -2174,7 +2192,22 @@ for num := range numExistence {
 
 
 
+func MostPopularWord(words []string) string {
+  wordsCount := make(map[string]int, 0)
+  mostPopWord := ""
+  max := 0
 
+  for i := len(words) - 1; i >= 0; i -= 1 {
+    word := words[i]
+    wordsCount[word] += 1
+    if wordsCount[word] >= max {
+      max = wordsCount[word]
+      mostPopWord = word
+    }
+  }
+
+  return mostPopWord
+}
 
 
 
@@ -2299,6 +2332,13 @@ func main() {
 
 
 
+func NextASCII(b byte) byte {
+  return b + 1
+}
+
+func PrevASCII(b byte) byte {
+  return b - 1
+}
 
 
 
@@ -2369,12 +2409,16 @@ func main() {
 
 
 
+
 ---
 
 
 
 
 
+func GenerateSelfStory(name string, age int, money float64) string {
+  return fmt.Sprintf("Hello! My name is %s. I'm %d y.o. And I also have $%.2f in my wallet right now.", name, age, money)
+}
 
 
 
@@ -2482,7 +2526,15 @@ func main() {
 
 
 
+func IsASCII(s string) bool {
+  for _, r := range s {
+    if r > unicode.MaxASCII {
+      return false
+    }
+  }
 
+  return true
+}
 
 
 
@@ -2546,7 +2598,17 @@ sb.String()
 
 
 
+func LatinLetters(s string) string {
+  sb := &strings.Builder{}
 
+  for _, r := range s {
+    if unicode.Is(unicode.Latin, r) {
+      sb.WriteRune(r)
+    }
+  }
+
+  return sb.String()
+}
 
 
 
