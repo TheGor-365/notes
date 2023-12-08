@@ -2700,7 +2700,9 @@ Golang struct: main.Person{Name:"Andy", Age:18}
 
 
 
-
+func GenerateSelfStory(name string, age int, money float64) string {
+  return fmt.Sprintf("Hello! My name is %s. I'm %d y.o. And I also have $%.2f in my wallet right now.", name, age, money)
+}
 
 
 
@@ -2769,7 +2771,19 @@ res := append(nums1, nums2...)
 
 
 
+func MergeNumberLists(numberLists ...[]int) []int {
+  mergedCap := 0
+  for i := 0; i < len(numberLists); i++ {
+    mergedCap += len(numberLists[i])
+  }
 
+  merged := make([]int, 0, mergedCap)
+  for _, nl := range numberLists {
+    merged = append(merged, nl...)
+  }
+
+  return merged
+}
 
 
 
@@ -2865,7 +2879,27 @@ func fillMap(m map[string]int) {
 
 
 
+type Parent struct {
+  Name     string
+  Children []Child
+}
 
+type Child struct {
+  Name string
+  Age  int
+}
+
+func CopyParent(p *Parent) Parent {
+  if p == nil {
+    return Parent{}
+  }
+  children := make([]Child, len(p.Children))
+  copy(children, p.Children)
+  return Parent{
+    Name:     p.Name,
+    Children: children,
+  }
+}
 
 
 
@@ -2981,7 +3015,30 @@ func main() {
 
 
 
+type Counter struct {
+  Value int
+}
 
+func Max(x, y int) int {
+  if x < y {
+    return y
+  }
+  return x
+}
+
+func (c *Counter) Inc(delta int) {
+  if delta == 0 {
+    delta = 1
+  }
+  c.Value = Max(c.Value+delta, 0)
+}
+
+func (c *Counter) Dec(delta int) {
+  if delta == 0 {
+    delta = 1
+  }
+  c.Inc(-delta)
+}
 
 
 
@@ -3758,6 +3815,55 @@ func printer(msgCh chan string) {
 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
