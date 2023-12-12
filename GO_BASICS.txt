@@ -3130,7 +3130,20 @@ func main() {
 
 
 
+type Person struct {
+  Age uint8
+}
 
+type PersonList []Person
+
+func (pl PersonList) GetAgePopularity() map[uint8]int {
+  popularity := make(map[uint8]int)
+  for _, p := range pl {
+    popularity[p.Age]++
+  }
+
+  return popularity
+}
 
 
 
@@ -3163,7 +3176,6 @@ import "errors"
 
 func validateName(name string) error {
     if name == "" {
-        // errors.New создает новый объект ошибки
         return errors.New("empty name")
     }
 
@@ -3262,7 +3274,62 @@ func DoHTTPCall(r Request) (Response, error) {
 
 
 
+import (
+  "encoding/json"
+  "errors"
+)
 
+type CreateUserRequest struct {
+  Email                string `json:"email"`
+  Password             string `json:"password"`
+  PasswordConfirmation string `json:"password_confirmation"`
+}
+
+var (
+  ErrEmailRequired                = errors.New("email is required")
+  ErrPasswordRequired             = errors.New("password is required")
+  ErrPasswordConfirmationRequired = errors.New("password confirmation is required")
+  ErrPasswordDoesNotMatch         = errors.New("password does not match with the confirmation")
+)
+
+
+func DecodeAndValidateRequest(requestBody []byte) (CreateUserRequest, error) {
+  req := CreateUserRequest{}
+
+  err := json.Unmarshal(requestBody, &req)
+
+  if err != nil {
+    return CreateUserRequest{}, err
+  }
+
+  err = validateCreateUserRequest(req)
+
+  if err != nil {
+    return CreateUserRequest{}, err
+  }
+
+  return req, nil
+}
+
+func validateCreateUserRequest(req CreateUserRequest) error {
+  if req.Email == "" {
+    return ErrEmailRequired
+  }
+
+  if req.Password == "" {
+    return ErrPasswordRequired
+  }
+
+  if req.PasswordConfirmation == "" {
+    return ErrPasswordConfirmationRequired
+  }
+
+  if req.Password != req.PasswordConfirmation {
+    return ErrPasswordDoesNotMatch
+  }
+
+  return nil
+}
 
 
 
@@ -3427,7 +3494,37 @@ Can't connect to DB
 
 
 
+import "errors"
 
+type NonCriticalError struct{}
+
+func (e NonCriticalError) Error() string {
+  return "validation error"
+}
+
+var (
+  ErrBadConnection = errors.New("bad connection")
+  ErrBadRequest    = errors.New("bad request")
+)
+
+const UnknownErrorMsg = "unknown error"
+
+
+var criticalErrs = []error{ErrBadRequest, ErrBadConnection}
+
+func GetErrorMsg(err error) string {
+  for _, crErr := range criticalErrs {
+    if errors.Is(err, crErr) {
+      return crErr.Error()
+    }
+  }
+
+  if errors.As(err, &NonCriticalError{}) {
+    return ""
+  }
+
+  return UnknownErrorMsg
+}
 
 
 
@@ -3512,7 +3609,43 @@ func main() {
 
 
 
+import "errors"
 
+type MergeDictsJob struct {
+  Dicts      []map[string]string
+  Merged     map[string]string
+  IsFinished bool
+}
+
+var (
+  ErrNotEnoughDicts = errors.New("at least 2 dictionaries are required")
+  ErrNilDict        = errors.New("nil dictionary")
+)
+
+func (j *MergeDictsJob) setFinished() {
+  j.IsFinished = true
+}
+
+func ExecuteMergeDictsJob(job *MergeDictsJob) (*MergeDictsJob, error) {
+  defer job.setFinished()
+
+  if len(job.Dicts) < 2 {
+    return job, ErrNotEnoughDicts
+  }
+
+  job.Merged = make(map[string]string)
+  for _, dict := range job.Dicts {
+    if dict == nil {
+      return job, ErrNilDict
+    }
+
+    for k, v := range dict {
+      job.Merged[k] = v
+    }
+  }
+
+  return job, nil
+}
 
 
 
@@ -3629,7 +3762,22 @@ func main() {
 
 
 
+func MaxSum(nums1, nums2 []int) []int {
+  if sum(nums1) >= sum(nums2) {
+    return nums1
+  }
 
+  return nums2
+}
+
+func sum(nums []int) int {
+  s := 0
+  for _, n := range nums {
+    s += n
+  }
+
+  return s
+}
 
 
 
@@ -3791,7 +3939,33 @@ func printer(msgCh chan string) {
 
 
 
+func MaxSum(nums1, nums2 []int) []int {
+  s1, s2 := 0, 0
 
+  go sumParallel(nums1, &s1)
+  go sumParallel(nums2, &s2)
+
+  time.Sleep(100 * time.Millisecond)
+
+  if s1 >= s2 {
+    return nums1
+  }
+
+  return nums2
+}
+
+func sumParallel(nums []int, res *int) {
+  *res = sum(nums)
+}
+
+func sum(nums []int) int {
+  s := 0
+  for _, n := range nums {
+    s += n
+  }
+
+  return s
+}
 
 
 

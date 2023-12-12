@@ -3822,6 +3822,7 @@ EXERCISES
 binarySum.php
 -------------
 
+
 namespace App\Solution;
 
 function binarySum($first, $second) {
@@ -3900,6 +3901,7 @@ function fib($i) {
 fizzBuzz.php
 ------------
 
+
 function fizzBuzz($begin, $end) {
     for ($i = $begin; $i <= $end; $i++) {
         if ($i % 3 == 0 && $i % 5 == 0) {
@@ -3935,6 +3937,7 @@ function fizzBuzz($begin, $end) {
 
 isPerfect.php
 -------------
+
 
 function isPerfect($num) {
     $sum = 0;
@@ -3974,6 +3977,7 @@ function isPerfect($num) {
 isPowerOfThree.php
 ------------------
 
+
 function isPowerOfThree($n) {
     if ($n <= 0)
         return false;
@@ -4006,6 +4010,7 @@ function isPowerOfThree($n) {
 
 isBalanced.php
 --------------
+
 
 function isBalanced($string) {
     $string = str_split($string);
@@ -4042,6 +4047,70 @@ function isBalanced($string) {
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+addDigits.php
+-------------
+
+
+function addDigits($num){
+    if ( $num > 0) {
+        return ($num - 1) % 9 + 1;
+    } else {
+        return 0;
+    }
+}
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

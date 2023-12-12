@@ -1035,8 +1035,7 @@ LIMIT 2;
 
 
 
-SELECT topics.id, users.first_name
-FROM topics
+SELECT topics.id, users.first_name FROM topics
 INNER JOIN users ON topics.user_id = users.id
 WHERE users.email LIKE '%@lannister.com'
 ORDER BY topics.created_at;
@@ -2031,10 +2030,13 @@ SELECT COUNT(DISTINCT first_name) FROM users;
 
 
 
+
 ---
 
 
-DISTINCT ON позволяет отдельно указывать два типа полей — для проверки уникальности и для результирующей выборки
+
+
+DISTINCT ON — позволяет отдельно указывать два типа полей для проверки уникальности и для результирующей выборки
 ----------------------------------------------------------------------------------------------------------------
 
 
@@ -2046,6 +2048,7 @@ SELECT DISTINCT ON (user_id) * FROM topics;
 id | user_id |              title              | body                  |       created_at
 ---|---------|---------------------------------|-----------------------|------------------------
  2 |       2 | molestiae voluptas velit        | Quod quasi molestiae. | 2019-06-02 23:42:30.688
+
 
 
 
@@ -2127,8 +2130,8 @@ functions
 
 
 
-COUNT() — функция, которая считает количество записей в выборке. Обратите внимание, что она считает именно в выборке, а не в таблице
-------------------------------------------------------------------------------------------------------------------------------------
+COUNT() — считает количество записей в выборке (именно в выборке, а не в таблице)
+---------------------------------------------------------------------------------
 
 
 
@@ -2488,8 +2491,8 @@ ON table1.id_field_name = table2.id_field_name
 
 
 
-JOIN — это сокращенная версия соединения INNER JOIN, то есть внутреннего соединения
------------------------------------------------------------------------------------
+JOIN — сокращенная версия соединения INNER JOIN, то есть внутреннего соединения
+-------------------------------------------------------------------------------
 
 
 
@@ -2593,13 +2596,29 @@ LIMIT 2;
 
 
 
+
 ---
 
 
 
-SELECT goods.name
-FROM goods LEFT JOIN categories ON goods.category_id = categories.id
+
+SELECT goods.name FROM goods 
+LEFT JOIN categories ON goods.category_id = categories.id
 WHERE categories.id IS NULL;
+
+
+
+
+---
+
+
+
+
+SELECT students.name FROM students
+LEFT JOIN universities ON students.university_id = universities.id
+WHERE universities.name = 'name2';
+
+
 
 
 
