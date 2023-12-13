@@ -124,14 +124,13 @@ import (
 )
 
 type Message struct {
-    Sender string `json:"sender"` // ставим тег с описанием JSON поля
+    Sender string `json:"sender"`                   // ставим тег с описанием JSON поля
     Text   string `json:"text"`
 }
 
 var errEmptyMessage = errors.New("empty message")
 
 func DecodeJSON(rawMsg string) (Message, error) {
-    // если нам передали пустую строку, возвращаем ошибку об этом
     if len(rawMsg) == 0 {
         return Message{}, errEmptyMessage
     }
@@ -139,6 +138,7 @@ func DecodeJSON(rawMsg string) (Message, error) {
     msg := Message{}
 
     err := json.Unmarshal([]byte(rawMsg), &msg)
+
     if err != nil {
         return Message{}, fmt.Errorf("unmarshal: %w", err)
     }
@@ -158,19 +158,18 @@ func DecodeJSON(rawMsg string) (Message, error) {
 
 func main() {
     msg, err := DecodeJSON("")
+
     if errors.Is(err, errEmptyMessage) {
-        // { } empty message
         fmt.Println(msg, err)
     }
 
     msg, err = DecodeJSON("hello")
+
     if err != nil {
-        // { } unmarshal: invalid character 'h' looking for beginning of value
         fmt.Println(msg, err)
     }
 
     msg, err = DecodeJSON(`{"sender":"hexlet","text":"Go,Go,Go"}`)
-    // {hexlet Go,Go,Go} <nil>
     fmt.Println(msg, err)
 }
 
@@ -210,7 +209,7 @@ func main() {
 
     wg.Wait()
 
-    fmt.Println(sum) // 55
+    fmt.Println(sum)            // 55
 }
 
 
@@ -242,7 +241,6 @@ variables
 
 
 var num int = 11
-
 var num = 11
 
 
@@ -253,9 +251,6 @@ var num = 11
 
 
 
-
-
-// двоеточие используется только при инициализации
 
 num := 22
 num = 33
@@ -272,7 +267,6 @@ num = 33
 
 
 num := 22
-// получим ошибку: cannot use "string" (type untyped string) as type int in assignment
 num = "string"
 
 
@@ -298,9 +292,9 @@ longTrickyName := "Josefina"
 
 
 var (
-  a string  // ""
-  b bool    // false
-  c int     // 0
+  a string              // ""
+  b bool                // false
+  c int                 // 0
 )
 
 
@@ -318,7 +312,7 @@ package math
 
 import "errors"
 
-// статичная ошибка
+
 var errCannotSum = errors.New("cannot sum")
 
 func sum(...)
@@ -333,11 +327,17 @@ func sum(...)
 
 
 
-// НЕ Go way
+НЕ Go way
+---------
+
 message := "👎"
 buffer := bytes.Buffer{}
 
-// Go way
+
+
+Go way
+------
+
 msg := "👍"
 buf := bytes.Buffer{}
 
@@ -457,7 +457,6 @@ func multiply(x, y int) (res int) {
 import "fmt"
 
 func myPrint(msg string) {
-    // пакет.функция
     fmt.Println(msg)
 }
 
@@ -525,7 +524,7 @@ x * y
 x := 5.05
 y := 10
 
-x + y  // invalid operation: x + y (mismatched types float64 and int)
+x + y                   // invalid operation: x + y (mismatched types float64 and int)
 
 
 
@@ -549,10 +548,13 @@ x + float64(y)
 
 
 x := int64(5.05)      // ошибка компиляции: constant 5.05 truncated to integer
-
 x := int64(5.00)      // OK
 
-// uint не может быть отрицательным
+
+
+uint не может быть отрицательным
+--------------------------------
+
 x := uint(-5)         // constant -5 overflows uint
 
 
@@ -653,7 +655,6 @@ bs := false
 
 
 true == false
-
 false == false
 
 
@@ -683,7 +684,6 @@ flag := true
 text := "hello"
 
 flag && bool(text)      // cannot convert text (type string) to type bool
-
 flag && text != ""
 
 
@@ -777,7 +777,6 @@ q := `
 
 
 username := "Ivan"
-
 greetings := fmt.Sprintf("hello, %s", username)
 
 
@@ -789,7 +788,6 @@ greetings := fmt.Sprintf("hello, %s", username)
 
 
 len("go")
-
 len("го")
 
 
@@ -810,7 +808,7 @@ import (
 func Greetings(name string) string {
   name = strings.Trim(name, " ")
   name = strings.ToLower(name)
-  name = strings.Title(name) //nolint
+  name = strings.Title(name)                //nolint
 
   return fmt.Sprintf("Привет, %s!", name)
 }
@@ -898,6 +896,7 @@ import (
 
 func DomainForLocale(domain, locale string) string {
   subdomain := ""
+
   if locale == "" {
     subdomain = "en"
   } else {
@@ -1149,13 +1148,9 @@ type User struct {
 }
 
 func main() {
-    // создали пустую структуру, чтобы проверить валидацию
     u := User{}
-
-    // создаем валидатор
     v := validator.New()
 
-    // метод Struct валидирует переданную структуру и возвращает ошибку `error`, если какое-то поле некорректно
     fmt.Println(v.Struct(u))
 }
 
@@ -1283,7 +1278,6 @@ func main() {
 
 const (
     StatusOk = 200
-
     statusInternalError = 500
 )
 
@@ -1444,6 +1438,7 @@ nums := [3]int{1, 2, 3}
 
 fmt.Println(nums[1])
 
+
 nums[2] = 33
 
 fmt.Println(nums)
@@ -1458,9 +1453,7 @@ fmt.Println(nums)
 
 words := [2]string{}
 
-words[2]
-
-// invalid array index 2 (out of bounds for 2-element array)
+words[2]                // invalid array index 2 (out of bounds for 2-element array)
 
 
 
@@ -1585,7 +1578,6 @@ words = append(words, "world")
 
 
 nums := make([]int, 5, 5)
-
 nums := make([]int, 0, 5)
 
 
@@ -1769,11 +1761,12 @@ for {
     if i < 2 {
         continue
     }
+
     if i == 9 {
         break
     }
-    nums = append(nums, i)
 
+    nums = append(nums, i)
 }
 
 fmt.Println(nums)
@@ -1789,6 +1782,7 @@ fmt.Println(nums)
 
 func Map(strs []string, mapFunc func(s string) string) []string {
   mapped := make([]string, len(strs))
+
   for i, s := range strs {
     mapped[i] = mapFunc(s)
   }
@@ -1820,7 +1814,6 @@ slices copying
 
 
 nums := []int{1,2,3,4,5}
-
 numsCp := make([]int, len(nums))
 
 copy(numsCp, nums)
@@ -1836,7 +1829,6 @@ fmt.Println(numsCp)
 
 
 nums := []int{1,2,3,4,5}
-
 numsCp := nums
 
 numsCp[0] = 10
@@ -1852,7 +1844,6 @@ fmt.Println(nums)
 
 
 nums := []int{1, 2, 3, 4, 5}
-
 numsCp := make([]int, 0)
 
 copy(numsCp, nums)
@@ -1977,6 +1968,7 @@ func UniqueSortedUserIDs(userIDs []int64) []int64 {
 
   sort.SliceStable(userIDs, func(i, j int) bool { return userIDs[i] < userIDs[j] })
   uniqPointer := 0
+
   for i := 1; i < len(userIDs); i++ {
     if userIDs[uniqPointer] != userIDs[i] {
       uniqPointer++
@@ -2013,13 +2005,10 @@ map
 var m map[int]string
 
 m := map[int]string{}
-
 m := make(map[int]string, 10)
-
 m := map[int]string{1: "hello", 2: "world"}
 
 m[3] = "!"
-
 word := m[1]
 
 
@@ -2093,7 +2082,6 @@ func main() {
 
 func modifyMap(m map[int]string) {
     m[200] = "added"
-
     m[1] = "changed"
 }
 
@@ -2110,10 +2098,11 @@ func modifyMap(m map[int]string) {
 
 func UniqueUserIDs(userIDs []int64) []int64 {
   processed := make(map[int64]struct{})
-
   uniqUserIDs := make([]int64, 0)
+
   for _, uid := range userIDs {
     _, ok := processed[uid]
+
     if ok {
       continue
     }
@@ -2200,6 +2189,7 @@ func MostPopularWord(words []string) string {
   for i := len(words) - 1; i >= 0; i -= 1 {
     word := words[i]
     wordsCount[word] += 1
+
     if wordsCount[word] >= max {
       max = wordsCount[word]
       mostPopWord = word
@@ -2234,8 +2224,8 @@ strings and bytes
 
 
 type _string struct {
-    elements *byte // байты
-    len      int   // кол-во байт
+    elements *byte      // байты
+    len      int        // кол-во байт
 }
 
 
@@ -2266,9 +2256,8 @@ import "fmt"
 func main() {
     s := "hey"
 
-    fmt.Println(s[0], s[1], s[2]) // 104 101 121
-
-    fmt.Println(string(s[0]), string(s[1]), string(s[2])) // h e y
+    fmt.Println(s[0], s[1], s[2])                           // 104 101 121
+    fmt.Println(string(s[0]), string(s[1]), string(s[2]))   // h e y
 }
 
 
@@ -2290,7 +2279,6 @@ func main() {
     bs := []byte(s)
 
     fmt.Println([]byte(s))
-
     fmt.Println(string(bs))
 }
 
@@ -2315,9 +2303,8 @@ func main() {
     asciiCh := byte('Z')
     asciiChStr := string(asciiCh)
 
-    fmt.Println(reflect.TypeOf(asciiCh), asciiCh) // uint8 90
-
-    fmt.Println(reflect.TypeOf(asciiChStr), asciiChStr) // string Z
+    fmt.Println(reflect.TypeOf(asciiCh), asciiCh)         // uint8 90
+    fmt.Println(reflect.TypeOf(asciiChStr), asciiChStr)   // string Z
 }
 
 
@@ -2375,6 +2362,7 @@ import (
 
 func main() {
     s := "hello"
+
     for i := 0; i < len(s); i++ {
         fmt.Println(string(s[i]))
     }
@@ -2564,9 +2552,9 @@ standart package string
 
 import "strings"
 
-strings.Contains("hello", "h") // true
+strings.Contains("hello", "h")                  // true
 
-strings.Split("hello", "") // ["h", "e", "l", "l", "o"]
+strings.Split("hello", "")                      // ["h", "e", "l", "l", "o"]
 
 strings.Join([]string{"hello","world!"}, " ")
 
@@ -2647,10 +2635,8 @@ fmt.Println(s)
 
 name := "Andy"
 
-fmt.Sprintf("hello %s", name) // "hello Andy"
-
-fmt.Sprintf("there are %d kittens", 10) // "there are 10 kittens"
-
+fmt.Sprintf("hello %s", name)             // "hello Andy"
+fmt.Sprintf("there are %d kittens", 10)   // "there are 10 kittens"
 fmt.Sprintf("your story is %t", true)
 
 
@@ -2678,9 +2664,7 @@ func main() {
     p := Person{Name: "Andy", Age: 18}
 
     fmt.Println("simple struct:", p)
-
     fmt.Printf("detailed struct: %+v\n", p)
-
     fmt.Printf("Golang struct: %#v\n", p)
 }
 
@@ -2736,7 +2720,6 @@ import (
 )
 
 func main() {
-    // кол-во аргументов может быть любым
     PrintNums(1, 2, 3)
 }
 
@@ -2756,7 +2739,6 @@ func PrintNums(nums ...int) {
 
 
 nums1 := []int{1,2,3,4,5}
-
 nums2 := []int{6,7,8,9,10}
 
 res := append(nums1, nums2...)
@@ -2773,11 +2755,13 @@ res := append(nums1, nums2...)
 
 func MergeNumberLists(numberLists ...[]int) []int {
   mergedCap := 0
+
   for i := 0; i < len(numberLists); i++ {
     mergedCap += len(numberLists[i])
   }
 
   merged := make([]int, 0, mergedCap)
+
   for _, nl := range numberLists {
     merged = append(merged, nl...)
   }
@@ -2939,7 +2923,7 @@ func (d Dog) Bark() {
 
 func main() {
     d := Dog{}
-    d.Bark() // woof!
+    d.Bark()                      // woof!
 }
 
 
@@ -2969,9 +2953,9 @@ func (d Dog) Bark() {
 
 func main() {
     d := Dog{}
-    d.Bark() // woof!
+    d.Bark()                      // woof!
 
-    fmt.Println(d.IsBarked) // false
+    fmt.Println(d.IsBarked)       // false
 }
 
 
@@ -3001,9 +2985,9 @@ func (d *Dog) Bark() {
 
 func main() {
     d := &Dog{}
-    d.Bark() // woof!
+    d.Bark()                      // woof!
 
-    fmt.Println(d.IsBarked) // true
+    fmt.Println(d.IsBarked)       // true
 }
 
 
@@ -3089,7 +3073,6 @@ func main() {
     ec := errorCode("internal")
 
     fmt.Println(ec)
-
     fmt.Println(string(ec))
 }
 
@@ -3112,6 +3095,7 @@ func (c *counter) inc() {
 
 func main() {
     c := counter(0)
+
     (&c).inc()
     (&c).inc()
 
@@ -3138,6 +3122,7 @@ type PersonList []Person
 
 func (pl PersonList) GetAgePopularity() map[uint8]int {
   popularity := make(map[uint8]int)
+  
   for _, p := range pl {
     popularity[p.Age]++
   }
@@ -3295,7 +3280,6 @@ var (
 
 func DecodeAndValidateRequest(requestBody []byte) (CreateUserRequest, error) {
   req := CreateUserRequest{}
-
   err := json.Unmarshal(requestBody, &req)
 
   if err != nil {
@@ -3360,6 +3344,7 @@ error handling
 import "log"
 
 response, err := DoHTTPCall()
+
 if err != nil {
     log.Println(err)
 }
@@ -3383,6 +3368,7 @@ import (
 
 func DoHTTPCall() error {
     err := SendTCP()
+
     if err != nil {
         return fmt.Errorf("send tcp: %w", err)
     }
@@ -3446,6 +3432,7 @@ func (e ConnectionErr) Error() string {
 
 func main() {
     tries := 0
+
     for {
         if tries > 2 {
             log.Println("Can't connect to DB")
@@ -3453,6 +3440,7 @@ func main() {
         }
 
         err := connectDB()
+
         if err != nil {
             if errors.As(err, &ConnectionErr{}) {
                 log.Println("Connection error. Trying to reconnect...")
@@ -3634,6 +3622,7 @@ func ExecuteMergeDictsJob(job *MergeDictsJob) (*MergeDictsJob, error) {
   }
 
   job.Merged = make(map[string]string)
+
   for _, dict := range job.Dicts {
     if dict == nil {
       return job, ErrNilDict
@@ -3956,6 +3945,29 @@ func MaxSum(nums1, nums2 []int) []int {
 
 func sumParallel(nums []int, res *int) {
   *res = sum(nums)
+}
+
+func sum(nums []int) int {
+  s := 0
+  for _, n := range nums {
+    s += n
+  }
+
+  return s
+}
+
+
+
+
+---
+
+
+
+
+func SumWorker(numsCh chan []int, sumCh chan int) {
+  for nums := range numsCh {
+    sumCh <- sum(nums)
+  }
 }
 
 func sum(nums []int) int {
