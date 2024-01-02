@@ -5,6 +5,8 @@ RUBY BASICS
 
 
 
+
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 intro
@@ -2155,6 +2157,7 @@ class Bus
   alias to_s print_string
 end
 
+
 class OfficeBus < Bus
   attr_reader :people_place
 
@@ -2181,8 +2184,10 @@ class OfficeBus < Bus
   end
 end
 
+
 class Bus
 end
+
 
 class OfficeBus < Bus
 end
@@ -2210,15 +2215,18 @@ module Colorful
   end
 end
 
+
 class Car
   def car?
     true
   end
 end
 
+
 class User
   include Colorful
 end
+
 
 class Bus
   attr_accessor :color
@@ -2262,8 +2270,10 @@ class Bus
   alias to_s print_string
 end
 
+
 bus = Bus.new(color: 'red', wheels_radius: '18')
 bus.color_code(bus.color)
+
 
 ## extend ##
 
@@ -2297,10 +2307,12 @@ module Books
   ::HarryPotter::magic
 end
 
+
 module HarryPotter
   def magic
   end
 end
+
 
 def method_missing(m, *args, &block)
 end
@@ -2339,11 +2351,9 @@ Dog.object_id
 
 
 class Cat
-
   def count_legs
     4
   end
-
 end
 
 cat = Cat.new
@@ -2364,12 +2374,12 @@ Cat.class.ancestors
 
 first_cat = Cat.new
 second_cat = Cat.new
+
 def first_cat.meow
   "meow"
 end
 
 first_cat.meow
-
 second_cat.meow
 
 first_cat.singleton_class
@@ -2392,6 +2402,7 @@ module Homable
   end
 end
 
+
 class Cat
   include Homable
 
@@ -2399,6 +2410,7 @@ class Cat
     false
   end
 end
+
 
 Cat.new.has_home?
 Cat.ancestors
@@ -2416,6 +2428,7 @@ module Homable
     true
   end
 end
+
 
 class Cat
   prepend Homable
@@ -2425,6 +2438,7 @@ class Cat
   end
 end
 
+
 Cat.new.has_home?
 Cat.ancestors
 
@@ -2442,9 +2456,11 @@ module Homable
   end
 end
 
+
 class Cat
   extend Homable
 end
+
 
 Cat.has_home?
 
@@ -2461,6 +2477,7 @@ class Cat
     "#{food}'s yammy!"
   end
 end
+
 
 cat = Cat.new
 cat.eat 'whiskas'
@@ -2507,7 +2524,6 @@ cat.instance_variable_set "@color", "black"
 
 
 class Cat
-
   def self.my_attr_accessor *attributes
     attributes.each do |attribute|
       define_method attribute do
@@ -2525,7 +2541,6 @@ class Cat
   def initialize name, age, weight
     @name, @age, @weight = name, age, weight
   end
-
 end
 
 

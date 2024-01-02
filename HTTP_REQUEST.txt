@@ -452,6 +452,7 @@ const renderRawResponse = (res) => {
 
 --------------------------------------------------------------------------------------------------------------------------------------------------
 
+
 const dataMuseUrl = 'https://api.datamuse.com/words?';
 const queryParams = 'rel_jjb=';
 
@@ -632,6 +633,7 @@ const renderRawByteResponse = (res) => {
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 const jsonButton = document.querySelector('#generate');
 const buttonContainer = document.querySelector('#buttonContainer');
@@ -1717,6 +1719,7 @@ const renderRawResponse = (res) => {
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 const dataMuseUrl = 'https://api.datamuse.com/words?';
 const queryParams = 'rel_jjb=';

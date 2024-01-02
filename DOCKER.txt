@@ -10,6 +10,7 @@ DOCKER
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+
 docker --version                                                                            --- docker version
 docker run -i -t ubuntu /bin/bash                                                           --- run ubuntu image
 docker ps                                                                                   --- see started containers

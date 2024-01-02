@@ -14,7 +14,6 @@ DEPLOY
 PaaS
 ----
 
-
 Railway
 -------
 
@@ -65,8 +64,6 @@ $ railway up
 
 assembling
 ----------
-
-
 
 Dockerfile
 ----------
@@ -532,7 +529,6 @@ reverse_proxy {
 
 
 
------
 Nginx
 -----
 
@@ -581,13 +577,16 @@ YANDEX.ru has address 77.88.55.50
 
 
 
-# Caddy
+Caddy
+-----
 
 handle {
     reverse_proxy app1:3000 app2:3000 app3:3000
 }
 
-# Nginx
+
+Nginx
+-----
 
 http {
     server {
@@ -623,6 +622,7 @@ all:
 
 
 ---
+
 
 
 $ ansible-playbook ansible/release.yml -i inventory.yml -vv --extra-vars "version=v5"

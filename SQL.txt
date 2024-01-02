@@ -110,6 +110,7 @@ $ psql postgres
 ---
 
 
+
 $ sudo -u postgres createdb --owner=tirion hexlet
 
 
@@ -611,6 +612,7 @@ CREATE TABLE courses (
 );
 
 
+
 ---
 
 
@@ -791,6 +793,7 @@ VALUES ('Bash', 'bash');
 
 
 ---
+
 
 
 NULL — это специальное значение и оно одно. Пустая строка, 0 и тому подобные вещи не являются NULL
@@ -1300,6 +1303,7 @@ id  name        country_id  capital   created_at
 ---
 
 
+
 SELECT * FROM cities 
 WHERE country_id = 38 AND capital = true;
 
@@ -1467,6 +1471,7 @@ CREATE TABLE products (
 
 
 ---
+
 
 
 CREATE TABLE products (
@@ -1990,11 +1995,11 @@ SELECT DISTINCT first_name FROM users;
 ------------
 first_name
 ------------
- Delphine
- Hanna
- Maxwell
- Russell
- Mia
+Delphine
+Hanna
+Maxwell
+Russell
+Mia
 
 
 
@@ -2063,7 +2068,7 @@ SELECT DISTINCT ON (user_id) title FROM topics;
 -------------------------
 title
 -------------------------
- molestiae voluptas velit
+molestiae voluptas velit
 
 
 

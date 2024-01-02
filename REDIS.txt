@@ -14,6 +14,7 @@ REDIS CMD
 with systemctl
 --------------
 
+
 $ sudo systemctl start redis-server.service                                   --- to start Redis server
 $ sudo systemctl status redis-server.service                                  --- to get status of Redis server
 $ sudo systemctl stop redis-server.service                                    --- to stop Redis server
@@ -36,6 +37,7 @@ $ sudo systemctl restart redis-server.service                                 --
 with service
 ------------
 
+
 $ sudo service redis-server start                                             --- to start Redis server
 $ sudo service redis-server status                                            --- to get status
 $ sudo service redis-server stop                                              --- to stop Redis server
@@ -57,6 +59,7 @@ $ sudo service redis-server restart                                           --
 
 fix rails start error
 ---------------------
+
 
 $ sudo service redis-server stop
 $ redis-server
@@ -102,23 +105,39 @@ key value storage
 
 OK
 
+
+
 ---
+
+
 
 set ключ значение
 
+
+
 ---
+
+
 
 > get session:1
 
 "120"
 
+
+
 ---
+
+
 
 > get session:N
 
 (nil)
 
+
+
 ---
+
+
 
 > exists session:1
 
@@ -129,7 +148,11 @@ set ключ значение
 
 (integer) 0
 
+
+
 ---
+
+
 
 > del session:1
 
@@ -139,7 +162,9 @@ set ключ значение
 (integer) 0
 
 
+
 ---
+
 
 
 1, если ключ существовал, и он был успешно удален
@@ -196,25 +221,41 @@ cash
 
 OK
 
+
+
 ---
+
+
 
 > set user:33:deals_count 5 ex 120
 
 OK
 
+
+
 ---
+
+
 
 > ttl user:33:deals_count
 
 (integer) 115
 
+
+
 ---
+
+
 
 > get user:33:deals_count
 
 (nil)
 
+
+
 ---
+
+
 
 px - Время жизни количество_миллисекунд
 
@@ -307,6 +348,7 @@ INSERT INTO visits (url, count, date) VALUES ('hexlet.io/courses', 1, '2022-01-0
 ---
 
 
+
 > incrby page:hexlet.io/courses:online_count 27
 
 (integer) 30
@@ -324,7 +366,10 @@ INSERT INTO visits (url, count, date) VALUES ('hexlet.io/courses', 1, '2022-01-0
 (integer) 29
 
 
+
 ---
+
+
 
 > decrby page:hexlet.io/courses:online_count 19
 
@@ -386,7 +431,9 @@ storing lists with Lists
 (integer) 3
 
 
+
 ---
+
 
 
 lpush возвращает количество элементов в списке после вставки
@@ -689,7 +736,11 @@ OK
 
 (integer) 4
 
+
+
 ---
+
+
 
 > sadd page:/courses 22
 
@@ -938,7 +989,10 @@ HyperLogLog
 (integer) 1
 
 
+
 ---
+
+
 
 > pfadd article:1 4.218.89.25
 
@@ -990,6 +1044,7 @@ OK
 > pfcount articles
 
 (integer) 9
+
 
 
 

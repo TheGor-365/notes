@@ -38,7 +38,10 @@ production:
    <<: *default
    database: db/production.sqlite3                                                          - Базы данных конфигурации/.yml использует адаптер postgresql. Изменить:
 
-to:
+
+
+to
+--
 
 production:
    <<: *default
@@ -75,9 +78,9 @@ $ host wwww.yourname.com
 Render
 ------
 
+опубликовать rails 7 приложение бесплатно render, gordb
+-------------------------------------------------------
 
-опубликовать rails 7 приложение бесплатно render, gordb:
---------------------------------------------------------
 
 redis://red-cg2cnb2k728reloj2ong:6379
 postgres://gordb_loj0_user:NsN57zLaiFv5CtjKPVnxkqK3zsf9jlfA@dpg-cg2crc2k728relojj9l0-a/gordb_loj0

@@ -58,6 +58,7 @@ $ sudo -u postgres createdb --owner=tirion hexlet
 $ psql -l
 
 
+
 ---
 
 
@@ -221,6 +222,8 @@ CREATE TABLE blog_posts (
 
 
 TRUE
+----
+
 't'
 'true'
 'y'
@@ -229,10 +232,14 @@ TRUE
 '1'
 
 
+
 ---
 
 
+
 FALSE
+-----
+
 'f'
 'false'
 'n'
@@ -681,13 +688,18 @@ SELECT * FROM order_items WHERE item = "?";
 
 
 
+price numeric -- специальный тип данных, который подходит под работу с деньгами. Обеспечивает высокую точность при расчетах
+
+
+
+
 CREATE TABLE products (
   id bigint PRIMARY KEY,
   first_name varchar(255),
   last_name varchar(255),
   address varchar(255),
   item varchar(255),
-  price numeric -- специальный тип данных, который подходит под работу с деньгами. Обеспечивает высокую точность при расчетах.
+  price numeric
 );
 
 
@@ -805,7 +817,9 @@ INSERT INTO colors (name) VALUES ('Red'), ('Blue');
 SELECT * FROM colors;
 
 
+
 ---
+
 
 
 id  name
@@ -864,7 +878,8 @@ SELECT * FROM emails WHERE user_id = 1;
 
 
 
-one-to-one:
+one-to-one
+----------
 
 
 countries
@@ -892,6 +907,7 @@ id  name        country_id  capital   created_at
 ---
 
 
+
 SELECT * FROM cities WHERE country_id = 38 AND capital = true;
 
 
@@ -902,7 +918,8 @@ SELECT * FROM cities WHERE country_id = 38 AND capital = true;
 
 
 
-many-to-many:
+many-to-many
+------------
 
 
 
@@ -947,7 +964,9 @@ id  user_id   course_id   created_at
 SELECT course_id FROM course_members WHERE user_id = 3;
 
 
+
 ---
+
 
 
 SELECT user_id FROM course_members WHERE course_id = 3;
@@ -1226,7 +1245,9 @@ SELECT * FROM users ORDER BY first_name DESC, created_at DESC;
 SELECT first_name, created_at FROM users ORDER BY first_name ASC, created_at DESC;
 
 
+
 ---
+
 
 
 first_name  created_at
@@ -1248,7 +1269,6 @@ Tanya       2018-12-05 23:55:15
 
 
 SELECT * FROM users ORDER BY created_at ASC;
-
 SELECT * FROM users ORDER BY created_at ASC NULLS FIRST;
 
 
@@ -1260,7 +1280,6 @@ SELECT * FROM users ORDER BY created_at ASC NULLS FIRST;
 
 
 SELECT * FROM users ORDER BY created_at DESC;
-
 SELECT * FROM users ORDER BY created_at DESC NULLS LAST;
 
 

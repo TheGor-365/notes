@@ -4282,6 +4282,7 @@ public class App {
 isBalanced
 ----------
 
+
 public class App {
     public static boolean isBalanced(String str) {
         while (str.contains("()")) {
@@ -4312,6 +4313,7 @@ public class App {
 
 isPowerOfThree
 --------------
+
 
 public class App {
     public static Boolean isPowerOfThree(int number) {
@@ -4349,6 +4351,7 @@ public class App {
 
 Circle class
 ------------
+
 
 public class Circle {
   private double radius;

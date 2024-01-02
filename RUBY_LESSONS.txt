@@ -35,8 +35,9 @@ about odesc
 
 
 
-Far cmd's
----------
+Far cmd
+-------
+
 
 # encoding: cp866	  --- кодировка для русского языка
 s + file_dyrectory 	--- open in sublime 3
@@ -1651,6 +1652,7 @@ https://github.com/bmatzelle/gow
 
 19. RUBY GEM'S & SINATRA
 ------------------------
+
 
 $ gem install hipchat
 
@@ -11488,9 +11490,11 @@ https://stackoverflow.com/questions/21478006/how-to-add-username-field-to-devise
 
 
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+----------------------------------------------------------------------------------
 
-application_controller.rb:
+
+application_controller.rb
+-------------------------
 
 class ApplicationController < ActionController::Base
 
@@ -11504,7 +11508,8 @@ class ApplicationController < ActionController::Base
 end
 
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+----------------------------------------------------------------------------------
 
 
 
@@ -11587,24 +11592,29 @@ add bootstrap
 
     <!-- CSS only -->
 
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-	  integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-	  crossorigin="anonymous">
+    <link 
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	    crossorigin="anonymous"
+    >
 
     <!-- JS, Popper.js, and jQuery -->
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    <script 
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 	    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 	    crossorigin="anonymous">
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    <script 
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 	    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
 	    crossorigin="anonymous">
     </script>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    <script 
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
 	    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 	    crossorigin="anonymous">
     </script>
@@ -11648,24 +11658,29 @@ add bootstrap
 
     <!-- CSS only -->
 
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-	  integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-	  crossorigin="anonymous">
+    <link 
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    >
 
     <!-- JS, Popper.js, and jQuery -->
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    <script 
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 	    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 	    crossorigin="anonymous">
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    <script 
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 	    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
 	    crossorigin="anonymous">
     </script>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    <script 
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
 	    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 	    crossorigin="anonymous">
     </script>
@@ -12674,7 +12689,6 @@ C:\Projects\ruby\rails\blog_2\app\views\contacts\new.html.erb
         <%= f.text_area :message, :class => "form-control" %>
       </div>
     </div>
-
       <%= f.submit 'Send message', :class => "btn btn-primary btn-lg" %>
   <% end %>
 </div>
@@ -12724,7 +12738,6 @@ C:\Projects\ruby\rails\blog_2\app\views\contacts\new.html.erb
         <%= f.text_area :message, :class => "form-control" %>
       </div>
     </div>
-
     <%= f.submit 'Send message', :class => "btn btn-primary btn-lg" %>
   <% end %>
 </div>
@@ -12909,7 +12922,7 @@ end
 
 
 
->rake spec
+> rake spec
 
 C:/Ruby25-x64/bin/ruby.exe -I'C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/rspec-core-3.10.1/lib';
 'C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/rspec-support-3.10.2/lib'
@@ -14341,30 +14354,31 @@ Logger.instance.log_something 'Blabla'
 Regex (regular expression)
 --------------------------
 
-[abc]  		Один символ: a, b или c
-[^abc]  	Любой отдельный символ, кроме: a, b или c
-[a-z]  		Любой отдельный символ в диапазоне a-z
-[a-zA-Z]  	Любой отдельный символ в диапазоне a-z или A-Z
-^  		Начало строки (line)
-$  		Конец строки (line)
-\A  		Начало строки (string)
-\z  		Конец строки (string)
-.  		Любой отдельный символ
-\s  		Любой символ пробела
-\S  		Любой непробельный символ
-\d  		Любая цифра
-\D  		Любая не цифра
-\w  		Любой символ слова (буква, цифра, подчеркивание)
-\W  		Any non-word character
-\b  		Граница любого слова
-(...)  		Захватить все вложенное
-(a|b)  		a or b
-a?  		Ноль или один из
-a* 		Ноль или более
-a+  		Один или несколько
-a{3}  		Ровно 3
-a{3,}  		3 или более
-a{3,6}  	От 3 до 6
+
+[abc]  		   Один символ: a, b или c
+[^abc]  	   Любой отдельный символ, кроме: a, b или c
+[a-z]  		   Любой отдельный символ в диапазоне a-z
+[a-zA-Z]  	 Любой отдельный символ в диапазоне a-z или A-Z
+^  		       Начало строки (line)
+$  		       Конец строки (line)
+\A  		     Начало строки (string)
+\z  		     Конец строки (string)
+.  		       Любой отдельный символ
+\s  		     Любой символ пробела
+\S  		     Любой непробельный символ
+\d  		     Любая цифра
+\D  		     Любая не цифра
+\w  		     Любой символ слова (буква, цифра, подчеркивание)
+\W  		     Any non-word character
+\b  		     Граница любого слова
+(...)  		   Захватить все вложенное
+(a|b)  		   a or b
+a?  		     Ноль или один из
+a* 		       Ноль или более
+a+  		     Один или несколько
+a{3}  		   Ровно 3
+a{3,}  		   3 или более
+a{3,6}  	   От 3 до 6
 
 
 
@@ -14383,6 +14397,7 @@ https://www.freeformatter.com/regex-tester.html
 
 
 (?<month>\d{1,2})\/(?<day>\d{1,2})\/(?<year>\d{4})
+--------------------------------------------------
 
 Today's date is: 7/1/2020.
 
@@ -15739,8 +15754,7 @@ New reloc One account
 ---------------------
 
 
-https://one.newrelic.com/launcher
-/nr1-core.home?pane=eyJuZXJkbGV0SWQiOiJucjEtY29yZS5saXN0aW5nLWVtcHR5LXN0YXRlIn0=&cards[0]
+https://one.newrelic.com/launcher/nr1-core.home?pane=eyJuZXJkbGV0SWQiOiJucjEtY29yZS5saXN0aW5nLWVtcHR5LXN0YXRlIn0=&cards[0]
 =eyJuZXJkbGV0SWQiOiJzZXR1cC1uZXJkbGV0cy5zZXR1cC1ydWJ5LWludGVncmF0aW9uIiwiYWNjb3VudElkIjozMDg4OTg1fQ==&platform[accountId]
 =3088985&platform[timeRange][duration]=1800000&platform[$isFallbackTimeRange]=true
 https://github.com/thoughtbot/bourbon#installation
@@ -15801,10 +15815,12 @@ Lorem Ipsum text
 ----------------
 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
+aliquip ex ea commodo consequat. 
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
+eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
+deserunt mollit anim id est laborum.
 
 
 
