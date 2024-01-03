@@ -72,34 +72,24 @@ F8			            --- delete
 2. BEGIN
 --------
 
-
 salary.rb
 ---------
 
+
 salary = 3000
 annual = salary * 12
-tax = 0.4
+tax    = 0.4
 
 puts "Salary - #{salary}"
-puts
-
 puts "Tax - #{tax}"
-puts
-
 puts "Final - #{salary - salary * tax}"
-puts
-
 puts "Annual salary - #{annual}"
-puts
-
 puts "Final Annual - #{annual - annual * tax}"
-puts
 
 print "Enter your name "
 name = gets.strip.capitalize.to_s
-puts
 
-print "#{name}, programm finished, press enter to exit.  "
+print "#{name}, programm finished, press 'Enter' to exit  "
 gets
 
 
@@ -119,15 +109,17 @@ gets
 Data types
 ----------
 
-String "aa" "2"
-Fixnum 2 22
-Float 3.14
-Array []
-Hash {}
+String  "aa" "2"
+Fixnum  2 22
+Float   3.14
+Array   []
+Hash    {}
 
-puts object
-string object
-integer object
+
+
+puts    - object
+string  - object
+integer - object
 
 
 
@@ -149,10 +141,21 @@ to_s
 to_a
 to_h
 
+
+
+---
+
+
+
 '22'.to_i
 
 a = gets.to_i
 a = gets.to_f
+
+
+
+---
+
 
 
 gets.rb
@@ -163,18 +166,20 @@ U = gets.strip.to_i
 
 print "Enter resistance: "
 R = gets.strip.to_i
-puts
 
 I = U / R
 
 puts "Result: #{I}"
-puts
 
 print "Press enter to exit: "
 gets.strip
 
 sleep 0.7
 exit
+
+
+
+---
 
 
 
@@ -200,17 +205,15 @@ puts "#{n} + #{n} * #{n}"
 4. WORK WITH STRING
 -------------------
 
-
 String interpolation
 --------------------
+
 
 puts "x = #{variable}"
 
 
 
 ---
-
-
 
 
 
@@ -282,7 +285,6 @@ print "Enter 'z': "
 z = gets.to_f
 
 puts "x = #{x} y = #{y} z = #{z}"
-puts
 
 print "Press enter to exit: "
 gets.chomp
@@ -319,9 +321,9 @@ end
 5. WORK WITH FEW DATA TYPES
 ---------------------------
 
-
 Iteration, repeat
 -----------------
+
 
 puts " str #{...} something"
 
@@ -338,7 +340,14 @@ Special symbols
 \t
 \r
 
+
+
+---
+
+
+
 puts "\naabb\t\t\neae"
+
 [
 aabb
 	[
@@ -426,31 +435,25 @@ years = gets.strip.to_i
 print "How much 'll be postpone in month ($): "
 money = gets.strip.to_f
 
-month = 0                            #!!!!!
+month = 0
 
 1.upto (years) do |i|
   1.upto (12) do |ii|
 
-    month = month + 1               #!!!!
-    summ = month * money            #!!!!
+    month = month + 1
+    summ = month * money
 
     puts "Year #{i}, month #{ii}, postponed: #{summ}$"
-
   end
 end
-
-puts
 
 capital = money * years * 12
 
 puts "It's #{capital}$"
-puts
 
 print "Press enter to exit  "
 gets.chomp
-puts
-puts "Exit"
-exit
+puts "Exit"; exit
 
 
 
@@ -470,8 +473,7 @@ str = gets.chomp
     d = (1 + rand(30)).to_f / 100
     sleep d
     print "-"
-  end
-  print " "
+  end; print " "
 end
 
 
@@ -494,7 +496,7 @@ Sublime text 3
 s app1.rb
 
 
-if ...
+if (condition)
   ...
 end
 
@@ -522,158 +524,96 @@ d = "$"
 quit = "Q"
 
 if age >= 18 && answer == "Y"
-
   puts "\nOk, you got #{money}#{d}, lets go!"
-  puts
 
   200.times do |i|
-
     print "Press enter to go =>\nor (Q) to completion.. "
     go_on = gets.chomp.capitalize
-    puts
 
     x = rand (1..9)
     y = rand (1..9)
     z = rand (1..9)
 
     puts "Round №#{i + 1}, remained #{1000 - (i + 1)} attempts"
-    puts
 
     puts "--| #{x} |---| #{y} |---| #{z} |--"
-    puts
-
-    # puts "You got #{money = money}#{d} now" # bug!!!
-    # puts
 
     if x == 0 && y == 0 && z == 0
-
       puts "You lose, you got zero"
       money = 0
-
     elsif x == 1 && y == 1 && z == 1
-
       puts "You got 10#{d}"
       money = money + 10
-
     elsif x == 2 && y == 2 && z == 2
-
       puts "You got 20#{d}"
       money = money + 20
-
     elsif x == 3 && y == 3 && z == 3
-
       puts "You got 30#{d}"
       money = money + 30
-
     elsif x == 4 && y == 4 && z == 4
-
       puts "You got 40#{d}"
       money = money + 40
-
     elsif x == 5 && y == 5 && z == 5
-
       puts "You got 50#{d}"
       money = money + 50
-
     elsif x == 6 && y == 6 && z == 6
-
       puts "You lose and lost half of #{d}"
       money = money / 2
-
     elsif x == 7 && y == 7 && z == 7
-
       puts "You got 70#{d}"
       money = money + 70
-
     elsif x == 8 && y == 8 && z == 8
-
       puts "You got 80#{d}"
       money = money + 80
-
     elsif x == 9 && y == 9 && z == 9
-
       puts "You got 90#{d}"
       money = money + 90
-
     elsif x == 1 && y == 2 && z == 3
       puts "You got 123#{d}"
       money = money + 123
-
     elsif x == y && y != z && x != z
-
       puts "You lose, and lost 10#{d}"
       money = money - 10
-
     elsif x != y && y == z && x != z
-
       puts "You lose, and lost 10#{d}"
       money = money - 10
-
     elsif x != y && y != z && x == z
-
       puts "You lose, and lost 10#{d}"
       money = money - 10
-
     elsif x !=y && y != z && x != z
-
       puts "You lose, and lost 20#{d}"
       money = money - 20
     end
 
     if i > 199 && money > 0
-
       puts "The game is over, you don't got any attemts."
       puts "Take your #{money}#{d} and bye."
       money = money
-      puts "Nice game, see ya..."
-      sleep 0.7
-      puts "Exit"
-      exit
-
+      puts "Nice game, see ya..."; sleep 0.7
+      puts "Exit"; exit
     elsif quit == gets
-
       puts "Ok, take your #{money}#{d} and bye."
       money = money
-      puts "Nice game, see ya..."
-      sleep 0.7
-      puts "Exit"
-      exit
-
+      puts "Nice game, see ya..."; sleep 0.7
+      puts "Exit"; exit
     elsif money <= 0
-
       puts "You lose all money, now you got #{money}#{d}, it's over..."
-      money = money
-      sleep 0.7
-      puts "exit"
-      exit
-
+      money = money; sleep 0.7
+      puts "exit"; exit
     end
-
-    puts "------------------------"
     puts "   You got #{money}#{d} now"
-    puts "------------------------"
-    puts
-
   end
-
 elsif age < 18
-
   puts "Sorry, you can't play."
   sleep 0.7
   puts "Exit"
-  exit
-
 elsif answer != "Y" && answer != "N"
-
   puts "No valid answer, please try again: (Y/N) "
   answer = gets.strip.capitalize
-
 elsif answer == "N"
-
   puts "Ok, another time. See ya..."
   sleep 0.7
-  puts "Exit"
-  exit
+  puts "Exit"; exit
 end
 
 
@@ -694,17 +634,32 @@ end
 
 if else
 
+
+
+---
+
+
+
 x = 100000000000
 x = 1_000_000_000
 
-calculator
+
+
+---
+
 
 
 break
 
 
+---
+
+
 while true
 end
+
+
+---
 
 
 .reverse
@@ -726,17 +681,14 @@ casino.rb
 x = rand (1..100)
 
 10.downto (1) do |i|
-
   print "I made a number try to guess? (1..100) "
   num = gets.to_i
 
-  puts "\nRemained #{i - 1} attempts!!!"
-  puts
+  puts "\nRemained #{i - 1} attempts"; puts
   puts "The number: (#{x})"
 
   if num == x
-    puts "Bingo!"
-    break
+    puts "Bingo!"; break
   elsif num < x
     print "No, it's more than #{num} "
     num = num
@@ -748,8 +700,7 @@ x = rand (1..100)
   if i < 1
     puts "You don't got attepts any more..."
     sleep 0.9
-    puts "Exit"
-    exit
+    puts "Exit"; exit
   end
 end
 
@@ -765,7 +716,6 @@ calc.rb
 res = 0
 
 while true
-
   res = 0
 
   print "\nEnter value A: "
@@ -775,10 +725,9 @@ while true
   b = gets.strip.to_f
 
   print "What to do? (+ - * /) "
-  o = gets.strip
-  puts
+  o = gets.strip; puts
 
-  if o == "/" && b == 0       #!!!!
+  if o == "/" && b == 0
     puts "Error"
   end
 
@@ -791,10 +740,6 @@ while true
   elsif o == "/"
     res == a / b
   end
-
-  # if o == "/" && b == 0     # wrong place
-  #   puts "Error"
-  # end
 end
 
 puts "Result: #{res}\n"
@@ -810,13 +755,11 @@ rainge.rb
 
 (-2..2).each do |x|
   puts "#{x}"
-end
-puts "==="
+end; puts "==="
 
 (0..5).each do |y|
   puts "#{y}"
-end
-puts "==="
+end; puts "==="
 
 ("cde".."fff").each do |z|
   puts "#{z}"
@@ -842,6 +785,12 @@ def get_password
   ...
 end
 
+
+
+---
+
+
+
 @a = 1
 
 def get_password
@@ -853,7 +802,6 @@ end
 xx = get_password
 
 puts "Was entered password: #{xx}"
-
 puts "Variable a = #{@a}"
 
 instance (objects)
@@ -905,20 +853,44 @@ arr = [ 18, 4, 5 ]
 arr = []
 arr = ["Roman", 32]
 
+
+---
+
+
 arr << "Mike"
+
+
+---
+
 
 arr = %w[Roman 32 Mike]
 arr = [:left, :right]
 
+
+---
+
+
 arr[index]
 arr[0]
+
+
+---
+
 
 arr.each do |name|
   some code
 end
 
+
+---
+
+
 arr abcde
-arr[1..3]               => bcd
+arr[1..3]
+
+
+---
+
 
 .delete_at 0
 .delete item
@@ -941,43 +913,92 @@ arr[1..3]               => bcd
 
 a = 5
 b = 2
-tmp = ?
+
+
+---
+
 
 a, b = b, a
 
-arr.each do |item|
 
+---
+
+
+arr.each do |item|
 end
+
+
+---
+
 
 arr.each_with_index do |item, index|
   puts "#{ index + 1 } #{ item }"
 end
 
+
+---
+
+
 key value storage
+
+
+---
+
 
 NOSQL
 
-Mike	32345
+
+---
+
+
+Mike	  32345
 Jessie	12332
-...	...
+
+
+---
+
 
 arr = []
 arr = Array.new
 
+
+---
+
+
 hh = {}
 hh = Hash.new
 
+
+---
+
+
 hh = {'Mike' => '32344', 'Jessie' => '89876'}
+
+
+---
+
 
 puts hh
 
 hh[key] = value
 
+
+---
+
+
 arr << x
 hh['Mike'] = 43
 
+
+---
+
+
 arr.each do |item|
 end
+
+
+---
+
 
 hh.each do |key, value|
 end
@@ -1257,16 +1278,16 @@ class Airplane
 end
 
 
-attr_reader r
-attr_writer w
-attr_accessor rw
+attr_reader     - r
+attr_writer     - w
+attr_accessor   - rw
 
 
-phone.a = 1 W
-puts plane.a R
+phone.a = 1     W
+puts plane.a    R
 
 
-Airport1 ------ *Airplane
+Airport_1 ------ *Airplane
 
 Inheritance
 
@@ -1302,7 +1323,7 @@ end
 
 
 class Animal
-  def initialize par1, par2
+  def initialize(par1, par2)
     @a = par1
     @b = par2
     @arr = []
@@ -1450,7 +1471,6 @@ send :mm, x: 1, y: 2
 method_missing
 
 class Something
-
   def method_missing name
     puts ...
   end
@@ -1461,7 +1481,7 @@ s.asdbla
 
 reserbed
 
-def mm par, hh
+def mm(par, hh)
 end
 
 
@@ -1473,7 +1493,7 @@ end
 
 split []
 
-input = File.open 'test.txt', 'r'
+input  = File.open 'test.txt', 'r'
 output = File.open 'output.txt', 'w'
 
 
@@ -2379,12 +2399,12 @@ date_stamp
 
 
 CREATE TABLE IF NOT EXISTS "Users" (
-  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-  "username" TEXT,
-  "phone" TEXT,
+  "id"        INTEGER PRIMARY KEY AUTOINCREMENT,
+  "username"  TEXT,
+  "phone"     TEXT,
   "datestamp" TEXT,
-  "barber" TEXT,
-  "color" TEXT
+  "barber"    TEXT,
+  "color"     TEXT
 );
 
 IF NOT EXISTS
@@ -2412,16 +2432,16 @@ Initialization
 --------------
 
 configure do
-
   db = SQLite3::Database.new 'barbershop.sqlite'
+
   db.execute 'CREATE TABLE IF NOT EXISTS "Users" (
-    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-    "username" TEXT,
-    "phone" TEXT,
+    "id"        INTEGER PRIMARY KEY AUTOINCREMENT,
+    "username"  TEXT,
+    "phone"     TEXT,
     "datestamp" TEXT,
-    "barber" TEXT,
-    "color" TEXT
-    );'
+    "barber"    TEXT,
+    "color"     TEXT
+  );'
 end
 
 
@@ -2437,24 +2457,28 @@ end
 
 configure do
   db = get_db
+
   db.execute 'CREATE TABLE IF NOT EXISTS "Users" (
-  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-  "username" TEXT,
-  "phone" TEXT,
-  "datestamp" TEXT,
-  "barber" TEXT,
-  "color" TEXT
-  )'
+    "id"        INTEGER PRIMARY KEY AUTOINCREMENT,
+    "username"  TEXT,
+    "phone"     TEXT,
+    "datestamp" TEXT,
+    "barber"    TEXT,
+    "color"     TEXT
+  );'
 end
 
-  db = get_db
-  db.execute 'insert into Users (
+
+
+db = get_db
+
+db.execute 'insert into Users (
   username,
   phone,
   datestamp,
   barber,
   color
-  ) values (?, ?, ?, ?, ?)', [@username, @phone, @datetime, @barber, @color]
+) values (?, ?, ?, ?, ?)', [@username, @phone, @datetime, @barber, @color]
 
 SELECT * FROM Users;
 
@@ -2525,7 +2549,6 @@ app.rb
 ------
 
 post '/' do
-
   db = get_db
 
   db.execute 'INSERT INTO Users (username, phobe, datestamp, barber, color)
@@ -2544,6 +2567,7 @@ sqlite3 databaseName.sqlite
 .tables
 .mode column
 .header on
+
 SELECT * FROM Users;
 
 
@@ -2585,12 +2609,7 @@ https://raw.githubusercontent.com/xdan/datetimepicker/master/jquery.datetimepick
 wget
 ----
 
-PS C:\Projects
-\ruby
-\repeat
-\sinatra_bootstrap
-\barber_bootstrap_clean_v2
-\public > wget https://raw.githubusercontent.com/xdan/datetimepicker/master/jquery.datetimepicker.css
+PS C:\Projects\ruby\repeat\sinatra_bootstrap\barber_bootstrap_clean_v2public > wget https://raw.githubusercontent.com/xdan/datetimepicker/master/jquery.datetimepicker.css
 
 > wget https://github.com/xdan/datetimepicker/blob/master/jquery.datetimepicker.css
 
@@ -2612,7 +2631,7 @@ Unable to establish SSL connection.
 > wget --no-check-certificate https://github.com/xdan/datetimepicker/blob/master/jquery.datetimepicker.css
 
 https://github.com/xdan/datetimepicker
-https://xdsoft.net/jqplugins/datetimepicker/ - documentation
+https://xdsoft.net/jqplugins/datetimepicker/      - documentation
 
 
 
@@ -2674,7 +2693,6 @@ db.results_as_hash = true
 
 
 db.execute 'SELECT * FROM Users' do |row|
-
   print row['name']
   print "\t\t"
   puts row['datestamp']
@@ -2738,6 +2756,11 @@ git clone https://github.com/ro31337/BarberShop.git
 desc - descending
 
 
+
+---
+
+
+
 sqlite> select * from Users order by id desc;
 
 id          username    phone       datestamp         barber        color
@@ -2756,6 +2779,11 @@ id          username    phone       datestamp         barber        color
 $ git reset hard HEAD~1
 
 
+
+---
+
+
+
 barbers hardcoded
 -----------------
 
@@ -2767,12 +2795,17 @@ id          username    phone       datestamp         barber          color
 2           Mike        +1 444555   23.11.2022 12:44  Jessie Pincman  #7bd148
 
 
-def is_barber_exists? db, name
+
+---
+
+
+
+def is_barber_exists?(db, name)
   db.execute('select * from Barbers where name = ?', [name]).size > 0
 end
 
 
-def seed_db db, barbers
+def seed_db(db, barbers)
   barbers.each do |barber|
     if !is_barber_exists? db, barber
       db.execute 'insert into Barbers (name) values (?)', [barber]
@@ -2781,7 +2814,12 @@ def seed_db db, barbers
 end
 
 
-seed_db db, ['Jessie Pinkman', 'Walter White', 'Gus Fring', 'Mike Smit']
+seed_db(db, ['Jessie Pinkman', 'Walter White', 'Gus Fring', 'Mike Smit'])
+
+
+
+---
+
 
 
 migrations
@@ -2801,7 +2839,6 @@ end
 
 
 get '/show_users' do
-
   db = get_db
 
   @results = db.execute 'SELECT * FROM users
@@ -2818,7 +2855,6 @@ end
 
 
 <%= x + y %>  - show x + y result
-
 <% x + y %>   - do x + y
 
 
@@ -2833,17 +2869,18 @@ Add Barber table to db
 
 configure do
   db = get_db
+
   db.execute 'CREATE TABLE IF NOT EXISTS Users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT,
-    phone TEXT,
+    id        INTEGER PRIMARY KEY AUTOINCREMENT,
+    username  TEXT,
+    phone     TEXT,
     datestamp TEXT,
-    barber TEXT,
-    color TEXT
+    barber    TEXT,
+    color     TEXT
   )'
 
   db.execut 'CREATE TABLE IF NOT EXISTS Barbers (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
     barbername TEXT
   )'
 end
@@ -2855,11 +2892,11 @@ end
 
 
 
-def is_barber_exists? db, barbername
+def is_barber_exists?(db, barbername)
   db.execute('SELECT * FROM Barbers WHERE barbername = ?', [barbername]).length > 0 (true / false)
 end
 
-def seed_db db, barbers
+def seed_db(db, barbers)
   barbers.each do |barber|
     if !is_barber_exists? db, barber
       db.execute 'INSERT INTO Barbers (barbername) VALUES (?)', [barber]
@@ -2887,7 +2924,6 @@ end
 
 
 <div class="mb-3">
-
   <label class="form-label">Choose your barber</label><br>
 
   <select class="form-select bbb" name="barber">
@@ -2978,12 +3014,13 @@ end
 
 
 
-Input validation:
+Input validation
+----------------
 
-  if content.length <= 0
-    @error = 'Input post text'
-    return erb :new
-  end
+if content.length <= 0
+  @error = 'Input post text'
+  return erb :new
+end
 
 
 
@@ -3079,17 +3116,18 @@ end
 
 configure do
   init_db
+
   db.execute 'CREATE TABLE IF NOT EXISTS Posts (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
     created_date DATE,
-    content TEXT
+    content      TEXT
   )'
 
   db.execute 'CREATE TABLE IF NOT EXISTS Comments (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
     created_date DATE,
-    content TEXT,
-    post_id INTEGER
+    content      TEXT,
+    post_id      INTEGER
   )'
 end
 
@@ -3148,12 +3186,12 @@ redirect to('/details/' + post_id)
 29. ACRIVERECORD, DATABASE MAPPERS
 ----------------------------------
 
-
 need gem's
 ----------
 
 gemfile
 -------
+
 
 source 'https://rubygems.org'
 
@@ -3168,8 +3206,14 @@ group :development do
 end
 
 
+---
+
+
 $ bundle install
 
+
+
+---
 
 
 config.ru
@@ -3178,10 +3222,21 @@ config.ru
 require './app'
 run Sinatra::Application
 
+
+---
+
+
 for tux
+
+
+---
+
 
 deploy, deployment - add app to hosting
 
+
+
+---
 
 
 require 'rubygems'
@@ -3191,10 +3246,18 @@ require 'sinatra/activerecord'
 
 
 
+---
+
+
+
 set database
 ------------
 
 set :database, 'sqlite3:barber_AR_29.sqlite'
+
+
+
+---
 
 
 
@@ -3209,12 +3272,20 @@ comment
 
 
 
+---
+
+
+
 create essence
 --------------
 
 
 class Client < ActiveRecord::Base
 end
+
+
+
+---
 
 
 
@@ -3227,12 +3298,20 @@ $ rake -T
 
 
 
+---
+
+
+
 app.rb
 ------
 
 require "sinatra/activerecord"
 
 set :database, {adapter: "sqlite3", database: "foo.sqlite3"}
+
+
+
+---
 
 
 
@@ -3254,8 +3333,18 @@ No Rakefile found (looking for: rakefile, Rakefile, rakefile.rb, Rakefile.rb)
 
 (See full trace by running task with --trace)
 
+
+
+---
+
+
+
 si/si++ - Makefile
 ruby - Rakefile
+
+
+
+---
 
 
 
@@ -3266,8 +3355,16 @@ $ touch Rakefile
 
 
 
+---
+
+
+
 require './app'
 require 'sinatra/activerecord/rake'
+
+
+
+---
 
 
 
@@ -3303,9 +3400,17 @@ rake db:rollback - back to previous migration
 
 
 
+---
+
+
+
 $ rake db:create_migration NAME=create_clients
 
 db/migrate/20210117064606_create_clients.rb
+
+
+
+---
 
 
 
@@ -3313,6 +3418,10 @@ class CreateClients < ActiveRecord::Migration[6.1]
   def change
   end
 end
+
+
+
+---
 
 
 
@@ -3325,11 +3434,17 @@ def down
 end...
 
 
+---
+
+
 now
 ---
 
 def change
 end
+
+
+---
 
 
 class CreateClients < ActiveRecord::Migration[6.1]
@@ -3346,13 +3461,27 @@ class CreateClients < ActiveRecord::Migration[6.1]
   end
 end
 
-t.timestamps:
-add 2 columns:
+t.timestamps
+
+
+---
+
+
+add 2 columns
+-------------
+
 created_at
 updated_at
 
+
+---
+
+
 t.text -> TEXT
 t.string -> VARCHAR(255)
+
+
+---
 
 
 $ rake db:migrate --trace
@@ -3369,13 +3498,25 @@ $ rake db:migrate --trace
 
 
 
+---
+
+
+
 $ gem install activerecord -v 5.2.4
+
+
+
+---
 
 
 
 $ rake db:create_migration NAME=create_clients
 
 db/migrate/20210117104230_create_clients.rb
+
+
+
+---
 
 
 
@@ -3388,9 +3529,17 @@ db/migrate/20210117104230_create_clients.rb
 
 
 
+---
+
+
+
 sqlite> .tables
 
 ar_internal_metadata  client                schema_migrations
+
+
+
+---
 
 
 
@@ -3401,9 +3550,17 @@ ORM - Object Relational Mapper
 
 
 
+---
+
+
+
 $ rake db:create_migration NAME=create_barbers
 
 db/migrate/20210117112435_create_barbers.rb
+
+
+
+---
 
 
 
@@ -3416,6 +3573,10 @@ $ rake db:migrate
 
 
 
+---
+
+
+
 > select * from Barbers;
 
 id          name            created_at                  updated_at
@@ -3425,50 +3586,55 @@ id          name            created_at                  updated_at
 3           Gus Fring       2021-01-17 11:28:50.024329  2021-01-17 11:28:50.024329
 
 
+---
+
+
+
 tux
 Loading development environment (Rack 1.3)
 
 
+
+---
+
+
+
 >> Barber.count
 
-D, [2021-01-17T14:35:37.671472 #4368] DEBUG -- :    (2.8ms)  SELECT sqlite_version(*)
-D, [2021-01-17T14:35:37.678405 #4368] DEBUG -- :    (0.2ms)  SELECT COUNT(*) FROM "barbers"
+
+
+---
 
 
 
-Barber.create - create object in database (one step)
+Barber.create   - create object in database (one step)
 
-b = Barber.new - create object in memory (two steps)
-b.save - create object in database
+b = Barber.new  - create object in memory (two steps)
+b.save          - create object in database
+
+
+
+---
 
 
 
 >> Barber.create name: 'Mike Ehrmanthrauth'
 
-D, [2021-01-17T14:41:06.734842 #4368] DEBUG -- :   TRANSACTION (0.1ms)  begin transaction
-D, [2021-01-17T14:41:06.740245 #4368] DEBUG -- :   Barber Create (4.0ms)
-INSERT INTO "barbers" ("name", "created_at", "updated_at") VALUES (?, ?, ?)
-[["name", "Mike Ehrmanthrauth"],
-["created_at", "2021-01-17 11:41:06.734372"],
-["updated_at", "2021-01-17 11:41:06.734372"]]
-D, [2021-01-17T14:41:06.830162 #4368] DEBUG -- :   TRANSACTION (88.6ms)  commit transaction
-=> #<Barber id: 4, name: "Mike Ehrmanthrauth", created_at: "2021-01-17 11:41:06.734372000 +0000", updated_at: "2021-01-17 11:41:06.734372000 +0000">
+
+
+---
 
 
 
 sqlite> select * from Barbers;
 
-id          name            created_at                  updated_at
-----------  --------------  --------------------------  --------------------------
-1           Jessie Pincman  2021-01-17 11:28:49.962575  2021-01-17 11:28:49.962575
-2           Walter White    2021-01-17 11:28:50.022897  2021-01-17 11:28:50.022897
-3           Gus Fring       2021-01-17 11:28:50.024329  2021-01-17 11:28:50.024329
-4           Mike Ehrmanthr  2021-01-17 11:41:06.734372  2021-01-17 11:41:06.734372
+
+
+---
+
 
 
 >> b = Barber.new name: 'John Smith'
-
-=> #<Barber id: nil, name: "John Smith", created_at: nil, updated_at: nil>
 
 
 >> b.new_record?
@@ -3476,16 +3642,11 @@ id          name            created_at                  updated_at
 
 
 
->> b.save
+---
 
-D, [2021-01-17T14:47:03.458951 #4368] DEBUG -- :   TRANSACTION (0.1ms)  begin transaction
-D, [2021-01-17T14:47:03.462257 #4368] DEBUG -- :
-Barber Create (2.1ms)  INSERT INTO "barbers" ("name", "created_at", "updated_at") VALUES (?, ?, ?)
-[["name", "John Smith"],
-["created_at", "2021-01-17 11:47:03.458516"],
-["updated_at", "2021-01-17 11:47:03.458516"]]
-D, [2021-01-17T14:47:03.666676 #4368] DEBUG -- :   TRANSACTION (200.2ms)  commit transaction
-=> true
+
+
+>> b.save
 
 
 >> b.new_record?
@@ -3507,24 +3668,29 @@ id          name            created_at                  updated_at
 
 >> Barber.all
 
-D, [2021-01-17T14:57:51.890029 #4368] DEBUG -- :   Barber Load (0.4ms)
-SELECT "barbers".* FROM "barbers" /* loading for inspect */ LIMIT ?
-[["LIMIT", 11]]
-=> #<ActiveRecord::Relation
-[#<Barber id: 1, name: "Jessie Pincman", created_at: "2021-01-17 11:28:49.962575000 +0000", updated_at: "2021-01-17 11:28:49.962575000 +0000">,
-#<Barber id: 2, name: "Walter White", created_at: "2021-01-17 11:28:50.022897000 +0000", updated_at: "2021-01-17 11:28:50.022897000 +0000">,
-#<Barber id: 3, name: "Gus Fring", created_at: "2021-01-17 11:28:50.024329000 +0000", updated_at: "2021-01-17 11:28:50.024329000 +0000">,
-#<Barber id: 4, name: "Mike Ehrmanthrauth", created_at: "2021-01-17 11:41:06.734372000 +0000", updated_at: "2021-01-17 11:41:06.734372000 +0000">,
-#<Barber id: 5, name: "John Smith", created_at: "2021-01-17 11:47:03.458516000 +0000", updated_at: "2021-01-17 11:47:03.458516000 +0000">]>
+
+
+---
+
 
 
 http://guides.rubyonrails.org/active_record_querying.html
+
+
+
+---
+
 
 
 get '/' do
   @barbers = Barber.all
   erb :index
 end
+
+
+
+---
+
 
 
 <div class="container mt-5 mb-5">
@@ -3538,25 +3704,44 @@ end
 </div>
 
 
+
+---
+
+
+
 shift + ctrl + i - console
+
+
+
+---
+
 
 
 migration
 ---------
 
+
 require 'sinatra/activerecord'
 
+
 1. require "sinatra/activerecord"
+
 set :database, {adapter: "sqlite3", database: "foo.sqlite3"}
 
-2. create model:
+
+
+2. create model
 
 class Model_name < ActiveRecord::Base
 end
 
+
+
 3. rake db:create_migration NAME=name_of_migration
 
-4. edit migrate, create table:
+
+
+4. edit migrate, create table
 
 class MigrateName < ActiveRecord::Migrarion
   def change
@@ -3567,6 +3752,8 @@ class MigrateName < ActiveRecord::Migrarion
     end
   end
 end
+
+
 
 5. rake db:migrate
 
@@ -3591,11 +3778,6 @@ tux
 
 > Barber.count
 
-D, [2020-06-05T22:59:30.752557 #14092] DEBUG -- :
-(0.7ms)  SELECT COUNT(*) FROM "barbers"
-
-=> 3
-
 
 
 ---
@@ -3604,20 +3786,6 @@ D, [2020-06-05T22:59:30.752557 #14092] DEBUG -- :
 
 
 > Barber.create
-
-D, [2020-06-05T23:05:52.492629 #14092] DEBUG -- :
-(0.1ms)  begin transaction
-
-D, [2020-06-05T23:05:52.523221 #14092] DEBUG -- :
-Barber Create (29.8ms)  INSERT INTO "barbers"
-("name", "created_at", "updated_at") VALUES (?, ?, ?)
-[["name", "Mike Smith"], ["created_at", "2020-06-05 20:05:52.492086"],
- ["updated_at", "2020-06-05 20:05:52.492086"]]
-
-D, [2020-06-05T23:05:52.629577 #14092] DEBUG -- :
-(105.0ms)  commit transaction
-
-=> #<Barber id: 4, name: "Mike Smith", created_at: "2020-06-05 20:05:52", updated_at: "2020-06-05 20:05:52">
 
 
 
@@ -3631,16 +3799,8 @@ tux
 
 >> b = Barber.new :name => 'Roman'
 
-#=>
-
-#<Barber id: nil, name: "Roman", created_at: nil, updated_at: nil>
-
 >> b.new_record?
-=> true
-
 >> b.save
-
-#=> INSERT INTO "barbers" ("name", "created_at", "updated_at") VALUES (?, ?, ?)  [["name", "Roman"], ..., ...
 
 
 
@@ -3687,29 +3847,44 @@ index.erb
 30. ACTIVERECORD, SINATRA, REST
 -------------------------------
 
-
 add database to sinatra app
 ---------------------------
 
+
 1. set database
+
 {adapter: 'sqlite3', database: 'barber_AR_29.sqlite'}
 
+
+
 2. create model
+
 class Barber < ActiveRecord::Base
 end
 
+
+
 3. bundle exec rake db:create_migration NAME=migration_name
 
-4. create table:
+
+
+4. create table
+
 create_table :clients do |t|
-
   t.text :name
-
   t.timestamps
 end
+
 Client.create name: 'John'
 
+
+
 5. bundle exec rake db:migrate
+
+
+
+---
+
 
 
 !gems
@@ -3727,8 +3902,13 @@ group :development do
 end
 
 
-!Rakefile
----------
+
+---
+
+
+
+Rakefile
+--------
 
 require './app'
 require 'sinatra/activerecord/rake'
@@ -3738,6 +3918,11 @@ namespace :db do
     require "./app"
   end
 end
+
+
+
+---
+
 
 
 data.save
@@ -3803,19 +3988,10 @@ tux
 ---
 
 >> c = Client.new
-=> #<Client id: nil, username: nil, phone: nil, datestamp: nil, barber: nil, color: nil, created_at: nil, updated_at: nil>
-
 
 >> c.valid?
-=> false
-
-
 >> c.errors.count
-=> 4
-
-
 >> c.errors.messages
-=> {:username=>["can't be blank"], :phone=>["can't be blank"], :datestamp=>["can't be blank"], :color=>["can't be blank"]}
 
 
 
@@ -4002,13 +4178,29 @@ $ ping yandex.ru
 
 SSL - https://ya.ru - connect by secure channel
 
+
+
+---
+
+
+
 :80	http://ya.ru
 :443	https://ya.ru
 
 
 
+---
+
+
+
 1. domain => ip
-see ip >ping site_name:
+
+see ip > ping site_name
+
+
+
+---
+
 
 
 $ ping google.com
@@ -4025,6 +4217,12 @@ $ ping google.com
 Приблизительное время приема-передачи в мс:
     Минимальное = 19мсек, Максимальное = 23 мсек, Среднее = 21 мсек
 
+
+
+---
+
+
+
 64.233.165.101:...
 ------	       ----
 ip             port
@@ -4034,10 +4232,13 @@ ip             port
 80 - default port
 
 
-2.
 
-HTTP:
-IP:
+
+HTTP
+----
+
+2. IP
+-----
 
 ping site.ru
 
@@ -4066,8 +4267,14 @@ HTTP request: GET / HTTP/1.0
 telnet cmd's
 ------------
 
-c - close - закрыть текущее подключение
-d - display - отобразить параметры операции. Доступные параметры:
+c - close   - закрыть текущее подключение
+d - display - отобразить параметры операции
+
+
+
+Доступные параметры
+-------------------
+
 - WILL AUTH (проверка подлинности NTLM)
 - WONT AUTH
 - WILL TERM TYPE
@@ -4075,11 +4282,15 @@ d - display - отобразить параметры операции. Дост
 - LOCALECHO off
 - LOCALECHO on
 
-o - open имя_узла [Порт] - подключиться к сайту (по умолчанию, Порт = 23)
-q - quit - выйти из telnet
+o   - open имя_узла [Порт]  - подключиться к сайту (по умолчанию, Порт = 23)
+q   - quit                  - выйти из telnet
 set - set установить параметры ("set ?" для вывода их списка).
 
-Доступные параметры:
+
+
+Доступные параметры
+-------------------
+
 - bsasdel     символ  будет отправляться как символ
 - crlf        режим возврата каретки; приводит к отправке символов CR & LF
 - delasbs     символ  будет отправляться как символ
@@ -4090,11 +4301,16 @@ set - set установить параметры ("set ?" для вывода �
 - mode x      где x - консоль или поток
 - ntlm        включение проверки подлинности NTLM.
 - term x      где x - ansi, vt100, vt52, или vtnt
-sen - send - отправить строки на сервер
-st - status - вывести сведения о текущем состоянии
-u - unset - сбросить параметры ("unset ?" для вывода их списка)
 
-Доступные параметры:
+sen - send    - отправить строки на сервер
+st  - status  - вывести сведения о текущем состоянии
+u   - unset   - сбросить параметры ("unset ?" для вывода их списка)
+
+
+
+Доступные параметры
+-------------------
+
 - bsasdel     символ  будет отправляться как символ
 - crlf        режим возврата каретки; приводит к отправке символов CR & LFbsasdel     символ  будет отправляться как символ
 - crlf        режим перевода строки; приводит к отправке символа CR
@@ -4102,7 +4318,8 @@ u - unset - сбросить параметры ("unset ?" для вывода �
 - escape      символ переключения в режим telnet-терминала и обратно не задан
 - localecho   отключение локального эха
 - logging     отключение выполнения входа в систему
-- ntlm        отключение проверки подлинности NTLM.
+- ntlm        отключение проверки подлинности NTLM
+
 ?/h - help вывести справку
 
 
@@ -4214,11 +4431,25 @@ http://stackoverflow.com/questions/2092527/what-happens-when-you-type-in-a-url-i
 11. browser renders response, or offers a download dialog for unrecognized types
 
 
+
+---
+
+
+
 stateless - HTTP/HTTPS
 IRC - no stateless protocol
 
 
+
+---
+
+
+
 http://stackoverflow.com/questions/13200152/why-say-that-http-is-a-stateless-protocol
+
+
+
+---
 
 
 
@@ -4229,6 +4460,12 @@ autorization mechanism
 2. server side sessions,
 3. hidden variables (when the current page contains a form), and
 4. URL-rewriting using URI-encoded parameters, e.g., /index.php?session_id=some_unique_session_code
+
+
+
+---
+
+
 
 browser -> server
 state is only in apps
@@ -4245,6 +4482,10 @@ url.unescape online (online decoder)
 
 
 gem 'devise'
+
+
+
+---
 
 
 
@@ -4271,8 +4512,7 @@ function test() {
   alert('Hello');
 }
 
-ruby:
-something
+
 
 js
 --
@@ -4305,8 +4545,7 @@ script.js
 
 let x = 1
 
-function something () {
-
+function something() {
   alert(x)
   x += 1
 }
@@ -4357,8 +4596,9 @@ Test question
 
 
 
-1. classes are a blue-print for constructing computer models for real or virtual objects
-classes hold data, have methods that interact with that data, and are used to instantiate objects
+1. classes are a blue-print for constructing computer models for real or virtual objects classes hold data, have methods that interact with that data, and are used to instantiate objects
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 class WhatAreClasses
   def initialize
@@ -4375,12 +4615,21 @@ object.method
  #=> I'm altered data of this object. Hello.
 
 
+
+
 2. An instance of a class
+-------------------------
+
+
 To some, it's also the root class in ruby
 Classes themselves descend from the Object root class
 
 
+
+
 3. Modules serve as a mechanism for namespaces
+----------------------------------------------
+
 
 module ANamespace
   class AClass
@@ -4394,7 +4643,11 @@ ANamespace::AClass.new
  #=> Another object, coming right up!
 
 
+
+
 4. Also, modules provide as a mechanism for multiple inheritance via mix-ins and cannot be instantiated like classes can
+------------------------------------------------------------------------------------------------------------------------
+
 
 module AMixIn
   def who_am_i?
@@ -4417,7 +4670,11 @@ AMixIn.new
  #=> NoMethodError: undefined method ‘new’ for AMixIn:Module
 
 
+
+
 5. All methods, no matter the access control, can be accessed within the class
+------------------------------------------------------------------------------
+
 
 Public methods enforce no access control -- they can be called in any scope.
 Protected methods are only accessible to other objects of the same class.
@@ -4488,8 +4745,8 @@ About Local Storage
 
 www.w3schools.com/html/html5_webstorage.asp
 
-window.localStorage - хранит данные без срока годности
-window.sessionStorage - данные теряются при закрытии вкладки браузера!
+window.localStorage     - хранит данные без срока годности
+window.sessionStorage   - данные теряются при закрытии вкладки браузера!
 
 
 
@@ -4507,14 +4764,19 @@ localStorage - is Hash
 
 
 
-window.localStorage - stores data with no expiration date
-window.sessionStorage - stores data for one session (data is lost when the browser tab is closed)
+window.localStorage     - stores data with no expiration date
+window.sessionStorage   - stores data for one session (data is lost when the browser tab is closed)
+
+
+
+---
+
+
 
 Test of local storage
 ---------------------
 
 if (typeof(Storage) !== "undefined") {
-
   //Code for localStorage/sessionStorage.
 } else {
   // Sorry! No Web Storage support..
@@ -4576,11 +4838,11 @@ Count example
 -------------
 
 if (localStorage.clickcount) {
-
   localStorage.clickcount = Number(localStorage.clickcount) + 1;
 } else {
   localStorage.clickcount = 1;
 }
+
 document.getElementById("result").innerHTML = "You have clicked the button " +
 localStorage.clickcount + " time(s).";
 
@@ -4641,7 +4903,7 @@ http://stackoverflow.com/questions/3138564/looping-through-localstorage-in-html5
 
 
 
-for (var i = 0; i < localStorage.length; i++){
+for (var i = 0; i < localStorage.length; i++) {
   $('body').append(localStorage.getItem(localStorage.key(i)));
 }
 
@@ -4665,30 +4927,45 @@ seed.db
 db/migrate/20210118081656_create_products.rb
 
 
+
+---
+
+
+
 1.
 
-require 'sinatra/activerecord':
+require 'sinatra/activerecord'
+------------------------------
+
 set :database "sqlite3:pizzashop.sqlite"
+
 
 
 2.
 
-create model:
+create model
+------------
 class Product < ActiveRecord::Base
 end
+
 
 
 3.
 
 create Rakefile
-cat Rakefile:
+cat Rakefile
+------------
+
 require "./app"
 require "sinatra/activerecord/rake"
 
 
+
 4.
 
-create migrate:
+create migrate
+--------------
+
 rake db:create_migration NAME=create_products
 
 
@@ -4771,10 +5048,10 @@ end
 
 $ rake db:migrate
 
-== 20210118081656 CreateProducts: migrating ===================================
--- create_table(:products)
-   -> 0.0070s
-== 20210118081656 CreateProducts: migrated (0.0104s) ==========================
+
+
+---
+
 
 
 Add product: (seed)
@@ -4786,6 +5063,8 @@ $ rake db:create_migration NAME=add_products
 
 $ rake db:create_migration NAME=add_products
 db/migrate/20210118085117_add_products.rb
+
+
 
 
 2.
@@ -4831,12 +5110,16 @@ class AddProducts < ActiveRecord::Migration
 end
 
 
+
+
 3.
 
 $ rake db:migrate
 
 == 20210118085117 AddProducts: migrating ======================================
 == 20210118085117 AddProducts: migrated (0.0447s) =============================
+
+
 
 
 4.
@@ -4856,14 +5139,19 @@ select * from porducts
 
 
 
-rake db:create_migration NAME=name_of_migration - создает новую миграцию в папку db/migrate/
-rake db:migrate - применяет (выполняет) созданную миграцию
-rake db:rollback - возврат к предыдущей миграции
+rake db:create_migration NAME=name_of_migration   - создает новую миграцию в папку db/migrate/
+rake db:migrate                                   - применяет (выполняет) созданную миграцию
+rake db:rollback                                  - возврат к предыдущей миграции
 
 rake db:create_migration NAME=create_products
 rake db:migrate
 
-seed database - наплнить базу данных начальными значениями
+seed database                                     - наплнить базу данных начальными значениями
+
+
+
+---
+
 
 
 get bootstrap
@@ -4938,6 +5226,8 @@ puts object.method(:object_id).call # (Kudos to Ezra)
 animal.method(:run).call
 
 
+
+
 2.
 
 # a = b when a == false
@@ -4955,6 +5245,8 @@ a ||= b #=> a = 2
 a = false
 b = 2
 a ||= b #=> a = 2
+
+
 
 
 3. self always refers to the current object. But this question is more difficult than it seems
@@ -4984,6 +5276,8 @@ at the class level, self is the class, in this case WhatIsSelf.
 
 at the instance level, self is the instance in context, in this case the instance
 of WhatIsSelf at memory location 0x28190
+
+
 
 
 4. Everyone usually confuses procs with blocks, but the strongest rubyist can grok the true meaning of the question
@@ -5094,12 +5388,12 @@ https://stackoverflow.com/questions/19607851/use-bootstrap0grid0with-variable-nu
 
 
 <div class="row">
-    <div class="col-md-3"> <img src="1"> </div>
-    <div class="col-md-3"> <img src="2"> </div>
-    <div class="col-md-3"> <img src="3"> </div>
-    <div class="col-md-3"> <img src="4"> </div>
-    <div class="col-md-3"> <img src="5"> </div>
-    <div class="col-md-3"> <img src="6"> </div>
+  <div class="col-md-3"> <img src="1"> </div>
+  <div class="col-md-3"> <img src="2"> </div>
+  <div class="col-md-3"> <img src="3"> </div>
+  <div class="col-md-3"> <img src="4"> </div>
+  <div class="col-md-3"> <img src="5"> </div>
+  <div class="col-md-3"> <img src="6"> </div>
 </div>
 
 
@@ -5191,6 +5485,11 @@ loop do
 end
 
 
+
+---
+
+
+
 > ruby data_structure.rb
 
 Enter product id: 1
@@ -5214,6 +5513,11 @@ loop do
 end
 
 
+
+---
+
+
+
 >ruby data_structure.rb
 
 Enter product id: 2
@@ -5228,6 +5532,11 @@ Enter product id: 1
 Enter amount (how much items you want to order): 4
 {"2"=>5, "1"=>4}
 -------
+
+
+
+
+---
 
 
 
@@ -5247,6 +5556,11 @@ loop do
   puts hh.inspect
   puts '-------'
 end
+
+
+
+---
+
 
 
 >ruby data_structure.rb
@@ -5289,6 +5603,13 @@ const add_to_cart = (id) => {
   x++
   window.localStorage.setItem('product_' + id, x)
 }
+
+
+
+
+---
+
+
 
 
 console
@@ -5434,8 +5755,14 @@ Total items in cart: 22
 -------
 
 
-google:
-enumirate localStorage:
+
+
+---
+
+
+
+google
+enumirate localStorage
 
 stackoverflow.com
 
@@ -5488,9 +5815,16 @@ product_1	    amount
 
 
 
+---
+
+
+
 $ window.localStorage.length
 
 3
+
+
+---
 
 
 $ window.localStorage
@@ -5549,9 +5883,11 @@ window.localStorage.clear()
 
 const cart_get_number_of_items = () => {
   let cnt = 0
+
   for (let i = 0; i < window.localStorage.length; i++) {
-    let key = window.localStorage.key(i) // get key, hh[x] = hh[(x += 1)]
-    let value = window.localStorage.getItem(key) // get value, in ruby: y = hh[x]
+    let key   = window.localStorage.key(i)
+    let value = window.localStorage.getItem(key)
+
     if (key.indexOf('product_') == 0) {
       cnt++
     }
@@ -5568,9 +5904,11 @@ const cart_get_number_of_items = () => {
 
 const cart_get_number_of_items = () => {
   let cnt = 0
+
   for (let i = 0; i < window.localStorage.length; i++) {
-    let key = window.localStorage.key(i) // get key, hh[x] = hh[(x += 1)]
-    let value = window.localStorage.getItem(key) // get value, in ruby: y = hh[x]
+    let key = window.localStorage.key(i)
+    let value = window.localStorage.getItem(key)
+
     if (key.indexOf('product_') === 0) {
       cnt += value * 1
     }
@@ -5587,6 +5925,7 @@ const cart_get_number_of_items = () => {
 
 const cart_get_orders = () => {
   let orders = ''
+
   for (let i = 0; i < window.localStorage.length; i++) {
     let key = window.localStorage.key(i)
     let value = window.localStorage.getItem(key)
@@ -5659,9 +5998,11 @@ const update_orders_button = () => {
 
 const cart_get_number_of_items = () => {
   let cnt = 0
+
   for (let i = 0; i < window.localStorage.length; i++) {
-    let key = window.localStorage.key(i) // get key, hh[x] = hh[(x += 1)]
-    let value = window.localStorage.getItem(key) // get value, in ruby: y = hh[x]
+    let key = window.localStorage.key(i)
+    let value = window.localStorage.getItem(key)
+
     if (key.indexOf('product_') === 0) {
       cnt += value * 1
     }
@@ -5672,6 +6013,7 @@ const cart_get_number_of_items = () => {
 
 const cart_get_orders = () => {
   let orders = ''
+
   for (let i = 0; i < window.localStorage.length; i++) {
     let key = window.localStorage.key(i)
     let value = window.localStorage.getItem(key)
@@ -5910,13 +6252,16 @@ Unit testing
 
 Testing moduls of app.
 
-test coverage = module:
+test coverage = module
+----------------------
 
 class SomeClass
 end
 
 class SomeClassTest
 end
+
+
 
 
 1. Unit testing, simply put, is testing methods -- the smallest unit in object-oriented programming.
@@ -5954,6 +6299,8 @@ end
  #=> 1 tests, 1 assertions, 1 failures, 0 errors
 
 
+
+
 2.
 
 // Java
@@ -5984,9 +6331,13 @@ and the ruby library called ruby-prof
 A cunning programmer would also argue that these two techniques ought to be used for
 both static and dynamic languages when developing complex systems
 
+
+
 3. rubygems is package manager software for ruby libraries (i.e. gems).
 The package manager has basic CRUD operations, dependency trees, and supports asynchronous
 communication between multiple gem servers
+
+
 
 
 4. rest
@@ -6075,7 +6426,13 @@ Product id: 2, amount of items: 1
 Product id: 3, amount of items: 1
 
 
+---
+
+
 json!!!
+
+
+---
 
 
 https://guides.rubyonrails.org/active_record_querying.html
@@ -6105,7 +6462,6 @@ Pizza Shop
 post cart method for show:
 
 def parse_orders_line orders_line
-
   s1 = orders_line.split(/,/)
   arr = []
 
@@ -6120,7 +6476,6 @@ def parse_orders_line orders_line
     arr2 = [id, cnt]
     arr.push arr2
   end
-
   return arr
 end
 
@@ -6192,7 +6547,6 @@ def parse_orders_line orders_line
   arr = []
 
   s1.each do |order|
-
     s2 = order.split(/=/)
     s3 = s2[0].split(/_/)
 
@@ -6202,7 +6556,6 @@ def parse_orders_line orders_line
     arr2 = [id, cnt]
     arr.push arr2
   end
-
   return arr
 end
 
@@ -6210,7 +6563,14 @@ puts (parse_orders_line orders_line).inspect
 
 
 Atom Runner: split_hash.rb
+--------------------------
+
 [["1", "2"], ["2", "1"], ["3", "1"]]
+
+
+
+---
+
 
 
 data structure
@@ -6366,19 +6726,12 @@ end
 
 $ rake db:create_migration NAME=add_orders
 
-db/migrate/20210119135926_add_orders.rb
 
 
 $ rake db:migrate
 
-== 20210119135926 AddOrders: migrating ========================================
--- create_table(:orders)
-   -> 0.0330s
-== 20210119135926 AddOrders: migrated (0.0337s) ===============================
-
 
 post '/place_order' do
-
   @order = Order.create params[:order]
 
   erb "Thank you, your order has been placed."
@@ -6577,8 +6930,10 @@ https://www.json.org/json-en.html
 37. RUBY ON RAILS, INTRO
 ------------------------
 
+pull reauest
+------------
 
-pull reauest:
+
 https://habrahabr.ru/post/125999/
 
 
@@ -6588,17 +6943,15 @@ https://habrahabr.ru/post/125999/
 
 
 
-Sublime text settings:
+Sublime text settings
+---------------------
+
 http://stackoverflow.com/questions/9474090/how-do-i-force-sublime-text-2-to-two-spaces-per-tab
 
 
 
 ---
 
-
-
-
-key		value
 
 
 Test work
@@ -6768,11 +7121,6 @@ create      test/fixtures/articles.yml
 
 $ rake db:migrate
 
-== 20200608201501 CreateArticles: migrating ===================================
--- create_table(:articles)
-   -> 0.0048s
-== 20200608201501 CreateArticles: migrated (0.0052s) ==========================
-
 
 
 ---
@@ -6877,7 +7225,6 @@ new.html.erb
       <%= f.label :text %><br>
       <%= f.text_area :text %>
     </p>
-
     <%= f.submit %>
   <% end %>
 </div>
@@ -7184,12 +7531,12 @@ end
 38. RUBY ON RAILS, BLOG
 -----------------------
 
-
 Blog, reverse words exersize
 ----------------------------
 
 text reverser
 -------------
+
 
 f = File.open 'trump.txt', 'r'
 @arr = []
@@ -7237,6 +7584,10 @@ $ rails g controller contacts
 
 
 
+---
+
+
+
 REST
 ----
 
@@ -7254,6 +7605,10 @@ Contacts
 
 
 
+---
+
+
+
 resource :contacts, only: [ :new, :create ]
 
 
@@ -7268,7 +7623,16 @@ end
 
 
 
+
+---
+
+
+
 ctrl + shift + p   - serch file (Atom)
+
+
+
+---
 
 
 
@@ -7427,11 +7791,6 @@ end
 
 $ rake db:migrate
 
-== 20200608230645 CreateContacts: migrating ===================================
--- create_table(:contacts)
-   -> 0.0193s
-== 20200608230645 CreateContacts: migrated (0.0200s) ==========================
-
 
 
 ---
@@ -7456,26 +7815,10 @@ irb(main):001:0>
 
 
 $ Contact.all
-
-(3.7ms)  SELECT sqlite_version(*)
-  Contact Load (0.4ms)  SELECT "contacts".* FROM "contacts" LIMIT ?  [["LIMIT", 11]]
-=> #<ActiveRecord::Relation []>
-
-
 $ Article.all
 
-  Article Load (0.4ms)  SELECT "articles".* FROM "articles" LIMIT ?  [["LIMIT", 11]]
-=> #<ActiveRecord::Relation []>
-
-
 $ Contact.attribute_names
-
-=> ["id", "email", "message", "created_at", "updated_at"]
-
-
 $ Article.attribute_names
-
-=> ["id", "title", "text", "created_at", "updated_at"]
 
 
 
@@ -7630,10 +7973,6 @@ rails console
 -------------
 
 $ Contact.all
-
-  Contact Load (0.5ms)  SELECT "contacts".* FROM "contacts" LIMIT ?  [["LIMIT", 11]]
-=> #<ActiveRecord::Relation [#<Contact id: 1, email: "xxx@yyy", message: "zzzzzzzz",
-created_at: "2020-06-08 23:52:02", updated_at: "2020-06-08 23:52:02">]>
 
 
 
@@ -7904,17 +8243,14 @@ NoMethodError in Contacts#new
       </ul>
     </p>
   <% end %>
-
   <p>
     <%= f.label :email %><br>
     <%= f.text_field :email %>
   </p>
-
   <p>
     <%= f.label :message %><br>
     <%= f.text_area :message %>
   </p>
-
   <p>
     <%= f.submit 'Send message' %>
   </p>
@@ -8608,16 +8944,6 @@ delete
 
 $ Article.find(2)
 
-Article Load (1.6ms)  SELECT "articles".* FROM "articles" WHERE "articles"."id" = ? LIMIT ?  [["id", 2], ["LIMIT", 1]]
-=> #<Article id: 2, title: "1231123", text: "xxx", created_at: "2020-06-09 23:45:13", updated_at: "2020-06-09 23:45:13">
-
-$ @article.destroy
-
-(1.1ms)  begin transaction
-  Article Destroy (2.3ms)  DELETE FROM "articles" WHERE "articles"."id" = ?  [["id", 2]]
-   (215.1ms)  commit transaction
-=> #<Article id: 2, title: "1231123", text: "xxx", created_at: "2020-06-09 23:45:13", updated_at: "2020-06-09 23:45:13">
-
 
 
 ---
@@ -8634,11 +8960,6 @@ Article.find(id)
 
 
 $ @article.destroy
-
-(0.1ms)  begin transaction
-  Article Destroy (17.9ms)  DELETE FROM "articles" WHERE "articles"."id" = ?  [["id", 1]]
-   (97.0ms)  commit transaction
-=> #<Article id: 1, title: "My story", text: "My story's message", created_at: "2021-01-23 12:44:04", updated_at: "2021-01-23 14:46:17">
 
 
 
@@ -8918,11 +9239,6 @@ end
 
 $ rake db:migrate
 
-== 20200610232329 CreateComments: migrating ===================================
--- create_table(:comments)
-   -> 0.0140s
-== 20200610232329 CreateComments: migrated (0.0144s) ==========================
-
 
 
 ---
@@ -9105,23 +9421,7 @@ end
 
 
 $ Comment.all
-
-(8.2ms)  SELECT sqlite_version(*)
-  Comment Load (0.4ms)  SELECT "comments".* FROM "comments" LIMIT ?  [["LIMIT", 11]]
-=> #<ActiveRecord::Relation []>
-
-
-
----
-
-
-
-
 $ Article.comments
-
-Traceback (most recent call last):
-        1: from (irb):2
-NoMethodError (undefined method `comments' for #<Class:0x0000000007830340>)
 
 
 ---
@@ -9130,34 +9430,8 @@ NoMethodError (undefined method `comments' for #<Class:0x0000000007830340>)
 
 
 $ @article = Article.find(7)
-
-Article Load (0.3ms)  SELECT "articles".* FROM "articles" WHERE "articles"."id" = ? LIMIT ?  [["id", 7], ["LIMIT", 1]]
-=> #<Article id: 7, title: "Bla", text: "bla-bla", created_at: "2020-06-10 00:15:24", updated_at: "2020-06-10 00:15:24">
-
-
 $ @article.comments
-
-Comment Load (0.3ms)  SELECT "comments".* FROM "comments" WHERE "comments"."article_id" = ? LIMIT ?  [["article_id", 7], ["LIMIT", 11]]
-=> #<ActiveRecord::Associations::CollectionProxy []>
-
-
-
----
-
-
-
-
 $ @article.comments.create({ auther: 'Mike', body: 'Hello' })
-
-(0.1ms)  begin transaction
-  Comment Create (35.1ms)  INSERT INTO "comments" ("auther", "body", "article_id",
-"created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["auther", "Mike"],
-["body", "Hello"], ["article_id", 7], ["created_at", "2020-06-11 20:28:23.265814"],
-["updated_at", "2020-06-11 20:28:23.265814"]]
-   (197.8ms)  commit transaction
-
-=> #<Comment id: 1, auther: "Mike", body: "Hello", article_id: 7, created_at: "2020-06-11 20:28:23",
-updated_at: "2020-06-11 20:28:23">
 
 
 
@@ -9239,6 +9513,12 @@ class CommentsController < ApplicationController
 end
 
 
+
+
+---
+
+
+
 routes
 ------
 
@@ -9248,12 +9528,17 @@ article_comments GET    /articles/:article_id/comments(.:format)  comments#index
 
 
 <%= form_for :article do |f| %>
-    <p>Bla</p>
+  <p>Bla</p>
 <% end %>
 
 
 /articles/4/comments
 <form action="/articles/3" ...
+
+
+
+
+---
 
 
 
@@ -9277,13 +9562,20 @@ Extracted source (around line #10):
 </div>
 
 
+
+
+---
+
+
+
 http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html
 
-collection.build(attributes = {}):
 
-@article.comments - collection
 
-=> @article.comments.build
+collection.build(attributes = {})
+---------------------------------
+
+@article.comments                     - collection
 
 ([@article, @article.comments.build])
 
@@ -9295,8 +9587,6 @@ collection.build(attributes = {}):
 
 
 $ @article.comments.build
-
-=> #<Comment id: nil, auther: nil, body: nil, article_id: 7, created_at: nil, updated_at: nil>
 
 
 
@@ -9318,7 +9608,6 @@ $ @article.comments.build
 <p>
   <%= @article.text %>
 </p>
-
 <p>
   <%= form_for([ @article, @article.comments.build ]) do |f| %>
     <p>
@@ -11469,11 +11758,6 @@ end
 
 $ rake db:migrate
 
-== 20200624222429 AddUsernameIndex: migrating =================================
--- add_index(:users, :username, {:unique=>true})
-   -> 0.0183s
-== 20200624222429 AddUsernameIndex: migrated (0.0191s) ========================
-
 
 
 ---
@@ -12125,44 +12409,6 @@ C:/Ruby25-x64/bin/ruby.exe -I'C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/rspec-core-
 
 $ rails db:migrate RAILS_ENV=test
 
-== 20200618203225 CreateArticles: migrating ===================================
--- create_table(:articles)
-   -> 0.0027s
-== 20200618203225 CreateArticles: migrated (0.0034s) ==========================
-
-== 20200619202252 CreateContacts: migrating ===================================
--- create_table(:contacts)
-   -> 0.0020s
-== 20200619202252 CreateContacts: migrated (0.0028s) ==========================
-
-== 20200621185204 CreateComments: migrating ===================================
--- create_table(:comments)
-   -> 0.0031s
-== 20200621185204 CreateComments: migrated (0.0045s) ==========================
-
-== 20200623201928 DeviseCreateUsers: migrating ================================
--- create_table(:users)
-   -> 0.0029s
--- add_index(:users, :email, {:unique=>true})
-   -> 0.0012s
--- add_index(:users, :reset_password_token, {:unique=>true})
-   -> 0.0015s
-== 20200623201928 DeviseCreateUsers: migrated (0.0103s) =======================
-
-== 20200624220955 AddUsername: migrating ======================================
--- add_column(:users, :username, :string)
-   -> 0.0024s
-== 20200624220955 AddUsername: migrated (0.0032s) =============================
-
-== 20200624222429 AddUsernameIndex: migrating =================================
--- add_index(:users, :username, {:unique=>true})
-   -> 0.0029s
-== 20200624222429 AddUsernameIndex: migrated (0.0037s) ========================
-
-
-
-
-$ rails db:migrate RAILS_ENV=test
 
 $ rake spec
 
@@ -12588,8 +12834,8 @@ localization
 
 
 
-C:\Projects\ruby\rails\blog_2\config\locales\en.yml
----------------------------------------------------
+blog_2\config\locales\en.yml
+----------------------------
 
 # Files in the config/locales directory are used for internationalization
 # and are automatically loaded by Rails. If you want to use locales other
@@ -13147,11 +13393,6 @@ $ rails g scaffold User name:string email:string
 
 > bundle exec rake db:migrate
 
-== 20210129114458 CreateUsers: migrating ======================================
--- create_table(:users)
-   -> 0.0053s
-== 20210129114458 CreateUsers: migrated (0.0089s) =============================
-
 
 
 ---
@@ -13173,14 +13414,6 @@ $ rails g scaffold User name:string email:string
 
 
 ---
-
-
-
-
-== 20200629190540 CreateUsers: migrating ======================================
--- create_table(:users)
-   -> 0.0039s
-== 20200629190540 CreateUsers: migrated (0.0044s) =============================
 
 
 MVC - Model View Controller
@@ -13269,41 +13502,6 @@ end
 
 $ rails g scaffold Micropost content:text user_id:integer
 
-      invoke  active_record
-      create    db/migrate/20200629192856_create_microposts.rb
-      create    app/models/micropost.rb
-      invoke    test_unit
-      create      test/models/micropost_test.rb
-      create      test/fixtures/microposts.yml
-      invoke  resource_route
-       route    resources :microposts
-      invoke  scaffold_controller
-      create    app/controllers/microposts_controller.rb
-      invoke    erb
-      create      app/views/microposts
-      create      app/views/microposts/index.html.erb
-      create      app/views/microposts/edit.html.erb
-      create      app/views/microposts/show.html.erb
-      create      app/views/microposts/new.html.erb
-      create      app/views/microposts/_form.html.erb
-      invoke    test_unit
-      create      test/controllers/microposts_controller_test.rb
-      create      test/system/microposts_test.rb
-      invoke    helper
-      create      app/helpers/microposts_helper.rb
-      invoke      test_unit
-      invoke    jbuilder
-      create      app/views/microposts/index.json.jbuilder
-      create      app/views/microposts/show.json.jbuilder
-      create      app/views/microposts/_micropost.json.jbuilder
-      invoke  assets
-      invoke    coffee
-      create      app/assets/javascripts/microposts.coffee
-      invoke    scss
-      create      app/assets/stylesheets/microposts.scss
-      invoke  scss
-   identical    app/assets/stylesheets/scaffolds.scss
-
 
 
 ---
@@ -13312,11 +13510,6 @@ $ rails g scaffold Micropost content:text user_id:integer
 
 
 > bundle exec rake db:migrate
-
-== 20200629192856 CreateMicroposts: migrating =================================
--- create_table(:microposts)
-   -> 0.0050s
-== 20200629192856 CreateMicroposts: migrated (0.0059s) ========================
 
 
 
@@ -13397,94 +13590,16 @@ id          name        email             created_at                  updated_at
 
 > start rails console
 
-
 > First_user = User.first
-
-(5.1ms)  SELECT sqlite_version(*)
-  User Load (0.2ms)  SELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?  [["LIMIT", 1]]
-=> #<User id: 1, name: "Mike", email: "mike@some.com", created_at: "2020-06-29 19:14:22", updated_at: "2020-06-29 19:14:22">
-
-
-
----
-
-
-
-
 > First_user.microposts
-
-Micropost Load (0.3ms)  SELECT "microposts".* FROM "microposts" WHERE "microposts"."user_id" = ? LIMIT ?  [["user_id", 1], ["LIMIT", 11]]
-=> #<ActiveRecord::Associations::CollectionProxy [#<Micropost id: 1, content: "First post haha", user_id: 1,
-created_at: "2020-06-29 19:37:57", updated_at: "2020-06-29 19:37:57">, #<Micropost id: 2,
-content: "Second post blabla", user_id: 1, created_at: "2020-06-29 19:38:35", updated_at: "2020-06-29 19:38:35">]>
-
-
-
----
-
-
-
-
 > First_user.microposts.count
-
-(94.2ms)  SELECT COUNT(*) FROM "microposts" WHERE "microposts"."user_id" = ?  [["user_id", 1]]
-=> 2
-
-
-
----
-
-
-
-
 > First_user.microposts.length
-
-Micropost Load (0.5ms)  SELECT "microposts".* FROM "microposts" WHERE "microposts"."user_id" = ?  [["user_id", 1]]
-=> 2
-
-
-
----
-
-
-
-
 > First_user.microposts.first
 
-=> #<Micropost id: 1, content: "First post haha", user_id: 1, created_at: "2020-06-29 19:37:57", updated_at: "2020-06-29 19:37:57">
-
-
-
----
-
-
-
-
 > micropost = First_user.microposts.first
-
-=> #<Micropost id: 1, content: "First post haha", user_id: 1, created_at: "2020-06-29 19:37:57", updated_at: "2020-06-29 19:37:57">
-
-
-
----
-
-
-
-
 > micropost.user
-
-=> #<User id: 1, name: "Mike", email: "mike@some.com", created_at: "2020-06-29 19:14:22", updated_at: "2020-06-29 19:14:22">
-
-
-
----
-
-
-
-
 > micropost = First_user.microposts.last
 
-=> #<Micropost id: 2, content: "Second post blabla", user_id: 1, created_at: "2020-06-29 19:38:35", updated_at: "2020-06-29 19:38:35">
 
 
 
@@ -13506,15 +13621,6 @@ Activerecord::Base ---> user, micropost
 
 
 usersController, micropostsController < ApplictionController < ActionController::Base
-
-
-
----
-
-
-
-
-DRY
 
 
 
@@ -13734,17 +13840,6 @@ bulk email messaging
 
 
 http://www.youtube.com/watch?v=FNOhpAWbika
-
-
-
----
-
-
-
-
-unsubscribe_link!!
-
-
 http://rusrails.ru/action-mailer-basics
 http://rusrails.ru/a-guide-to-testing-rails-applications#testing-your-mailers
 
@@ -13763,20 +13858,11 @@ http://rusrails.ru/a-guide-to-testing-rails-applications#testing-your-mailers
 49. RUBY ON RAILS, POLYMORPHIC ASSOCIATIONS
 -------------------------------------------
 
-
 Polymorphic associations
 ------------------------
 
+
 git clone https://github.com/ro31337/poly-demo.git
-
-
-
----
-
-
-
-
-DRY
 
 
 
@@ -13834,45 +13920,8 @@ content, rating
 
 
 > rails g model Comment content:text
-
-  invoke  active_record
-  create    db/migrate/20200630195658_create_comments.rb
-  create    app/models/comment.rb
-  invoke    test_unit
-  create      test/models/comment_test.rb
-  create      test/fixtures/comments.yml
-
-
-
----
-
-
-
-
 > rails g model Post content:text
-
-  invoke  active_record
-  create    db/migrate/20200630195944_create_posts.rb
-  create    app/models/post.rb
-  invoke    test_unit
-  create      test/models/post_test.rb
-  create      test/fixtures/posts.yml
-
-
-
----
-
-
-
-
 > rails g model Image url:string
-
-  invoke  active_record
-  create    db/migrate/20200630200117_create_images.rb
-  create    app/models/image.rb
-  invoke    test_unit
-  create      test/models/image_test.rb
-  create      test/fixtures/images.yml
 
 
 
@@ -13923,8 +13972,8 @@ end
 
 
 
-C:\Projects\ruby\poly-demo\db\migrate\20200630195658_create_comments.rb
------------------------------------------------------------------------
+poly-demo\db\migrate\20200630195658_create_comments.rb
+------------------------------------------------------
 
 t.references :commentable, polymorphic: true
 
@@ -13973,108 +14022,16 @@ end
 
 > start rails c
 
-
 > post = Post.create(content: 'Lorem Ipsum')
 
-(5.1ms)  SELECT sqlite_version(*)
-   (0.1ms)  begin transaction
-  Post Create (16.5ms)  INSERT INTO "posts" ("content", "created_at", "updated_at") VALUES (?, ?, ?)
-[["content", "Lorem Ipsum"], ["created_at", "2020-06-30 20:21:42.102728"], ["updated_at", "2020-06-30 20:21:42.102728"]]
-   (180.4ms)  commit transaction
-=> #<Post id: 1, content: "Lorem Ipsum", created_at: "2020-06-30 20:21:42", updated_at: "2020-06-30 20:21:42">
-
-
-
----
-
-
-
-
 > post.comments
-
-Comment Load (0.3ms)  SELECT "comments".* FROM "comments" WHERE "comments"."commentable_id" = ? AND "comments"."commentable_type" = ?
-LIMIT ?  [["commentable_id", 1], ["commentable_type", "Post"], ["LIMIT", 11]]
-=> #<ActiveRecord::Associations::CollectionProxy []>
-
-
-
----
-
-
-
-
 > post.comments.create(content: 'Comment one')
-
-(0.1ms)  begin transaction
-  Comment Create (2.0ms)  INSERT INTO "comments" ("content", "commentable_type", "commentable_id", "created_at", "updated_at")
-VALUES (?, ?, ?, ?, ?)  [["content", "Comment one"], ["commentable_type", "Post"], ["commentable_id", 1],
-["created_at", "2020-06-30 20:25:51.899699"], ["updated_at", "2020-06-30 20:25:51.899699"]]
-   (106.6ms)  commit transaction
-=> #<Comment id: 1, content: "Comment one", commentable_type: "Post", commentable_id: 1, created_at: "2020-06-30 20:25:51",
-updated_at: "2020-06-30 20:25:51">
-
-
-
----
-
-
-
-
 > post.comments.create(content: 'Comment two')
-
-(0.1ms)  begin transaction
-  Comment Create (2.0ms)  INSERT INTO "comments" ("content", "commentable_type", "commentable_id", "created_at", "updated_at")
-VALUES (?, ?, ?, ?, ?)  [["content", "Comment two"], ["commentable_type", "Post"], ["commentable_id", 1],
-["created_at", "2020-06-30 20:27:38.530938"], ["updated_at", "2020-06-30 20:27:38.530938"]]
-   (246.3ms)  commit transaction
-=> #<Comment id: 2, content: "Comment two", commentable_type: "Post", commentable_id: 1, created_at: "2020-06-30 20:27:38",
-updated_at: "2020-06-30 20:27:38">
-
-
-
----
-
-
-
 
 > image = Image.create(url: '1.jpg')
 
-(0.1ms)  begin transaction
-  Image Create (2.1ms)  INSERT INTO "images" ("url", "created_at", "updated_at") VALUES (?, ?, ?)  [["url", "1.jpg"],
-["created_at", "2020-06-30 20:29:07.799997"], ["updated_at", "2020-06-30 20:29:07.799997"]]
-   (201.6ms)  commit transaction
-=> #<Image id: 1, url: "1.jpg", created_at: "2020-06-30 20:29:07", updated_at: "2020-06-30 20:29:07">
-
-
-
----
-
-
-
-
 > image.comments
-
-Comment Load (0.4ms)  SELECT "comments".* FROM "comments" WHERE "comments"."commentable_id" = ? AND "comments"."commentable_type" = ?
-LIMIT ?  [["commentable_id", 1], ["commentable_type", "Image"], ["LIMIT", 11]]
-=> #<ActiveRecord::Associations::CollectionProxy []>
-
-
-
----
-
-
-
-
 > image.comments.create(content: 'comment for image 1')
-
-
-
-
----
-
-
-
-
 > image.comments.create(content: 'comment for image 2')
 
 
@@ -14089,6 +14046,7 @@ LIMIT ?  [["commentable_id", 1], ["commentable_type", "Image"], ["LIMIT", 11]]
 
 SQLite version 3.32.2 2020-06-04 12:58:43
 Enter ".help" for usage hints.
+
 sqlite> .mode columns
 sqlite> .header on
 sqlite> .tables:
@@ -14130,43 +14088,8 @@ id          content      commentable_type  commentable_id  created_at           
 
 > Image.create(url: 'Lorem Ipsum')
 
-(0.1ms)  begin transaction
-  Image Create (2.1ms)  INSERT INTO "images" ("url", "created_at", "updated_at") VALUES (?, ?, ?)  [["url", "Lorem Ipsum"],
-["created_at", "2020-06-30 20:41:13.837408"], ["updated_at", "2020-06-30 20:41:13.837408"]]
-   (135.9ms)  commit transaction
-=> #<Image id: 2, url: "Lorem Ipsum", created_at: "2020-06-30 20:41:13", updated_at: "2020-06-30 20:41:13">
-
-
-
----
-
-
-
-
 > image2 = Image.create(url: 'jpg 2')
-
-(0.1ms)  begin transaction
-  Image Create (2.0ms)  INSERT INTO "images" ("url", "created_at", "updated_at") VALUES (?, ?, ?)  [["url", "jpg 2"],
-["created_at", "2020-06-30 20:46:11.425738"], ["updated_at", "2020-06-30 20:46:11.425738"]]
-   (190.6ms)  commit transaction
-=> #<Image id: 3, url: "jpg 2", created_at: "2020-06-30 20:46:11", updated_at: "2020-06-30 20:46:11">
-
-
-
----
-
-
-
-
 > image2.comments.create(content: 'Lorem ipsum')
-
-(0.1ms)  begin transaction
-  Comment Create (2.7ms)  INSERT INTO "comments" ("content", "commentable_type", "commentable_id", "created_at", "updated_at")
-VALUES (?, ?, ?, ?, ?)  [["content", "Lorem ipsum"], ["commentable_type", "Image"], ["commentable_id", 3],
-["created_at", "2020-06-30 20:47:29.087671"], ["updated_at", "2020-06-30 20:47:29.087671"]]
-   (139.2ms)  commit transaction
-=> #<Comment id: 5, content: "Lorem ipsum", commentable_type: "Image", commentable_id: 3, created_at: "2020-06-30 20:47:29",
-updated_at: "2020-06-30 20:47:29">
 
 
 
@@ -14309,7 +14232,6 @@ app.rb
 require 'singleton'
 
 class Logger
-
   include Singleton
 
   def initialize
@@ -14332,7 +14254,6 @@ logger.rb
 ---------
 
 require './logger'
-
 Logger.instance.log_something 'Blabla'
 
 
@@ -14678,7 +14599,7 @@ Add column (migration) cmd
 --------------------------
 
 
->rails g migration add_username_to_users username:string
+> rails g migration add_username_to_users username:string
 
 
 
@@ -14758,6 +14679,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   protected
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
   end
@@ -15285,22 +15207,12 @@ https://www.youtube.com/watch?v=Dd8dOAL6WYs
 
 $ rails g migration AddOmniauthToAccounts provider:string uid:string
 
-  invoke  active_record
-  create    db/migrate/20210211092149_add_omniauth_to_accounts.rb
-
 
 
 
 ---3---
 
 $ rake db:migrate
-
-== 20210211092149 AddOmniauthToAccounts: migrating ============================
--- add_column(:accounts, :provider, :string)
-   -> 0.1721s
--- add_column(:accounts, :uid, :string)
-   -> 0.0030s
-== 20210211092149 AddOmniauthToAccounts: migrated (0.1778s) ===================
 
 
 
@@ -15321,7 +15233,6 @@ https://developers.facebook.com/
 ---5---
 
 class Accounts::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-
   def facebook
     @account = Account.from_omniauth(request.env['omniauth.auth'])
 
@@ -15439,20 +15350,11 @@ Rails ActiveStorage
 
 $ rails active_storage:install
 
-Copied migration 20210212141003_create_active_storage_tables.active_storage.rb from active_storage
-
 
 
 ---2---
 
 $ rails db:migrate
-
-== 20210212141003 CreateActiveStorageTables: migrating ========================
--- create_table(:active_storage_blobs, {})
-   -> 1.0175s
--- create_table(:active_storage_attachments, {})
-   -> 0.4084s
-== 20210212141003 CreateActiveStorageTables: migrated (1.4302s) ===============
 
 
 config.active_storage.service = :local
@@ -15842,18 +15744,12 @@ Deploy app to heroku
 
 $ heroku apps:create rails-location-detect
 
- »   Warning: heroku update available from 7.42.6 to 7.50.0.
-Creating ⬢ rails-location-detect... done
-https://rails-location-detect.herokuapp.com/ | https://git.heroku.com/rails-location-detect.git
-
 
 
 
 ---2---
 
 $ heroku open
-
- »   Warning: heroku update available from 7.42.6 to 7.50.0.
 
 
 
@@ -15873,11 +15769,6 @@ origin  git@github.com:TheGor-365/location_detect.git (push)
 ---4---
 
 $ git status
-
-On branch master
-Your branch is up to date with 'origin/master'.
-
-nothing to commit, working tree clean
 
 
 
@@ -16073,8 +15964,8 @@ $ rails c
 
 ---7---
 
-C:\Projects\rails_basics\oauth_app\config\initializers\devise.rb
-----------------------------------------------------------------
+auth_app\config\initializers\devise.rb
+--------------------------------------
                                                        
 #config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
@@ -16092,8 +15983,8 @@ C:\Projects\rails_basics\oauth_app\config\initializers\devise.rb
 
 ---8---
 
-$ cd 'c:\Projects\rails_basics\oauth_app\config\initializers\session_store.rb'
-------------------------------------------------------------------------------
+$ cd 'oauth_app\config\initializers\session_store.rb'
+-----------------------------------------------------
                                                              
 Rails.application.config.session_store :active_record_store, key: '_devise_omniauth_session'
 
@@ -16118,9 +16009,6 @@ end
 
 $ rails g migration create_sessions
 
-      invoke  active_record
-      create    db/migrate/20210312165940_create_sessions.rb
-
 class CreateSessions < ActiveRecord::Migration[6.0]
   def change
     create_table :sessions do |t|
@@ -16137,29 +16025,13 @@ end
 
 $ rails db:migrate
 
-== 20210312165207 UpdateUsers: migrating ======================================
--- add_column(:users, :provider, :string, {:limit=>50, :null=>false, :default=>""})
-   -> 0.4033s
--- add_column(:users, :uid, :string, {:limit=>500, :null=>false, :default=>""})
-   -> 0.0062s
-== 20210312165207 UpdateUsers: migrated (0.4177s) =============================
-
-== 20210312165940 CreateSessions: migrating ===================================
--- create_table(:sessions)
-   -> 0.8919s
--- add_index(:sessions, :session_id, {:unique=>true})
-   -> 0.2023s
--- add_index(:sessions, :updated_at)
-   -> 0.0253s
-== 20210312165940 CreateSessions: migrated (1.1264s) ==========================
-
 
 
 
 ---10---
 
-C:\Projects\rails_basics\oauth_app\app\models\user.rb
------------------------------------------------------
+app\models\user.rb
+------------------
                                               
 class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -16182,18 +16054,6 @@ end
 ---11---
 
 $ rails g controller omniauth
-
-  create  app/controllers/omniauth_controller.rb
-  invoke  erb
-  create    app/views/omniauth
-  invoke  test_unit
-  create    test/controllers/omniauth_controller_test.rb
-  invoke  helper
-  create    app/helpers/omniauth_helper.rb
-  invoke    test_unit
-  invoke  assets
-  invoke    scss
-  create      app/assets/stylesheets/omniauth.scss
 
 
 
@@ -16249,8 +16109,9 @@ end
 
 ---13---
 
-C:\Projects\rails_basics\oauth_app\app\views\devise\shared\_links.html.erb
-                                                           ---------------
+oauth_app\app\views\devise\shared\_links.html.erb
+-------------------------------------------------
+
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
     <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider),
@@ -16258,7 +16119,10 @@ method: :post, class: 'text-decoration-none' %><br />
   <% end %>
 <% end %>
 
-add:
+
+
+add
+---
 
 method: :post / button_to
 

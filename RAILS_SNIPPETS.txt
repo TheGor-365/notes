@@ -4,6 +4,287 @@ Useful snippents for Rails app building
 
 
 
+Add credentials for google_map app cmd
+--------------------------------------
+
+
+$ rails credentials:edit --environment=development
+
+
+
+---
+
+
+
+Your Yarn packages are out of date
+----------------------------------
+
+
+$ yarn install --check-files
+
+
+
+---
+
+
+
+Using javascript in rails controller example
+--------------------------------------------
+
+
+class CommentsController < ApplicationController
+  def create
+    @comment = Comment.new comment_params
+    @comment.account_id = current_account.id
+
+    respond_to do |format|
+      format.js {
+        if @comment.save
+          @comments = Comment.where(post_id: @comment.post_id)
+          render 'comments/create'
+        else
+          # unable to save
+        end
+      }
+    end
+  end
+
+  def comment_params
+    params.require(:comment).permit(:message, :post_id)
+  end
+end
+
+
+file.js.erb
+-----------
+
+document.getElementById('post-comments').innerHTML = "<%= escape_javascript(render partial: 'posts/comments', locals: { comments: @comments }) %>";
+
+
+
+---
+
+
+
+Date time format helper example
+-------------------------------
+
+
+<%= @profile.created_at.strftime('%d/%m/%Y') %>
+
+
+
+---
+
+
+
+Truncate helper example
+-----------------------
+
+
+<%= truncate post.body, length: 200 %>
+
+
+
+---
+
+
+
+Time ago in words helper example
+--------------------------------
+
+
+<%= time_ago_in_words post.created_at %>
+
+
+
+---
+
+
+
+Pluralize helper example
+------------------------
+
+
+<p><%= pluralize @subscriber_count %></p>
+
+
+
+---
+
+
+
+Date helper for rails app with created_at example
+-------------------------------------------------
+
+
+<%= @match.created_at.strftime("%d/%m/%Y") %>
+
+
+
+---
+
+
+
+Rails js.erb view file snippet example
+--------------------------------------
+
+
+alert('message has been saved');
+$("#initiate-conversation").hide();
+$("#conversation_messages").html("<%= escape_javascript(render partial: 'browse/messages') %>");
+
+
+
+---
+
+
+
+Rails ActiveStorage
+-------------------
+
+
+---1---
+
+$ rails active_storage:install
+
+
+
+---2---
+
+$ rails db:migrate
+
+
+config.active_storage.service = :local
+
+
+local:
+  service: Disk
+  root: <%= Rails.root.join("storage") %>
+
+
+
+---
+
+
+
+Snippet for sign out (for routes.rb)
+------------------------------------
+
+
+devise_scope :user do
+  get '/users/sign_out' => 'devise/sessions#destroy'
+end
+
+
+
+---
+
+
+
+Required params snippet (with devise)
+-------------------------------------
+
+
+class ApplicationController < ActionController::Base
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+  protected
+  
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
+  end
+end
+
+
+
+---
+
+
+
+Usefull sqlite3 helpfull cmd
+----------------------------
+
+
+pragma table_info(technologies);
+
+
+
+---
+
+
+
+
+Restart page with get request syntax example
+--------------------------------------------
+
+
+resource :contacts, only: [:new, :create], path_names: { :new => '' }
+
+
+
+
+---
+
+
+
+
+Rails console cmd for checking entity attributes
+------------------------------------------------
+
+
+Contact.attribute_names
+
+
+
+---
+
+
+
+Hello Rails
+-----------
+
+
+$ rails new MySite
+$ bundle install
+$ rails server
+
+
+
+---
+
+
+
+Rails controller
+----------------
+
+
+---1---
+
+$ rails generate controller Pages 
+
+
+
+---2---
+
+app/controllers/pages_controller.rb
+-----------------------------------
+
+def home
+end
+
+
+
+class PagesController < ApplicationController
+  def home
+  end
+end
+
+
+
+---
+
+
 
 Pluralize helper example
 ------------------------
@@ -723,13 +1004,102 @@ view.html.erb
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+destructurization
+-----------------
+
+
+data = ['hexlet', 'online courses', topics: ['php', 'js']]
+name, description, topics = data
+
+puts name                                                     # "hexlet"
+puts description                                              # "online courses"
+puts topics                                                   # { topics: ["php", "js"] }
+
+
+
+
+---
+
+
+
+
+data = ['hexlet', 'online courses', ['php', 'js']]
+
+name, description, (first_topic, second_topic) = data         # учли количество элементов
+_, _, (first_topic, _) = data                                 # так же все элементы учтены
+*, (_, second_topic) = data                                   # пропустили элементы в первом массиве, во вложенном количество учтено
+name, description, (first_topic) = data
+
+
+
+
+
+---
+
+
+
+
+
+data = ['hexlet', 'online courses', ['php', 'js']]
+
+name, *rest = data
+puts rest                                                     # ["online courses", ["php", "js"]]
+
+name, *rest, topic = data
+puts rest                                                     # ["online courses"]
+
+
+
+
+---
+
+
+
+
+data = {
+  name: 'hexlet',
+  description: 'online courses',
+  topic: 'programming'
+}
+
+name, description = data.values_at(:name, :description)
+
+
+
+
+---
+
+
+
+def process((name, *rest))
+end
+
+data = ['hexlet', 'online courses', 'programming']
+process(data)
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Usefull javascript snippets
 ---------------------------
@@ -743,13 +1113,15 @@ Make online video in browser faster
 
 
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Usefull rails commands
 ----------------------
@@ -1150,13 +1522,15 @@ $ rails g migration add_category_to_products category:references
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Associations (Rails 6)
 ----------------------
@@ -2234,13 +2608,15 @@ SELECT "vehicles".* FROM "vehicles" WHERE "vehicles"."type" IN ('Car')
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 PostgreSQL
 ----------
@@ -2338,13 +2714,15 @@ CREATE DATABASE music2
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Database optimization in Rails
 ------------------------------
@@ -2383,13 +2761,15 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails multiple object create snippets for seeds.rb
 --------------------------------------------------
@@ -2512,13 +2892,15 @@ User.create([
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Lorem Ipsum text
 ----------------
@@ -2573,13 +2955,15 @@ dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails ActiveStorage
 -------------------
@@ -2608,13 +2992,15 @@ local:
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Render partial on the same page after clicking on link_to with AJAX
 -------------------------------------------------------------------
@@ -2694,13 +3080,15 @@ customers/index.html.erb
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Using javascript in rails controller example
 --------------------------------------------
@@ -2738,13 +3126,15 @@ document.getElementById('post-comments').innerHTML = "<%= escape_javascript(rend
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Usefull web resources
 ---------------------
@@ -3772,13 +4162,15 @@ https://www.templatefreebies.com/
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Frontend resources
 ------------------
@@ -3864,13 +4256,15 @@ https://cssmatic.com/
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Get API key for Stripe
 ----------------------
@@ -3935,13 +4329,15 @@ https://www.ultrahook.com/register
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Deploing rails app on heroku
 ----------------------------
@@ -3961,7 +4357,15 @@ Deploing rails app on heroku
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Deploy app to heroku
 --------------------
@@ -4019,7 +4423,15 @@ https://rails-location-detect.herokuapp.com/ deployed to Heroku
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Set your master key in production (heroku example)
 --------------------------------------------------
@@ -4032,13 +4444,15 @@ $ heroku config:set RAILS_MASTER_KEY=`cat config/master.key`
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Getting API's for oath_app
 --------------------------
@@ -4393,7 +4807,15 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 OmniAuth Facebook for insta_clone
 ---------------------------------
@@ -4465,7 +4887,15 @@ https://developers.facebook.com/
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Oauth authentication tutorial
 -----------------------------
@@ -4538,7 +4968,15 @@ $ bundle add omniauth-twitter omniauth-rails_csrf_protection
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Devise LDAP
 -----------
@@ -4756,7 +5194,15 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Turbo devise controller
 -----------------------
@@ -4822,14 +5268,15 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails 6 (and 5): User Accounts with 3 types of Roles – Devise, Rails Admin, CanCanCan
 -------------------------------------------------------------------------------------
@@ -5082,13 +5529,15 @@ $ rails db:migrate
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Simple form Rails
 -----------------
@@ -5139,13 +5588,15 @@ http://simple-form-bootstrap.plataformatec.com.br/
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails API - active_model_serializers
 ------------------------------------
@@ -5173,16 +5624,2271 @@ https://github.com/rails-api/active_model_serializers
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Look at Rails app routs
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ROR primitive blog guide
+------------------------
+
+
+$ rails new blog
+$ rails server
+
+
+
+---
+
+
+
+http://localhost:3000
+
+
+
+---
+
+
+
+$ rails server -e (envairment key)
+$ rails server -e development
+
+
+
+---
+
+
+
+$ rails server
+$ rails generate Some_Generator params
+$ rails g
+
+
+
+---
+
+
+
+Generators
+----------
+
+controller
+model
+
+
+
+---
+
+
+
+$ rails g controller home index
+
+
+http://localhost:3000/home/index
+
+
+
+---
+
+
+
+$ rails g model Article title:string text:text
+
+
+
+---
+
+
+
+app/db/migrate/111_create_migrate.rb
+------------------------------------
+
+class Create Articles < ActiveRecord::Migration
+  def change
+    create_table :articles do |t|
+      t.string :title
+      t.text :text
+
+      t.timestamps
+    end
+  end
+end
+
+
+
+---
+
+
+
+app/models/article.rb
+---------------------
+
+class Article < ActiveRecord::Base
+end
+
+
+
+---
+
+
+
+$ rake db:migrate
+
+
+
+---
+
+
+
+app/db/development.sqlite3
+--------------------------
+
+sqlite3 development.sqlite
+
+.tables
+
+
+
+---
+
+
+
+articles  schime_migrations
+
+$ rake routes
+
+
+
+---
+
+
+
+home_index GET /home/index(.:format) home#index
+
+
+
+---
+
+
+
+blog/config/routes.rb
+---------------------
+
+Rails.application.routes.draw do
+  get '/' => 'home/index'
+end
+
+
+
+---
+
+
+
+blog/config/routes.rb
+---------------------
+
+resources :articles
+
+
+
+---
+
+
+
+$ rake routs
+
+
+
+http://localhost:3000/articles/new
+----------------------------------
+
+
+! Routing error
+
+
+
+---
+
+
+
+$ rails g controller articles
+
+
+
+---
+
+
+
+app/controllers/articles_controller.rb
+--------------------------------------
+
+class ArticlesController < ApplicationController
+end 
+
+
+
+---
+
+
+
+http://localhost:3000/articles/new
+----------------------------------
+
+! Uncknown action
+
+
+
+
+---
+
+
+
+app/controllers/articles_controller.rb
+--------------------------------------
+
+def new
+end
+
+
+
+---
+
+
+
+class ArticlesController < ApplicationController
+  def new
+  end
+end
+
+
+
+---
+
+
+
+http://localhost:3000/articles/new
+----------------------------------
+
+! Template missing
+
+
+
+---
+
+
+
+app/views/articles
+------------------
+
+new.html.erb
+------------
+
+<h1>New article</h1>
+
+
+
+---
+
+
+
+http://localhost:3000/articles/new
+----------------------------------
+
+=> New article
+
+
+
+---
+
+
+
+app/views/articles/new.html.erb
+-------------------------------
+
+<%= from_for :article do |f| %>
+  <p>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </p>
+
+  <p>
+    <%= f.label :text %>
+    <%= f.text_area :text %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>  
+<% end %>
+
+
+
+---
+
+
+
+$ rake routes
+
+
+
+---
+
+
+...
+new_article GET /articles/new articles#new
+...
+
+---
+
+
+new.html.erb:
+url: '/articles'(or articles_path)
+
+
+
+---
+
+
+
+<%= from_for :article, url: articles_path do |f| %>
+
+
+
+---
+
+
+
+app/controllers/articles_controller.rb
+--------------------------------------
+
+def create
+end
+
+
+
+---
+
+
+
+class ArticlesController < ApplicationController
+  def new
+  end
+
+  def create
+  end
+end
+
+
+
+---
+
+
+
+localhost:3000/articles
 -----------------------
+
+! Template missing
+
+
+
+---
+
+
+
+articles_controller.rb
+----------------------
+
+render plain: params[:article].inspect
+
+
+
+---
+
+
+
+def create
+  render plain: params[:article].inspect
+end
+
+
+
+---
+
+
+
+localhost:3000/articles
+-----------------------
+
+{"title" => "123", "text" => "123"}
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+RUBY ON RAILS, BLOG
+-------------------
+
+
+$ start cmd
+
+C:\new_repeat\ruby_cource\lesson_40_rails_blog\Blog_40>
+
+
+show page
+---------
+
+/terms
+/about
+
+
+
+---
+
+
+
+Add static pages
+----------------
+
+1. add controller
+
+$ rails g controller Pages
+
+
+2. add actions
+
+def some_action
+  @info_vaiable = Info_variable.all
+end
+
+
+3. add views
+
+$ touch about.html.erb
+
+
+4. add routes
+
+get '/index' => 'pages/index'
+
+
+
+---
+
+
+
+
+sinatra
+-------
+
+1. route (app.rb)
+2. view (project/views)
+
+
+
+---
+
+
+
+
+Work with dynamic pages, rails
+------------------------------
+
+1. Add model
+------------
+
+a) create model (rails g model Article string:title text:text)
+b) create migration (rake db:migrate)
+
+
+2. Add routes
+
+a) resource (profile of user)
+b) resources (products)
+
+
+3. Add controller
+
+> rails g controller Articles
+
+
+4. Create actions in controllers
+
+a) index*
+b) new + create
+c) edit + update
+e) destroy
+
+
+5. Add views
+
+a) show.html.erb
+b) index.html.erb
+c) new.html.erb
+d) edit.html.erb
+e) static.html.erb
+
+
+
+---
+
+
+
+
+https://github.com/ro31337/sample-blog
+
+
+
+---
+
+
+
+
+delete
+------
+
+$ Article.find(2)
+
+
+
+---
+
+
+
+
+$ rails console
+
+Article.all
+Article.find(id)
+@article = Article.find(1)
+@article.destroy
+
+
+$ @article.destroy
+
+
+
+---
+
+
+
+
+def destroy
+  @article = Article.find(params[:id])
+  @article.destroy
+end
+
+
+
+---
+
+
+
+
+class ArticlesController < ApplicationController
+  def index
+    @articles = Article.all
+  end
+
+  def show
+    @article = Article.find(params[:id])
+  end
+
+  def new
+  end
+
+  def create
+    @article = Article.new(article_params)
+
+    if @article.valid?
+      @article.save
+      redirect_to @article
+    else
+      render action: 'new'
+    end
+  end
+
+  def edit
+    @article = Article.find(params[:id])
+  end
+
+  def update
+    @article = Article.find(params[:id])
+
+    if @article.update(article_params)
+      redirect_to @article
+    else
+      render action: 'edit'
+    end
+  end
+
+  def destroy
+    @article = Article.find(params[:id])
+    @article.destroy
+
+    redirect_to articles_path
+  end
+
+  private
+
+  def article_params
+    params.require(:article).permit(:title, :text)
+  end
+end
+
+
+redirect_to articles_path
+
+
+
+---
+
+
+
+
+Go to client
+------------
+
+<%= link_to 'Destroy', article_path(article), method: :delete %>
+
+
+
+---
+
+
+
+
+<h2>List of articles</h2>
+
+<% @articles.each do |article| %>
+  <h3><%= article.title %></h3>
+  <p><%= article.text %></p>
+  <p>
+    <%= link_to 'Show', article_path(article) %> |
+    <%= link_to 'Edit', edit_article_path(article) %> |
+    <%= link_to 'Destroy', article_path(article), method: :delete %>
+  </p>
+  <hr>
+<% end %>
+
+
+
+---
+
+
+
+data-method="delete"
+ajax
+
+
+
+---
+
+
+
+
+<body>
+  <h2>List of articles</h2>
+<h3>1231123</h3>
+<p>xxx</p>
+<p>
+  <a href="/articles/1">Show</a> |
+  <a href="/articles/1/edit">Edit</a> |
+  <a rel="nofollow" data-method="delete" href="/articles/1">Destroy</a>
+</p>
+<hr>
+<h3>777</h3>
+
+
+
+
+
+---
+
+
+
+
+data-method="delete" (HTML5)
+
+
+
+---
+
+
+
+
+link_to docs
+------------
+
+http://api.rubyonrails.org/classes/ActionViews/Helpers/UrlHelper.html#method-i-link_to
+
+
+
+---
+
+
+
+
+<%= link_to 'Destroy', article_path(article), method: :delete, data: { confirm: 'Are you sure?' } %>
+
+
+
+---
+
+
+
+
+render
+------
+
+method returns action: 'data'
+
+
+
+---
+
+
+
+
+call.back
+
+
+
+---
+
+
+
+
+comments
+--------
+
+$ rails g model ...
+
+http://railsguides.net/advanced-rails-model-generators/
+
+
+
+---
+
+
+
+
+Article 1 ------- * Comment
+
+one-to-many
+
+
+
+---
+
+
+
+
+$ rails g model Comment author:string body:text article:references
+
+
+
+---
+
+
+
+
+$ rails db:migrate
+$ sqlite3 development.sqlite
+
+
+
+---
+
+
+
+
+comment.rb
+----------
+
+class Comment < ApplicationRecord
+  belongs_to :article
+end
+
+
+
+---
+
+
+
+
+20200610232329_create_comments.rb
+---------------------------------
+
+class CreateComments < ActiveRecord::Migration[6.0]
+  def change
+    create_table :comments do |t|
+      t.string :auther
+      t.text :body
+      t.references :article, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+
+
+
+---
+
+
+
+
+$ rake db:migrate
+
+
+
+---
+
+
+
+
+sqlite> pragma table_info(articles);
+
+cid         name        type        notnull     dflt_value  pk
+----------  ----------  ----------  ----------  ----------  ----------
+0           id          integer     1                       1
+1           title       varchar     0                       0
+2           text        text        0                       0
+3           created_at  datetime(6  1                       0
+4           updated_at  datetime(6  1                       0
+
+
+
+sqlite> pragma table_info(comments);
+
+
+---
+
+
+
+
+pragma_table(table_name);
+
+
+every 1 comment -> 1 article
+every 1 article -> has many comments
+
+
+
+---
+
+
+
+
+article.rb
+----------
+
+has_many :comments
+
+
+
+---
+
+
+
+
+class Article < ApplicationRecord
+  has_many :comments
+end
+
+
+
+---
+
+
+
+
+routes.rb
+---------
+
+resource :contacts, only: [:new, :create], path_names: { :new => '' }
+
+resources :articles do
+  resources :comments
+end
+
+
+
+---
+
+
+
+Rails.application.routes.draw do
+  get 'home/index'
+  get 'terms' => 'pages#terms'
+  get 'about' => 'pages#about'
+
+  resource :contacts, only: [:new, :create], path_names: { :new => '' }
+
+  resources :articles do
+    resources :comments
+  end
+end
+
+
+
+---
+
+
+
+
+$ rake routes
+
+
+
+---
+
+
+
+
+$ rails g controller comments
+
+
+
+---
+
+
+
+
+comments_controller.rb
+----------------------
+
+class CommentsController < ApplicationController
+  def create
+  end
+end
+
+
+
+---
+
+
+
+
+$ Comment.all
+$ Article.comments
+
+
+---
+
+
+
+
+$ @article = Article.find(7)
+$ @article.comments
+$ @article.comments.create({ auther: 'Mike', body: 'Hello' })
+
+
+
+---
+
+
+
+
+@article = Article.find(params[:atricle_id])
+@article.comments.create({ auter: 'Mike', body: 'Hello'})
+
+
+
+---
+
+
+
+
+class CommentsController < ApplicationController
+  def create
+    @article = Article.find(params[:atricle_id])
+    @article.comments.create({ auter: 'Mike', body: 'Hello'})
+  end
+end
+
+
+
+---
+
+
+
+
+private
+
+def comment_params
+  params.require(:comment).permit(:auter, :body)
+end
+
+
+
+---
+
+
+
+
+class CommentsController < ApplicationController
+  def create
+    @article = Article.find(params[:atricle_id])
+    @article.comments.create(comment_params)
+  end
+
+  private
+
+  def comment_params
+    params.require(:comment).permit(:auter, :body)
+  end
+end
+
+
+
+---
+
+
+
+
+class CommentsController < ApplicationController
+  def create
+    @article = Article.find(params[:atricle_id])
+    @article.comments.create(comment_params)
+
+    redirect_to article_path(@article)
+  end
+
+  private
+
+  def comment_params
+    params.require(:comment).permit(:author, :body)
+  end
+end
+
+
+
+
+---
+
+
+
+routes
+------
+
+article_comments GET    /articles/:article_id/comments(.:format)  comments#index
+                 POST   /articles/:article_id/comments(.:format)  comments#create
+
+
+
+<%= form_for :article do |f| %>
+  <p>Bla</p>
+<% end %>
+
+
+/articles/4/comments
+<form action="/articles/3" ...
+
+
+
+
+---
+
+
+
+neeed
+-----
+
+<form action="/articles/3/comments" ...
+
+
+NameError in Articles#show
+
+undefined local variable or method `comments_path' for #<#<Class:0x0000000007d71908>:0x0000000007d6b788>
+Did you mean?  font_path
+Extracted source (around line #10):
+
+
+<div class="container">
+  <%= form_for :comment, url: comments_path do |f| %>
+    <p>Blabla</p>
+  <% end %>
+</div>
+
+
+
+
+---
+
+
+
+http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html
+
+
+
+collection.build(attributes = {})
+---------------------------------
+
+@article.comments                     - collection
+([@article, @article.comments.build])
+
+
+
+---
+
+
+
+
+$ @article.comments.build
+
+
+
+---
+
+
+
+
+<%= form_for([ @article, @article.comments.build ]) do |f| %>
+
+
+
+---
+
+
+
+
+<h2><%= @article.title %></h2>
+<p>
+  <%= @article.text %>
+</p>
+<p>
+  <%= form_for([ @article, @article.comments.build ]) do |f| %>
+    <p>
+      blabla
+    </p>
+  <% end %>
+</p>
+
+
+action="/articles/4/comments"
+
+
+
+---
+
+
+
+
+.tables
+.mode columns
+.header on
+
+
+> SELECT * FROM articles;
+
+> pragma table_info(articles);
+> pragma table_info(comments);
+
+
+
+---
+
+
+
+
+every comment belonges_to article
+every article has_many comments
+
+
+
+---
+
+
+
+
+app/models/article_model.rb
+---------------------------
+
+has_many :comments
+
+
+
+---
+
+
+
+
+routes.rb
+---------
+
+resources :articles do
+  resources :comments
+end
+
+
+
+---
+
+
+
+
+https://sql.ru
+http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html
+
+
+
+---
+
+
+
+
+@article.comments
+([@article, @article.comments.build])
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+RUBY ON RAILS, RSPEC, TESTS, CRUD
+---------------------------------
+
+
+http://rutracker.org/forum/viewtopic.php?t=4691636
+
+
+
+---
+
+
+
+
+Rails
+-----
+
+table: many
+model: one
+controller: many
+
+
+
+---
+
+
+
+
+1 - *
+
+Article     Comment
+has_many :comments  belongs_to :article
+id      article_id
+
+
+
+---
+
+
+
+
+1 - 1
+
+Address     Order
+belongs_to :order has_one :address
+order_id    id
+
+
+
+---
+
+
+
+
+denormalization for fast work (for server)
+
+
+
+---
+
+
+
+
+complex-type
+
+
+
+---
+
+
+
+
+* - *
+
+Tag (category)    Article     tags.articles
+id      id      tag_id
+            article_id
+has_and_belong_to_many :articles
+has_and_belong_to_many :tags
+
+
+
+---
+
+
+
+
+Show comments
+-------------
+
+article#show
+------------
+
+<% @article.comments.each do |comment| %>
+  <p>
+    <i><%= comment.auther %> said: </i>
+    <% comment.body %>
+  </p>
+<% end %>
+
+
+
+---
+
+
+
+
+<h2><%= @article.title %></h2>
+<p>
+  <%= @article.text %>
+</p>
+
+<h2>Comments</h2>
+
+<% @article.comments.each do |comment| %>
+  <p>
+    <i><%= comment.auther %> said: </i>
+    <% comment.body %>
+  </p>
+<% end %>
+
+
+<h2>Add comment</h2>
+
+<p>
+  <%= form_for([ @article, @article.comments.build ]) do |f| %>
+  <p>
+    <%= f.label :auther %><br>
+    <%= f.text_field :auther %>
+  </p>
+  <p>
+    <%= f.label :body %><br>
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+  <% end %>
+</p>
+
+
+
+---
+
+
+
+
+ActiveRecord
+------------
+
+C         R       U         D
+create    read    update    delete
+-------   -----   -------   --------
+.new      .find   .update   .destroy
+.save     .all    .delete
+.create   .where
+
+
+
+---
+
+
+
+
+google
+------
+
+ApplicationController params
+
+
+
+---
+
+
+
+
+REST
+----
+
+GET POST  UPDATE  DELETE
+
+ROY
+
+
+
+---
+
+
+
+
+resource
+resources ... index
+
+
+
+---
+
+
+
+
+resources :... do
+  resources :...
+end
+
+
+
+---
+
+
+
+
+REST - Representeytional State Transfer
+
+
+
+---
+
+
+
+
+1 resource -> 1 url (or parametr)
+
+
+
+---
+
+
+
+
+Helpfull web resources
+----------------------
+
+https://plnkr.co/
+
+https://plnkr.co/plunk/6N2IqTT36tvw4Mt8
+
+Plunker
+
+
+
+---
+
+
+
+
+Bootstrap in Planker
+
+
+
+---
+
+
+
+
+chrome developer tools
+----------------------
+
+mobile phone
+------------
+
+iphone 5
+
+
+
+---
+
+
+
+
+jsfiddle.net
+<script async src="//jsfiddle.net/TheGor/jqt3fhec/embed/"></script>
+
+https://jsfiddle.net/TheGor/jqt3fhec/#&togetherjs=kFC90AwvlK
+online frontend tool
+
+TheGor - Log in
+
+
+
+---
+
+
+
+
+google
+------
+
+ruby fiddle
+-----------
+
+https://www.onlinegdb.com/online_ruby_compiler
+
+
+
+---
+
+
+
+
+x = 2 != 3
+=> true
+
+x = 2 == 3
+=> false
+
+
+
+---
+
+
+
+
+rspec
+framework
+
+
+
+---
+
+
+
+
+> gem install rspec
+
+
+
+---
+
+
+
+
+$ rspec
+No examples found.
+
+
+Finished in 0.00066 seconds (files took 0.15738 seconds to load)
+0 examples, 0 failures
+
+
+
+---
+
+
+
+
+describe
+it
+
+
+
+---
+
+
+
+
+hero_spec.rb
+------------
+
+describe Hero do
+end
+
+
+
+---
+
+
+
+
+$ gem install rspec
+$ rspec
+
+No examples found.
+
+
+Finished in 0.03896 seconds (files took 1.01 seconds to load)
+0 examples, 0 failures
+
+touch hero_spec.rb
+
+describe
+it
+
+
+console
+-------
+
+$ rspec hero_spec.rb
+
+An error occurred while loading ./hero_spec.rb.
+Failure/Error:
+  describe Hero do
+  end
+
+NameError:
+  uninitialized constant Hero
+# ./hero_spec.rb:1:in `<top (required)>'
+No examples found.
+
+
+Finished in 0.00004 seconds (files took 0.18927 seconds to load)
+0 examples, 0 failures, 1 error occurred outside of examples
+
+
+not find
+--------
+
+Hero
+
+
+
+---
+
+
+
+
+hero.rb
+-------
+
+class Hero
+end
+
+
+
+hero_spec.rb
+------------
+
+require './hero'
+
+describe Hero do
+end
+
+
+console
+-------
+
+$ rspec hero_spec.rb
+No examples found.
+
+
+Finished in 0.00051 seconds (files took 0.2812 seconds to load)
+0 examples, 0 failures
+
+
+
+---
+
+
+
+
+class Hero
+  def initialize(name, health=100)
+    @name = name.capitalize
+    @health = health
+  end
+
+  def name
+    @name
+  end
+
+  def power_up
+    @health += 10
+  end
+
+  def power_down
+    @health -= 10
+  end
+
+  def hero_info
+    "#{name} has a health #{@health}"
+  end
+end
+
+
+hero = Hero.new 'Mike'
+
+puts hero.name
+puts hero.power_up
+puts hero.hero_info
+
+
+
+---
+
+
+
+
+console
+-------
+
+$ rspec hero_spec.rb
+
+Mike
+110
+Mike has a health 110
+No examples found.
+
+
+Finished in 0.00059 seconds (files took 0.29684 seconds to load)
+0 examples, 0 failures
+
+
+
+---
+
+
+
+
+hero_rspec.rb
+-------------
+
+it "has a capitalized name" do
+  hero = Hero.new 'mike'
+
+  expect(hero.name).to eq 'Mike'
+end
+
+
+
+---
+
+
+
+
+require './hero'
+
+describe Hero do
+  it "has a capitalized name" do
+    hero = Hero.new 'mike'
+
+    expect(hero.name).to eq 'Mike'
+  end
+end
+
+
+
+---
+
+
+
+
+console
+-------
+
+$ rspec hero_spec.rb
+.
+
+Finished in 0.01089 seconds (files took 0.27059 seconds to load)
+1 example, 0 failures
+
+
+
+---
+
+
+
+
+require './hero'
+
+describe Hero do
+  it "has a capitalized name" do
+    hero = Hero.new 'mike'
+
+    expect(hero.name).to eq 'mike'
+  end
+end
+
+
+
+---
+
+
+
+
+console
+-------
+
+$ rspec hero_spec.rb
+F
+
+Failures:
+
+1) Hero has a capitalized name
+   Failure/Error: expect(hero.name).to eq 'mike'
+
+     expected: "mike"
+          got: "Mike"
+
+     (compared using ==)
+   # ./hero_spec.rb:7:in `block (2 levels) in <top (required)>'
+
+Finished in 0.16185 seconds (files took 0.26991 seconds to load)
+1 example, 1 failure
+
+Failed examples:
+
+rspec ./hero_spec.rb:4 # Hero has a capitalized name
+
+
+
+---
+
+
+
+
+require './hero'
+
+describe Hero do
+  it "has a capitalized name" do
+    hero = Hero.new 'mike'
+
+    expect(hero.name).to eq 'mike'
+  end
+
+  it "can power up" do
+    hero = Hero.new 'mike'
+
+    expect(hero_power_up).to eq 110
+  end
+end
+
+
+
+---
+
+
+
+
+console
+-------
+
+$ rspec hero_spec.rb
+FF
+
+
+Failures
+--------
+
+1) Hero has a capitalized name
+   Failure/Error: expect(hero.name).to eq 'mike'
+
+     expected: "mike"
+          got: "Mike"
+
+     (compared using ==)
+   # ./hero_spec.rb:7:in `block (2 levels) in <top (required)>'
+
+
+2) Hero can power up
+   Failure/Error: expect(hero_power_up).to eq 110
+
+   NameError:
+     undefined local variable or method `hero_power_up' for #<RSpec::ExampleGroups::Hero "can power up" (./hero_spec.rb:10)>
+   # ./hero_spec.rb:13:in `block (2 levels) in <top (required)>'
+
+Finished in 0.03581 seconds (files took 0.26007 seconds to load)
+2 examples, 2 failures
+
+
+Failed examples
+---------------
+
+rspec ./hero_spec.rb:4 # Hero has a capitalized name
+rspec ./hero_spec.rb:10 # Hero can power up
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Create messages in Rails app guide
+----------------------------------
+
+config/routes.rb
+----------------
+
+
+get 'messages/new' => 'messages#new'
+
+
+
+---
+
+
+
+app/controllers/messages_controller.rb
+--------------------------------------
+
+def new 
+  @message = Message.new 
+end 
+
+
+
+---
+
+
+
+class MessagesController < ApplicationController
+  def index
+    @messages = Message.all
+  end
+
+  def new
+    @message = Message.new
+  end
+end
+
+
+
+---
+
+
+
+config/routes.rb
+----------------
+
+post 'messages' => 'messages#create'
+
+
+
+---
+
+
+
+app/controllers/messages_controller.rb
+--------------------------------------
+
+private
+
+def message_params 
+  params.require(:message).permit(:content) 
+end
+
+
+
+---
+
+
+
+def create 
+  @message = Message.new(message_params)
+
+  if @message.save 
+    redirect_to '/messages' 
+  else 
+    render 'new' 
+  end 
+end 
+
+
+
+---
+
+
+
+app/views/messages/new.html.erb
+-------------------------------
+
+<%= form_for(@message) do |f| %>  
+  <div class="field"> 
+    <%= f.label :message %><br> 
+    <%= f.text_area :content %> 
+  </div> 
+  <div class="actions"> 
+    <%= f.submit "Create" %> 
+  </div> 
+<% end %>
+
+
+
+---
+
+
+
+<% @messages.each do |message| %>                     - перебирает каждое сообщение в массиве @messages
+@messages                                             - array
+<%= message.content %>                                - отобразить его содержимое
+<%= message.created_at %>                             - отображение времени его создания
+
+
+
+---
+
+
+
+<div class="header">
+  <div class="container">
+    <img src="http://s3.amazonaws.com/codecademy-content/courses/learn-rails/img/logo-1m.svg">
+    <h1>Messenger</h1>
+  </div>
+</div>
+
+<div class="create">
+  <div class="container">
+    <%= form_for(@message) do |f| %>  
+      <div class="field"> 
+        <%= f.label :message %><br> 
+        <%= f.text_area :content %> 
+      </div> 
+      <div class="actions"> 
+        <%= f.submit "Create" %> 
+      </div> 
+    <% end %>
+  </div>
+</div>
+
+
+
+---
+
+
+
+app/views/messages/index.html.erb
+---------------------------------
+
+<%= link_to 'New Message', "messages/new" %>
+
+
+
+---
+
+
+
+<div class="header">
+  <div class="container">
+    <img src="http://s3.amazonaws.com/codecademy-content/courses/learn-rails/img/logo-1m.svg">
+    <h1>Messenger</h1>
+  </div>
+</div>
+
+<div class="messages">
+  <div class="container">
+    <% @messages.each do |message| %> 
+      <div class="message"> 
+        <p class="content"><%= message.content %></p> 
+        <p class="time"><%= message.created_at %></p> 
+      </div> 
+    <% end %>
+    <%= link_to 'New Message', "messages/new" %>
+  </div>
+</div>
+
+
+
+---
+
+
+
+http://localhost:8000/messages
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Create Signups guide
+--------------------
+
+
+$ rails new innovation-cloud
+$ cd innovation-cloud
+$ bundle install
+
+$ rails g controller Signups
+$ rails g controller Pages
+
+$ touch app/views/signups/new.html.erb
+$ touch app/views/pages/thanks.html.erb
+$ touch app/assets/stylesheets/pages.css
+
+$ rails g model Signup
+$ bundle exec rake db:migrate
+
+
+
+---
+
+
+
+app/controllers/pages_controller.rb
+-----------------------------------
+
+def thanks
+  get '/thanks' => 'pages#thanks'
+end
+
+
+
+---
+
+
+
+config/routes.rb
+----------------
+
+resources :signups
+
+
+$ bundle exec rake routes
+
+
+
+---
+
+
+
+app/controllers/signup_controller.rb
+------------------------------------
+
+def new
+  @signup = Signup.new
+end
+
+
+
+---
+
+
+
+app/views/signups/new.html.erb
+------------------------------
+
+<%= form_for(@signup) do |f| %>
+  <%= f.text_field :email, :placeholder => "Email" %>
+  <%= f.submit "Join", :class =>'btn' %> 
+<% end %>
+
+
+
+---
+
+
+
+config/routes.rb
+----------------
+
+root 'signup#new'
+
+
+
+---
+
+
+
+app/controllers/signups_controller.rb
+-------------------------------------
+
+def create
+  @signup = Signup.new(signup_params)
+
+  if @signup.save
+    redirect_to thanks_url
+  else
+    render 'new'
+  end
+end
+
+private
+
+def signup_params
+  params.require(:signup).permit(:email)
+end
+
+
+
+---
+
+
+
+$ cd innovation-cloud
+$ rails console
+
+
+
+---
+
+
+
+Signup.all
+
+Ctrl + d
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Look at Rails app routes
+------------------------
 
 
 In browser
@@ -5204,13 +7910,752 @@ $ rails routes
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Rails Routes
+------------
+
+
+config/routes.rb
+----------------
+
+get 'welcome' => 'pages#home'
+
+
+
+---
+
+
+
+Rails.application.routes.draw do
+  root 'welcome#index'
+
+  get 'welcome' => 'pages#home'
+  get 'products/:id' => 'catalog#view'
+  get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+
+  resources :products
+
+  resources :products do
+    member do
+      get 'short'
+      post 'toggle'
+    end
+
+    collection do
+      get 'sold'
+    end
+  end
+
+  resources :products do
+    resources :comments, :sales
+    resource :seller
+  end
+
+  resources :products do
+    resources :comments
+    resources :sales do
+      get 'recent', on: :collection
+    end
+  end
+
+  concern :toggleable do
+    post 'toggle'
+  end
+
+  resources :posts, concerns: :toggleable
+  resources :photos, concerns: :toggleable
+
+  namespace :admin do
+    resources :products
+  end
+end
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Rails routing errors
+--------------------
+
+localhost:3000/contacts
+-----------------------
+
+
+! Routing error
+
+
+$ rails g controller contacts
+
+
+
+---
+
+
+
+app/controllers/contacts_controller.rb
+--------------------------------------
+
+class ContactsController < ApplecationController
+end
+
+
+
+---
+
+
+
+def index
+end
+
+
+
+---
+
+
+
+class ContactsController < ApplecationController
+  def index
+  end
+end
+
+
+
+---
+
+
+
+config/routes.rb
+----------------
+
+get 'contacts/index'
+
+
+
+---
+
+
+
+Rails.application.routes.draw do
+  get '/' => 'home/index'
+  get 'contacts/index'
+
+  resources :articles
+end
+
+
+
+---
+
+
+
+REVERSE
+-------
+
+
+a. GET page (new)
+b. POST data (create)
+
+
+
+---
+
+
+
+contacts_controller.rb
+----------------------
+
+class ContactsController < ApplecationController
+  def new
+  end
+
+  def create
+  end
+end
+
+
+
+---
+
+
+
+config/routes.rb
+----------------
+
+resource :contacts, only: [:new, :create]
+
+
+
+---
+
+
+
+Rails.application.routes.draw do
+  get '/' => 'home/index'
+
+  resource :contacts, only: [:new, :create]
+  resources :articles
+end
+
+
+
+---
+
+
+
+$ rake routes
+
+
+
+---
+
+
+
+contacts  POST  /contacts contacts#create
+new_contacts  GET /contacts/new contacts#new
+
+
+
+---
+
+
+
+localhost:3000/contacts/new
+---------------------------
+
+! template error
+
+
+
+---
+
+
+
+app/views/contacts
+------------------
+
+new.html.erb
+------------
+
+<h1>Contact us</h1>
+
+
+
+---
+
+
+
+localhost:3000/contacts/new
+=> Contact us
+
+
+
+---
+
+
+
+$ rails g model Contact email:string message:text
+
+
+
+---
+
+
+
+$ rake db:migrate
+$ sqlite3 evelopment.sqlite
+
+.tables
+
+
+
+---
+
+
+
+$ rails console
+
+Contact.all
+(SELECT * FROM contacts;)
+
+Article.all
+(SELECT * FROM article;)
+
+Contact.attribute_names
+Article.attribute_names
+
+exit
+
+
+
+---
+
+
+
+app/views/contacts/new.html.erb
+-------------------------------
+
+<%= from_for :contact, url: contacts_path do |f| %>
+  <p>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </p>
+
+  <p>
+    <%= f.label :message %>
+    <%= f.text_area :message %>
+  </p>
+
+  <p>
+    <%= f.submit 'Send message' %>
+  </p>
+<% end %>
+
+
+
+---
+
+
+
+http://guades.rubyonrails.org/routing.html
+
+
+
+---
+
+
+
+app/views/contacts/create.html.erb
+----------------------------------
+
+<h1>Thanks</h1>
+
+
+
+---
+
+
+
+app/controllers/contacts_controller.rb
+--------------------------------------
+
+def create
+  @contact = Contact.new(params[:contact])
+end
+
+
+
+---
+
+
+
+class ContactsController < ApplecationController
+  def new
+  end
+
+  def create
+    @contact = Contact.new(params[:contact])
+  end
+end
+
+
+
+---
+
+
+
+private
+
+def contact_params
+  params.require(:contact).permit(:email, :message)
+end
+
+
+
+---
+
+
+
+class ContactsController < ApplecationController
+  def new
+  end
+
+  def create
+    @contact = Contact.new(contact_params)
+  end
+
+  private
+
+  def contact_params
+    params.require(:contact).permit(:email, :message)
+  end
+end
+
+
+
+---
+
+
+
+app/controllers/contacts_controller.rb
+--------------------------------------
+
+def create
+  @contact.save
+end
+
+
+
+---
+
+
+
+class ContactsController < ApplecationController
+  def new
+  end
+
+  def create
+    @contact = Contact.new(contact_params)
+    @contact.save
+  end
+
+  private
+
+  def contact_params
+    params.require(:contact).permit(:email, :message)
+  end
+end
+
+
+
+---
+
+
+
+$ rails console
+
+Contact.all
+(SELECT * FROM contacts;)
+
+
+
+---
+
+
+
+input info
+
+
+
+---
+
+
+
+Contact.all
+
+
+
+---
+
+
+
+
+Validation
+----------
+
+app/models/contact.rb
+---------------------
+
+validates :email, presence: true
+validates :message, presence: true
+
+
+
+---
+
+
+
+class Contact < ActiveRecord::Base
+  validates :email, presence: true
+  validates :message, presence: true
+end
+
+
+
+---
+
+
+
+app/controllers/contacts_controller.rb
+--------------------------------------
+
+if @contact.valid?
+  @contact.save
+else
+  render action: 'new'
+end
+
+
+
+---
+
+
+
+class ContactsController < ApplecationController
+  def new
+  end
+
+  def create
+    @contact = Contact.new(contact_params)
+
+    if @contact.valid?
+      @contact.save
+    else
+      render action: 'new'
+    end
+  end
+
+  private
+
+  def contact_params
+    params.require(:contact).permit(:email, :message)
+  end
+end
+
+
+
+---
+
+
+
+app/assets/stylesheets/applecation.css
+--------------------------------------
+
+.field_with_errors input {
+  border-color: red;
+}
+
+.field_with_errors textarea {
+  border-color: red;
+}
+
+
+
+---
+
+
+
+localhost:3000/contacts
+-----------------------
+
+! Routing error
+
+
+
+---
+
+
+
+config/router.rb
+----------------
+
+get '/contacts' => 'contacts#new'
+resource :contacts, only: [:create]
+
+
+
+---
+
+
+
+Rails.application.routes.draw do
+  get '/' => 'home/index'
+  get '/contacts' => 'contacts#new'
+
+  resource :contacts, only: [:create]
+  resources :articles
+end
+
+
+
+---
+
+
+
+path_names: {:new => ''}
+
+
+
+---
+
+
+
+Rails.application.routes.draw do
+  get 'home/index'
+
+  resource :contacts, only: [:new, :create], path_names: {:new => ''}
+  resources :articles
+end
+
+
+
+---
+
+
+
+Output errors
+-------------
+
+app/vews/contacts/new.html.erb
+------------------------------
+
+<p>
+  <%= @contact.errors.full_messages %>
+</p>
+
+
+
+---
+
+
+
+<%= from_for :contact, url: contacts_path do |f| %>
+  <p>
+    <%= @contact.errors.full_messages %>
+  </p>
+  <p>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :message %>
+    <%= f.text_area :message %>
+  </p>
+  <p>
+    <%= f.submit 'Send message' %>
+  </p>
+<% end %>
+
+
+
+---
+
+
+
+<% if @contact && @contact.errors.any? %>
+  <p>
+    <%= @contact.errors.full_messages %>
+  </p>
+<% end %>
+
+
+
+---
+
+
+
+<h1>Contact us</h1>
+
+<%= from_for :contact, url: contacts_path do |f| %>
+  <% if @contact && @contact.errors.any? %>
+    <p>
+      <%= @contact.errors.full_messages %>
+    </p>
+  <% end %>
+  <p>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :message %>
+    <%= f.text_area :message %>
+  </p>
+  <p>
+    <%= f.submit 'Send message' %>
+  </p>
+<% end %>
+
+
+
+---
+
+
+
+Display error message
+---------------------
+
+app/vews/contacts/new.html.erb
+------------------------------
+
+
+<ul>
+  <% @contact.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+</ul>
+
+
+
+---
+
+
+
+<h1>Contact us</h1>
+
+<%= from_for :contact, url: contacts_path do |f| %>
+  <% if @contact && @contact.errors.any? %>
+    <p>
+      <ul>
+        <% @contact.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </p>
+  <% end %>
+  <p>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :message %>
+    <%= f.text_area :message %>
+  </p>
+  <p>
+    <%= f.submit 'Send message' %>
+  </p>
+<% end %>
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Adding TailwindCSS to your Rails 6 Project
 ------------------------------------------
@@ -5315,7 +8760,15 @@ Import Tailwind to your layout
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Add twitter-bootstrap to rails app
 ----------------------------------
@@ -5355,7 +8808,15 @@ add to application.css
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Add jquery twitter-bootstrap and popper.js to rails app with yarn
 -----------------------------------------------------------------
@@ -5399,7 +8860,15 @@ https://gist.github.com/nachozt/799a54c1bba79975bdcfd4f67226ce22
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Add bootstrap 4.5 to Rails app with yarn
 ----------------------------------------
@@ -5499,7 +8968,15 @@ resolved_paths: ['app/assets']
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Add bootstrap 5 to Rails 6 app
 ------------------------------
@@ -5598,14 +9075,15 @@ https://bootrails.com/blog/rails-bootstrap-tutorial
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Add bootstrap 5 icons with yarn for Rails 6 app version_1
 ---------------------------------------------------------
@@ -5693,7 +9171,15 @@ https://icons.getbootstrap.com/
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Add bootstrap 5 to rails 7 without node.js app guide
 ----------------------------------------------------
@@ -5758,7 +9244,15 @@ import "bootstrap"
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Add bootstrap 5 to rails 7 with node.js, yarn, jquery guide
 -----------------------------------------------------------
@@ -5792,7 +9286,15 @@ $ echo "import './add_jquery'" >> app/javascript/application.js
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Add bootstrap 5 to rails 7 with node.js, yarn, jquery and jquery-ui guide
 -------------------------------------------------------------------------
@@ -5838,13 +9340,15 @@ https://jqueryui.com/
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Bootstrap-datepicker-rails
 --------------------------
@@ -5943,7 +9447,15 @@ https://github.com/Nerian/bootstrap-datepicker-rails
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Bootstrap 6 dropdown snippet
 ----------------------------
@@ -5979,13 +9491,15 @@ Bootstrap 6 dropdown snippet
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 How to Upgrade Rails app
 ------------------------
@@ -6113,13 +9627,15 @@ layouts/application.html.erb
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Database.yml config template
 ----------------------------
@@ -6156,13 +9672,15 @@ https://betterprogramming.pub/devise-auth-setup-in-rails-7-44240aaed4be
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Create new Rails app with pg
 ----------------------------
@@ -6174,13 +9692,15 @@ $ rails new quote-editor --css=sass --javascript=esbuild --database=postgresql
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Font-awesome in a Rails 6 application with yarn
 -----------------------------------------------
@@ -6203,13 +9723,15 @@ import "@fortawesome/fontawesome-free/css/all.css"
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Add flash messages to Rails app with toastr guide
 -------------------------------------------------
@@ -6286,7 +9808,15 @@ https://stackoverflow.com/questions/58777081/how-do-you-add-toastr-rails-gem-to-
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Flash messages for Rails app
 ----------------------------
@@ -6314,7 +9844,15 @@ layout.html.erb
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Input notice and alert to Rails app
 -----------------------------------
@@ -6358,13 +9896,15 @@ application.html.erb
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Simple Devise guide for Rails 6 app
 -----------------------------------
@@ -6519,7 +10059,15 @@ https://github.com/heartcombo/devise
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Add devise for User with sign_in by username or email (login)
 -------------------------------------------------------------
@@ -7283,7 +10831,15 @@ https://github.com/heartcombo/devise/wiki/How-To:-Redirect-to-a-specific-page-on
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Display a custom sign_in form anywhere in your app
 --------------------------------------------------
@@ -7353,13 +10909,15 @@ https://github.com/heartcombo/devise/wiki/How-To%3A-Display-a-custom-sign_in-for
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Standart navbar with twitter-bootstrap
 --------------------------------------
@@ -7519,13 +11077,15 @@ $ touch views/layouts/_nav.html.erb
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Mailcatcher
 -----------
@@ -7558,7 +11118,15 @@ https://mailcatcher.me/
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Action mailbox for Rails app
 ----------------------------
@@ -7591,7 +11159,15 @@ https://github.com/mikel/mail
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Emails
 ------
@@ -7800,7 +11376,15 @@ config.action_mailer.smtp_settings = {
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Action Mailer configure examples
 --------------------------------
@@ -7846,7 +11430,15 @@ config.action_mailer.smtp_settings = {
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Wellcome with Action Mailer
 ---------------------------
@@ -7911,7 +11503,15 @@ https://github.com/mikel/mail
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Add postmark to Rails app
 -------------------------
@@ -7999,13 +11599,15 @@ https://postmarkapp.com/developer/integration/official-libraries#rails-gem
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Basic rails application gems
 ----------------------------
@@ -8053,13 +11655,15 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Actiontext
 ----------
@@ -8192,13 +11796,15 @@ https://dennishellweg.com/custom-attachments-in-action-text
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Add avatar with carrierwave gem
 -------------------------------
@@ -8642,7 +12248,15 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Multiple file uploads with carrierwave
 --------------------------------------
@@ -9250,13 +12864,15 @@ https://gist.github.com/nguyenngoc2505/93494b8fea2224f2fab6
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 HTML5 Datalist using Ruby on Rails form_for
 -------------------------------------------
@@ -9312,13 +12928,15 @@ modules
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails Shopping Cart
 -------------------
@@ -9868,13 +13486,15 @@ Index page listing out all orders
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Layouts and Rendering in Rails
 ------------------------------
@@ -10759,13 +14379,15 @@ Using Nested Layouts
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Gem creation, Gem structure example
 -----------------------------------
@@ -10816,14 +14438,15 @@ https://github.com/kaize/configus
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Minitest
 --------
@@ -10893,13 +14516,15 @@ NameError: uninitialized constant MagicBallTest::MagicBall
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Test Rails Models with Minitest
 -------------------------------
@@ -11220,13 +14845,15 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Create a minitest fixture for a non database model
 --------------------------------------------------
@@ -11273,13 +14900,15 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Fixtures in Ruby Unit Tests
 ---------------------------
@@ -11336,13 +14965,15 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Add jQuery to rails 7 app
 -------------------------
@@ -11403,13 +15034,15 @@ on page
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Nested Model Form (revised)
 ---------------------------
@@ -11527,13 +15160,164 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+50. REGEX
+---------
+
+
+Regex (regular expression)
+--------------------------
+
+
+[abc]        Один символ: a, b или c
+[^abc]       Любой отдельный символ, кроме: a, b или c
+[a-z]        Любой отдельный символ в диапазоне a-z
+[a-zA-Z]     Любой отдельный символ в диапазоне a-z или A-Z
+^            Начало строки (line)
+$            Конец строки (line)
+\A           Начало строки (string)
+\z           Конец строки (string)
+.            Любой отдельный символ
+\s           Любой символ пробела
+\S           Любой непробельный символ
+\d           Любая цифра
+\D           Любая не цифра
+\w           Любой символ слова (буква, цифра, подчеркивание)
+\W           Any non-word character
+\b           Граница любого слова
+(...)        Захватить все вложенное
+(a|b)        a or b
+a?           Ноль или один из
+a*           Ноль или более
+a+           Один или несколько
+a{3}         Ровно 3
+a{3,}        3 или более
+a{3,6}       От 3 до 6
+
+
+
+---
+
+
+
+\b    - Любая граница слова (cat\b)
+\.    - any symbol
+\d    - any number
+{2}   - count of same elements (\.\d{2}) (\.\d{1,2})
+a+    - own or more (\n+)
+*     - zero or more (\n *) (\n\s*) (no+!*) (0{6}) (0{6}\b) (0{3,}) (ba{3,}) (^hello) (^http://.+)
+\s    - any whitespace
+^     - start of line
+$     - end of line (bye$) ($index.html) (^\$)
+\w    - word character
+[abc] - single character of: a, b, or c ([$,])
+()    - pattern (something)+ ((\d{1,2})\/(\d{1,2})\/(\d{4}))
+
+
+
+
+---
+
+
+
+
+(?<month>\d{1,2})\/(?<day>\d{1,2})\/(?<year>\d{4})
+--------------------------------------------------
+
+Today's date is: 7/1/2020.
+
+
+
+---
+
+
+
+http://rubular.com
+https://www.freeformatter.com/regex-tester.html
+https://ruby-doc.org/core-2.5.1/Regexp.html
+
+
+
+---
+
+
+
+
+Regular expression
+------------------
+
+regex
+find & replace
+
+
+
+
+Regex functions
+---------------
+
+1. Validation (email)
+2. Change (cat -> dog)
+
+
+
+---
+
+
+
+
+Work with regex in sublime text
+-------------------------------
+
+ctrl + h        - regular expression panel
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Literals
+--------
+
+
+%i - array of Symbols
+%q - string
+%r - regular Expression
+%s - symbol
+%w - array of Strings
+%x - backtick (capture subshell result)
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rack application start commands
 -------------------------------
@@ -11567,13 +15351,15 @@ $ curl -X GET localhost:9292
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails credentials
 -----------------
@@ -11610,13 +15396,15 @@ config.logger = Logger.new(STDOUT)
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Stimulus modals rails 7
 -----------------------
@@ -11769,13 +15557,15 @@ export default class extends Controller {
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Gem annotate for model info in app
 ----------------------------------
@@ -11788,13 +15578,15 @@ $ annotate --models
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Faker gem
 ---------
@@ -11832,13 +15624,15 @@ views/something/_form.html.slim
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails I18n
 ----------
@@ -12054,13 +15848,15 @@ https://guides.rubyonrails.org/i18n.html#pluralization
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails middlewares
 -----------------
@@ -12207,13 +16003,15 @@ https://guides.rubyonrails.org/rails_on_rack.html#internal-middleware-stack
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails models
 ------------
@@ -12415,13 +16213,15 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Nested resources Rails
 ----------------------
@@ -12541,13 +16341,15 @@ publish_book POST /books/:id/publish(.:format) web/books#publish
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails rubocop, test, quality
 ----------------------------
@@ -12808,13 +16610,15 @@ Metrics/ClassLength:
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rack
 ----
@@ -13027,13 +16831,15 @@ https://devhints.io/rack-test
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails relations
 ---------------
@@ -13368,13 +17174,15 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails static pages
 ------------------
@@ -13405,13 +17213,774 @@ params for partials
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Views
+-----
+
+
+app/views/pages/home.html.erb
+-----------------------------
+
+<div class="main">
+ <div class="container">
+   <h1>Hello my name is __</h1>
+   <p>I make Rails apps.</p>
+ </div>
+</div>
+
+
+
+app/assets/stylesheets/pages.css.scss
+-------------------------------------
+
+
+http://localhost:8000/welcome
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Show page: (/terms /about)
+--------------------------
+
+
+$ rails g controller Name
+
+
+
+---
+
+
+
+app/controllers/page_controller.rb
+----------------------------------
+
+def some
+end
+
+
+
+---
+
+
+
+app/views/page_dir/touch page_name.html.erb
+-------------------------------------------
+
+
+config/routes.rb
+----------------
+
+get '/some' => 'page_name#some'
+
+
+
+
+
+
+
+
+
+SINATRA
+-------
+
+
+app.rb
+------
+
+route
+-----
+
+get '/some' do
+  erb 'some'
+end
+
+
+
+---
+
+
+
+view
+----
+
+views/some.html.erb
+
+
+
+---
+
+
+
+model
+-----
+
+Article
+
+
+
+---
+
+
+
+model
+-----
+
+$ rake db:create_some
+$ rake db:migrate
+
+
+
+
+---
+
+
+
+route
+-----
+
+config/routes.rb
+----------------
+
+resource
+resources
+
+
+
+
+---
+
+
+
+$ rake g controller Name
+
+
+
+---
+
+
+
+app/controllers/name_controller.rb
+----------------------------------
+
+actions: (index, new create, edit update, destroy (DELETE HTTP method))
+
+def new
+end
+
+
+views
+-----
+
+app/views/.../...html.erb
+
+
+
+---
+
+
+
+
+$ rails server (localhost:3000)
+
+
+
+---
+
+
+
+http://github.com/ro31337/sample-blog
+
+
+
+---
+
+
+
+app/controllers/articles_controller.rb
+--------------------------------------
+
+$ rails console
+
+Article.all
+(SELECT * FROM articles;)
+
+Article.find(1)
+(SELECT * FROM articles
+WHERE id = 1;)
+
+@article = Article.find(1)
+(SELECT * FROM articles
+WHERE id = ?
+LIMIT 1 [["id", 1]])
+
+@article.destroy
+(DELETE FROM articles
+WHERE id = ? [["id", 1]])
+
+Article.all
+(SELECT * FROM articles;)
+
+
+
+---
+
+
+
+def destroy
+  @article = Article.find(params[:id])
+  @article.destroy
+end
+
+
+
+---
+
+
+
+class ArticlesController < ApplicationController
+  def index
+    @articles = Article.all
+  end
+
+  def show
+    @article = Article.find(params[:id])
+  end
+
+  def new
+  end
+
+  def create
+    @article = Article.new(article_params)
+    if @article.valid?
+      @article.save
+      redirect_to @article
+    else
+      render action: 'new'
+    end
+  end
+
+  def edit
+    @article = Article.find(params[:id])
+  end
+
+  def update
+    @article = Article.find(params[:id])
+
+    if @article.update(article_params)
+      redirect_to @article
+    else
+      render action: 'edit'
+    end
+  end
+
+  def destroy
+    @article = Article.find(params[:id])
+    @article.destroy
+  end
+
+  private
+
+  def article_params
+    params.require(:article).permit(:title, :text)
+  end
+end
+
+
+3.
+
+app/controllers/articles_controller.rb
+--------------------------------------
+
+redirect_to articles_path
+
+
+
+---
+
+
+
+def destroy
+  @article = Article.find(params[:id])
+  @article.destroy
+
+  redirect_to articles_path
+end
+
+
+
+---
+
+
+
+app/views/articles/index.html.erb
+---------------------------------
+
+<%= link_to 'Destroy', article_path(article), method: :delete %>
+
+
+
+---
+
+
+
+<h1>List of articles:</h1>
+
+<% @article.each do |article| %>
+  <h2>
+    <%= article.title %>
+  </h2>
+  <p>
+    <%= article.text %>
+  </p>
+  <p>
+    <%= link_to 'Show', artcle_path(article) %> |
+    <%= link_to 'Edit', edit_article_path(article) %> |
+    <%= link_to 'Destroy', article_path(article), method: :delete %>
+  </p>
+  <hr>
+<% end %>
+
+
+
+---
+
+
+
+https://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to
+
+
+
+---
+
+
+
+<%= link_to "Romove", article, method: :delete, data: { confirm: "Are you sure?" } %>
+
+
+
+---
+
+
+
+http://railsguides.net/advaced-rails-model-generators/
+
+
+
+---
+
+
+
+one-to-many
+-----------
+
+Article1    *Comment
+
+
+
+---
+
+
+
+$ rails g model Comment autor:string body:text article:references
+
+
+
+---
+
+
+
+app/models/comment.rb
+---------------------
+
+class Comment < ActiveRecord::Base
+  belongs_to :article
+end
+
+
+
+---
+
+
+
+app/db/migrate/333_create_comments.rb
+-------------------------------------
+
+class CreateComments < ActiveRecord::Migration
+  def change
+    create_table :comments do |t|
+      t.string :autor
+      t.text :body
+      t.references :article, index: true
+
+      t.timestamps
+    end
+  end
+end
+
+
+
+---
+
+
+
+$ rake db:migrate
+$ sqlite3 developer.sqlite
+
+SELECT * FROM articles;
+
+.tables
+
+=>
+
+articles  comments  contacts  schema_migrations
+
+
+
+---
+
+
+
+.mode columns
+.header on
+
+SELECT * FROM articles;
+SELECT * FROM comments;
+
+pragma table_info(articles);
+pragma table_info(comments); (article_id)
+
+
+
+---
+
+
+
+- every comment => article
+- every article << many comments
+
+
+
+---
+
+
+
+app/models/article.rb
+---------------------
+
+has_many :comments
+
+
+
+---
+
+
+
+class Article < ActiveRecord::Base
+  has_many :comments
+end
+
+
+
+---
+
+
+
+config/routes.rb
+----------------
+
+resources :articles do
+  resources :comment
+end
+
+
+
+---
+
+
+
+Rails.application.routes.draw do
+  get 'home/index'
+
+  get '/terms' => 'pages#terms'
+  get '/about' => 'pages#about'
+
+  resource :contacts, only: [:new, :create], path_names: {:new => ''}
+
+  resources :articles do
+    resources :comment
+  end
+end
+
+
+
+---
+
+
+
+$ rake routes
+
+
+
+---
+
+
+
+https://sql.ru
+
+
+
+---
+
+
+
+$ rails g controller Comments
+
+
+
+---
+
+
+
+app/controllers/comments_controller.rb
+--------------------------------------
+
+class CommmentsController < ApplicationController
+  def create
+  end
+end
+
+
+
+---
+
+
+
+$ rails console
+
+Comment.all
+Article.comments
+@article = Article.find(3)
+@article.comments
+@article.comments.create({ autor: 'Mike', bodi: 'Hello' })
+(INSERT INTO comments (autor, body)
+VALUES (?, ?), ['Mike', 'Hello'])
+
+
+
+---
+
+
+
+app/controllers/comments_controller.rb
+--------------------------------------
+
+@article = Article.find(params[:article_id])
+@article.comments.create({ autor: 'Mike', body: 'Hello' })
+
+
+
+---
+
+
+
+class CommmentsController < ApplicationController
+  def create
+    @article = Article.find(params[:article_id])
+    @article.comments.create({ autor: 'Mike', body: 'Hello' })
+  end
+end
+
+
+
+---
+
+
+
+app/controllers/comments_controller.rb
+--------------------------------------
+
+private
+
+def comment_params
+  params.require(:comment).permit(:autor, :body)
+end
+
+
+
+---
+
+
+
+class CommmentsController < ApplicationController
+  def create
+    @article = Article.find(params[:article_id])
+    @article.comments.create(comment_params)
+  end
+
+  private
+
+  def comment_params
+    params.require(:comment).permit(:autor, :body)
+  end
+end
+
+
+
+---
+
+
+
+redirect_to article_path(@article)
+
+
+
+---
+
+
+
+class CommmentsController < ApplicationController
+  def create
+    @article = Article.find(params[:article_id])
+    @article.comments.create(comment_params)
+
+    redirect_to article_path(@article)
+  end
+
+  private
+
+  def comment_params
+    params.require(:comment).permit(:autor, :body)
+  end
+end
+
+
+
+---
+
+
+
+app/views/articles/show.html.erb
+--------------------------------
+
+POST /articles/:article_id/comments comments#create
+/articles/3/comments      comments@create
+
+
+
+---
+
+
+
+https://github.com/rails/rails/blob/7a085dac2a2820856cde6c2ca8c69779ac766a97/actionview/lib/action_view/helpers/form_helper.rb
+
+
+
+---
+
+
+
+<%= form_for([@document, @comment]) do |f| %>
+
+
+
+---
+
+
+
+api.rubyonrails.org/classes/ActiveRecord/Associations/Class/Methods.html
+
+
+
+---
+
+
+
+@article.comments - collection
+
+collection.build(attributes = {})
+
+Returns a new object of the collection type that has been instantiated with 
+attributes and linked to this object through the join table, but has not yet been saved.
+
+
+
+---
+
+
+
+@article.comments.build
+@comment = @article.comments.build
+<%= form_for([@article, @article.comments.build]) do |f| %>
+
+
+
+---
+
+
+
+<h1><%= @article.title %></h1>
+<p>
+  <%= @article.text %>
+</p>
+<%= form_for([@article, @article.comments.build]) do |f| %>
+  <p>
+    <%= f.label :autor %>
+    <%= f.text_field :autor %>
+  </p>
+  <p>
+    <%= f.label :body %>
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+
+
+---
+
+
+
+$ rails console
+
+@article = Article.find(3)
+@article.comments
+Comment.all
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails templates, Slim
 ---------------------
@@ -13564,13 +18133,15 @@ https://api.rubyonrails.org/classes/ActionDispatch/Flash.html
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 rack
 ----
@@ -13845,13 +18416,15 @@ Rack Helpers
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 overview
 --------
@@ -13939,14 +18512,15 @@ $ bin/rails dbconsole
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 static pages
 ------------
@@ -14122,14 +18696,69 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Model
+-----
+
+
+$ rails generate model Message 
+
+
+
+---
+
+
+
+db/migrate
+----------
+
+t.text :content 
+
+
+
+---
+
+
+
+class CreateMessages < ActiveRecord::Migration
+  def change
+    create_table :messages do |t|
+      t.text :content
+      t.timestamps
+    end
+  end
+end
+
+
+
+---
+
+
+
+$ bundle exec rake db:migrate
+$ bundle exec rake db:seed
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 models
 ------
@@ -14440,14 +19069,15 @@ User.unscoped.all.count                           # 100
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 quality
 -------
@@ -14613,14 +19243,15 @@ note = notes(:one)
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 configuration
 -------------
@@ -14805,14 +19436,15 @@ Application has been already initialized. (RuntimeError)
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CRUD
 ----
@@ -15015,14 +19647,1472 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+RUBY ON RAILS, BLOG, REST
+-------------------------
+
+
+REST
+----
+
+resource
+resources
+
+
+
+---
+
+
+
+
+routes.rb (app/config)
+
+
+discard all
+
+
+---------------------------------------------------------------------------
+
+resource      resources
+
+---------------------------------------------------------------------------
+6 methods     7 methods
+profile       articles
+---------------------------------------------------------------------------
+
+        list:
+        (actions: index)  get
+---------------------------------------------------------------------------
+
+show:       show:
+(actions: show)     (actions: show)   get
+---------------------------------------------------------------------------
+
+create:       create:
+(actions: new, create)    (actions: new, create)  post
+---------------------------------------------------------------------------
+
+edit:       edit:
+(actions: edit, update)   (actions: edit, update) get, put(patch)
+---------------------------------------------------------------------------
+
+delete:       delete:
+(action: destroy)   (action: destroy) delete
+---------------------------------------------------------------------------
+
+
+
+---
+
+
+
+
+http://github.com/ro31337/sample-blog
+
+
+---
+
+
+
+
+Rails
+-----
+
+cmd
+---
+
+$ rails console
+
+Article.attribute_names
+Article.all
+
+
+
+---
+
+
+
+
+Pattern
+-------
+
+PRG Post Redirect Get
+
+
+
+---
+
+
+
+
+warkaround for PUT
+
+
+
+---
+
+
+
+
+class ArticlesController < ApplicationController
+  def new
+  end
+
+  def create
+    @article = Article.new(article_params)
+
+    if @article.valid?
+      @article.save
+    else
+      render action: 'new'
+    end
+  end
+
+  private
+
+  def article_params
+    params.require(:article).permit(:title, :text)
+  end
+end
+
+
+
+---
+
+
+
+
+irb(main):004:0> Article.all
+
+=> #<ActiveRecord::Relation [#<Article id: 1, title: "1231123", text: "xxx",
+
+
+
+---
+
+
+
+<h2>Thank you</h2>
+<p>Article has been created</p>
+<a href="/articles">Show all articles</a>
+
+
+
+---
+
+
+
+
+<h2>Thank you</h2>
+<p>Article has been created</p>
+<%= link_to 'Show all articles', articles_path %>
+
+
+
+---
+
+
+
+
+redirect_to @article
+
+
+http://localhost:3000/articles/5
+
+
+class ArticlesController < ApplicationController
+  def show
+    @article = Article.find(params[:id])
+  end
+
+  def new
+  end
+
+  def create
+    @article = Article.new(article_params)
+
+    if @article.valid?
+      @article.save
+      redirect_to @article
+    else
+      render action: 'new'
+    end
+  end
+
+  private
+  def article_params
+    params.require(:article).permit(:title, :text)
+  end
+end
+
+
+article GET    /articles/:id(.:format)
+articles#show
+
+def show
+  @article = Article.find(params[:id])
+end
+
+
+
+---
+
+
+
+
+Output list of Articles
+-----------------------
+
+def index
+  @articles = Article.all
+end
+
+
+
+---
+
+
+
+
+class ArticlesController < ApplicationController
+  def index
+    @articles = Article.all
+  end
+
+  def show
+    @article = Article.find(params[:id])
+  end
+
+  def new
+  end
+
+  def create
+    @article = Article.new(article_params)
+
+    if @article.valid?
+      @article.save
+      redirect_to @article
+    else
+      render action: 'new'
+    end
+  end
+
+  private
+  def article_params
+    params.require(:article).permit(:title, :text)
+  end
+end
+
+
+
+---
+
+
+
+
+anchor + edit
+-------------
+
+<h2>List of articles</h2>
+
+<% @articles.each do |article| %>
+  <h3><%= article.title %></h3>
+  <p><%= article.text %></p>
+  <p>
+    <%= link_to 'Show', article_path(article) %>
+    <%= link_to 'Edit', edit_article_path(article) %>
+  </p>
+  <hr>
+<% end %>
+
+article_path(article)
+edit_article_path(article)
+
+
+
+---
+
+
+
+
+def edit
+  @article = Article.find(params[:id])
+end
+
+
+
+---
+
+
+
+
+class ArticlesController < ApplicationController
+  def index
+    @articles = Article.all
+  end
+
+  def show
+    @article = Article.find(params[:id])
+  end
+
+  def new
+  end
+
+  def create
+    @article = Article.new(article_params)
+
+    if @article.valid?
+      @article.save
+      redirect_to @article
+    else
+      render action: 'new'
+    end
+  end
+
+  def edit
+    @article = Article.find(params[:id])
+  end
+
+  private
+
+  def article_params
+    params.require(:article).permit(:title, :text)
+  end
+end
+
+
+
+---
+
+
+
+
+article_path(@article)
+method: :put
+
+<h1>Edit article</h1>
+
+<%= form_for :article, url: article_path(@article), method: :put do |f| %>
+  <p>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :text %><br>
+    <%= f.text_area :text %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+
+Unknown action
+The action 'update' could not be found for ArticlesController
+
+
+if @article.save
+
+  redirect_to @article
+else
+  render action: new
+end
+
+
+
+---
+
+
+
+
+action update
+-------------
+
+def update
+  @article = Article.find(params[:id])
+
+  if @article.update(article_params)
+    redirect_to @article
+  else
+    render action: 'edit'
+  end
+end
+
+
+
+---
+
+
+
+
+class ArticlesController < ApplicationController
+  def index
+    @articles = Article.all
+  end
+
+  def show
+    @article = Article.find(params[:id])
+  end
+
+  def new
+  end
+
+  def create
+    @article = Article.new(article_params)
+
+    if @article.valid?
+      @article.save
+      redirect_to @article
+    else
+      render action: 'new'
+    end
+  end
+
+  def edit
+    @article = Article.find(params[:id])
+  end
+
+  def update
+    @article = Article.find(params[:id])
+
+    if @article.update(article_params)
+      redirect_to @article
+    else
+      render action: 'edit'
+    end
+  end
+
+  private
+
+  def article_params
+    params.require(:article).permit(:title, :text)
+  end
+end
+
+
+
+---
+
+
+
+
+Static pages
+------------
+
+$ rails g controller Pages
+
+  create  app/controllers/pages_controller.rb
+  invoke  erb
+  create    app/views/pages
+  invoke  test_unit
+  create    test/controllers/pages_controller_test.rb
+  invoke  helper
+  create    app/helpers/pages_helper.rb
+  invoke    test_unit
+  invoke  assets
+  invoke    scss
+  create      app/assets/stylesheets/pages.scss
+
+
+
+---
+
+
+
+
+pages_controller.rb
+-------------------
+
+class PagesController < ApplicationController
+  def terms
+  end
+
+  def about
+  end
+end
+
+
+
+---
+
+
+
+
+routes.rb
+---------
+
+get'terms' => 'pages#terms'
+get 'about' => 'pages#about'
+
+
+
+---
+
+
+
+
+Rails.application.routes.draw do
+  get 'home/index'
+  get'terms' => 'pages#terms'
+  get 'about' => 'pages#about'
+
+  resource :contacts, only: [:new, :create], path_names: { :new => '' }
+  resources :articles
+end
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+REST
+----
+
+
+resource
+resources
+
+
+app/config/router.rb
+--------------------
+
+
+resource    resources
+--------    ---------
+profile     articles
+
+
+
+---
+
+
+
+resource list
+-------------
+
+
+index
+
+
+
+
+resource show
+-------------
+
+show
+
+
+
+
+resources show
+--------------
+
+show
+
+
+
+
+resource create: (6 methods)
+----------------------------
+
+new   create
+---   ------
+GET form  POST form
+
+
+
+---
+
+
+
+resources create: (7 methods)
+-----------------------------
+
+new   create
+---   ------
+GET form  POST form
+
+
+
+---
+
+
+
+resource edit
+-------------
+
+edit    update
+
+
+
+
+resources edit
+--------------
+
+edit    update
+
+
+
+
+---
+
+
+
+resource delete
+---------------
+
+destroy
+
+
+
+resources delete
+----------------
+
+destroy
+
+
+
+
+---
+
+
+
+$ rails console
+
+Article.attribute_names
+Article.all
+
+
+
+---
+
+
+
+$ sqlite3 development.sqlite
+
+DELETE FROM atrticles;
+
+
+
+---
+
+
+
+app/controllers/articles_controller.rb
+--------------------------------------
+
+@article = Article.new(article_params)
+
+if @article.valid?
+  @article.save
+else
+  render action: 'new'
+end
+
+
+
+---
+
+
+
+class ArticlesController < ApplicationController
+  def new
+  end
+
+  def create
+    @article = Article.new(article_params)
+
+    if @article.valid?
+      @article.save
+    else
+      render action: 'new'
+    end
+  end
+end
+
+
+
+---
+
+
+
+private
+
+def article_params
+  params.require(:article).permit(:title, :text)
+end
+
+
+
+---
+
+
+
+class ArticlesController < ApplicationController
+  def new
+  end
+
+  def create
+    @article = Article.new(article_params)
+
+    if @article.valid?
+      @article.save
+    else
+      render action: 'new'
+    end
+  end
+
+  private
+
+  def article_params
+    params.require(:article).permit(:title, :text)
+  end
+end
+
+
+
+---
+
+
+
+=> ! Template missing
+
+
+
+---
+
+
+
+app/views/articles/create.html.erb
+----------------------------------
+
+=> Thank you!
+
+
+
+---
+
+
+
+app/views/articles/create.html.erb
+----------------------------------
+
+<a href="/articles">Show all articles</a>
+
+
+
+---
+
+
+
+<h1>Thank you!</h1>
+<p>Article has been created!</p>
+<a href="/articles">Show all articles</a>
+
+
+
+---
+
+
+
+localhost:3000/articles/new
+
+
+
+---
+
+
+
+! Unknown action (GET only)
+
+
+
+---
+
+
+
+Pattern PRG
+-----------
+
+POST Redirect Get
+
+
+
+---
+
+
+
+<%= link_to 'Show all articles', articles_path %>
+
+
+
+---
+
+
+
+<h1>Thank you!</h1>
+<p>Article has been created!</p>
+<%= link_to 'Show all articles', articles_path %>
+
+
+
+---
+
+
+
+app/controllers/articles_controller.rb
+--------------------------------------
+
+redirect_to @article
+
+
+
+---
+
+
+
+class ArticlesController < ApplicationController
+  def new
+  end
+
+  def create
+    @article = Article.new(article_params)
+
+    if @article.valid?
+      @article.save
+      redirect_to @article
+    else
+      render action: 'new'
+    end
+  end
+
+  private
+
+  def article_params
+    params.require(:article).permit(:title, :text)
+  end
+end
+
+
+
+---
+
+
+
+=> ! Unknown action (show)
+
+
+
+---
+
+
+
+app/controllers/articles_controller.rb
+--------------------------------------
+
+def show
+  @article = Article.find(params[:id])
+end
+
+
+
+---
+
+
+
+class ArticlesController < ApplicationController
+  def show
+    @article = Article.find(params[:id])
+  end
+
+  def new
+  end
+
+  def create
+    @article = Article.new(article_params)
+
+    if @article.valid?
+      @article.save
+      redirect_to @article
+    else
+      render action: 'new'
+    end
+  end
+
+  private
+
+  def article_params
+    params.require(:article).permit(:title, :text)
+  end
+end
+
+
+
+---
+
+
+
+app/views/articles/show.html.erb
+--------------------------------
+
+<h1><%= @article.title %></h1>
+<p>
+  <%= @article.text %>
+</p>
+
+
+
+---
+
+
+
+=> Hello ...
+
+
+
+---
+
+
+
+edit   - GET
+update - PUT/PATCH
+
+
+
+---
+
+
+
+app/controllers/articles_controller.rb
+--------------------------------------
+
+def index
+  @articles = Article.all
+end
+
+
+
+---
+
+
+
+class ArticlesController < ApplicationController
+  def index
+    @articles = Article.all
+  end
+
+  def show
+    @article = Article.find(params[:id])
+  end
+
+  def new
+  end
+
+  def create
+    @article = Article.new(article_params)
+
+    if @article.valid?
+      @article.save
+      redirect_to @article
+    else
+      render action: 'new'
+    end
+  end
+
+  private
+
+  def article_params
+    params.require(:article).permit(:title, :text)
+  end
+end
+
+
+
+---
+
+
+
+app/views/articles/index.html.erb
+---------------------------------
+
+<h1>List of articles:</h1>
+
+<% @article.each do |article| %>
+  <h2>
+    <%= @article.title %>
+  </h2>
+  <p>
+    <%= @article.text %>
+  </p>
+  <hr>
+<% end %>
+
+
+
+---
+
+
+
+app/views/articles/index.html.erb
+---------------------------------
+
+<p>
+  <%= link_to 'Show', artcle_path(article) %>
+</p>
+
+
+
+---
+
+
+
+<h1>List of articles:</h1>
+
+<% @article.each do |article| %>
+  <h2>
+    <%= @article.title %>
+  </h2>
+  <p>
+    <%= @article.text %>
+  </p>
+  <p>
+    <%= link_to 'Show', artcle_path(article) %>
+  </p>
+  <hr>
+<% end %>
+
+
+
+
+---
+
+
+
+app/views/articles/index.html.erb
+---------------------------------
+
+<%= link_to 'Edit', edit_article_path(article) %>
+
+
+
+---
+
+
+
+<h1>List of articles:</h1>
+
+<% @article.each do |article| %>
+  <h2>
+    <%= article.title %>
+  </h2>
+  <p>
+    <%= article.text %>
+  </p>
+  <p>
+    <%= link_to 'Show', artcle_path(article) %>
+    <%= link_to 'Edit', edit_article_path(article) %>
+  </p>
+  <hr>
+<% end %>
+
+
+
+---
+
+
+
+Edit => ! Unknown action
+
+
+
+---
+
+
+
+app/controllers/articles_controller.rb
+--------------------------------------
+
+def edit
+  @article = Article.find(params[:id])
+end
+
+
+
+---
+
+
+
+class ArticlesController < ApplicationController
+  def index
+    @articles = Article.all
+  end
+
+  def show
+    @article = Article.find(params[:id])
+  end
+
+  def new
+  end
+
+  def create
+    @article = Article.new(article_params)
+
+    if @article.valid?
+      @article.save
+      redirect_to @article
+    else
+      render action: 'new'
+    end
+  end
+
+  def edit
+    @article = Article.find(params[:id])
+  end
+
+  private
+
+  def article_params
+    params.require(:article).permit(:title, :text)
+  end
+end
+
+
+
+---
+
+
+
+app/views/articles/edit.html.erb
+--------------------------------
+
+<h1>Edit article</h1>
+
+<%= from_for :article, url: articles_path do |f| %>
+  <p>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :text %>
+    <%= f.text_area :text %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+
+
+---
+
+
+
+localhost:3000/aticles/edit
+---------------------------
+
+=> Hello ...
+
+
+
+---
+
+
+
+warkaround for PUT/PATCH
+
+
+
+---
+
+
+
+app/views/articles/edit.html.erb
+--------------------------------
+
+article_path(@article)
+
+
+
+---
+
+
+
+<h1>Edit article</h1>
+
+<%= from_for :article, url: article_path(@article) do |f| %>
+  <p>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :text %>
+    <%= f.text_area :text %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+
+
+---
+
+
+
+=> /article/6
+
+
+
+---
+
+
+
+method: :put
+
+
+
+---
+
+
+
+<h1>Edit article</h1>
+
+<%= from_for :article, url: article_path(@article), method: :put do |f| %>
+  <p>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :text %>
+    <%= f.text_area :text %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+
+
+---
+
+
+
+=> ! Unknown acion (update)
+
+
+
+---
+
+
+
+app/controllers/articles_controller.rb
+--------------------------------------
+
+def update
+  @article = Article.find(params[:id])
+
+  if @article.update(article_params)
+    redirect_to @article
+  else
+    render action: 'edit'
+  end
+end
+
+
+
+---
+
+
+
+class ArticlesController < ApplicationController
+  def index
+    @articles = Article.all
+  end
+
+  def show
+    @article = Article.find(params[:id])
+  end
+
+  def new
+  end
+
+  def create
+    @article = Article.new(article_params)
+
+    if @article.valid?
+      @article.save
+      redirect_to @article
+    else
+      render action: 'new'
+    end
+  end
+
+  def edit
+    @article = Article.find(params[:id])
+  end
+
+  def update
+    @article = Article.find(params[:id])
+
+    if @article.update(article_params)
+      redirect_to @article
+    else
+      render action: 'edit'
+    end
+  end
+
+  private
+
+  def article_params
+    params.require(:article).permit(:title, :text)
+  end
+end
+
+
+
+---
+
+
+
+Create static pages
+-------------------
+
+$ rails g controller Pages
+
+
+
+---
+
+
+
+app/controllers/pages_controller.rb
+-----------------------------------
+
+class PagesController < ApplicationController
+end
+
+
+
+---
+
+
+
+def terms
+end
+
+def about 
+end
+
+
+
+---
+
+
+
+class PagesController < ApplicationController
+  def terms
+  end
+
+  def about
+  end
+end
+
+
+
+---
+
+
+
+app/config/routes.rb
+--------------------
+
+get '/terms' => 'pages#terms'
+get '/about' => 'pages#about'
+
+
+
+---
+
+
+
+Rails.application.routes.draw do
+  get 'home/index'
+
+  get '/terms' => 'pages#terms'
+  get '/about' => 'pages#about'
+
+  resource :contacts, only: [:new, :create], path_names: {:new => ''}
+  resources :articles
+end
+
+
+
+---
+
+
+
+localhost:3000/terms
+--------------------
+
+=> ! Template missing
+
+
+
+---
+
+
+
+app/views/pages/about.html.erb
+------------------------------
+
+<h1>About us</h1>
+<p>Some text</p>
+
+
+
+---
+
+
+
+localhost:3000/about
+--------------------
+
+=> About us
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 deploy
 ------
@@ -15195,14 +21285,15 @@ $ railway vars
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 template engines
 ----------------
@@ -15214,14 +21305,15 @@ index.html.slim
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 forms
 -----
@@ -15326,14 +21418,15 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 associations
 ------------
@@ -15540,13 +21633,66 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ASSOCIATIONS
+------------
+
+Models
+------
+
+Tag, Destination
+----------------
+
+
+class Tag < ActiveRecord::Base
+  has_many :destinations
+end
+
+class Destination < ActiveRecord::Base
+  belongs_to :tag
+end
+
+
+
+---
+
+
+
+has_many :destinations  - обозначает, что один Tag может иметь несколько Destinations
+belongs_to :tag         - обозначает, что каждый Destination принадлежит одному Tag
+has_many / belongs_to   - часто используется для определения отношений один-ко-многим
+
+
+
+---
+
+
+
+t.references :some_table          - добавляет внешний ключ, указывающий на таблицу
+@destinations = @tag.destinations - извлекает все пункты назначения, принадлежащие тегу, и сохраняет их в файле @destinations
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 nested resources
 ----------------
@@ -15798,14 +21944,15 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 I18n
 ----
@@ -16034,14 +22181,15 @@ helpers:
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 middlewares
 -----------
@@ -16204,14 +22352,15 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 rake
 ----
@@ -16326,7 +22475,7 @@ $ bin/rails 'users:update[vasya]'
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -16334,7 +22483,7 @@ $ bin/rails 'users:update[vasya]'
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails sequrity
 --------------
@@ -16465,7 +22614,7 @@ puts token_tag['value']
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -16473,7 +22622,7 @@ puts token_tag['value']
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails System Tests
 ------------------
@@ -16542,7 +22691,7 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -16550,7 +22699,7 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails FSM, AASM
 ---------------
@@ -16683,7 +22832,7 @@ https://www.restapitutorial.com/lessons/httpmethods.html
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -16691,7 +22840,7 @@ https://www.restapitutorial.com/lessons/httpmethods.html
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Ransack
 -------
@@ -16776,7 +22925,7 @@ https://github.com/activerecord-hackery/ransack#search-matchers
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -16784,7 +22933,7 @@ https://github.com/activerecord-hackery/ransack#search-matchers
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Nested Forms, and nested attributes, with activerecord and cocoon
 -----------------------------------------------------------------
@@ -16884,7 +23033,7 @@ require("@nathanvda/cocoon")
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -16892,7 +23041,7 @@ require("@nathanvda/cocoon")
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Add cocoon to rails 7 app
 -------------------------
@@ -16950,7 +23099,7 @@ import "@nathanvda/cocoon"
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -16958,7 +23107,7 @@ import "@nathanvda/cocoon"
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 User authentication and authorization with pundit gem for Rails app
 -------------------------------------------------------------------
@@ -17076,7 +23225,7 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -17084,7 +23233,7 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Working with files, using active_storage
 ----------------------------------------
@@ -17183,7 +23332,7 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -17191,7 +23340,63 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Controller
+----------
+
+
+$ rails g controller Messages
+
+
+
+---
+
+
+
+app/config/routes.rb
+--------------------
+
+get 'messages' => 'message#index'
+
+
+
+---
+
+
+
+app/controllers/messages_controller.rb
+--------------------------------------
+
+def index 
+  @messages = Message.all 
+end
+
+
+
+---
+
+
+
+class MessagesController < ApplicationController
+  def index
+    @messages = Message.all
+  end
+end
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails Controllers Hierarchy
 ---------------------------
@@ -17285,7 +23490,7 @@ https://habr.com/ru/articles/136461/
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -17293,7 +23498,7 @@ https://habr.com/ru/articles/136461/
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails API, api versioning, responders
 -------------------------------------
@@ -17609,7 +23814,15 @@ https://apidock.com/rails/ActiveRecord/Serialization/to_json
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 jbuilder for json Rails
 -----------------------
@@ -17790,7 +24003,7 @@ https://github.com/rails-api/active_model_serializers/blob/v0.10.6/docs/general/
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -17798,7 +24011,7 @@ https://github.com/rails-api/active_model_serializers/blob/v0.10.6/docs/general/
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails Streaming
 ---------------
@@ -17930,7 +24143,7 @@ $ curl -i -X GET "http://localhost:3001/messaging"
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -17938,7 +24151,7 @@ $ curl -i -X GET "http://localhost:3001/messaging"
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 JSON testing Rails
 ------------------
@@ -18067,7 +24280,7 @@ http://api.nationalize.io/?name=David
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -18075,7 +24288,7 @@ http://api.nationalize.io/?name=David
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Webmock testing Rails
 ---------------------
@@ -18501,7 +24714,7 @@ gem 'webmock'
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -18509,7 +24722,7 @@ gem 'webmock'
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails Active Job, callbacks, emails, sidekiq
 --------------------------------------------
@@ -18882,7 +25095,15 @@ FetchBooksTitlesJob.perform_in(5.seconds)
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Sidekiq guide
 -------------
@@ -18974,7 +25195,15 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails, Sidekiq : full tutorial
 ------------------------------
@@ -19342,7 +25571,7 @@ $ heroku ps:scale worker=1
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -19350,7 +25579,7 @@ $ heroku ps:scale worker=1
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails Cashing
 -------------
@@ -19622,7 +25851,7 @@ https://apidock.com/rails/v4.0.2/ActionView/Helpers/CacheHelper
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -19630,7 +25859,7 @@ https://apidock.com/rails/v4.0.2/ActionView/Helpers/CacheHelper
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails Engine
 ------------
@@ -19974,7 +26203,7 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -19982,7 +26211,7 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Account Activation Rails
 ------------------------
@@ -21705,7 +27934,7 @@ https://www.railstutorial.org/book/account_activation
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -21713,7 +27942,7 @@ https://www.railstutorial.org/book/account_activation
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Amazon Web Services
 -------------------
@@ -21894,7 +28123,7 @@ $ dotenv -o -f ".env.local,.env"
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -21902,7 +28131,7 @@ $ dotenv -o -f ".env.local,.env"
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Yandex.Cloud
 ------------
@@ -21987,7 +28216,7 @@ config.active_storage.service = :yandex
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -21995,7 +28224,7 @@ config.active_storage.service = :yandex
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Form generation
 ---------------
@@ -22047,7 +28276,7 @@ $ bin/console                                                     # должен
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -22055,7 +28284,7 @@ $ bin/console                                                     # должен
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
