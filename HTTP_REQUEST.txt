@@ -101,7 +101,9 @@ const renderResponse = (res) => {
     responseField.innerHTML = "<p>Try again!</p><p>There were no suggestions found!</p>"
     return
   }
+
   let wordList = []
+
   for(let i = 0; i < Math.min(res.length, 10); i++){
     wordList.push(`<li>${res[i].word}</li>`)
   }
@@ -118,6 +120,7 @@ const renderRawResponse = (res) => {
 
 const renderJsonResponse = (res) => {
   let rawJson = {}
+
   for(let key in response){
     rawJson[key] = response[key]
   }
@@ -208,7 +211,8 @@ const getSuggestions = () => {
 
 const displaySuggestions = (event) => {
   event.preventDefault();
-  while(responseField.firstChild){
+
+  while (responseField.firstChild) {
     responseField.removeChild(responseField.firstChild);
   }
   getSuggestions();
@@ -228,14 +232,18 @@ const renderResponse = (res) => {
   if(!res){
     console.log(res.status)
   }
+
   if(!res.length){
     responseField.innerHTML = "<p>Try again!</p><p>There were no suggestions found!</p>"
     return
   }
+
   let wordList = []
-  for(let i = 0; i < Math.min(res.length, 10); i++){
+
+  for (let i = 0; i < Math.min(res.length, 10); i++) {
     wordList.push(`<li>${res[i].word}</li>`)
   }
+
   wordList = wordList.join("")
   responseField.innerHTML = `<p>You might be interested in:</p><ol>${wordList}</ol>`
   return
@@ -248,6 +256,7 @@ const renderRawResponse = (res) => {
 
 const renderJsonResponse = (res) => {
   let rawJson = {}
+
   for(let key in response){
     rawJson[key] = response[key]
   }
@@ -310,8 +319,8 @@ XHR POST Requests
 -----------------
 
 
-const xhr = new XMLHttpRequest();
-const url = 'https://api-to-call.com/endpoint';
+const xhr  = new XMLHttpRequest();
+const url  = 'https://api-to-call.com/endpoint';
 const data = JSON.stringify({id: '200'});
 
 xhr.responseType = 'json';
@@ -345,7 +354,7 @@ XHR Post Requests
 const apiKey = '<Your API Key>';
 const url = 'https://api.rebrandly.com/v1/links';
 
-const inputField = document.querySelector('#input');
+const inputField    = document.querySelector('#input');
 const shortenButton = document.querySelector('#shorten');
 const responseField = document.querySelector('#responseField');
 
@@ -356,6 +365,7 @@ const shortenUrl = () => {
   const data = JSON.stringify({destination: urlToShorten});
   const xhr = new XMLHttpRequest();
   xhr.responseType = 'json';
+
   xhr.onreadystatechange = () => {
     if (xhr.readyState === XMLHttpRequest.DONE) {
   		renderResponse(xhr.response);
@@ -369,7 +379,8 @@ const shortenUrl = () => {
 
 const displayShortUrl = (event) => {
   event.preventDefault();
-  while(responseField.firstChild){
+
+  while (responseField.firstChild) {
     responseField.removeChild(responseField.firstChild);
   }
   shortenUrl();
@@ -385,7 +396,7 @@ shortenButton.addEventListener('click', displayShortUrl);
 
 
 const renderResponse = (res) => {
-  if(res.errors){
+  if (res.errors) {
     responseField.innerHTML = "<p>Sorry, couldn't format your URL.</p><p>Try again.</p>"
   } else {
     responseField.innerHTML = `<p>Your shortened url is: </p><p> ${res.shortUrl} </p>`
@@ -393,7 +404,7 @@ const renderResponse = (res) => {
 }
 
 const renderRawResponse = (res) => {
-  if(res.errors){
+  if (res.errors) {
     responseField.innerHTML = "<p>Sorry, couldn't format your URL.</p><p>Try again.</p>"
   } else {
     let structuredRes = JSON.stringify(res).replace(/,/g, ", \n")
@@ -480,7 +491,8 @@ const getSuggestions = () => {
 
 const displaySuggestions = (event) => {
   event.preventDefault();
-  while(responseField.firstChild){
+
+  while (responseField.firstChild) {
     responseField.removeChild(responseField.firstChild);
   };
   getSuggestions();
@@ -509,6 +521,7 @@ const shortenUrl = () => {
       renderByteResponse(xhr.response);
     }
   };
+
   xhr.open('POST', rebrandlyUrl);
   xhr.setRequestHeader('Content-type', 'application/json');
 	xhr.setRequestHeader('apikey', apiKey);
@@ -517,7 +530,8 @@ const shortenUrl = () => {
 
 const displayShortUrl = (event) => {
   event.preventDefault();
-  while(responseField.firstChild){
+
+  while (responseField.firstChild) {
     responseField.removeChild(responseField.firstChild);
   };
   shortenUrl();
@@ -534,17 +548,21 @@ shortenButton.addEventListener('click', displayShortUrl);
 
 
 const renderWordResponse = (res) => {
-  if(!res){
+  if (!res) {
     console.log(res.status);
   }
-  if(!res.length){
+
+  if (!res.length) {
     responseField.innerHTML = "<p>Try again!</p><p>There were no suggestions found!</p>";
     return;
   }
+
   let wordList = []
-  for(let i = 0; i < Math.min(res.length, 10); i++){
+
+  for (let i = 0; i < Math.min(res.length, 10); i++) {
     wordList.push(`<li>${res[i].word}</li>`);
   }
+
   wordList = wordList.join("");
   responseField.innerHTML = `<p>You might be interested in:</p><ol>${wordList}</ol>`;
   return;
@@ -557,7 +575,8 @@ const renderRawWordResponse = (res) => {
 
 const renderJsonWordResponse = (res) => {
   let rawJson = {};
-  for(let key in response){
+
+  for (let key in response) {
     rawJson[key] = response[key];
   }
   rawJson = JSON.stringify(rawJson).replace(/,/g, ", \n");
@@ -565,7 +584,7 @@ const renderJsonWordResponse = (res) => {
 }
 
 const renderByteResponse = (res) => {
-  if(res.errors){
+  if (res.errors) {
     responseField.innerHTML = "<p>Sorry, couldn't format your URL.</p><p>Try again.</p>";
   } else {
     responseField.innerHTML = `<p>Your shortened url is: </p><p> ${res.shortUrl} </p>`;
@@ -573,7 +592,7 @@ const renderByteResponse = (res) => {
 }
 
 const renderRawByteResponse = (res) => {
-  if(res.errors){
+  if (res.errors) {
     responseField.innerHTML = "<p>Sorry, couldn't format your URL.</p><p>Try again.</p>";
   } else {
     let structuredRes = JSON.stringify(res).replace(/,/g, ", \n");
@@ -645,7 +664,8 @@ const collection = ["Another", "More", "Next", "Continue", "Keep going", "Click 
 const generateJson = async () => {
   try {
     const response = await fetch('https://jsonplaceholder.typicode.com/users');
-    if(response.ok){
+
+    if (response.ok) {
       const jsonResponse = await response.json();
       renderResponse(jsonResponse);
       changeButton();
@@ -783,7 +803,8 @@ const getSuggestions = () => {
 
 const displaySuggestions = (event) => {
   event.preventDefault();
-  while(responseField.firstChild){
+
+  while (responseField.firstChild) {
     responseField.removeChild(responseField.firstChild);
   }
   getSuggestions();
@@ -800,18 +821,21 @@ submit.addEventListener('click', displaySuggestions);
 
 
 const renderResponse = (res) => {
-  if(!res){
+  if (!res) {
     console.log(res.status);
   }
-  if(!res.length){
+
+  if (!res.length) {
     responseField.innerHTML = "<p>Try again!</p><p>There were no suggestions found!</p>";
     return;
   }
 
   let wordList = [];
-  for(let i = 0; i < Math.min(res.length, 10); i++){
+
+  for (let i = 0; i < Math.min(res.length, 10); i++) {
     wordList.push(`<li>${res[i].word}</li>`);
   }
+
   wordList = wordList.join("");
   responseField.innerHTML = `<p>You might be interested in:</p><ol>${wordList}</ol>`;
   return
@@ -824,9 +848,11 @@ const renderRawResponse = (res) => {
 
 const renderJsonResponse = (res) => {
   let rawJson = {};
-  for(let key in res){
+
+  for (let key in res) {
     rawJson[key] = res[key];
   }
+
   rawJson = JSON.stringify(rawJson).replace(/,/g, ", \n");
   responseField.innerHTML = `<pre>${rawJson}</pre>`;
 }
@@ -911,7 +937,8 @@ const getSuggestions = () => {
 
 const displaySuggestions = (event) => {
   event.preventDefault();
-  while(responseField.firstChild){
+
+  while (responseField.firstChild) {
     responseField.removeChild(responseField.firstChild);
   }
   getSuggestions();
@@ -928,17 +955,21 @@ submit.addEventListener('click', displaySuggestions);
 
 
 const renderResponse = (res) => {
-  if(!res){
+  if (!res) {
     console.log(res.status);
   }
-  if(!res.length){
+
+  if (!res.length) {
     responseField.innerHTML = "<p>Try again!</p><p>There were no suggestions found!</p>";
     return;
   }
+
   let wordList = [];
-  for(let i = 0; i < Math.min(res.length, 10); i++){
+
+  for (let i = 0; i < Math.min(res.length, 10); i++) {
     wordList.push(`<li>${res[i].word}</li>`);
   }
+
   wordList = wordList.join("");
   responseField.innerHTML = `<p>You might be interested in:</p><ol>${wordList}</ol>`;
   return
@@ -951,9 +982,11 @@ const renderRawResponse = (res) => {
 
 const renderJsonResponse = (res) => {
   let rawJson = {};
-  for(let key in response){
+
+  for (let key in response) {
     rawJson[key] = response[key];
   }
+
   rawJson = JSON.stringify(rawJson).replace(/,/g, ", \n");
   responseField.innerHTML = `<pre>${rawJson}</pre>`;
 }
@@ -1015,7 +1048,7 @@ fetch('https://api-to-call.com/endpoint', {
   method: 'POST',
   body: JSON.stringify({id: "200"})
 }).then(response => {
-  if(response.ok){
+  if (response.ok) {
 	  return response.json();  
   }
 	throw new Error('Request failed!');
@@ -1066,7 +1099,8 @@ const shortenUrl = () => {
 
 const displayShortUrl = (event) => {
   event.preventDefault();
-  while(responseField.firstChild){
+
+  while (responseField.firstChild) {
     responseField.removeChild(responseField.firstChild)
   }
   shortenUrl();
@@ -1083,7 +1117,7 @@ shortenButton.addEventListener('click', displayShortUrl);
 
 
 const renderResponse = (res) => {
-  if(res.errors){
+  if (res.errors) {
     responseField.innerHTML = "<p>Sorry, couldn't format your URL.</p><p>Try again.</p>";
   } else {  
     responseField.innerHTML = `<p>Your shortened url is: </p><p> ${res.shortUrl} </p>`;
@@ -1091,7 +1125,7 @@ const renderResponse = (res) => {
 }
 
 const renderRawResponse = (res) => {
-  if(res.errors){  
+  if (res.errors) {  
     responseField.innerHTML = "<p>Sorry, couldn't format your URL.</p><p>Try again.</p>";
   } else {
     let structuredRes = JSON.stringify(res).replace(/,/g, ", \n");
@@ -1102,7 +1136,8 @@ const renderRawResponse = (res) => {
 
 const renderJsonResponse = (response) => {
   let rawJson = {}
-  for(let key in response){
+
+  for (let key in response) {
     rawJson[key] = response[key]
   }
   rawJson = JSON.stringify(rawJson).replace(/,/g, ", \n")
@@ -1195,7 +1230,8 @@ const shortenUrl = () => {
 
 const displayShortUrl = (event) => {
   event.preventDefault();
-  while(responseField.firstChild){
+
+  while (responseField.firstChild) {
     responseField.removeChild(responseField.firstChild)
   }
   shortenUrl();
@@ -1213,7 +1249,7 @@ shortenButton.addEventListener('click', displayShortUrl);
 
 
 const renderResponse = (res) => {
-  if(res.errors){
+  if (res.errors) {
     responseField.innerHTML = "<p>Sorry, couldn't format your URL.</p><p>Try again.</p>";
   } else {  
     responseField.innerHTML = `<p>Your shortened url is: </p><p> ${res.shortUrl} </p>`;
@@ -1221,7 +1257,7 @@ const renderResponse = (res) => {
 }
 
 const renderRawResponse = (res) => {
-  if(res.errors){  
+  if (res.errors) {  
     responseField.innerHTML = "<p>Sorry, couldn't format your URL.</p><p>Try again.</p>";
   } else {
     let structuredRes = JSON.stringify(res).replace(/,/g, ", \n");
@@ -1232,9 +1268,11 @@ const renderRawResponse = (res) => {
 
 const renderJsonResponse = (response) => {
   let rawJson = {}
-  for(let key in response){
+
+  for (let key in response) {
     rawJson[key] = response[key]
   }
+
   rawJson = JSON.stringify(rawJson).replace(/,/g, ", \n")
   responseField.innerHTML = `<pre>${rawJson}</pre>`
 }
@@ -1327,7 +1365,8 @@ const shortenUrl = () => {
 
 const displayShortUrl = (event) => {
   event.preventDefault();
-  while(responseField.firstChild){
+
+  while (responseField.firstChild) {
     responseField.removeChild(responseField.firstChild)
   }
   shortenUrl();
@@ -1344,7 +1383,7 @@ shortenButton.addEventListener('click', displayShortUrl);
 
 
 const renderResponse = (res) => {
-  if(res.errors){
+  if (res.errors) {
     responseField.innerHTML = "<p>Sorry, couldn't format your URL.</p><p>Try again.</p>";
   } else {  
     responseField.innerHTML = `<p>Your shortened url is: </p><p> ${res.shortUrl} </p>`;
@@ -1352,7 +1391,7 @@ const renderResponse = (res) => {
 }
 
 const renderRawResponse = (res) => {
-  if(res.errors){  
+  if (res.errors) {  
     responseField.innerHTML = "<p>Sorry, couldn't format your URL.</p><p>Try again.</p>";
   } else {
     let structuredRes = JSON.stringify(res).replace(/,/g, ", \n");
@@ -1363,7 +1402,8 @@ const renderRawResponse = (res) => {
 
 const renderJsonResponse = (response) => {
   let rawJson = {}
-  for(let key in response){
+
+  for (let key in response) {
     rawJson[key] = response[key]
   }
   rawJson = JSON.stringify(rawJson).replace(/,/g, ", \n")
@@ -1460,7 +1500,8 @@ const getSuggestions = async () => {
   const endpoint = `${url}${queryParams}${wordQuery}`;
   try {
     const response = await fetch(endpoint, {cache: 'no-cache'});
-    if(response.ok){
+
+    if (response.ok) {
       const jsonResponse = await response.json();
       renderResponse(jsonResponse);
     }
@@ -1471,7 +1512,8 @@ const getSuggestions = async () => {
 
 const displaySuggestions = (event) => {
   event.preventDefault();
-  while(responseField.firstChild){
+
+  while (responseField.firstChild) {
     responseField.removeChild(responseField.firstChild);
   }
   getSuggestions();
@@ -1488,17 +1530,21 @@ submit.addEventListener('click', displaySuggestions);
 
 
 const renderResponse = (res) => {
-  if(!res){
+  if (!res) {
     console.log(res.status);
   }
-  if(!res.length){
+
+  if (!res.length) {
     responseField.innerHTML = "<p>Try again!</p><p>There were no suggestions found!</p>";
     return;
   }
+
   let wordList = [];
-  for(let i = 0; i < Math.min(res.length, 10); i++){
+
+  for (let i = 0; i < Math.min(res.length, 10); i++) {
     wordList.push(`<li>${res[i].word}</li>`);
   }
+
   wordList = wordList.join("");
   responseField.innerHTML = `<p>You might be interested in:</p><ol>${wordList}</ol>`;
   return
@@ -1511,9 +1557,11 @@ const renderRawResponse = (res) => {
 
 const renderJsonResponse = (res) => {
   let rawJson = {};
-  for(let key in response){
+
+  for (let key in response) {
     rawJson[key] = response[key];
   }
+
   rawJson = JSON.stringify(rawJson).replace(/,/g, ", \n");
   responseField.innerHTML = `<pre>${rawJson}</pre>`;
 }
@@ -1577,10 +1625,12 @@ const getData = async () => {
       method: 'POST',
       body: JSON.stringify({id: 200})
     })
-    if(response.ok){
+
+    if (response.ok) {
       const jsonResponse = await response.json();
       return jsonResponse;
     }
+
     throw new Error('Request failed!');
   } catch(error) {
     console.log(error);
@@ -1624,7 +1674,8 @@ const shortenUrl = async () => {
 				'apikey': apiKey
       }
     });
-		if(response.ok){
+
+		if (response.ok) {
       const jsonResponse = await response.json();
       renderResponse(jsonResponse);
     }
@@ -1636,7 +1687,7 @@ const shortenUrl = async () => {
 const displayShortUrl = (event) => {
   event.preventDefault();
   
-  while(responseField.firstChild){
+  while (responseField.firstChild) {
     responseField.removeChild(responseField.firstChild);
   }
   shortenUrl();
@@ -1653,7 +1704,7 @@ shortenButton.addEventListener('click', displayShortUrl);
 
 
 const renderResponse = (res) => {
-  if(res.errors){
+  if (res.errors) {
     responseField.innerHTML = "<p>Sorry, couldn't format your URL.</p><p>Try again.</p>";
   } else {  
     responseField.innerHTML = `<p>Your shortened url is: </p><p> ${res.shortUrl} </p>`;
@@ -1661,7 +1712,7 @@ const renderResponse = (res) => {
 }
 
 const renderRawResponse = (res) => {
-  if(res.errors){  
+  if (res.errors) {  
     responseField.innerHTML = "<p>Sorry, couldn't format your URL.</p><p>Try again.</p>";
   } else {
     let structuredRes = JSON.stringify(res).replace(/,/g, ", \n");
@@ -1736,7 +1787,8 @@ const getSuggestions = async () => {
 
   try{
     const response =  await fetch(endpoint);
-    if(response.ok){
+
+    if (response.ok) {
       let jsonResponse = await response.json();
 			renderWordResponse(jsonResponse);
     }
@@ -1748,7 +1800,8 @@ const getSuggestions = async () => {
 
 const displaySuggestions = (event) => {
   event.preventDefault();
-  while(responseField.firstChild){
+
+  while (responseField.firstChild) {
     responseField.removeChild(responseField.firstChild);
   }
   getSuggestions();
@@ -1777,7 +1830,8 @@ const shortenUrl = async () =>{
         'apikey': apiKey
       }
     })
-    if(response.ok){
+
+    if (response.ok) {
       const jsonResponse = await response.json();
 			renderByteResponse(jsonResponse);
     }
@@ -1789,7 +1843,8 @@ const shortenUrl = async () =>{
 
 const displayShortUrl = (event) => {
   event.preventDefault();
-  while(responseField.firstChild){
+
+  while (responseField.firstChild) {
     responseField.removeChild(responseField.firstChild);
   }
   shortenUrl();
@@ -1805,17 +1860,21 @@ shortenButton.addEventListener('click', displayShortUrl);
 
 
 const renderWordResponse = (res) => {
-  if(!res){
+  if (!res) {
     console.log(res.status);
   }
-  if(!res.length){
+
+  if (!res.length) {
     responseField.innerHTML = "<p>Try again!</p><p>There were no suggestions found!</p>";
     return;
   }
+
   let wordList = []
-  for(let i = 0; i < Math.min(res.length, 10); i++){
+
+  for (let i = 0; i < Math.min(res.length, 10); i++) {
     wordList.push(`<li>${res[i].word}</li>`);
   }
+
   wordList = wordList.join("");
   responseField.innerHTML = `<p>You might be interested in:</p><ol>${wordList}</ol>`;
   return;
@@ -1828,15 +1887,17 @@ const renderRawWordResponse = (res) => {
 
 const renderJsonWordResponse = (res) => {
   let rawJson = {};
-  for(let key in response){
+
+  for (let key in response) {
     rawJson[key] = response[key];
   }
+
   rawJson = JSON.stringify(rawJson).replace(/,/g, ", \n");
   responseField.innerHTML = `<pre>${rawJson}</pre>`;
 }
 
 const renderByteResponse = (res) => {
-  if(res.errors){
+  if (res.errors) {
     responseField.innerHTML = "<p>Sorry, couldn't format your URL.</p><p>Try again.</p>";
   } else {
     responseField.innerHTML = `<p>Your shortened url is: </p><p> ${res.shortUrl} </p>`;
@@ -1844,7 +1905,7 @@ const renderByteResponse = (res) => {
 }
 
 const renderRawByteResponse = (res) => {
-  if(res.errors){
+  if (res.errors) {
     responseField.innerHTML = "<p>Sorry, couldn't format your URL.</p><p>Try again.</p>";
   } else {
     let structuredRes = JSON.stringify(res).replace(/,/g, ", \n");

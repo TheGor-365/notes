@@ -51,7 +51,7 @@ arithmetic operations
 
 
 3 + 4;
-console.log(3 + 4);                       // => '7'
+console.log(3 + 4);                           // => '7'
 
 
 
@@ -81,8 +81,8 @@ console.log(3 + 4);                       // => '7'
 
 
 
-console.log(8 / 2);  // => 4
-console.log(3 ** 2); // => 9
+console.log(8 / 2);                           // => 4
+console.log(3 ** 2);                          // => 9
 
 
 
@@ -97,7 +97,7 @@ console.log(3 ** 2); // => 9
 
 
 console.log(8 + 2);
-console.log(-3); // => -3
+console.log(-3);                              // => -3
 
 
 
@@ -2245,7 +2245,7 @@ const getTypeOfSentence = (sentence) => {
   const lastChar = sentence.slice(-1);
 
   if (lastChar === '?') {
-      return 'question';
+    return 'question';
   }
 
   return 'normal';
@@ -2572,6 +2572,7 @@ traversing rows in a loop
 
 const printNameBySymbol = (name) => {
   let i = 0;
+
   while (i < name.length) {
     console.log(name[i]);
     i = i + 1;
@@ -2755,6 +2756,7 @@ for loop
 
 const reverseString = (str) => {
   let result = '';
+  
   for (let i = 0; i < str.length; i += 1) {
     result = `${str[i]}${result}`;
   }

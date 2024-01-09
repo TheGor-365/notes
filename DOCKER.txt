@@ -69,6 +69,7 @@ $ docker rm <hash>
 
 
 
+
 Dockerfile
 ----------
 
@@ -84,6 +85,7 @@ COPY . .
 RUN chmod +x scripts/start.sh
 
 CMD ["./scripts/start.sh"]
+
 
 
 
@@ -110,6 +112,7 @@ fi
 
 
 $ bin/rails server -p 3001 -b 0.0.0.0
+
 
 
 

@@ -17,7 +17,6 @@ shopping card template
 
 <!DOCTYPE html>
 <html lang="ru">
-
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -154,7 +153,6 @@ shopping cart template adaptive
 
 <!DOCTYPE html>
 <html lang="ru">
-
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -320,7 +318,6 @@ bootstrap semantic blog template
 
 <!DOCTYPE html>
 <html lang="ru">
-
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -360,19 +357,23 @@ bootstrap semantic blog template
           <div class="col-12 col-md-6 mb-3">
             <p class="small"><mark>Карьера</mark></p>
             <h2>Гид по профессии архитектор: чем они занимаются, где учатся и сколько зарабатывают</h2>
-            <p>Профессия архитектора ПО кажется одной из самых сложных в технологическом секторе. Практически не
+            <p>
+              Профессия архитектора ПО кажется одной из самых сложных в технологическом секторе. Практически не
               существует курсов, пройдя которые точно можно стать начинающим IT-архитектором, а технологические блоги
               редко публикуют чек-листы для желающих войти в эту сферу. Подробно разбираемся, как устроена профессия
-              IT-архитектора, чем они занимаются и сколько зарабатывают.</p>
+              IT-архитектора, чем они занимаются и сколько зарабатывают.
+            </p>
             <a href="#" class="btn btn-outline-info">Подробнее</a>
           </div>
           <div class="col-12 col-md-6 mb-3">
             <p class="small"><mark>Образование</mark></p>
             <h2>Системы типов в языке — какие бывают и чем отличаются</h2>
-            <p>В языках программирования у любого кусочка данных (переменной, константы, аргумента функции) есть тип.
+            <p>
+              В языках программирования у любого кусочка данных (переменной, константы, аргумента функции) есть тип.
               Тип определяет множество возможных значений и операции, которые с ними можно проводить. В разных языках по
               разному устроена работа с типами. Важно понимать, чем отличаются разные системы типизации, чтобы умело и к
-              месту использовать тот или иной язык.</p>
+              месту использовать тот или иной язык.
+            </p>
             <a href="#" class="btn btn-outline-info">Подробнее</a>
           </div>
         </div>
@@ -404,7 +405,6 @@ bootstrap table
 
 <!DOCTYPE html>
 <html lang="ru">
-
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -484,7 +484,6 @@ bootstrap form, components, crossbrauser
 
 <!DOCTYPE html>
 <html lang="ru" class="h-100">
-
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -568,7 +567,6 @@ bootstrap card, utils
 
 <!DOCTYPE html>
 <html lang="ru">
-
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -594,8 +592,9 @@ bootstrap card, utils
                 </div>
               </div>
               <h2 class="h4 mb-3">Фронтенд-разработчик</h2>
-              <p class="small text-body-secondary mb-4">Разработка
-                фронтенд-компонентов для веб-приложений</p>
+              <p class="small text-body-secondary mb-4">
+                Разработка фронтенд-компонентов для веб-приложений
+              </p>
               <div class="align-items-end d-flex">
                 <div class="d-flex flex-wrap small">
                   <div>

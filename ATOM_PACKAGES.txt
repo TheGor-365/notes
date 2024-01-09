@@ -35,11 +35,15 @@ autosave
 
 ---
 
+
+
 data-atom
 
 
 
 ---
+
+
 
 file-icons
 file-tipe-icons
@@ -50,11 +54,15 @@ fuzzy-finder
 
 ---
 
+
+
 highlight-selected
 
 
 
 ---
+
+
 
 ide-json
 intentions
@@ -65,12 +73,16 @@ incompatible-packages
 
 ---
 
+
+
 jQuery
 javascript-snippets
 
 
 
 ---
+
+
 
 language-docker
 language-haml
@@ -81,12 +93,16 @@ linter-erb
 
 ---
 
+
+
 markdown-scroll-sync
 minimap
 
 
 
 ---
+
+
 
 open-in-browser
 open-recent
@@ -95,6 +111,8 @@ open-recent
 
 ---
 
+
+
 platformio-ide-terminal
 pckage-generator
 
@@ -102,11 +120,15 @@ pckage-generator
 
 ---
 
+
+
 quick-query-sqlite
 
 
 
 ---
+
+
 
 react
 
@@ -114,11 +136,15 @@ react
 
 ---
 
+
+
 script
 
 
 
 ---
+
+
 
 teletype
 tabs
@@ -129,6 +155,8 @@ tree-view
 
 ---
 
+
+
 background-tips
 bookmarks
 bracket-matcher
@@ -138,12 +166,16 @@ busy-signal
 
 ---
 
+
+
 command-palette
 color-picker
 
 
 
 ---
+
+
 
 dalek
 deprecation-cop
@@ -153,6 +185,8 @@ dev-live-reload
 
 ---
 
+
+
 encoding-selector
 exception-reporting
 emmet
@@ -160,6 +194,8 @@ emmet
 
 
 ---
+
+
 
 git-diff
 git-hub
@@ -170,11 +206,15 @@ grammar-selector
 
 ---
 
+
+
 keybinding-resolver
 
 
 
 ---
+
+
 
 language-c
 language-coffee-script
@@ -213,6 +253,8 @@ link
 
 ---
 
+
+
 markdown-preview
 metrics
 
@@ -220,17 +262,23 @@ metrics
 
 ---
 
+
+
 notifications
 
 
 
 ---
 
+
+
 openon-github
 
 
 
 ---
+
+
 
 settings-view
 snippets
@@ -243,11 +291,15 @@ symbols-view
 
 ---
 
+
+
 update-package-dependencies
 
 
 
 ---
+
+
 
 welcome
 whitespace
@@ -255,14 +307,14 @@ w3c-calidation
 
 
 
-----------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
 
-----------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 --------------
 ATOM SHORTCUTS
@@ -281,7 +333,7 @@ CTRL + Shift + K 	                                                      --- Dele
 
 
 
-----------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
