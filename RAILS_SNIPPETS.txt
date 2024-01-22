@@ -28296,6 +28296,765 @@ $ bin/console                                                     # должен
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+ORM for Ruby on Rails
+---------------------
+
+
+Create new user
+---------------
+
+
+
+INSERT INTO users (name, email) VALUES ('John Doe', 'john.doe@example.com');
+
+User.create(name: 'John Doe', email: 'john.doe@example.com')
+
+
+
+
+---
+
+
+
+
+ActiveRecord 
+------------
+
+- Создание, чтение, обновление и удаление записей (CRUD) — ActiveRecord предоставляет методы для выполнения операций с данными
+- Ассоциации между моделями                              — ActiveRecord позволяет определять отношения между моделями
+- Валидация данных                                       — ActiveRecord предоставляет механизмы для проверки данных перед сохранением в базе данных
+- Миграции                                               — ActiveRecord позволяет создавать, изменять и удалять структуру базы данных с использованием Ruby-кода
+
+
+
+
+
+---
+
+
+
+
+save to database with ruby ORM
+------------------------------
+
+course = Course.new
+course.title = 'Ruby'
+course.save
+
+
+
+
+---
+
+
+
+
+model
+-----
+
+class Course < ApplicationRecord
+end
+
+
+
+
+---
+
+
+
+
+
+
+model objects
+-------------
+
+course = Course.find(1)
+
+
+
+Обновление курса
+----------------
+
+course.title = 'Ruby on Rails'
+
+
+
+Сохранение в базу
+-----------------
+
+course.save
+
+
+
+Удаление записи в базе данных
+-----------------------------
+
+course.destroy
+
+
+
+Общее число курсов
+------------------
+
+SELECT COUNT(*) FROM courses;
+
+Course.count
+
+
+
+
+
+---
+
+
+
+
+
+Query Interface
+---------------
+
+courses = Course.where(state: 'active').order(title: :desc)
+courses = Course.where("title LIKE '%Ruby%' AND state = 'active'")
+
+
+
+
+
+---
+
+
+
+
+
+
+schema
+------
+
+ActiveRecord::Schema.define(version: 2023_05_04_123456) do
+  create_table "courses", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.decimal "price", default: 0
+    t.timestamps
+  end
+end
+
+
+
+
+---
+
+
+
+
+Active Record use Database First
+
+
+
+
+---
+
+
+
+
+migrations
+----------
+
+class CreateCourses < ActiveRecord::Migration[6.1]
+  def change
+    create_table :courses do |t|
+      t.string :title, null: false
+      t.text :description
+      t.decimal :price, default: 0
+      t.timestamps
+    end
+  end
+end
+
+
+
+
+---
+
+
+
+
+$ rake db:migrate
+
+
+
+
+---
+
+
+
+
+model as class & as table
+-------------------------
+
+class Course < ApplicationRecord
+end
+
+
+
+model generation
+----------------
+
+$ rails generate model Course
+
+
+
+db/schema.rb
+------------
+
+ctiveRecord::Schema.define(version: 2023_05_04_123456) do
+  create_table "courses", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.decimal "price", default: 0
+    t.timestamps
+  end
+end
+
+
+
+
+Convention Over Configuration
+-----------------------------
+
+$ course = Course.new
+
+$ course.title = 'Hexlet Ruby on Rails'
+$ course.description = 'Курс для изучения Ruby on Rails'
+$ course.price = 19.99
+
+
+
+INSERT (добавление новой записи)
+--------------------------------
+
+$ course.save
+
+
+
+Обновление курса
+----------------
+
+course.price = 12.5
+
+
+
+UPDATE (обновление существующей записи)
+---------------------------------------
+
+course.save
+
+
+
+Выводит содержимое объекта
+--------------------------
+
+$ puts course.inspect
+
+# #<Course id: 1,
+#   title: "Hexlet Ruby on Rails",
+#   description: "Курс для изучения Ruby on Rails",
+#   price: "12.5",
+#   created_at: "2023-05-04 20:11:02",
+#   updated_at: "2023-05-04 20:11:02">
+
+
+
+
+Удаление курса
+--------------
+
+course.destroy
+
+
+
+
+---
+
+
+
+
+
+save() - uses for create and update
+
+
+
+
+---
+
+
+
+
+find
+----
+
+course = Course.find(1)
+
+
+
+Если записи не существует, то вызовется исключение ActiveRecord::RecordNotFound
+-------------------------------------------------------------------------------
+
+course.find(100)
+
+
+
+find_by возвращает nil, если записи не существует
+-------------------------------------------------
+
+Course.find_by(id: 100)
+
+
+
+
+---
+
+
+
+
+validations
+-----------
+
+presence
+--------
+
+class Course < ApplicationRecord
+  validates :title, presence: true
+end
+
+
+
+length
+------
+
+class Course < ApplicationRecord
+  validates :description, length: { minimum: 128, maximum: 512 }
+end
+
+
+
+numericality
+------------
+
+class Course < ApplicationRecord
+  validates :price, numericality: { greater_than_or_equal_to: 0 }
+end
+
+
+
+uniqueness
+----------
+
+class Student < ApplicationRecord
+  validates :email, uniqueness: true
+end
+
+
+
+format
+------
+
+class Student < ApplicationRecord
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+end
+
+
+
+inclusion
+---------
+
+class Article < ApplicationRecord
+  validates :size, inclusion: { in: %w(small medium large), message: "%{value} is not a valid size" }
+end
+
+
+
+exclusion
+---------
+
+class Student < ApplicationRecord
+  validates :phone_prefix, exclusion: { in: %w(+1 +3 +6 +10), message: "%{value} is incorrect" }
+end
+
+(+1, +3, +6 или +10 - валидация не пройдет)
+
+
+
+
+---
+
+
+
+
+
+difficult validations
+---------------------
+
+validate вместо стандартного validates
+--------------------------------------
+
+class Course < ApplicationRecord
+  validate :discount_cannot_be_greater_than_price
+
+  def discount_cannot_be_greater_than_price
+    if discount > price
+      errors.add(:discount, "can't be greater than price")
+    end
+  end
+end
+
+
+
+
+---
+
+
+
+
+object validation
+-----------------
+
+valid?
+------
+
+class Course < ApplicationRecord
+  validates :title, presence: true
+end
+
+
+
+course = Course.new(title: '')
+
+Это выведет 'false', потому что title пуст
+------------------------------------------
+
+puts course.valid?
+
+
+
+course.title = 'Основы Ruby on rails'
+puts course.valid?
+
+
+
+
+---
+
+
+
+
+errors method
+-------------
+
+course = Course.new(title: '')
+course.valid?
+
+Puts выведет ["can't be blank"], что является ошибкой валидации
+---------------------------------------------------------------
+
+puts course.errors[:title]
+
+
+
+
+---
+
+
+
+
+
+
+Presence     — проверяет, что поле не пусто
+Length       — проверяет длину значения поля
+Numericality — проверяет, что значение поля является числом
+Uniqueness   — проверяет, что значение поля уникально в базе данных
+Format       — проверяет, что значение поля соответствует заданному формату
+Inclusion    — проверяет, что значение поля включено в заданный список
+Exclusion    — проверяет, что значение поля не включено в заданный список
+
+
+
+
+---
+
+
+
+
+associations
+------------
+
+structure
+---------
+
+class CreatePosts < ActiveRecord::Migration[6.0]
+  def change
+    create_table :posts do |t|
+      t.string :state, null: true
+      t.string :title
+      t.text :body
+      t.references :creator, null: false, foreign_key: {to_table: :users}       # Поле, которое будет внешним ключом
+      t.timestamps
+    end
+  end
+end
+
+
+
+post.rb
+-------
+
+class Post < ApplicationRecord
+  belongs_to :creator, class_name: 'User'
+end
+
+
+
+user.rb
+-------
+
+class User < ApplicationRecord
+  has_many :posts, foreign_key: 'creator_id'
+end
+
+
+
+
+
+---
+
+
+
+
+CRUD
+----
+
+user = User.find(1)
+
+SELECT "posts".* FROM "posts" WHERE "posts"."creator_id" = 1
+
+user.posts.each do |post|
+  puts post
+end
+
+
+
+Параметры поста можно передать в build
+--------------------------------------
+
+post = user.posts.build(title: 'title', body: 'body')
+post.save
+
+
+
+Выводим все посты пользователя
+------------------------------
+
+user.posts
+
+=> [#<Post id: 1, title: "title", body: "body", creator_id: 1, ...>]
+
+
+
+Находим пост по id
+------------------
+
+post2 = user.posts.find(1)
+
+post == post2
+
+=> true
+
+
+
+Удаляем все посты пользователя
+------------------------------
+
+user.posts.destroy_all
+
+
+
+
+---
+
+
+
+
+post = Post.find(1)
+post.creator.first_name
+
+
+
+Устанавливаем пользователя
+--------------------------
+
+post.creator = user
+post.save
+
+
+
+
+---
+
+
+
+
+Плохо
+-----
+
+post.creator_id = user.id
+
+
+
+Хорошо
+------
+
+post.creator = user
+
+
+
+
+---
+
+
+
+
+selections
+----------
+
+В запрос будет включено условие по creator_id, равным текущему пользователю
+---------------------------------------------------------------------------
+
+SELECT "posts".* FROM "posts" WHERE "posts"."creator_id" = 1 AND "posts"."state" = 'active'
+
+user.posts.where(state: 'active')
+
+
+
+
+---
+
+
+
+
+CRUD Active Record Query Interface
+----------------------------------
+
+Create — создание
+Read   — чтение
+Update — обновление
+Delete — удаление
+
+
+
+create
+------
+
+student = Student.new
+
+student.first_name = 'Hexlet'
+student.last_name = 'Student'
+
+student.save
+
+
+
+student = Student.create(first_name: 'Hexlet', last_name: 'Student')
+
+
+
+create = new + save
+create! = new + save + ActiveRecord::RecordInvalid
+
+
+
+begin
+  student = Student.create!(first_name: 'Hexlet', last_name: 'Student')
+rescue ActiveRecord::RecordInvalid => invalid
+  puts invalid.record.errors
+end
+
+
+
+
+read
+----
+
+students = Student.all
+student = Student.find(1)
+students = Student.where(first_name: 'Hexlet')
+student = Student.find_by(first_name: 'Hexlet', last_name: 'Student')
+
+
+
+
+update
+------
+
+student = Student.find(1)
+student.first_name = 'Hexleta'
+student.save
+
+
+
+Student.where(first_name: 'Hexlet').update_all(first_name: 'Hexleta')
+
+
+
+delete
+------
+
+destroy
+destroy_all
+delete
+delete_all
+
+
+
+параметр dependent: :destroy указывает на связанное уничтожение
+---------------------------------------------------------------
+
+class Course < ActiveRecord::Base
+  has_many :students, dependent: :destroy
+end
+
+
+
+course = Course.find(1)
+course.destroy
+
+courses = Course.where(first_name: 'Hexlet')
+courses.destroy_all
+
+
+
+course = course.find(1)
+course.delete
+
+courses = Course.where(first_name: 'Hexlet')
+courses.delete_all
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 
