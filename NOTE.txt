@@ -1,0 +1,56 @@
+TestHexletCode#test_form_with_submit_custom_name [/usr/share/rvm/rubies/ruby-3.2.2/lib/ruby/gems/3.2.0/gems/power_assert-2.0.3/lib/power_assert.rb:34]:
+    assert { builder == form }
+             |       |  |
+             |       |  "<form action='#' method='post'>\n  
+                          <label for='name'>Name</label>\n  
+                          <input name='name' type='text' value='rob'>\n  
+                          <label for='job'>Job</label>\n  
+                          <input name='job' type='text' value='hexlet'>\n  
+                          <input type='submit' value='Wow'>\n
+                        </form>"
+
+             |       false
+             |
+             "<form action='#' method='post'>\n  
+                <label for='name'>Name</label>\n  
+                <input name='name' type='text' value='rob'>\n  
+                <label for='job'>Job</label>\n  
+                <input name='job' type='text' value='hexlet'>\n  
+                <input type='submit' name='Wow'>\n
+              </form>"
+
+rails test home/gor/Desktop/ruby_learn/ruby_experiments/tests/module_25.rb:121
+
+.........F
+
+Failure:
+TestHexletCode#test_form_with_submit [/usr/share/rvm/rubies/ruby-3.2.2/lib/ruby/gems/3.2.0/gems/power_assert-2.0.3/lib/power_assert.rb:34]:
+    assert { builder == form }
+             |       |  |
+             |       |  "<form action='#' method='post'>\n  
+                          <label for='name'>Name</label>\n  
+                          <input name='name' type='text' value='rob'>\n  
+                          <label for='job'>Job</label>\n  
+                          <input name='job' type='text' value='hexlet'>\n  
+                          <input type='submit' value='Save'>\n
+                        </form>"
+
+             |       false
+             |
+             "<form action='#' method='post'>\n  
+                <label for='name'>Name</label>\n  
+                <input name='name' type='text' value='rob'>\n  
+                <label for='job'>Job</label>\n  
+                <input name='job' type='text' value='hexlet'>\n  
+                <input type='submit' name='Save'>\n
+              </form>"
+
+<<~HTML.strip
+      <form action="#" method="post">
+        <label for="name">Name</label>
+        <input name="name" type="text" value="">
+        <label for="job">Job</label>
+        <input name="job" type="text" value="hexlet">
+        <input type="submit" value="Wow">
+      </form>
+    HTML
