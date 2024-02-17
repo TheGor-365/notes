@@ -45,6 +45,17 @@ TestHexletCode#test_form_with_submit [/usr/share/rvm/rubies/ruby-3.2.2/lib/ruby/
                 <input type='submit' name='Save'>\n
               </form>"
 
+
+
+
+
+---
+
+
+
+
+
+
 <<~HTML.strip
       <form action="#" method="post">
         <label for="name">Name</label>
@@ -54,3 +65,333 @@ TestHexletCode#test_form_with_submit [/usr/share/rvm/rubies/ruby-3.2.2/lib/ruby/
         <input type="submit" value="Wow">
       </form>
     HTML
+
+
+
+
+
+---
+
+
+
+Database                        postgres_vmz5
+Username                        postgres_vmz5_user
+Password                        Wtz0ufSabK8Hl4NzgEjn6IsiAmnsPfAt
+Internal Database URL           postgres://postgres_vmz5_user:Wtz0ufSabK8Hl4NzgEjn6IsiAmnsPfAt@dpg-cn56gkn109ks73dlvlu0-a/postgres_vmz5
+External Database URL           postgres://postgres_vmz5_user:Wtz0ufSabK8Hl4NzgEjn6IsiAmnsPfAt@dpg-cn56gkn109ks73dlvlu0-a.oregon-postgres.render.com/postgres_vmz5
+PSQL Command                    PGPASSWORD=Wtz0ufSabK8Hl4NzgEjn6IsiAmnsPfAt psql -h dpg-cn56gkn109ks73dlvlu0-a.oregon-postgres.render.com -U postgres_vmz5_user postgres_vmz5
+
+
+
+
+---
+
+
+
+
+WEB_RESUME environment
+
+DATABASE_URL                            postgres://gordb_9vts_user:urGrRi9FQD7RttOlNfK9kxeCfTmDqcOy@dpg-cg8bi2ik728pus49bgag-a/gordb_9vts
+DISABLE_DATABASE_ENVIRONMENT_CHECK      1
+RAILS_MASTER_KEY                        ec6d7e5e3cc1c64e5a2c6b0d15bcd101
+REDIS_URL                               redis://red-cg2cnb2k728reloj2ong:6379
+
+
+
+
+---
+
+
+
+
+
+fly.io
+
+flyctl was installed successfully to /home/gor/.fly/bin/flyctl
+Manually add the directory to your $HOME/.bash_profile (or similar)
+  export FLYCTL_INSTALL="/home/gor/.fly"
+  export PATH="$FLYCTL_INSTALL/bin:$PATH"
+Run '/home/gor/.fly/bin/flyctl --help' to get started
+ gor@gor  ~  export FLYCTL_INSTALL="/home/gor/.fly"
+ gor@gor  ~  export PATH="$FLYCTL_INSTALL/bin:$PATH"
+ gor@gor  ~  /home/gor/.fly/bin/flyctl --help
+This is flyctl, the Fly.io command line interface.
+
+Usage:
+  flyctl [flags]
+  flyctl [command]
+
+Deploying apps & machines
+  apps         Manage apps
+  deploy       Deploy Fly applications
+  launch       Create and configure a new app from source code or a Docker image
+  machine      Manage Fly Machines.
+  status       Show app status
+
+Configuration & scaling
+  certs        Manage certificates
+  config       Manage an app's configuration
+  image        Manage app image
+  ips          Manage IP addresses for apps
+  scale        Scale app resources
+  secrets      Manage application secrets with the set and unset commands.
+  volumes      Manage Fly Volumes.
+
+Monitoring & managing things
+  checks       Manage health checks
+  console      Run a console in a new or existing machine
+  dashboard    Open web browser on Fly Web UI for this app
+  dig          Make DNS requests against Fly.io's internal DNS server
+  logs         View app logs
+  ping         Test connectivity with ICMP ping messages
+  proxy        Proxies connections to a Fly Machine.
+  releases     List app releases
+  services     Show the application's services
+  sftp         Get or put files from a remote VM.
+  ssh          Use SSH to log into or run commands on Machines
+  wireguard    Commands that manage WireGuard peer connections
+
+Databases & extensions
+  consul       Enable and manage Consul clusters
+  extensions   Extensions are additional functionality that can be added to your Fly apps
+  litefs-cloud LiteFS Cloud management commands
+  planetscale  Provision and manage PlanetScale MySQL databases
+  postgres     Manage Postgres clusters.
+  redis        Launch and manage Redis databases managed by Upstash.com
+  storage      Provision and manage Tigris object storage buckets
+
+Access control
+  auth         Manage authentication
+  orgs         Commands for managing Fly organizations
+  tokens       Manage Fly.io API tokens
+
+Help & troubleshooting
+  docs         View Fly documentation
+  doctor       The DOCTOR command allows you to debug your Fly environment
+  platform     Fly platform information
+
+Additional Commands:
+  agent        Commands that manage the Fly agent, a background process that manages flyctl wireguard connections
+  completion   Generate the autocompletion script for the specified shell
+  help         Help about any command
+  jobs         Show jobs at Fly.io
+  settings     Manage flyctl settings
+  version      Show version information for the flyctl command
+
+Flags:
+  -t, --access-token string   Fly API Access Token
+      --debug                 Print additional logs and traces
+  -h, --help                  help for flyctl
+      --verbose               Verbose output
+
+Use "flyctl [command] --help" for more information about a command.
+
+
+
+
+
+---
+
+
+
+
+----------
+render.com
+----------
+
+
+
+$ rails new my-app-render --database=postgresql
+$ rails db:create
+$ rails s
+
+
+
+---1---
+
+Gemfile
+-------
+
+gem 'pg'
+
+
+$ bundle install
+
+
+
+---2---
+
+config/database.yml
+-------------------
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+
+
+https://guides.rubyonrails.org/configuring.html#database-pooling
+https://guides.rubyonrails.org/configuring.html#configuring-a-database
+
+
+config/database.yml
+-------------------
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+  database: my_app_render_production
+  username: my_app_render
+  password: <%= ENV['MY_APP_RENDER_DATABASE_PASSWORD'] %>
+
+
+
+---3---
+
+config/puma.rb
+--------------
+
+#workers ENV.fetch("WEB_CONCURRENCY") {2} -> workers ENV.fetch("WEB_CONCURRENCY") {4} 
+
+#preload_app! -> preload_app!
+
+
+
+---4---
+
+config/environments/production.rb
+---------------------------------
+
+config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present? ->
+config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present? || ENV['RENDER'].present?
+
+
+
+---5---
+
+$ git rev-parse --show-toplevel
+$ touch render-build.sh
+
+
+render-build.sh
+---------------
+
+set -o errexit
+
+bundle install
+bundle exec rails assets:precompile
+bundle exec rails assets:clean
+bundle exec rails db:migrate
+
+#if you have seeds to run add:
+# bundle exec rails db:seed
+
+
+
+---6---
+
+$ chmod a+x render-build.sh
+
+
+
+---7---
+
+$ touch render.yaml
+
+render.yml
+----------
+
+databases:
+  - name: postgres
+    ipAllowList: []
+    databaseName: my_app_render
+    user: my_app_render
+
+services:
+  - type: web
+    name: my_app_render
+    env: ruby
+    buildCommand: "./render-build.sh"
+    startCommand: "bundle exec rails s"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: postgres
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+
+
+
+---8---
+
+https://render.com
+------------------
+
+Dashboard -> Blueprints -> New Blueprint Instance
+
+Add app name form GitHub
+
+After that in the deploy window below, set the value of the RAILS_MASTER_KEY to the contents of your config/master.key file. Then click Apply
+
+Go the the Dashboard tab to see the progress it should say deploying…
+
+
+
+
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
