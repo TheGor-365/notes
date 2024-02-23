@@ -350,12 +350,77 @@ Go the the Dashboard tab to see the progress it should say deploying…
 
 
 
+Unpermitted parameters: :correct_answer, :_destroy. Context: {
+  controller: QuizzesController, 
+  action: create, 
+  request: #<ActionDispatch::Request:0x00007f2542a89e40>, 
+  params: {
+    "authenticity_token"=>"[FILTERED]", 
+    "quiz"=>{"questions_attributes"=>{"0"=>{
+    "content"=>"Calculate the value of C.", 
+    "image"=>#<ActionDispatch::Http::UploadedFile:0x00007f25429a4980 @tempfile=#<Tempfile:/tmp/RackMultipart20240218-76347-qsef31.jpg>, 
+    @content_type="image/jpeg", 
+    @original_filename="bridget.jpg", 
+    @headers="Content-Disposition: form-data; name=\"quiz[questions_attributes][0][image]\"; filename=\"bridget.jpg\"\r\nContent-Type: image/jpeg\r\n">, 
+    "answer_1"=>"3", 
+    "answer_2"=>"4", 
+    "answer_3"=>"5", 
+    "answer_4"=>"6", 
+    "correct_answer"=>"3", 
+    "_destroy"=>"false"
+  }, 
+    "1708275581869"=>{
+    "content"=>"How did you know?", 
+    "answer_1"=>"a", 
+    "answer_2"=>"b", 
+    "answer_3"=>"c", 
+    "answer_4"=>"d", 
+    "correct_answer"=>"1", 
+    "_destroy"=>"false"}}}, 
+    "commit"=>"Create Quiz", 
+    "controller"=>"quizzes", 
+    "action"=>"create"
+  }
+}
+
+
+Unpermitted parameters: :correct_answer, :_destroy. Context: {
+  controller: QuizzesController, 
+  action: create, 
+  request: #<ActionDispatch::Request:0x00007f2542a89e40>, 
+  params: {
+    "authenticity_token"=>"[FILTERED]", 
+    "quiz"=>{"questions_attributes"=>{"0"=>{
+    "content"=>"Calculate the value of C.", 
+    "image"=>#<ActionDispatch::Http::UploadedFile:0x00007f25429a4980 @tempfile=#<Tempfile:/tmp/RackMultipart20240218-76347-qsef31.jpg>, 
+    @content_type="image/jpeg", @original_filename="bridget.jpg", 
+    @headers="Content-Disposition: form-data; name=\"quiz[questions_attributes][0][image]\"; filename=\"bridget.jpg\"\r\nContent-Type: image/jpeg\r\n">, 
+    "answer_1"=>"3", 
+    "answer_2"=>"4", 
+    "answer_3"=>"5", 
+    "answer_4"=>"6", 
+    "correct_answer"=>"3", 
+    "_destroy"=>"false"
+  }, 
+    "1708275581869"=>{
+    "content"=>"How did you know?", 
+    "answer_1"=>"a", 
+    "answer_2"=>"b", 
+    "answer_3"=>"c", 
+    "answer_4"=>"d", 
+    "correct_answer"=>"1", 
+    "_destroy"=>"false"}}}, 
+    "commit"=>"Create Quiz", 
+    "controller"=>"quizzes", 
+    "action"=>"create"
+  }
+}
 
 
 
 
 
-
+---
 
 
 

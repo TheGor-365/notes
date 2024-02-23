@@ -884,8 +884,8 @@ Add categories options to form
 
 
 
-Bootstrap buttons styles for CRUD Rails app
--------------------------------------------
+Bootstrap outline buttons styles for CRUD Rails app
+---------------------------------------------------
 
 
 edit.html.erb
@@ -9647,7 +9647,7 @@ layouts/application.html.erb
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Database.yml config template
+database.yml config template
 ----------------------------
 
 
@@ -9696,9 +9696,14 @@ Create new Rails app with pg
 ----------------------------
 
 
+$ rails new example_app
+$ rails new simple-blog --api
+$ rails new . --force -d=postgresql --minimal
 $ rails new myapp --database=postgresql -j esbuild --css bootstrap
 $ rails new tailwind_rails --database=postgresql -c tailwind -j esbuild
 $ rails new quote-editor --css=sass --javascript=esbuild --database=postgresql
+$ rails new property_finder --database-postgresql --skip-test --skip-action-cable --skip-active-storage --skip-turbolinks --skip-yarn
+$ rails new example_app --minimal --api --skip-git
 
 
 
@@ -10976,7 +10981,7 @@ $ touch views/layouts/_nav.html.erb
 
     <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "btn btn-outline-danger" %>
   <% else %>
-    <%= link_to 'Sign in', new_user_session_path, class: "btn btn-success mr-3" %>
+    <%= link_to 'Sign in', new_user_session_path, class: "btn btn-success me-3" %>
     <%= link_to 'Sign up', new_user_registration_path, class: "btn btn-secondary" %>
   <% end %>
 </div>
@@ -29215,6 +29220,7 @@ $ flyctl launch
 Deploy on Render
 ----------------
 
+
 render.com
 ----------
 
@@ -29429,6 +29435,5213 @@ $ git push heroku main
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Add importmap to created rails app
+----------------------------------
+
+
+$ ./bin/bundle add importmap-rails && ./bin/rails importmap:install
+
+pin "@rails/actioncable", to: "actioncable.esm.js"
+pin "@rails/activestorage", to: "activestorage.esm.js"
+pin "@rails/actiontext", to: "actiontext.esm.js"
+pin "trix"
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Bootstrap simple navbar 
+-----------------------
+
+
+$ touch layouts/nav.html.erb
+
+
+
+layouts/nav.html.erb
+--------------------
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand me-5" href="/">App</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse ms-5" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="<%=  %>"></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<%=  %>"></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+layouts/application.html.erb
+----------------------------
+
+<header>
+  <%= render 'layouts/nav' %>
+</header>
+
+<main class="container my-5 pb-5">
+  <%= yield %>
+</main>
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Bootstrap cdn links
+-------------------
+
+
+https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css
+https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Rails Turbo
+-----------
+
+Navigate with Turbo Drive
+-------------------------
+
+
+<turbo-frame>
+
+
+
+
+---
+
+
+
+
+turbo tags
+----------
+
+<turbo-frame id="new_message">
+  <form action="/messages" method="post">
+  </form>
+</turbo-frame>
+
+
+
+
+---
+
+
+
+
+
+add all records
+---------------
+
+<turbo-frame id="messages" src="/messages">
+  <p>This message will be replaced by the response from /messages.</p>
+</turbo-frame>
+
+
+
+
+---
+
+
+
+
+add new record
+--------------
+
+<turbo-stream action="append" target="messages">
+  <template>
+    <div id="message_1">My new message!</div>
+  </template>
+</turbo-stream>
+
+
+
+
+
+---
+
+
+
+
+
+change existing records
+-----------------------
+
+<turbo-stream action="replace" target="message_1">
+  <template>
+    <div id="message_1">This changes the existing message!</div>
+  </template>
+</turbo-stream>
+
+
+
+
+---
+
+
+
+
+Application Visits
+------------------
+
+some.html.erb
+-------------
+
+<a href="/edit" data-turbo-action="replace">Edit</a>
+
+
+Turbo.visit("/edit", { action: "replace" })
+
+
+
+
+---
+
+
+
+
+Custom Rendering
+----------------
+
+some.js
+-------
+
+import morphdom from "morphdom"
+
+addEventListener("turbo:before-render", (event) => {
+  event.detail.render = (currentElement, newElement) => {
+    morphdom(currentElement, newElement)
+  }
+})
+
+
+
+
+---
+
+
+
+
+Pausing Rendering
+-----------------
+
+some.js
+-------
+
+document.addEventListener("turbo:before-render", async (event) => {
+  event.preventDefault()
+
+  await animateOut()
+
+  event.detail.resume()
+})
+
+
+
+
+---
+
+
+
+
+Pausing Requests
+----------------
+
+some.js
+-------
+
+document.addEventListener("turbo:before-fetch-request", async (event) => {
+  event.preventDefault()
+
+  const token = await getSessionToken(window.app)
+  event.detail.fetchOptions.headers["Authorization"] = `Bearer ${token}`
+
+  event.detail.resume()
+})
+
+
+
+
+---
+
+
+
+
+Performing Visits With a Different Method
+-----------------------------------------
+
+<a href="/articles/54" data-turbo-method="delete">Delete the article</a>
+
+
+
+
+---
+
+
+
+
+Requiring Confirmation for a Visit
+----------------------------------
+
+<a href="/articles" data-turbo-confirm="Do you want to leave this page?">Back to articles</a>
+<a href="/articles/54" data-turbo-method="delete" data-turbo-confirm="Are you sure?">Delete the article</a>
+
+
+
+
+---
+
+
+
+
+ Disabling Turbo Drive on Specific Links or Forms
+ ------------------------------------------------
+
+ <a href="/" data-turbo="false">Disabled</a>
+
+<form action="/messages" method="post" data-turbo="false">
+</form>
+
+<div data-turbo="false">
+  <a href="/">Disabled</a>
+  <form action="/messages" method="post">
+  </form>
+</div>
+
+
+
+<div data-turbo="false">
+  <a href="/" data-turbo="true">Enabled</a>
+</div>
+
+
+
+import { Turbo } from "@hotwired/turbo-rails"
+Turbo.session.drive = false
+
+
+
+
+---
+
+
+
+
+View transitions
+----------------
+
+some.html
+---------
+
+<meta name="view-transition" content="same-origin" />
+
+
+
+html[data-turbo-visit-direction="forward"]::view-transition-old(sidebar):only-child {
+  animation: slide-to-right 0.5s ease-out;
+}
+
+
+
+
+---
+
+
+
+
+Displaying Progress (progress bar)
+----------------------------------
+
+styles.css
+----------
+
+.turbo-progress-bar {
+  height: 5px;
+  background-color: green;
+}
+
+
+
+
+.turbo-progress-bar {
+  visibility: hidden;
+}
+
+
+
+
+---
+
+
+
+
+Reloading When Assets Change
+----------------------------
+
+index.html
+----------
+
+<head>
+  <link rel="stylesheet" href="/application-258e88d.css" data-turbo-track="reload">
+  <script src="/application-cbd3cd4.js" data-turbo-track="reload"></script>
+</head>
+
+
+
+
+---
+
+
+
+
+Ensuring Specific Pages Trigger a Full Reload
+---------------------------------------------
+
+<head>
+  <meta name="turbo-visit-control" content="reload">
+</head>
+
+
+
+
+---
+
+
+
+
+Setting a Root Location
+-----------------------
+
+<head>
+  <meta name="turbo-root" content="/app">
+</head>
+
+
+
+
+---
+
+
+
+
+ Form Submissions
+ ----------------
+
+
+turbo:submit-start
+turbo:before-fetch-request
+turbo:before-fetch-response
+turbo:submit-end
+
+
+
+addEventListener("turbo:submit-start", ({ target }) => {
+  for (const field of target.elements) {
+    field.disabled = true
+  }
+})
+
+
+
+
+---
+
+
+
+
+
+InstantClick
+------------
+
+some.html
+---------
+
+<meta name="turbo-prefetch" content="false">
+
+
+
+<html>
+  <head>
+    <meta name="turbo-prefetch" content="true">
+  </head>
+  <body>
+    <a href="/articles">Articles</a> <!-- This link is prefetched -->
+    <a href="/about" data-turbo-prefetch="false">About</a> <!-- Not prefetched -->
+    <div data-turbo-prefetch="false"`>
+      <!-- Links inside this div will not be prefetched -->
+    </div>
+  </body>
+</html>
+
+
+
+some.js
+-------
+
+document.addEventListener("turbo:before-prefetch", (event) => {
+  if (isSavingData() || hasSlowInternet()) {
+    event.preventDefault()
+  }
+})
+
+function isSavingData() {
+  return navigator.connection?.saveData
+}
+
+function hasSlowInternet() {
+  return navigator.connection?.effectiveType === "slow-2g" ||
+         navigator.connection?.effectiveType === "2g"
+}
+
+
+
+
+---
+
+
+
+
+Preload Links Into the Cache
+----------------------------
+
+
+- navigate to another domain
+- have a [data-turbo-frame] attribute that drives a <turbo-frame> element
+- drive an ancestor <turbo-frame> element
+- have the [data-turbo="false"] attribute
+- have the [data-turbo-stream] attribute
+- have a [data-turbo-method] attribute
+- have an ancestor with the [data-turbo="false"] attribute
+- have an ancestor with the [data-turbo-prefetch="false"] attribute
+
+
+
+some.js
+-------
+
+addEventListener("turbo:before-fetch-request", (event) => {
+  if (event.detail.fetchOptions.headers["X-Sec-Purpose"] === "prefetch") {
+    // do additional preloading setup…
+  } else {
+    // do something else…
+  }
+})
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Rails Turbo
+-----------
+
+Smooth page refreshes with morphing
+-----------------------------------
+
+
+Morphing
+--------
+
+some.html.erb
+-------------
+
+<head>
+  <meta name="turbo-refresh-method" content="morph">
+</head>
+
+
+
+
+---
+
+
+
+
+Scroll preservation
+-------------------
+
+some.html.erb
+-------------
+
+<head>
+  <meta name="turbo-refresh-scroll" content="preserve">
+</head>
+
+
+
+
+---
+
+
+
+
+Exclude sections from morphing
+------------------------------
+
+some.html.erb
+-------------
+
+<div data-turbo-permanent></div>
+
+
+
+
+---
+
+
+
+
+Turbo frames
+------------
+
+some.html.erb
+-------------
+
+<turbo-frame id="my-frame" refresh="morph">
+</turbo-frame>
+
+
+
+
+---
+
+
+
+
+Broadcasting page refreshes
+---------------------------
+
+some.html.erb
+-------------
+
+<turbo-stream action="refresh"></turbo-stream>
+
+
+
+
+some model
+----------
+
+class Calendar < ApplicationRecord
+  broadcasts_refreshes
+end
+
+
+
+some View
+---------
+
+turbo_stream_from @calendar
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Rails Turbo
+-----------
+
+Decompose with Turbo Frames
+---------------------------
+
+
+some.html.erb
+-------------
+
+<body>
+  <div id="navigation">Links targeting the entire page</div>
+
+  <turbo-frame id="message_1">
+    <h1>My message title</h1>
+    <p>My message content</p>
+    <a href="/messages/1/edit">Edit this message</a>
+  </turbo-frame>
+
+  <turbo-frame id="comments">
+    <div id="comment_1">One comment</div>
+    <div id="comment_2">Two comments</div>
+
+    <form action="/messages/comments">.</form>
+  </turbo-frame>
+</body>
+
+
+
+<body>
+  <h1>Editing message</h1>
+
+  <turbo-frame id="message_1">
+    <form action="/messages/1">
+      <input name="message[name]" type="text" value="My message title">
+      <textarea name="message[content]">My message content</textarea>
+      <input type="submit">
+    </form>
+  </turbo-frame>
+</body>
+
+
+
+
+---
+
+
+
+
+Eager-Loading Frames
+--------------------
+
+some.html.erb
+-------------
+
+<body>
+  <h1>Imbox</h1>
+
+  <div id="emails">
+    ...
+  </div>
+
+  <turbo-frame id="set_aside_tray" src="/emails/set_aside">
+  </turbo-frame>
+
+  <turbo-frame id="reply_later_tray" src="/emails/reply_later">
+  </turbo-frame>
+</body>
+
+
+
+<turbo-frame id="set_aside_tray" src="/emails/set_aside">
+  <img src="/icons/spinner.gif">
+</turbo-frame>
+
+
+
+<body>
+  <h1>Set Aside Emails</h1>
+
+  <p>These are emails you've set aside</p>
+
+  <turbo-frame id="set_aside_tray">
+    <div id="emails">
+      <div id="email_1">
+        <a href="/emails/1">My important email</a>
+      </div>
+    </div>
+  </turbo-frame>
+</body>
+
+
+
+
+---
+
+
+
+
+Targeting Navigation Into or Out of a Frame
+-------------------------------------------
+
+some.html.erb
+-------------
+
+<body>
+  <h1>Imbox</h1>
+  ...
+  <turbo-frame id="set_aside_tray" src="/emails/set_aside" target="_top">
+  </turbo-frame>
+</body>
+
+<body>
+  <h1>Set Aside Emails</h1>
+  <turbo-frame id="set_aside_tray" target="_top">
+  </turbo-frame>
+</body>
+
+
+
+<body>
+  <turbo-frame id="message_1">
+    <a href="/messages/1/edit">
+      Edit this message (within the current frame)
+    </a>
+
+    <a href="/messages/1/permission" data-turbo-frame="_top">
+      Change permissions (replace the whole page)
+    </a>
+  </turbo-frame>
+
+  <form action="/messages/1/delete" data-turbo-frame="message_1">
+    <a href="/messages/1/warning" data-turbo-frame="_self">
+      Load warning within current frame
+    </a>
+
+    <input type="submit" value="Delete this message">
+    (with a confirmation shown in a specific frame)
+  </form>
+</body>
+
+
+
+
+---
+
+
+
+
+Promoting a Frame Navigation to a Page Visit
+--------------------------------------------
+
+
+- the <turbo-frame> element
+- any <a> elements that navigate the <turbo-frame>
+- any <form> elements that navigate the <turbo-frame>
+- any <input type="submit"> or <button> elements contained within <form> elements that navigate the <turbo-frame>
+
+
+
+some.html.erb
+-------------
+
+<turbo-frame id="articles" data-turbo-action="advance">
+  <a href="/articles?page=2" rel="next">Next page</a>
+</turbo-frame>
+
+
+
+
+---
+
+
+
+
+“Breaking out” from a Frame
+---------------------------
+
+some.html.erb
+-------------
+
+<head>
+  <meta name="turbo-visit-control" content="reload">
+</head>
+
+
+
+
+
+---
+
+
+
+
+Anti-Forgery Support (CSRF)
+---------------------------
+
+some.html.erb
+-------------
+
+<meta name="csrf-token" content="[your-token]">
+
+
+
+
+---
+
+
+
+
+Custom Rendering
+----------------
+
+some.js
+-------
+
+import morphdom from "morphdom"
+
+addEventListener("turbo:before-frame-render", (event) => {
+  event.detail.render = (currentElement, newElement) => {
+    morphdom(currentElement, newElement, { childrenOnly: true })
+  }
+})
+
+
+
+
+---
+
+
+
+
+ Pausing Rendering
+ -----------------
+
+ some.js
+ -------
+
+ document.addEventListener("turbo:before-frame-render", async (event) => {
+  event.preventDefault()
+
+  await animateOut()
+
+  event.detail.resume()
+})
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Rails Turbo
+-----------
+
+Come Alive with Turbo Streams
+-----------------------------
+
+
+ Stream Messages and Actions
+----------------------------
+
+some.html.erb
+-------------
+
+<turbo-stream action="append" target="messages">
+  <template>
+    <div id="message_1">
+      This div will be appended to the element with the DOM ID "messages".
+    </div>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="prepend" target="messages">
+  <template>
+    <div id="message_1">
+      This div will be prepended to the element with the DOM ID "messages".
+    </div>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="message_1">
+  <template>
+    <div id="message_1">
+      This div will replace the existing element with the DOM ID "message_1".
+    </div>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="update" target="unread_count">
+  <template>
+    <!-- The contents of this template will replace the contents of the element with ID "unread_count" by setting innerHtml to "" and then switching in the
+    template contents. Any handlers bound to the element "unread_count" would be retained. This is to be contrasted with the "replace" action above, where
+    that action would necessitate the rebuilding of handlers. -->
+    1
+  </template>
+</turbo-stream>
+
+<turbo-stream action="remove" target="message_1">
+  <!-- The element with DOM ID "message_1" will be removed. The contents of this stream element are ignored. -->
+</turbo-stream>
+
+<turbo-stream action="before" target="current_step">
+  <template>
+    <!-- The contents of this template will be added before the the element with ID "current_step". -->
+    <li>New item</li>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="after" target="current_step">
+  <template>
+    <!-- The contents of this template will be added after the the element with ID "current_step". -->
+    <li>New item</li>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="refresh" request-id="abcd-1234"></turbo-stream>
+
+
+
+
+
+---
+
+
+
+
+
+Actions With Multiple Targets
+-----------------------------
+
+some.html.erb
+-------------
+
+<turbo-stream action="remove" targets=".old_records">
+  <!-- The element with the class "old_records" will be removed. The contents of this stream element are ignored. -->
+</turbo-stream>
+
+<turbo-stream action="after" targets="input.invalid_field">
+  <template>
+    <!-- The contents of this template will be added after the all elements that match "inputs.invalid_field". -->
+    <span>Incorrect</span>
+  </template>
+</turbo-stream>
+
+
+
+
+
+---
+
+
+
+
+Streaming From HTTP Responses
+-----------------------------
+
+some_controller.rb
+------------------
+
+def destroy
+  @message = Message.find(params[:id])
+  @message.destroy
+
+  respond_to do |format|
+    format.turbo_stream { render turbo_stream: turbo_stream.remove(@message) }
+    format.html         { redirect_to messages_url }
+  end
+end
+
+
+
+
+---
+
+
+
+
+Reusing Server-Side Templates
+-----------------------------
+
+app/views/messages/_message.html.erb
+------------------------------------
+
+<div id="<%= dom_id message %>">
+  <%= message.content %>
+</div>
+
+
+
+app/views/messages/index.html.erb
+---------------------------------
+
+<h1>All the messages</h1>
+<%= render partial: "messages/message", collection: @messages %>
+
+
+
+app/controllers/messages_controller.rb
+--------------------------------------
+
+class MessagesController < ApplicationController
+  def index
+    @messages = Message.all
+  end
+
+  def create
+    message = Message.create!(params.require(:message).permit(:content))
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.append(:messages, partial: "messages/message", locals: { message: message })
+      end
+
+      format.html { redirect_to messages_url }
+    end
+  end
+end
+
+
+
+Content-Type: text/vnd.turbo-stream.html; charset=utf-8
+
+<turbo-stream action="append" target="messages">
+  <template>
+    <div id="message_1">
+      The content of the message.
+    </div>
+  </template>
+</turbo-stream>
+
+
+
+
+---
+
+
+
+
+Custom Actions
+--------------
+
+some.js
+-------
+
+addEventListener("turbo:before-stream-render", ((event) => {
+  const fallbackToDefaultActions = event.detail.render
+
+  event.detail.render = function (streamElement) {
+    if (streamElement.action == "alert") {
+    } else if (streamElement.action == "log") {
+    } else {
+      fallbackToDefaultActions(streamElement)
+    }
+  }
+}))
+
+
+
+import { StreamActions } from "@hotwired/turbo"
+
+// <turbo-stream action="log" message="Hello, world"></turbo-stream>
+
+StreamActions.log = function () {
+  console.log(this.getAttribute("message"))
+}
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Rails Turbo
+-----------
+
+Building Turbo Application
+--------------------------
+
+
+Loading Application’s JavaScript Bundle
+---------------------------------------
+
+some.html.erb
+-------------
+
+<head>
+  <script src="/application-cbd3cd4.js" defer></script>
+</head>
+
+
+
+
+---
+
+
+
+
+Preparing the Page to be Cached
+-------------------------------
+
+some.js
+-------
+
+document.addEventListener("turbo:before-cache", function() {
+})
+
+
+
+
+some.html.erb
+-------------
+
+<body>
+  <div class="flash" data-turbo-temporary>
+    Your cart was updated!
+  </div>
+</body>
+
+
+
+
+---
+
+
+
+
+Detecting When a Preview is Visible
+-----------------------------------
+
+some.js
+-------
+
+if (document.documentElement.hasAttribute("data-turbo-preview")) {
+  // Turbo Drive is displaying a preview
+}
+
+
+
+
+---
+
+
+
+
+Opting Out of Caching
+---------------------
+
+some.html.erb
+-------------
+
+<head>
+  <meta name="turbo-cache-control" content="no-cache">
+</head>
+
+
+
+
+
+---
+
+
+
+
+Opting Out of Caching from the client-side
+------------------------------------------
+
+Turbo.cache.exemptPageFromCache()
+Turbo.cache.exemptPageFromPreview()
+Turbo.cache.resetCacheControl()
+
+
+
+
+---
+
+
+
+
+Observing Navigation Events
+---------------------------
+
+some.js
+-------
+
+document.addEventListener("turbo:load", function() {
+})
+
+
+
+
+---
+
+
+
+
+Attaching Behavior With Stimulus
+--------------------------------
+
+some.html.erb
+-------------
+
+<div data-controller="hello">
+  <input data-hello-target="name" type="text">
+  <button data-action="click->hello#greet">Greet</button>
+</div>
+
+
+
+hello_controller.js
+-------------------
+
+import { Controller } from "@hotwired/stimulus"
+
+export default class extends Controller {
+  greet() {
+    console.log(`Hello, ${this.name}!`)
+  }
+
+  get name() {
+    return this.targets.find("name").value
+  }
+}
+
+
+
+
+
+---
+
+
+
+
+
+Persisting Elements Across Page Loads
+-------------------------------------
+
+<div id="cart-counter" data-turbo-permanent>1 item</div>
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Rails Turbo
+-----------
+
+Installing Turbo in Application
+-------------------------------
+
+
+As An npm Package
+-----------------
+
+import * as Turbo from "@hotwired/turbo"
+
+
+
+
+---
+
+
+
+
+In a Ruby on Rails application
+------------------------------
+
+gem 'turbo-rails'
+
+
+
+https://github.com/hotwired/turbo-rails
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Rails Turbo
+-----------
+
+Drive
+-----
+
+
+Turbo.visit
+-----------
+
+Turbo.visit(location)
+Turbo.visit(location, { action: action })
+Turbo.visit(location, { frame: frame })
+
+
+
+
+---
+
+
+
+
+Turbo.cache.clear
+-----------------
+
+Turbo.cache.clear()
+
+
+
+
+---
+
+
+
+
+Turbo.setProgressBarDelay
+-------------------------
+
+Turbo.setProgressBarDelay(delayInMilliseconds)
+
+
+
+
+---
+
+
+
+
+Turbo.setConfirmMethod
+----------------------
+
+Turbo.setConfirmMethod(confirmMethod)
+
+
+
+
+---
+
+
+
+
+Turbo.session.drive
+-------------------
+
+Turbo.setConfirmMethod(confirmMethod)
+
+
+
+
+---
+
+
+
+
+Turbo.session.drive
+-------------------
+
+Turbo.session.drive = false
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Rails Turbo
+-----------
+
+Frames
+------
+
+
+Basic Frame
+-----------
+
+<turbo-frame id="messages">
+  <a href="/messages/expanded">
+    Show all expanded messages in this frame.
+  </a>
+
+  <form action="/messages">
+    Show response from this form within this frame.
+  </form>
+</turbo-frame>
+
+
+
+
+---
+
+
+
+
+Eager-loaded frame
+------------------
+
+<turbo-frame id="messages" src="/messages">
+  Content will be replaced when /messages has been loaded.
+</turbo-frame>
+
+
+
+
+---
+
+
+
+
+Lazy-loaded frame
+-----------------
+
+<turbo-frame id="messages" src="/messages" loading="lazy">
+  Content will be replaced when the frame becomes visible and /messages has been loaded.
+</turbo-frame>
+
+
+
+
+---
+
+
+
+
+Frame targeting the whole page by default
+-----------------------------------------
+
+<turbo-frame id="messages" target="_top">
+  <a href="/messages/1">
+    Following link will replace the whole page, not this frame.
+  </a>
+
+  <a href="/messages/1" data-turbo-frame="_self">
+    Following link will replace just this frame.
+  </a>
+
+  <form action="/messages">
+    Submitting form will replace the whole page, not this frame.
+  </form>
+</turbo-frame>
+
+
+
+
+---
+
+
+
+
+Frame with overwritten navigation targets
+-----------------------------------------
+
+<turbo-frame id="messages">
+  <a href="/messages/1">
+    Following link will replace this frame.
+  </a>
+
+  <a href="/messages/1" data-turbo-frame="_top">
+    Following link will replace the whole page, not this frame.
+  </a>
+
+  <form action="/messages" data-turbo-frame="navigation">
+    Submitting form will replace the navigation frame.
+  </form>
+</turbo-frame>
+
+
+
+
+---
+
+
+
+
+Frame that promotes navigations to Visits
+-----------------------------------------
+
+<turbo-frame id="messages" data-turbo-action="advance">
+  <a href="/messages?page=2">Advance history to next page</a>
+  <a href="/messages?page=2" data-turbo-action="replace">Replace history with next page</a>
+</turbo-frame>
+
+
+
+
+---
+
+
+
+
+Frame that will get reloaded with morphing during page refreshes
+----------------------------------------------------------------
+
+<turbo-frame id="my-frame" refresh="morph">
+</turbo-frame>
+
+
+
+
+---
+
+
+
+
+Attributes, properties, and functions
+-------------------------------------
+
+
+HTML Attributes
+---------------
+
+src                 --- accepts a URL or path value that controls navigation of the element
+loading             --- has two valid enumerated values: “eager” and “lazy”. The default value is eager
+busy                --- is a boolean attribute toggled to be present when a <turbo-frame>-initiated request starts, and toggled false when the request ends
+disabled            --- is a boolean attribute that prevents any navigation when present
+target              --- refers to another <turbo-frame> element by ID to be navigated when a descendant <a> is clicked. When target="_top", navigate the window
+complete            --- is a boolean attribute whose presence or absence indicates whether or not the <turbo-frame> element has finished navigating
+autoscroll          --- is a boolean attribute that controls whether or not to scroll a <turbo-frame> element
+
+
+
+
+
+---
+
+
+
+
+Properties
+----------
+
+
+
+FrameElement.src          --- controls the pathname or URL to be loaded. Setting the src property will immediately navigate the element. When FrameElement.loaded is set to "lazy"
+FrameElement.disabled     --- is a boolean property that controls whether or not the element will load
+FrameElement.loading      --- controls the style (either "eager" or "lazy") that the frame will loading its content
+FrameElement.loaded       --- references a Promise instance that resolves once the FrameElement’s current navigation has completed
+FrameElement.complete     --- is a read-only boolean property set to true when the FrameElement has finished navigating and false otherwise
+FrameElement.autoscroll   --- controls whether or not to scroll the element into view once loaded
+FrameElement.isActive     --- is a read-only boolean property that indicates whether or not the frame is loaded and ready to be interacted with
+FrameElement.isPreview    --- is a read-only boolean property that returns true when the document that contains the element is a preview
+
+
+
+
+
+---
+
+
+
+
+Functions
+---------
+
+FrameElement.reload()     --- is a function that reloads the frame element from its src
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Rails Turbo
+-----------
+
+Streams
+-------
+
+
+The eight actions
+-----------------
+
+Append
+------
+
+<turbo-stream action="append" target="dom_id">
+  <template>
+    Content to append to container designated with the dom_id.
+  </template>
+</turbo-stream>
+
+
+
+
+---
+
+
+
+
+Prepend
+-------
+
+<turbo-stream action="prepend" target="dom_id">
+  <template>
+    Content to prepend to container designated with the dom_id.
+  </template>
+</turbo-stream>
+
+
+
+
+---
+
+
+
+
+Replace
+-------
+
+<turbo-stream action="replace" target="dom_id">
+  <template>
+    Content to replace the element designated with the dom_id.
+  </template>
+</turbo-stream>
+
+
+
+
+---
+
+
+
+
+Update
+------
+
+<turbo-stream action="update" target="dom_id">
+  <template>
+    Content to update to container designated with the dom_id.
+  </template>
+</turbo-stream>
+
+
+
+
+---
+
+
+
+
+Remove
+------
+
+<turbo-stream action="remove" target="dom_id">
+</turbo-stream>
+
+
+
+
+---
+
+
+
+
+Before
+------
+
+<turbo-stream action="before" target="dom_id">
+  <template>
+    Content to place before the element designated with the dom_id.
+  </template>
+</turbo-stream>
+
+
+
+
+---
+
+
+
+
+After
+-----
+
+<turbo-stream action="after" target="dom_id">
+  <template>
+    Content to place after the element designated with the dom_id.
+  </template>
+</turbo-stream>
+
+
+
+
+---
+
+
+
+
+Refresh
+-------
+
+<!-- without `[request-id]` -->
+<turbo-stream action="refresh"></turbo-stream>
+
+<!-- debounced with `[request-id]` -->
+<turbo-stream action="refresh" request-id="abcd-1234"></turbo-stream>
+
+
+
+
+---
+
+
+
+
+Targeting Multiple Elements
+---------------------------
+
+<turbo-stream action="remove" targets=".elementsWithClass">
+</turbo-stream>
+
+<turbo-stream action="after" targets=".elementsWithClass">
+  <template>
+    Content to place after the elements designated with the css query.
+  </template>
+</turbo-stream>
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Rails Turbo
+-----------
+
+Events
+------
+
+
+Document
+--------
+
+turbo:click
+-----------
+
+-----------------------------------------------------------------------
+
+event.detail property         Type            Description
+
+-----------------------------------------------------------------------
+url                           string          the requested location
+-----------------------------------------------------------------------
+originalEvent                 MouseEvent      the original click event
+-----------------------------------------------------------------------
+
+
+
+
+---
+
+
+
+
+turbo:before-visit
+------------------
+
+-----------------------------------------------------------------------
+
+event.detail property         Type            Description
+
+-----------------------------------------------------------------------
+url                           string          the requested location
+-----------------------------------------------------------------------
+
+
+
+
+---
+
+
+
+
+turbo:visit
+-----------
+
+---------------------------------------------------------------------------------------------
+
+event.detail property         Type                                    Description
+
+---------------------------------------------------------------------------------------------
+url                           string                                  the requested location
+---------------------------------------------------------------------------------------------
+action                        "advance" | "replace" | "restore"       the visit’s Action
+---------------------------------------------------------------------------------------------
+
+
+
+
+---
+
+
+
+
+turbo:before-render
+-------------------
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+event.detail property         Type                                    Description
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+renderMethod                  "replace" | "morph"                     the strategy that will be used to render the new content
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+newBody                       HTMLBodyElement                         the new <body> element that will replace the document’s current <body> element
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+isPreview                     boolean                                 whether or not the render is a preview of a cached page
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+resume                        (value?: any) => void                   called when Pausing Requests
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+render                        (currentBody, newBody) => void          override to Customize Rendering
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+---
+
+
+
+
+
+turbo:render
+------------
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+event.detail property         Type                                    Description
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+renderMethod                  "replace" | "morph"                     the strategy used to render the new content
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+isPreview                     boolean                                 whether or not the render is a preview of a cached page
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+---
+
+
+
+
+turbo:load
+----------
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+event.detail property         Type                                    Description
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+url                           string                                  the requested location
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+timing.visitStart             number                                  timestamp at the start of the Visit
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+timing.requestStart           number                                  timestamp at the start of the HTTP request for the next page
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+timing.requestEnd             number                                  timestamp at the end of the HTTP request for the next page
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+timing.visitEnd               number                                  timestamp at the end of the Visit
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+---
+
+
+
+
+Page Refreshes
+--------------
+
+
+turbo:morph
+-----------
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+event.detail property         Type                                    Description
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+currentElement                Element                                 the original Element that remains connected after the morph (most commonly document.body)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+newElement                    Element                                 the Element with the new attributes and children that is not connected after the morph
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+---
+
+
+
+
+turbo:before-morph-element
+--------------------------
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+event.detail property         Type                                    Description
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+newElement                    Element                                 the Element with the new attributes and children that is not connected after the morph
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+---
+
+
+
+
+turbo:before-morph-attribute
+----------------------------
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+event.detail property         Type                                    Description
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+attributeName                 string                                  the name of the attribute to be mutated
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+mutationType                  "updated" | "removed"                   how the attribute will be mutated
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+---
+
+
+
+
+turbo:morph-element
+-------------------
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+event.detail property         Type                                    Description
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+newElement                    Element                                 the Element with the new attributes and children that is not connected after the morph
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+---
+
+
+
+
+Forms
+-----
+
+turbo:submit-start
+------------------
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+event.detail property         Type                                    Description
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+formSubmission                FormSubmission                          the <form> element submission
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+---
+
+
+
+
+turbo:submit-end
+----------------
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+event.detail property         Type                                    Description
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+success                       boolean                                 a boolean representing the request’s success
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+fetchResponse                 FetchResponse | null                    present when success: true, null when success: false
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+error                         Error or null                           null when success: true, present when success: false
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+---
+
+
+
+
+Frames
+------
+
+turbo:before-frame-render
+-------------------------
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+event.detail property         Type                                    Description
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+newFrame                      FrameElement                            the new <turbo-frame> element that will replace the current <turbo-frame> el
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+resume                        (value?: any) => void                   called when Pausing Requests
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+render                        (currentFrame, newFrame) => void        override to Customize Rendering
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+---
+
+
+
+
+turbo:frame-render
+------------------
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+event.detail property         Type                                    Description
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+fetchResponse                 FetchResponse                           the HTTP request’s response
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+---
+
+
+
+
+turbo:frame-load
+
+
+
+
+---
+
+
+
+
+turbo:frame-missing
+-------------------
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+event.detail property         Type                                    Description
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+response                      Response                                the HTTP response for the request initiated by a <turbo-frame> element
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+visit                         async (location: string | URL, 
+                              visitOptions: VisitOptions) => void     a convenience function to initiate a page-wide navigation
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+---
+
+
+
+
+Streams
+-------
+
+turbo:before-stream-render
+--------------------------
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+event.detail property         Type                                    Description
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+newStream                     StreamElement                           the new <body> element that will replace the document’s current <body> element
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+render                        async (currentElement) => void          override to define Custom Actions
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+---
+
+
+
+
+HTTP Requests
+-------------
+
+
+- a <turbo-frame> during its navigation
+- a <form> during its submission
+- the <html> element during a page-wide Turbo Visit
+
+
+
+turbo:before-fetch-request
+--------------------------
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+event.detail property         Type                                    Description
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+fetchOptions                  RequestInit                             the options used to construct the Request
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+url                           URL                                     the request’s location
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+resume                        (value?: any) => void callback          called when Pausing Requests
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+---
+
+
+
+
+turbo:before-fetch-response
+---------------------------
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+event.detail property         Type                                    Description
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+fetchResponse                 FetchResponse                           the HTTP request’s response
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+---
+
+
+
+
+turbo:before-prefetch
+
+
+
+
+---
+
+
+
+
+turbo:fetch-request-error
+-------------------------
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+event.detail property         Type                                    Description
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+request                       FetchRequest                            The HTTP request that failed
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+error                         Error                                   provides the cause of the failure
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Attributes and Meta Tags
+------------------------
+
+
+Data Attributes
+---------------
+
+data-turbo="false"            --- disables Turbo Drive on links and forms including descendants
+data-turbo-track="reload"     --- tracks the element’s HTML and performs a full page reload when it changes. Typically used to keep script and CSS link elements up-to-date
+data-turbo-frame              --- identifies the Turbo Frame to navigate. Refer to the Frames documentation for further details.
+data-turbo-preload            --- signals to Drive to pre-fetch the next page’s content
+data-turbo-action             --- customizes the Visit action. Valid values are replace or advance. Can also be used with Turbo Frames to promote frame navigations to page visits
+data-turbo-permanent          --- persists the element between page loads
+data-turbo-temporary          --- removes the element before the document is cached, preventing it from reappearing when restored
+data-turbo-eval="false"       --- prevents inline script elements from being re-evaluated on Visits
+data-turbo-method             --- changes the link request type from the default GET
+data-turbo-stream             --- specifies that a link or form can accept a Turbo Streams response
+data-turbo-confirm            --- presents a confirm dialog with the given value. Can be used on form elements or links with data-turbo-method.
+data-turbo-submits-with       --- specifies text to display when submitting a form. Can be used on input or button elements
+
+
+
+
+---
+
+
+
+
+Automatically Added Attributes
+------------------------------
+
+disabled                      --- is added to the form submitter while the form request is in progress, to prevent repeat submissions
+data-turbo-preview            --- is added to the html element when displaying a preview during a Visit
+data-turbo-visit-direction    --- is added to the html element during a visit, with a value of forward or back or none, to indicate its direction
+aria-busy                     --- is added to html and turbo-frame elements when a navigation is in progress
+
+
+
+
+---
+
+
+
+
+Meta Tags
+---------
+
+
+<meta name="turbo-cache-control">                         --- to opt out of caching
+<meta name="turbo-visit-control" content="reload">        --- will perform a full page reload whenever Turbo navigates to the page, including when the request originates from a <turbo-frame>
+<meta name="turbo-root">                                  --- to scope Turbo Drive to a particular root location
+<meta name="view-transition" content="same-origin">       --- to trigger view transitions on browsers that support the View Transition API
+<meta name="turbo-refresh-method" content="morph">        --- will configure page refreshes with morphing
+<meta name="turbo-refresh-scroll" content="preserve">     --- will enable scroll preservation during page refreshes
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Stimulus
+--------
+
+Stimulus content loader
+-----------------------
+
+
+Install the package
+-------------------
+
+$ yarn add stimulus-content-loader
+
+
+
+
+mport it in application
+-----------------------
+
+javascript_controllers.js
+-------------------------
+
+import { Application } from '@hotwired/stimulus'
+import ContentLoader from 'stimulus-content-loader'
+
+const application = Application.start()
+application.register('content-loader', ContentLoader)
+
+
+
+
+Use it in your views
+--------------------
+
+some_view.html.erb
+------------------
+
+<div
+  data-controller="content-loader"
+  data-content-loader-url-value="/comments"
+>
+  <i class="fas fa-spinner fa-spin"></i>
+  Loading comments... This content will be replaced by the content returned by the url /comments.
+</div>
+
+
+
+
+
+---
+
+
+
+
+Stimulus Animated Number
+------------------------
+
+$ yarn add stimulus-animated-number
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import AnimatedNumber from 'stimulus-animated-number'
+
+const application = Application.start()
+application.register('animated-number', AnimatedNumber)
+
+
+
+view.html.erb
+-------------
+
+<div
+  data-controller="animated-number"
+  data-animated-number-start-value="0"
+  data-animated-number-end-value="200"
+  data-animated-number-duration-value="3000"
+>
+  0
+</div>
+
+<div
+  data-controller="animated-number"
+  data-animated-number-lazy-value=""
+  data-animated-number-start-value="0"
+  data-animated-number-end-value="200"
+  data-animated-number-duration-value="3000"
+>
+  This animation will start only when the element become visible thanks to Intersection Observers.
+</div>
+
+<div
+  data-controller="animated-number"
+  data-animated-number-lazy-value=""
+  data-animated-number-lazy-root-margin-value="30px"
+  data-animated-number-lazy-threshold-value="0.4"
+  data-animated-number-start-value="0"
+  data-animated-number-end-value="200"
+  data-animated-number-duration-value="3000"
+>
+  You can customize the Intersection Observer options.
+</div>
+
+
+
+Extending Controller
+--------------------
+
+import AnimatedNumber from 'stimulus-animated-number'
+
+export default class extends AnimatedNumber {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Carousel
+-----------------
+
+$ yarn add stimulus-carousel
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import Carousel from 'stimulus-carousel'
+
+const application = Application.start()
+application.register('carousel', Carousel)
+
+
+
+
+application.js
+--------------
+
+import 'swiper/css/bundle'
+
+
+
+
+view.html.erb
+-------------
+
+<div data-controller="carousel" class="swiper-container">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide">Slide 1</div>
+    <div class="swiper-slide">Slide 2</div>
+    <div class="swiper-slide">Slide 3</div>
+  </div>
+</div>
+
+
+
+or
+
+
+
+<div data-controller="carousel" class="swiper-container" data-carousel-options-value='{"direction": "vertical"}'>
+  <div class="swiper-wrapper">
+    <div class="swiper-slide">Slide 1</div>
+    <div class="swiper-slide">Slide 2</div>
+    <div class="swiper-slide">Slide 3</div>
+  </div>
+</div>
+
+
+
+Extending Controller
+--------------------
+
+import Carousel from 'stimulus-carousel'
+
+export default class extends Carousel {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+
+    // The swiper instance.
+    this.swiper
+
+    // Default options for every carousels.
+    this.defaultOptions
+  }
+
+  // You can set default options in this getter.
+  get defaultOptions() {
+    return {
+      // Your default options here
+    }
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Character Counter
+--------------------------
+
+$ yarn add stimulus-character-counter
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from 'stimulus'
+import CharacterCounter from 'stimulus-character-counter'
+
+const application = Application.start()
+application.register('character-counter', CharacterCounter)
+
+
+
+
+view.html.erb
+-------------
+
+<div data-controller="character-counter">
+  <textarea data-character-counter-target="input"></textarea>
+
+  <p>
+    There are
+    <strong data-character-counter-target="counter"></strong> characters in this textarea.
+  </p>
+</div>
+
+
+
+or
+
+
+
+<div data-controller="character-counter" data-character-counter-countdown-value="true">
+  <textarea data-character-counter-target="input" maxlength="280"></textarea>
+
+  <p>
+    There are
+    <strong data-character-counter-target="counter"></strong> characters remaining.
+  </p>
+</div>
+
+
+
+
+Extending Controller
+--------------------
+
+import CharacterCounter from 'stimulus-character-counter'
+
+export default class extends CharacterCounter {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+
+    this.count // Will return the number of characters in the input/texterea.
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Chartjs
+----------------
+
+$ yarn add stimulus-chartjs
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from 'stimulus'
+import Chart from 'stimulus-chartjs'
+
+const application = Application.start()
+application.register('chart', Chart)
+
+
+
+
+view.html.erb
+-------------
+
+<canvas
+  data-controller="chart"
+  data-chart-data-value='{
+    "labels": ["January", "February", "March", "April", "May", "June", "July"], "datasets": [{ 
+      "label": "My First dataset", "backgroundColor": "transparent", "borderColor": "#3B82F6", "data": [37, 83, 78, 54, 12, 5, 99] 
+    }] 
+  }'
+>
+</canvas>
+
+
+
+<div
+  data-controller="chart"
+  data-chart-data-value='{ 
+    "labels": ["January", "February", "March", "April", "May", "June", "July"], "datasets": [{ 
+      "label": "My First dataset", "backgroundColor": "transparent", "borderColor": "#3B82F6", "data": [37, 83, 78, 54, 12, 5, 99] 
+    }] 
+  }'
+>
+  <canvas data-chart-target="canvas"></canvas>
+
+  <!-- You need to define this action -->
+  <button data-action="chart#update">Update me!</button>
+</div>
+
+
+
+
+controller.rb
+-------------
+
+class ChartsController < ApplicationController
+  def index
+    @chart_data = {
+      labels: %w[January February March April May June July],
+      datasets: [{
+        label: 'My First dataset',
+        backgroundColor: 'transparent',
+        borderColor: '#3B82F6',
+        data: [37, 83, 78, 54, 12, 5, 99]
+      }]
+    }
+
+    @chart_options = {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  end
+end
+
+
+
+view.html.erb
+-------------
+
+<canvas
+  data-controller="chart"
+  data-chart-data-value="<%= @chart_data.to_json %>"
+  data-chart-options-value="<%= @chart_options.to_json %>"
+></canvas>
+
+
+
+
+---
+
+
+
+
+Stimulus Checkbox Select All
+----------------------------
+
+$ yarn add stimulus-checkbox-select-all
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import CheckboxSelectAll from 'stimulus-checkbox-select-all'
+
+const application = Application.start()
+application.register('checkbox-select-all', CheckboxSelectAll)
+
+
+
+
+models.rb
+---------
+
+class User < ApplicationRecord
+  has_many :teams
+end
+
+class Team < ApplicationRecord
+  belongs_to :user
+end
+
+
+
+
+controller.rb
+-------------
+
+class UsersController < ApplicationController
+  def update
+    if user.update(user_params)
+      redirect_to users_path
+    else
+      render :edit
+    end
+  end
+
+  private
+
+  def user_params
+    params
+      .require(:user)
+       .permit(
+         team_ids: []
+       )
+  end
+end
+
+
+
+
+view.html.erb
+-------------
+
+<%= form_with model: @user, data: { controller: 'checkbox-select-all' } do |f| %>
+  <label>
+    <input type="checkbox" data-checkbox-select-all-target="checkboxAll" />
+    <span>Select All / Deselect All</span>
+  </label>
+
+  <%= f.collection_check_boxes :team_ids, Team.all, :id, :name do |b| %>
+    <%= b.label do %>
+      <%= b.check_box data: { checkbox_select_all_target: 'checkbox' } %>
+      <%= b.text %>
+    <% end %>
+  <% end %>
+<% end %>
+
+
+
+
+Extending Controller
+--------------------
+
+import CheckboxSelectAll from 'stimulus-checkbox-select-all'
+
+export default class extends CheckboxSelectAll {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+
+    // Get all checked checkboxes
+    this.checked
+
+    // Get all unchecked checkboxes
+    this.unchecked
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Clipboard
+------------------
+
+$ yarn add stimulus-clipboard
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import Clipboard from 'stimulus-clipboard'
+
+const application = Application.start()
+application.register('clipboard', Clipboard)
+
+
+
+
+view.html.erb
+-------------
+
+<div data-controller="clipboard" data-clipboard-success-content-value="Copied!">
+  <input type="text" value="Click the button to copy me!" data-clipboard-target="source" />
+
+  <button type="button" data-action="clipboard#copy" data-clipboard-target="button">Copy to clipboard</button>
+</div>
+
+
+
+
+Extending Controller
+--------------------
+
+import Clipboard from 'stimulus-clipboard'
+
+export default class extends Clipboard {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+  }
+
+  // Function to override on copy.
+  copy() {}
+
+  // Function to override when to input is copied.
+  copied() {
+    //
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Color Picker
+---------------------
+
+$ yarn add stimulus-color-picker
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import ColorPicker from 'stimulus-color-picker'
+
+const application = Application.start()
+application.register('color-picker', ColorPicker)
+
+
+
+
+application.js
+--------------
+
+import '@simonwep/pickr/dist/themes/classic.min.css'
+// import '@simonwep/pickr/dist/themes/monolith.min.css'
+// import '@simonwep/pickr/dist/themes/nano.min.css'
+
+
+
+or
+
+
+
+some.scss
+---------
+
+@import '~@simonwep/pickr/dist/themes/classic.min.css'
+// @import '~@simonwep/pickr/dist/themes/monolith.min.css'
+// @import '~@simonwep/pickr/dist/themes/nano.min.css'
+
+
+
+
+view.html.erb
+-------------
+
+<div data-controller="color-picker">
+  <input type="hidden" name="color" value="#667EEA" data-color-picker-target="input" />
+
+  <div data-color-picker-target="button"></div>
+</div>
+
+
+
+
+Extending Controller
+--------------------
+
+import ColorPicker from 'stimulus-color-picker'
+
+export default class extends ColorPicker {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+
+    // Pickr instance
+    this.picker
+  }
+
+  // Callback when the color is saved
+  onSave(color) {
+    super.onSave(color)
+  }
+
+  // You can override the components options with this getter.
+  // Here are the default options.
+  get componentOptions() {
+    return {
+      preview: true,
+      hue: true,
+
+      interaction: {
+        input: true,
+        clear: true,
+        save: true,
+      },
+    }
+  }
+
+  // You can override the swatches with this getter.
+  // Here are the default options.
+  get swatches() {
+    return [
+      '#A0AEC0',
+      '#F56565',
+      '#ED8936',
+      '#ECC94B',
+      '#48BB78',
+      '#38B2AC',
+      '#4299E1',
+      '#667EEA',
+      '#9F7AEA',
+      '#ED64A6',
+    ]
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Content Loader
+-----------------------
+
+$ yarn add stimulus-content-loader
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import ContentLoader from 'stimulus-content-loader'
+
+const application = Application.start()
+application.register('content-loader', ContentLoader)
+
+
+
+
+controller.rb
+-------------
+
+class PostsController < ApplicationController
+  def comments
+    render partial: 'posts/comments', locals: { comments: @post.comments }
+  end
+end
+
+
+
+
+routes.rb
+---------
+
+Rails.application.routes.draw do
+  get :comments, to: 'posts#comments'
+end
+
+
+
+
+view.html.erb
+-------------
+
+<div data-controller="content-loader" data-content-loader-url-value="<%= comments_path %>">
+  <i class="fas fa-spinner fa-spin"></i>
+  Loading comments... This content will be replaced by the content of the `posts/comments` partial generated by Rails.
+</div>
+
+<div
+  data-controller="content-loader"
+  data-content-loader-url-value="<%= comments_path %>"
+  data-content-loader-refresh-interval-value="5000"
+>
+  This content will be reloaded every 5 seconds.
+</div>
+
+<div
+  data-controller="content-loader"
+  data-content-loader-url-value="/message.html"
+  data-content-loader-load-scripts-value="true"
+>
+  This content will be replaced by the content of the `/message.html` page in your public folder.
+</div>
+
+<div
+  data-controller="content-loader"
+  data-content-loader-url-value="/message.html"
+  data-content-loader-lazy-loading-value=""
+>
+  This content will be replaced only when the element become visible thanks to Intersection Observers.
+</div>
+
+<div
+  data-controller="content-loader"
+  data-content-loader-url-value="/message.html"
+  data-content-loader-lazy-loading-value=""
+  data-content-loader-lazy-loading-root-margin-value="30px"
+  data-content-loader-lazy-loading-threshold-value="0.4"
+>
+  You can customize the Intersection Observer options.
+</div>
+
+<div
+  data-controller="content-loader"
+  data-content-loader-url-value="/message.html"
+  data-content-loader-lazy-loading-value=""
+  data-content-loader-refresh-interval-value="5000"
+>
+  You can combine lazy loading and refresh interval. The timer will start only after the first fetch.
+
+
+
+
+Extending Controller
+--------------------
+
+import ContentLoader from 'stimulus-content-loader'
+
+export default class extends ContentLoader {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Dropdown
+-----------------
+
+$ yarn add stimulus-dropdown
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import Dropdown from 'stimulus-dropdown'
+
+const application = Application.start()
+application.register('dropdown', Dropdown)
+
+
+
+
+view.html.erb
+-------------
+
+<div data-controller="dropdown" class="relative">
+  <button type="button" data-action="dropdown#toggle click@window->dropdown#hide">Options</button>
+
+  <div
+    data-dropdown-target="menu"
+    class="hidden transition transform origin-top-right absolute right-0"
+    data-transition-enter-from="opacity-0 scale-95"
+    data-transition-enter-to="opacity-100 scale-100"
+    data-transition-leave-from="opacity-100 scale-100"
+    data-transition-leave-to="opacity-0 scale-95"
+  >
+    <a href="#" data-action="dropdown#toggle">Account settings</a>
+    <a href="#" data-action="dropdown#toggle">Support</a>
+    <a href="#" data-action="dropdown#toggle">License</a>
+  </div>
+</div>
+
+
+
+
+Extending Controller
+--------------------
+
+import Dropdown from 'stimulus-dropdown'
+
+export default class extends Dropdown {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+  }
+
+  toggle(event) {
+    super.toggle()
+  }
+
+  hide(event) {
+    super.hide(event)
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Glow
+-------------
+
+$ yarn add stimulus-glow
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import Glow from 'stimulus-glow'
+
+const application = Application.start()
+application.register('glow', Glow)
+
+
+
+
+tailwind.config.js
+------------------
+
+const plugin = require('tailwindcss/plugin')
+
+module.exports = {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+
+  plugins: [
+    plugin(
+      ({ addVariant }) => {
+        addVariant('glow', '.glow-capture .glow-overlay &')
+      },
+      {
+        theme: {
+          extend: {
+            colors: {
+              glow: 'color-mix(in srgb, var(--glow-color) calc(<alpha-value> * 100%), transparent)',
+            },
+          },
+        },
+      },
+    ),
+  ],
+}
+
+
+
+
+styles.css
+----------
+
+.glow-overlay {
+  --glow-size: 25rem; /* Change here the size of the glow effect */
+
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+  opacity: var(--glow-opacity, 0);
+  mask: radial-gradient(
+    var(--glow-size) var(--glow-size) at var(--glow-x) var(--glow-y),
+    var(--glow-color) 1%,
+    transparent 50%
+  );
+  transition: 400ms mask ease;
+  will-change: mask;
+}
+
+
+
+
+view.html.erb
+-------------
+
+<div data-controller="glow" class="relative glow-capture">
+  <div data-glow-target="child" class="glow glow:ring-1 glow:border-glow glow:ring-glow glow:bg-glow/[.15]">
+    <h2 class="font-bold text-2xl mb-4 text-gray-200 glow:text-glow/[.8]">Chicken Shawarma & Veggies</h2>
+
+    <p class="text-sm text-gray-300 glow:text-glow">Vitae ducimus harum earum ratione autem esse ea!</p>
+
+    <button class="glow:text-glow glow:border-glow glow:ring glow:ring-glow">Add to cart</button>
+  </div>
+
+  <div data-glow-target="overlay" class="glow-overlay" style="--glow-color: #f97316"></div>
+</div>
+
+
+
+
+Extending Controller
+--------------------
+
+import Glow from 'stimulus-glow'
+
+export default class extends Glow {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Lightbox
+-----------------
+
+$ yarn add stimulus-lightbox
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import Lightbox from 'stimulus-lightbox'
+
+const application = Application.start()
+application.register('lightbox', Lightbox)
+
+
+
+
+lightgallery.css
+----------------
+
+application.js
+--------------
+
+import 'lightgallery/css/lightgallery.css'
+
+
+
+or
+
+
+
+sass
+----
+
+@import '~lightgallery/scss/lightgallery'
+
+
+
+
+view.html.erb
+-------------
+
+<div data-controller="lightbox">
+  <a href="img/img1.jpg">
+    <img src="img/img1.jpg" alt="" />
+  </a>
+
+  <a href="img/img2.jpg">
+    <img src="img/img2.jpg" alt="" />
+  </a>
+
+  <a href="img/img3.jpg">
+    <img src="img/img3.jpg" alt="" />
+  </a>
+</div>
+
+
+
+or
+
+
+
+<div data-controller="lightbox" data-lightbox-options-value='{"index": 2}'>
+  <a href="img/img1.jpg">
+    <img src="img/img1.jpg" alt="" />
+  </a>
+
+  <a href="img/img2.jpg">
+    <img src="img/img2.jpg" alt="" />
+  </a>
+
+  <a href="img/img3.jpg">
+    <img src="img/img3.jpg" alt="" />
+  </a>
+</div>
+
+
+
+
+Extending Controller
+--------------------
+
+import Lightbox from 'stimulus-lightbox'
+
+export default class extends Lightbox {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+
+    // Get the lightgallery instance
+    this.lightGallery
+
+    // Default options for every lightboxes.
+    this.defaultOptions
+  }
+
+  // You can set default options in this getter.
+  get defaultOptions() {
+    return {
+      // Your default options here
+    }
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Notification
+---------------------
+
+$ yarn add stimulus-notification
+
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import Notification from 'stimulus-notification'
+
+const application = Application.start()
+application.register('notification', Notification)
+
+
+
+
+view.html.erb
+-------------
+
+<div
+  data-controller="notification"
+  data-notification-delay-value="2000"
+  class="transition transform duration-1000 hidden"
+  data-transition-enter-from="opacity-0 translate-x-6"
+  data-transition-enter-to="opacity-100 translate-x-0"
+  data-transition-leave-from="opacity-100 translate-x-0"
+  data-transition-leave-to="opacity-0 translate-x-6"
+>
+  <p>This alert will magically disappear!</p>
+
+  <button data-action="notification#hide">Close</button>
+</div>
+
+
+
+
+<div
+  data-controller="notification"
+  data-notification-hidden-value="true"
+  data-action="awesome@window->notification#show"
+  class="transition transform duration-1000 hidden"
+  data-transition-enter-from="opacity-0 translate-x-6"
+  data-transition-enter-to="opacity-100 translate-x-0"
+  data-transition-leave-from="opacity-100 translate-x-0"
+  data-transition-leave-to="opacity-0 translate-x-6"
+>
+  <p>This alert will magically disappear!</p>
+
+  <button data-action="notification#hide">Close</button>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const event = new CustomEvent('awesome')
+
+    window.dispatchEvent(event)
+  })
+</script>
+
+
+
+
+Extending Controller
+--------------------
+
+import Notification from 'stimulus-notification'
+
+export default class extends Notification {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Password Visibility
+----------------------------
+
+$ yarn add stimulus-password-visibility
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import PasswordVisibility from 'stimulus-password-visibility'
+
+const application = Application.start()
+application.register('password-visibility', PasswordVisibility)
+
+
+
+
+view.html.erb
+-------------
+
+<div data-controller="password-visibility">
+  <input type="password" data-password-visibility-target="input" spellcheck="false" />
+
+  <button type="button" data-action="password-visibility#toggle">
+    <span data-password-visibility-target="icon">Eye</span>
+    <span data-password-visibility-target="icon" class="hidden">Eye Slash</span>
+  </button>
+</div>
+
+
+
+Extending Controller
+--------------------
+
+import PasswordVisibility from 'stimulus-password-visibility'
+
+export default class extends PasswordVisibility {
+  connect() {
+    super.connect()
+
+    // Do what you want here.
+  }
+
+  toggle(event) {
+    super.toggle()
+
+    // Do what you want here
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Places Autocomplete
+----------------------------
+
+$ yarn add stimulus-places-autocomplete
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from 'stimulus'
+import PlacesAutocomplete from 'stimulus-places-autocomplete'
+
+const application = Application.start()
+application.register('places', PlacesAutocomplete)
+
+
+
+
+view.html.erb
+-------------
+
+<head>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key={your_key_here}&libraries=places&callback=initAutocomplete"
+    async=""
+    defer=""
+  ></script>
+</head>
+
+
+window.initAutocomplete = function () {
+  const event = new Event('google-maps-callback', {
+    bubbles: true,
+    cancelable: true,
+  })
+  window.dispatchEvent(event)
+}
+
+
+
+
+view.html.erb
+-------------
+
+<div
+  data-controller="places"
+  data-action="google-maps-callback@window->places#initAutocomplete"
+  data-places-country-value='["fr"]'
+>
+  <input
+    type="text"
+    data-action="keydown->places#preventSubmit"
+    data-places-target="address"
+    placeholder="Search a location"
+  />
+
+  <input type="hidden" data-places-target="city" />
+  <input type="hidden" data-places-target="streetNumber" />
+  <input type="hidden" data-places-target="route" />
+  <input type="hidden" data-places-target="county" />
+  <input type="hidden" data-places-target="state" />
+  <input type="hidden" data-places-target="postalCode" />
+  <input type="hidden" data-places-target="country" />
+
+  <input type="hidden" data-places-target="longitude" />
+  <input type="hidden" data-places-target="latitude" />
+</div>
+
+
+
+
+Extending Controller
+--------------------
+
+import PlacesAutocomplete from 'stimulus-places-autocomplete'
+
+export default class extends PlacesAutocomplete {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+
+    // The google.maps.places.Autocomplete instance.
+    this.autocomplete
+  }
+
+  // You can override the `initAutocomplete` method here.
+  initAutocomplete() {
+    super.initAutocomplete()
+  }
+
+  // You can override the `placeChanged` method here.
+  placeChanged() {
+    super.placeChanged()
+  }
+
+  // You can set the Autocomplete options in this getter.
+  get autocompleteOptions() {
+    return {
+      fields: ['address_components', 'geometry'],
+    }
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Popover
+----------------
+
+$ yarn add stimulus-popover
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import Popover from 'stimulus-popover'
+
+const application = Application.start()
+application.register('popover', Popover)
+
+
+
+
+controller.rb
+-------------
+
+class UsersController < ApplicationController
+  def card
+    render partial: 'users/card', locals: { user: @user }
+  end
+end
+
+
+
+
+view.html.erb
+-------------
+
+<div data-controller="popover" data-popover-url-value="<%= card_path %>">
+  You can load popover with AJAX. For instance, this is my
+  <a href="/profile" data-action="mouseenter->popover#show mouseleave->popover#hide">profile card</a>
+</div>
+
+
+
+
+<div data-popover-target="card">
+  <p>This content is loaded with AJAX.</p>
+</div>
+
+
+
+<div data-controller="popover">
+  This is my Github card available on
+  <a href="/profile" data-action="mouseenter->popover#show mouseleave->popover#hide"> Github </a>
+
+  <template data-popover-target="content">
+    <div data-popover-target="card">
+      <p>This content is in a hidden template.</p>
+    </div>
+  </template>
+</div>
+
+
+
+
+Extending Controller
+--------------------
+
+import Popover from 'stimulus-popover'
+
+export default class extends Popover {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Prefetch
+-----------------
+
+$ yarn add stimulus-prefetch
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import Prefetch from 'stimulus-prefetch'
+
+const application = Application.start()
+application.register('prefetch', Prefetch)
+
+
+
+
+view.html.erb
+-------------
+
+<a href="/about" data-controller="prefetch">About</a>.
+
+
+
+
+Extending Controller
+--------------------
+
+import Prefetch from 'stimulus-prefetch'
+
+export default class extends Prefetch {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Rails Autosave
+-----------------------
+
+$ yarn add stimulus-rails-autosave
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import Autosave from 'stimulus-rails-autosave'
+
+const application = Application.start()
+application.register('autosave', Autosave)
+
+
+
+
+view.html.erb
+-------------
+
+<%= form_with model: @todo, data: { controller: 'autosave' } do |f| %>
+  <div class="field">
+    <%= f.label :description %>
+
+    <!-- With custom event! -->
+    <%= f.text_field :description, data: { action: 'keyup->autosave#save' } %>
+  </div>
+
+  <div class="field">
+    <%= f.label :completed %>
+    <%= f.check_box :completed, data: { action: 'autosave#save' } %>
+  </div>
+
+  <%= f.submit %>
+<% end %>
+
+
+
+
+Extending Controller
+--------------------
+
+import Autosave from 'stimulus-rails-autosave'
+
+export default class extends Autosave {
+  static values = {
+    delay: {
+      type: Number,
+      default: 1000, // You can change the default delay here.
+    },
+  }
+
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Rails Nested Form
+--------------------------
+
+$ yarn add stimulus-rails-nested-form
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import NestedForm from 'stimulus-rails-nested-form'
+
+const application = Application.start()
+application.register('nested-form', NestedForm)
+
+
+
+
+models.rb
+---------
+
+class User < ApplicationRecord
+  has_many :todos
+  accepts_nested_attributes_for :todos, reject_if: :all_blank, allow_destroy: true
+end
+
+class Todo < ApplicationRecord
+  belongs_to :user
+end
+
+
+
+
+controller.rb
+-------------
+
+class UsersController < ApplicationController
+  def update
+    if user.update(user_params)
+      redirect_to users_path
+    else
+      render :edit
+    end
+  end
+
+  private
+
+  def user_params
+    params
+      .require(:user)
+       .permit(
+         todos_attributes: [:id, :_destroy, :description]
+       )
+  end
+end
+
+
+
+
+view.html.erb
+-------------
+
+<%= form_with model: @user, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' } do |f| %>
+  <template data-nested-form-target="template">
+    <%= f.fields_for :todos, Todo.new, child_index: 'NEW_RECORD' do |todo_fields| %>
+      <%= render "todo_form", f: todo_fields %>
+    <% end %>
+  </template>
+
+  <%= f.fields_for :todos do |todo_fields| %>
+    <%= render "todo_form", f: todo_fields %>
+  <% end %>
+
+  <!-- Inserted elements will be injected before that target. -->
+  <div data-nested-form-target="target"></div>
+
+  <button type="button" data-action="nested-form#add">Add todo</button>
+
+  <%= f.submit 'Save todos' %>
+<% end %>
+
+
+
+
+_partial.html.erb
+-----------------
+
+<div class="nested-form-wrapper" data-new-record="<%= f.object.new_record? %>">
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+
+  <button type="button" data-action="nested-form#remove">Remove todo</button>
+
+  <%= f.hidden_field :_destroy %>
+</div>
+
+
+
+
+Extending Controller
+--------------------
+
+import NestedForm from 'stimulus-rails-nested-form'
+
+export default class extends NestedForm {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+  }
+}
+
+
+
+
+---
+
+
+
+
+
+Stimulus Read More
+------------------
+
+$ yarn add stimulus-read-more
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import ReadMore from 'stimulus-read-more'
+
+const application = Application.start()
+application.register('read-more', ReadMore)
+
+
+
+
+styles.css
+----------
+
+.my-content {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--read-more-line-clamp, 2);
+}
+
+
+
+
+view.html.erb
+-------------
+
+<div data-controller="read-more" data-read-more-more-text-value="Read more" data-read-more-less-text-value="Read less">
+  <p class="my-content" data-read-more-target="content">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+    aliqua. Ut enim ad minim veniam.
+  </p>
+
+  <button data-action="read-more#toggle">Read more</button>
+</div>
+
+
+
+
+Extending Controller
+--------------------
+
+import ReadMore from 'stimulus-read-more'
+
+export default class extends ReadMore {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+  }
+
+  // Function to override on toggle.
+  toggle(event) {}
+
+  // Function to override when the text is shown.
+  show(event) {}
+
+  // Function to override when the text is hidden.
+  hide(event) {}
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Remote Rails
+---------------------
+
+$ yarn add stimulus-remote-rails
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import Remote from 'stimulus-remote-rails'
+
+const application = Application.start()
+application.register('remote', Remote)
+
+
+
+
+controller.rb
+-------------
+
+class CommentsController < ApplicationController
+  def create
+    @comment = Comment.new(comment_params)
+
+    if @comment.save
+      render @comment
+    else
+      render partial: 'comments/form', locals: { comment: @comment }, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def comment_params
+    params
+      .require(:comment)
+      .permit(:content)
+  end
+end
+
+
+
+
+view.html.erb
+-------------
+
+<%= form_with model: @comment, data: { controller: 'remote', action: 'ajax:success->remote#append ajax:error->remote#replace' } do |f| %>
+  <% if f.object.errors.any? %>
+    <% f.object.errors.full_messages.each do |error| %>
+      <p><%= error %></p>
+    <% end %>
+  <% end %>
+
+  <%= f.label :content %>
+  <%= f.text_field :content %>
+
+  <%= f.submit 'Save comment' %>
+<% end %>
+
+
+
+
+<%= link_to 'Click me to append content', content_path, remote: true, data: { controller: 'remote', action: 'ajax:success->remote#append' } %>
+<%= link_to 'Click me to prepend content', content_path, remote: true, data: { controller: 'remote', action: 'ajax:success->remote#prepend' } %>
+<%= link_to 'Click me to replace content', content_path, remote: true, data: { controller: 'remote', action: 'ajax:success->remote#replace' } %>
+
+
+
+
+Extending Controller
+--------------------
+
+import Remote from 'stimulus-remote-rails'
+
+export default class extends Remote {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Reveal Controller
+--------------------------
+
+$ yarn add stimulus-reveal-controller
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import Reveal from 'stimulus-reveal-controller'
+
+const application = Application.start()
+application.register('reveal', Reveal)
+
+
+
+
+view.html.erb
+-------------
+
+toggle
+------
+
+<div data-controller="reveal" data-reveal-hidden-class="d-none">
+  <button data-action="click->reveal#toggle" type="button" class="btn">Toggle me!</button>
+
+  <p data-reveal-target="item" class="d-none mt-4">Hey 👋</p>
+  <p data-reveal-target="item" class="d-none mt-4">You can have multiple items</p>
+</div>
+
+
+
+
+show
+----
+
+<div data-controller="reveal">
+  <button data-action="click->reveal#show" type="button" class="btn">Show me!</button>
+
+  <p data-reveal-target="item" class="hidden mt-4">Hey 👋</p>
+</div>
+
+
+
+
+hiede
+-----
+
+<div data-controller="reveal">
+  <button data-action="click->reveal#hide" type="button" class="btn">Hide me!</button>
+
+  <p data-reveal-target="item" class="mt-4">Hey 👋</p>
+</div>
+
+
+
+
+Extending Controller
+--------------------
+
+import Reveal from 'stimulus-reveal-controller'
+
+export default class extends Reveal {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Scroll Progress
+------------------------
+
+$ yarn add stimulus-scroll-progress
+
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import ScrollProgress from 'stimulus-scroll-progress'
+
+const application = Application.start()
+application.register('scroll-progress', ScrollProgress)
+
+
+
+
+view.html.erb
+-------------
+
+<body>
+  <div data-controller="scroll-progress" class="h-2 bg-indigo-400 fixed top-0"></div>
+</body>
+
+
+
+
+Extending Controller
+--------------------
+
+import ScrollProgress from 'stimulus-scroll-progress'
+
+export default class extends ScrollProgress {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Scroll Reveal
+----------------------
+
+$ yarn add stimulus-scroll-reveal
+
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import ScrollReveal from 'stimulus-scroll-reveal'
+
+const application = Application.start()
+application.register('scroll-reveal', ScrollReveal)
+
+
+
+
+view.html.erb
+-------------
+
+<div data-controller="scroll-reveal">
+  <p data-scroll-reveal-target="item" class="reveal">Hello</p>
+  <p data-scroll-reveal-target="item" class="reveal" data-delay="250ms">World!</p>
+</div>
+
+
+
+
+<div
+  data-controller="scroll-reveal"
+  data-scroll-reveal-class-value="active fade"
+  data-scroll-reveal-threshold-value="0.9"
+  data-scroll-reveal-root-margin-value="10px"
+>
+  <p data-scroll-reveal-target="item" class="reveal">With custom</p>
+  <p data-scroll-reveal-target="item" class="reveal">options!</p>
+</div>
+
+
+
+
+
+styles.css
+----------
+
+<style>
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 1s cubic-bezier(0.5, 0, 0, 1);
+    transition-property: opacity, transform;
+  }
+
+  .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+
+
+
+
+Extending Controller
+--------------------
+
+import ScrollReveal from 'stimulus-scroll-reveal'
+
+export default class extends ScrollReveal {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+  }
+
+  // Override this method to change the IntersectionObserver behavior
+  intersectionObserverCallback(entries, observer) {
+    //
+  }
+
+  // Options used for the IntersectionObserver
+  get intersectionObserverOptions() {
+    return {}
+  }
+
+  // You can override this getter to set your default options here.
+  get defaultOptions() {
+    return {
+      class: 'active',
+      threshold: 0.5,
+      rootMargin: '100px',
+    }
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Scroll To
+------------------
+
+$ yarn add stimulus-scroll-to
+
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import ScrollTo from 'stimulus-scroll-to'
+
+const application = Application.start()
+application.register('scroll-to', ScrollTo)
+
+
+
+
+view.html.erb
+-------------
+
+<a href="#awesome-stuff-here" data-controller="scroll-to">Scroll to #awesome-stuff-here</a>
+<h2 id="awesome-stuff-here">Awesome stuff here</h2>
+
+
+
+
+<a
+  href="#awesome-stuff-here"
+  data-controller="scroll-to"
+  data-scroll-to-offset-value="150"
+  data-scroll-to-behavior-value="auto"
+  >Scroll to #awesome-stuff-here</a
+>
+
+<h2 id="awesome-stuff-here">Awesome stuff here</h2>
+
+
+
+
+Extending Controller
+--------------------
+
+import ScrollTo from 'stimulus-scroll-to'
+
+export default class extends ScrollTo {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+  }
+
+  // You can set default options in this getter for all your anchors.
+  get defaultOptions() {
+    return {
+      offset: 100,
+      behavior: 'auto',
+    }
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Sortable
+-----------------
+
+$ yarn add stimulus-sortable sortablejs @rails/request.js
+
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import Sortable from 'stimulus-sortable'
+
+const application = Application.start()
+application.register('sortable', Sortable)
+
+
+
+
+model.rb
+--------
+
+class Todo < ApplicationRecord
+  acts_as_list # Or with a custom position system.
+end
+
+
+
+
+controller.rb
+-------------
+
+class TodosController < ApplicationController
+  def update
+    # Do what you want with todo_params.
+  end
+
+  private
+
+  def todo_params
+    params.require(:todo).permit(:position)
+  end
+end
+
+
+
+
+view.html.erb
+-------------
+
+<ul data-controller="sortable" data-sortable-animation-value="150">
+  <li>Pet the cat</li>
+  <li>Get the groceries</li>
+</ul>
+
+
+
+
+With custom handler
+-------------------
+
+<ul data-controller="sortable" data-sortable-handle-value=".handle">
+  <li>
+    <svg class="handle"></svg>
+    Pet the cat
+  </li>
+
+  <li>
+    <svg class="handle"></svg>
+    Get the groceries
+  </li>
+</ul>
+
+
+
+
+With AJAX call
+--------------
+
+<ul data-controller="sortable" data-sortable-resource-name-value="todo">
+  <%= @todos.each do |todo| %>
+    <!-- <li data-sortable-update-url="/todos/1">Pet the cat</li> -->
+    <li data-sortable-update-url="<%= todo_path(todo) %>"><%= todo.description %></li>
+  <% end %>
+</ul>
+
+
+
+
+Extending Controller
+--------------------
+
+import Sortable from 'stimulus-sortable'
+
+export default class extends Sortable {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+
+    // The sortable.js instance.
+    this.sortable
+
+    // Your options
+    this.options
+
+    // Your default options
+    this.defaultOptions
+  }
+
+  // You can override the `onUpdate` method here.
+  onUpdate(event) {
+    super.onUpdate(event)
+  }
+
+  // You can set default options in this getter for all sortable elements.
+  get defaultOptions() {
+    return {
+      animation: 500,
+    }
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Sound
+--------------
+
+$ yarn add stimulus-sound
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import Sound from 'stimulus-sound'
+
+const application = Application.start()
+application.register('sound', Sound)
+
+
+
+
+view.html.erb
+-------------
+
+<div data-controller="sound" data-sound-url-value="/path/to/your/sound.mp3">
+  <button type="button" data-action="sound#play">▶️ Play</button>
+  <button type="button" data-action="sound#pause">⏸️ Pause</button>
+  <button type="button" data-action="sound#reset">⏹️ Reset</button>
+  <button type="button" data-action="sound#muted" data-sound-muted-param="true">🔇 Mute</button>
+  <button type="button" data-action="sound#muted" data-sound-muted-param="false">🔈 Unmute</button>
+  <button type="button" data-action="sound#loop" data-sound-loop-param="true">🔁 Loop</button>
+  <button type="button" data-action="sound#volume" data-sound-volume-param="1">🔊 Volume to 100%</button>
+  <button type="button" data-action="sound#volume" data-sound-volume-param="0.25">🔉 Volume to 25%</button>
+</div>
+
+
+
+
+Extending Controller
+--------------------
+
+import Sound from 'stimulus-sound'
+
+export default class extends Sound {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+
+    // The HTMLAudioElement instance.
+    // See: https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement
+    // You can fetch any attribute on it if needed.
+    this.sound
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Textarea Autogrow
+--------------------------
+
+$ yarn add stimulus-textarea-autogrow
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import TextareaAutogrow from 'stimulus-textarea-autogrow'
+
+const application = Application.start()
+application.register('textarea-autogrow', TextareaAutogrow)
+
+
+
+
+view.html.erb
+-------------
+
+<textarea data-controller="textarea-autogrow">
+Very long text here.
+</textarea>
+
+<textarea data-controller="textarea-autogrow" data-textarea-autogrow-resize-debounce-delay-value="500">
+Very long text here.
+</textarea>
+
+
+
+
+Extending Controller
+--------------------
+
+import TextareaAutogrow from 'stimulus-textarea-autogrow'
+
+export default class extends TextareaAutogrow {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+  }
+}
+
+
+
+
+---
+
+
+
+
+Stimulus Timeago
+----------------
+
+$ yarn add stimulus-timeago
+
+
+
+app/javascript/controllers/index.js
+-----------------------------------
+
+import { Application } from '@hotwired/stimulus'
+import Timeago from 'stimulus-timeago'
+
+const application = Application.start()
+application.register('timeago', Timeago)
+
+
+
+
+view.html.erb
+-------------
+
+<p>
+  Stimulus 1.0.0 was released
+  <time data-controller="timeago" data-timeago-datetime-value="2018-01-30T09:00"></time>.
+</p>
+
+
+
+
+helper.rb
+---------
+
+def timeago(date, format: :long)
+  return if date.blank?
+
+  content = I18n.l(date, format: format)
+  tag.time(content, title: content, data: { controller: 'timeago', timeago_datetime_value: date.iso8601 })
+end
+
+
+
+
+view.html.erb
+-------------
+
+<p>Created <%= timeago(@project.created_at) %></p>
+
+
+
+
+Extending Controller
+--------------------
+
+import Timeago from 'stimulus-timeago'
+import { fr } from 'date-fns/locale'
+
+export default class extends Timeago {
+  connect() {
+    super.connect()
+    console.log('Do what you want here.')
+  }
+
+  // You can override this getter to change the locale.
+  // Don't forget to import it.
+  get locale() {
+    return fr
+  }
+}
+
+
+
+
+https://www.stimulus-components.com/docs/stimulus-animated-number
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
