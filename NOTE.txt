@@ -425,15 +425,24 @@ Unpermitted parameters: :correct_answer, :_destroy. Context: {
 
 
 
+Tailwind
+--------
+
+<div class="flex space-x-4">
+  <a href="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Editable Tailwind Sidebar</a>
+  <a href="<%= root_path %>" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Home</a>
+  <a href="<%= posts_path %>" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Posts</a>
+  <a href="<%= categories_path %>" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Categories</a>
+  <a href="<%= new_post_path %>" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Create Post</a>
+  <a href="<%= new_category_path %>" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Create Category</a>
+</div>
 
 
 
 
 
 
-
-
-
+---
 
 
 
