@@ -5606,6 +5606,1413 @@ http://simple-form-bootstrap.plataformatec.com.br/
 
 
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+simple form usage
+-----------------
+
+
+some.html.erb
+-------------
+
+<%= simple_form_for @user do |f| %>
+  <%= f.input :username %>
+  <%= f.input :password %>
+  <%= f.button :submit %>
+<% end %>
+
+
+
+
+---
+
+
+
+
+simple form default label
+-------------------------
+
+<%= simple_form_for @user do |f| %>
+  <%= f.input :username, label: 'Your username please', error: 'Username is mandatory, please specify one' %>
+  <%= f.input :password, hint: 'No special characters.' %>
+  <%= f.input :email, placeholder: 'user@domain.com' %>
+  <%= f.input :remember_me, inline_label: 'Yes, remember me' %>
+  <%= f.button :submit %>
+<% end %>
+
+
+
+
+---
+
+
+
+
+labels, hints, errors
+---------------------
+
+<%= simple_form_for @user do |f| %>
+  <%= f.input :username, label_html: { class: 'my_class' }, hint_html: { class: 'hint_class' } %>
+  <%= f.input :password, hint: false, error_html: { id: 'password_error' } %>
+  <%= f.input :password_confirmation, label: false %>
+  <%= f.button :submit %>
+<% end %>
+
+
+
+
+---
+
+
+
+
+labels, hints, errors
+---------------------
+
+<%= simple_form_for @user do |f| %>
+  <%= f.input :username, input_html: { class: 'special' } %>
+  <%= f.input :password, input_html: { maxlength: 20 } %>
+  <%= f.input :remember_me, input_html: { value: '1' } %>
+  <%= f.button :submit %>
+<% end %>
+
+
+
+
+---
+
+
+
+
+input_html
+----------
+
+<%= simple_form_for @user, defaults: { input_html: { class: 'default_class' } } do |f| %>
+  <%= f.input :username, input_html: { class: 'special' } %>
+  <%= f.input :password, input_html: { maxlength: 20 } %>
+  <%= f.input :remember_me, input_html: { value: '1' } %>
+  <%= f.button :submit %>
+<% end %>
+
+
+
+
+---
+
+
+
+
+wrapper_html
+------------
+
+<%= simple_form_for @user do |f| %>
+  <%= f.input :username, wrapper_html: { class: 'username' } %>
+  <%= f.input :password, wrapper_html: { id: 'password' } %>
+  <%= f.input :remember_me, wrapper_html: { class: 'options' } %>
+  <%= f.button :submit %>
+<% end %>
+
+
+
+
+---
+
+
+
+
+required
+--------
+
+<%= simple_form_for @user do |f| %>
+  <%= f.input :name, required: false %>
+  <%= f.input :username %>
+  <%= f.input :password %>
+  <%= f.button :submit %>
+<% end %>
+
+
+
+
+---
+
+
+
+
+default input type
+------------------
+
+<%= simple_form_for @user do |f| %>
+  <%= f.input :username %>
+  <%= f.input :password %>
+  <%= f.input :description, as: :text %>
+  <%= f.input :accepts,     as: :radio_buttons %>
+  <%= f.button :submit %>
+<% end %>
+
+
+
+
+---
+
+
+
+
+disabled
+--------
+
+<%= simple_form_for @user do |f| %>
+  <%= f.input :username, disabled: true, hint: 'You cannot change your username.' %>
+  <%= f.button :submit %>
+<% end %>
+
+
+
+
+---
+
+
+
+
+error and full_errors helpers
+-----------------------------
+
+<%= simple_form_for @user do |f| %>
+  <%= f.label :username %>
+  <%= f.input_field :username %>
+  <%= f.hint 'No special characters, please!' %>
+  <%= f.error :username, id: 'user_name_error' %>
+  <%= f.full_error :token %>
+  <%= f.submit 'Save' %>
+<% end %>
+
+
+
+
+---
+
+
+
+
+input_field helper
+------------------
+
+simple_form_for @user do |f|
+  f.input_field :name
+  f.input_field :remember_me, as: :boolean
+end
+
+
+<form>
+  <input class="string required" id="user_name" maxlength="255" name="user[name]" size="255" type="text">
+  <input name="user[remember_me]" type="hidden" value="0">
+  <label class="checkbox">
+    <input class="boolean optional" id="user_published" name="user[remember_me]" type="checkbox" value="1">
+  </label>
+</form>
+
+
+
+
+---
+
+
+
+
+inline for check boxes
+----------------------
+
+simple_form_for @user do |f|
+  f.input_field :name
+  f.input_field :remember_me, as: :boolean, boolean_style: :inline
+end
+
+
+
+<form>
+  <input class="string required" id="user_name" maxlength="255" name="user[name]" size="255" type="text">
+  <input name="user[remember_me]" type="hidden" value="0">
+  <input class="boolean optional" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
+</form>
+
+
+
+
+---
+
+
+
+
+collections
+-----------
+
+select
+------
+
+<%= simple_form_for @user do |f| %>
+  <%= f.input :user %>
+  <%= f.input :age, collection: 18..60 %>
+  <%= f.button :submit %>
+<% end %>
+
+
+
+
+---
+
+
+
+
+label_method
+------------
+
+<%= simple_form_for @user do |f| %>
+  <%= f.input :gender, as: :radio_buttons, collection: [['0', 'female'], ['1', 'male']], label_method: :second, value_method: :first %>
+<% end %>
+
+
+
+= f.association :user, label_method: :username
+
+
+
+
+---
+
+
+
+
+prompt, selected, slim
+----------------------
+
+= f.input :age, collection: 18..60, prompt: "Select your age", selected: 21
+
+
+
+
+---
+
+
+
+
+group, slim
+-----------
+
+= f.input :country_id, collection: @continents, as: :grouped_select, group_method: :countries
+
+
+
+
+---
+
+
+
+
+time_zone, country helpers
+--------------------------
+
+= f.input :residence_country, priority: [ "Brazil" ]
+= f.input :time_zone, priority: /US/
+= f.input :shipping_country, priority: [ "Brazil" ], collection: [ "Australia", "Brazil", "New Zealand"]
+
+
+
+
+
+
+
+Associations
+------------
+
+models
+------
+
+class User < ActiveRecord::Base
+  belongs_to :company
+  has_and_belongs_to_many :roles
+end
+
+class Company < ActiveRecord::Base
+  has_many :users
+end
+
+class Role < ActiveRecord::Base
+  has_and_belongs_to_many :users
+end
+
+
+
+_form.html.erb
+--------------
+
+<%= simple_form_for @user do |f| %>
+  <%= f.input :name %>
+  <%= f.association :company %>
+  <%= f.association :roles %>
+  <%= f.button :submit %>
+<% end %>
+
+
+
+
+---
+
+
+
+
+change types, slim
+------------------
+
+= f.association :company, as: :radio_buttons
+= f.association :roles,   as: :check_boxes
+
+
+
+
+---
+
+
+
+
+prompt, slim
+------------
+
+= f.association :company, collection: Company.active.order(:name), prompt: "Choose a Company"
+
+
+
+
+---
+
+
+
+
+buttons
+-------
+
+<%= simple_form_for @user do |f| %>
+  <%= f.input :name %>
+  <%= f.button :submit %>
+<% end %>
+
+
+
+
+---
+
+
+
+
+<%= f.button :submit, "Custom Button Text", class: "my-button" %>
+
+
+
+
+---
+
+
+
+
+<%= f.button :button, "Custom Button Text" %>
+
+<%= f.button :button do %>
+  Custom Button Text
+<% end %>
+
+
+
+
+
+
+wrapping rails form helpers
+---------------------------
+
+<%= f.input :role do %>
+  <%= f.select :role, Role.all.map { |r| [r.name, r.id, { class: r.company.id }] }, include_blank: true %>
+<% end %>
+
+
+
+
+extra helpers, like fields_for
+------------------------------
+
+form_for @user do |f|
+  f.simple_fields_for :posts do |posts_form|
+    # Here you have all simple_form methods available
+    posts_form.input :title
+  end
+end
+
+
+
+
+---
+
+
+
+
+collection radio buttons, simple form
+-------------------------------------
+
+form_for @user do |f|
+  f.collection_radio_buttons :options, [[true, 'Yes'], [false, 'No']], :first, :last
+end
+
+
+
+<input id="user_options_true" name="user[options]" type="radio" value="true" />
+<label class="collection_radio_buttons" for="user_options_true">Yes</label>
+<input id="user_options_false" name="user[options]" type="radio" value="false" />
+<label class="collection_radio_buttons" for="user_options_false">No</label>
+
+
+
+
+---
+
+
+
+
+collection check boxes, simple form
+-----------------------------------
+
+form_for @user do |f|
+  f.collection_check_boxes :options, [[true, 'Yes'], [false, 'No']], :first, :last
+end
+
+
+
+<input name="user[options][]" type="hidden" value="" />
+<input id="user_options_true" name="user[options][]" type="checkbox" value="true" />
+<label class="collection_check_box" for="user_options_true">Yes</label>
+<input name="user[options][]" type="hidden" value="" />
+<input id="user_options_false" name="user[options][]" type="checkbox" value="false" />
+<label class="collection_check_box" for="user_options_false">No</label>
+
+
+
+
+---
+
+
+
+
+use associations
+----------------
+
+form_for @user do |f|
+  f.collection_check_boxes :role_ids, Role.all, :id, :name # using :roles here is not going to work.
+end
+
+
+
+
+---
+
+
+
+
+item_label_class, slim
+----------------------
+
+= f.collection_check_boxes :role_ids, Role.all, :id, :name, item_label_class: 'my-custom-class'
+
+
+
+
+---
+
+
+
+
+available input types and defaults for each column type
+-------------------------------------------------------
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Mapping                                             Generated HTML Element                              Database Column Type
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+boolean                                             input[type=checkbox]                                boolean
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+string                                              input[type=text]                                    string
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+citext                                              input[type=text]                                    citext
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+email                                               input[type=email]                                   string with name =~ /email/
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+url                                                 input[type=url]                                     string with name =~ /url/
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+tel                                                 input[type=tel]                                     string with name =~ /phone/
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+password                                            input[type=password]                                string with name =~ /password/
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+search                                              input[type=search]                                  -
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+uuid                                                input[type=text]                                    uuid
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+color                                               input[type=color]                                   string
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+text                                                textarea                                            text
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+hstore                                              textarea                                            hstore
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+json                                                textarea                                            json
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+jsonb                                               textarea                                            jsonb
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+file                                                input[type=file]                                    string responding to file methods
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+hidden                                              input[type=hidden]                                  -
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+integer                                             input[type=number]                                  integer
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+float                                               input[type=number]                                  float
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+decimal                                             input[type=number]                                  decimal
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+range                                               input[type=range]                                   -
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+datetime                                            datetime select                                     datetime/timestamp
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+date                                                date select                                         date
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+time                                                time select                                         time
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+select                                              select                                              belongs_to / has_many / has_and_belongs_to_many
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+radio_buttons                                       collection of input[type=radio]                     belongs_to associations
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+check_boxes                                         collection of input[type=checkbox]                  has_many / has_and_belongs_to_many
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+country                                             select (countries as options)                       string with name =~ /country/
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+time_zone                                           select (timezones as options)                       string with name =~ /time_zone/
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+---
+
+
+
+
+custom inputs simple form
+-------------------------
+
+app/inputs/currency_input.rb
+----------------------------
+
+class CurrencyInput < SimpleForm::Inputs::Base
+  def input(wrapper_options)
+    merged_input_options = merge_wrapper_options(input_html_options, wrapper_options)
+
+    "$ #{@builder.text_field(attribute_name, merged_input_options)}".html_safe
+  end
+end
+
+
+
+
+view.html.erb
+-------------
+
+= f.input :money, as: :currency
+
+
+
+
+---
+
+
+
+
+new class for customing simle form
+----------------------------------
+
+app/inputs/date_time_input.rb
+-----------------------------
+
+class DateTimeInput < SimpleForm::Inputs::DateTimeInput
+  def input(wrapper_options)
+    template.content_tag(:div, super)
+  end
+end
+
+
+
+
+---
+
+
+
+
+add new class to all select fields
+----------------------------------
+
+app/inputs/collection_select_input.rb
+-------------------------------------
+
+class CollectionSelectInput < SimpleForm::Inputs::CollectionSelectInput
+  def input_html_classes
+    super.push('chosen')
+  end
+end
+
+
+
+
+---
+
+
+
+
+context to simple form for conflicts
+------------------------------------
+
+app/inputs/custom_inputs/numeric_input
+--------------------------------------
+
+module CustomInputs
+  class NumericInput < SimpleForm::Inputs::NumericInput
+    def input_html_classes
+      super.push('no-spinner')
+    end
+  end
+end
+
+
+
+
+
+
+config/simple_form.rb
+---------------------
+
+config.custom_inputs_namespaces << "CustomInputs"
+
+
+
+
+---
+
+
+
+
+custom form builder, simple form
+--------------------------------
+
+def custom_form_for(object, *args, &block)
+  options = args.extract_options!
+  simple_form_for(object, *(args << options.merge(builder: CustomFormBuilder)), &block)
+end
+
+
+
+
+---
+
+
+
+
+ingerits simple form
+--------------------
+
+class CustomFormBuilder < SimpleForm::FormBuilder
+  def input(attribute_name, options = {}, &block)
+    super(attribute_name, options.merge(label: false), &block)
+  end
+end
+
+
+
+
+---
+
+
+
+
+I18n, simple form
+-----------------
+
+costomize forms
+---------------
+
+form.yml
+--------
+
+en:
+  simple_form:
+    labels:
+      user:
+        username: 'User name'
+        password: 'Password'
+    hints:
+      user:
+        username: 'User name to sign in.'
+        password: 'No special characters, please.'
+    placeholders:
+      user:
+        username: 'Your username'
+        password: '****'
+    include_blanks:
+      user:
+        age: 'Rather not say'
+    prompts:
+      user:
+        role: 'Select your role'
+
+
+
+
+
+---
+
+
+
+
+en:
+  simple_form:
+    labels:
+      user:
+        username: 'User name'
+        password: 'Password'
+        edit:
+          username: 'Change user name'
+          password: 'Change password'
+
+
+
+
+
+---
+
+
+
+
+en:
+  simple_form:
+    labels:
+      defaults:
+        username: 'User name'
+        password: 'Password'
+        new:
+          username: 'Choose a user name'
+    hints:
+      defaults:
+        username: 'User name to sign in.'
+        password: 'No special characters, please.'
+    placeholders:
+      defaults:
+        username: 'Your username'
+        password: '****'
+
+
+
+
+
+---
+
+
+
+
+pass translate
+--------------
+
+= f.input :role, prompt: :translate
+
+
+
+
+---
+
+
+
+
+roles
+-----
+
+= f.input :role, collection: [:admin, :editor]
+
+
+
+
+---
+
+
+
+
+en:
+  simple_form:
+    options:
+      user:
+        role:
+          admin: 'Administrator'
+          editor: 'Editor'
+
+
+
+
+
+---
+
+
+
+
+en:
+  activerecord:
+    models:
+        admin/user: User
+    attributes:
+        admin/user:
+            name: Name
+
+
+
+
+
+---
+
+
+
+
+en:
+  simple_form:
+    labels:
+      posts:
+        title: 'Post title'
+    hints:
+      posts:
+        title: 'A good title'
+    placeholders:
+      posts:
+        title: 'Once upon a time...'
+
+
+
+
+
+
+
+
+
+configurations
+--------------
+
+wrappers API, simple form
+-------------------------
+
+
+config.wrappers tag: :div, class: :input, error_class: :field_with_errors, valid_class: :field_without_errors do |b|
+  # Form extensions
+
+  b.use :html5
+  b.optional :pattern
+  b.use :maxlength
+  b.use :placeholder
+  b.use :readonly
+
+
+  # Form components
+
+  b.use :label_input
+  b.use :hint,  wrap_with: { tag: :span, class: :hint }
+  b.use :error, wrap_with: { tag: :span, class: :error }
+end
+
+
+
+:label         --- <label> tag alone
+:input         --- <input> tag alone
+:label_input   --- <label> and the <input> tags
+:hint          --- hint for the input
+:error         --- error for the input
+
+
+
+
+---
+
+
+
+
+
+create new form components wit API simple form
+----------------------------------------------
+
+config.wrappers do |b|
+  b.use :placeholder
+  b.use :label_input
+
+  b.wrapper tag: :div, class: 'separator' do |component|
+    component.use :hint,  wrap_with: { tag: :span, class: :hint }
+    component.use :error, wrap_with: { tag: :span, class: :error }
+  end
+end
+
+
+
+
+---
+
+
+
+
+passing options for simple form components
+------------------------------------------
+
+config.wrappers do |b|
+  b.use :label_input, class: 'label-input-class', error_class: 'is-invalid', valid_class: 'is-valid'
+end
+
+
+
+
+---
+
+
+
+
+naming custom component
+-----------------------
+
+config.wrappers do |b|
+  b.use :placeholder
+  b.use :label_input
+
+  b.wrapper :my_wrapper, tag: :div, class: 'separator', html: { id: 'my_wrapper_id' } do |component|
+    component.use :hint,  wrap_with: { tag: :span, class: :hint }
+    component.use :error, wrap_with: { tag: :span, class: :error }
+  end
+end
+
+
+
+
+---
+
+
+
+
+view.html.erb
+-------------
+
+= f.input :name, my_wrapper: false
+= f.input :name, my_wrapper_html: { id: 'special_id' }
+= f.input :name, my_wrapper_tag: :p
+
+
+
+
+---
+
+
+
+
+config.wrappers :small do |b|
+  b.use :placeholder
+  b.use :label_input
+end
+
+
+
+
+---
+
+
+
+
+optional
+--------
+
+config.wrappers placeholder: false do |b|
+  b.use :placeholder
+  b.use :label_input
+
+  b.wrapper tag: :div, class: 'separator' do |component|
+    component.optional :hint, wrap_with: { tag: :span, class: :hint }
+    component.use :error, wrap_with: { tag: :span, class: :error }
+  end
+end
+
+
+
+
+---
+
+
+
+
+unless_blank
+------------
+
+b.wrapper tag: :span, class: 'hint', unless_blank: true do |component|
+  component.optional :hint
+end
+
+
+
+
+---
+
+
+
+
+custom components
+-----------------
+
+view.html.erb
+-------------
+
+<%= simple_form_for @blog do |f| %>
+  <div class="row">
+    <div class="span1 number">
+      1
+    </div>
+    <div class="span8">
+      <%= f.input :title %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span1 number">
+      2
+    </div>
+    <div class="span8">
+      <%= f.input :body, as: :text %>
+    </div>
+  </div>
+<% end %>
+
+
+
+
+---
+
+
+
+
+<%= simple_form_for @blog, wrapper: :with_numbers do |f| %>
+  <%= f.input :title, number: 1 %>
+  <%= f.input :body, as: :text, number: 2 %>
+<% end %>
+
+
+
+
+---
+
+
+
+
+config/initializers/simple_form.rb
+----------------------------------
+
+Dir[Rails.root.join('lib/components/**/*.rb')].each { |f| require f }
+
+
+
+
+---
+
+
+
+
+lib/components/numbers_component.rb
+-----------------------------------
+
+module NumbersComponent
+  def number(wrapper_options = nil)
+    @number ||= begin
+      options[:number].to_s.html_safe if options[:number].present?
+    end
+  end
+end
+
+SimpleForm.include_component(NumbersComponent)
+
+
+
+
+---
+
+
+
+
+config/initializers/simple_form.rb
+----------------------------------
+
+config.wrappers :with_numbers, tag: 'div', class: 'row', error_class: 'error' do |b|
+  b.use :html5
+  b.use :number, wrap_with: { tag: 'div', class: 'span1 number' }
+
+  b.wrapper tag: 'div', class: 'span8' do |ba|
+    ba.use :placeholder
+    ba.use :label
+    ba.use :input
+    ba.use :error, wrap_with: { tag: 'span', class: 'help-inline' }
+    ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+  end
+end
+
+
+
+
+
+
+
+HTML5 notice, simple form
+-------------------------
+
+config.wrappers tag: :div do |b|
+  b.use :html5
+  b.use :label_input
+end
+
+
+
+config.wrappers tag: :div do |b|
+  b.use :label_input
+end
+
+
+
+
+---
+
+
+
+
+desable borowser validation
+---------------------------
+
+SimpleForm.browser_validations = false
+
+
+
+
+---
+
+
+
+
+novalidate
+----------
+
+<%= simple_form_for(resource, html: { novalidate: true }) do |form| %>
+
+
+
+
+---
+
+
+
+
+expires_at
+----------
+
+<%= f.input :expires_at, as: :date, html5: true %>
+
+
+
+
+---
+
+
+
+
+include module
+--------------
+
+class User
+  include ActiveModel::Model
+
+  attr_accessor :id, :name
+end
+
+
+
+
+---
+
+
+
+
+simple delegator
+----------------
+
+class UserPresenter < SimpleDelegator
+  def to_model
+    self
+  end
+end
+
+
+
+
+---
+
+
+
+
+define required all methods
+---------------------------
+
+class User
+  extend ActiveModel::Naming
+
+  attr_accessor :id, :name
+
+  def to_model
+    self
+  end
+
+  def to_key
+    id
+  end
+
+  def persisted?
+    false
+  end
+end
+
+
+
+
+---
+
+
+
+
+not implemented
+---------------
+
+class User
+  attr_accessor :id, :name
+
+  def persisted?
+    false
+  end
+end
+
+
+
+<%= simple_form_for(@user, as: :user, method: :post, url: users_path) do |f| %>
+  <%= f.input :name %>
+  <%= f.submit 'New user' %>
+<% end %>
+
+
+
+
+---
+
+
+
+
+
+
+simple form documentation
+-------------------------
+
+http://rubydoc.info/github/heartcombo/simple_form/main/frames
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+useful simple form helper snippets
+----------------------------------
+
+
+collection select
+-----------------
+
+<%= simple_form_for @bill do |f| %>
+  <%= f.association :location, collection: @locations, priority: @bill.location %>
+  <%= f.button :submit %>
+<% end %>
+
+
+
+
+---
+
+
+
+
+<%= 
+  f.input        :location_id, 
+  collection:    @locations, 
+  label_method:  :location_name, 
+  value_method:  :id, 
+  label:         "Location", 
+  include_blank: false, 
+  selected:      @bill.location_id 
+%>
+
+
+
+<%= f.input :category, collection: Category.all, label_method: :name, value_method: :id, label: "Category", include_blank: false, selected: @pack.category_id %>
+<%= f.collection_select :category_id, Category.all, :id, :name, promt: "Choose a category", class: "form-dropdown" %>
+
+
+
+
+
+---
+
+
+
+
+collection select with slim
+---------------------------
+
+= f.input :country_id, :collection => all_countries, :selected => selected_country_id
+
+
+
+
+---
+
+
+
+
+set values on collection
+------------------------
+
+= simple_form_for :credits, url: "/accounts/#{@account.id}/topup" do |f|
+  = f.collection_check_boxes :amount, [[100, 500], [500, 'a'], [1000, 'b'], [5000, 'c'], [10000, 'd']]
+= f.button :submit
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Rails API - active_model_serializers
@@ -11821,6 +13228,1239 @@ https://dennishellweg.com/custom-attachments-in-action-text
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+action_text styles
+------------------
+
+
+attachments.scss
+----------------
+
+@import "./icons";
+@import "./selection";
+
+trix-editor {
+  [data-trix-mutable],
+  [data-trix-cursor-target] {
+    @extend %invisible-selection;
+  }
+
+  [data-trix-mutable] {
+    * {
+      @extend %invisible-selection;
+    }
+
+    &:not(.attachment__caption-editor) {
+      @extend %disable-selection;
+    }
+
+    &.attachment__caption-editor:focus {
+      @extend %visible-selection;
+    }
+
+    &.attachment {
+      &.attachment--file {
+        box-shadow: 0 0 0 2px highlight;
+        border-color: transparent;
+      }
+
+      img {
+        box-shadow: 0 0 0 2px highlight;
+      }
+    }
+  }
+
+  .attachment {
+    position: relative;
+
+    &:hover {
+      cursor: default;
+    }
+  }
+
+  .attachment--preview {
+    .attachment__caption:hover {
+      cursor: text;
+    }
+  }
+
+  .attachment__progress {
+    position: absolute;
+    z-index: 1;
+    height: 20px;
+    top: calc(50% - 10px);
+    left: 5%;
+    width: 90%;
+    opacity: 0.9;
+    transition: opacity 200ms ease-in;
+
+    &[value="100"] {
+      opacity: 0;
+    }
+  }
+
+  .attachment__caption-editor {
+    display: inline-block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+    color: inherit;
+    text-align: center;
+    vertical-align: top;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+
+  .attachment__toolbar {
+    position: absolute;
+    z-index: 1;
+    top: -0.9em;
+    left: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .trix-button-group {
+    display: inline-flex;
+  }
+
+  .trix-button {
+    position: relative;
+    float: left; // Collapse whitespace between elements
+    color: #666;
+    white-space: nowrap;
+    font-size: 80%;
+    padding: 0 0.8em;
+    margin: 0;
+    outline: none;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+
+    &:not(:first-child) {
+      border-left: 1px solid #ccc;
+    }
+
+    &.trix-active {
+      background: #cbeefa;
+    }
+
+    &:not(:disabled) {
+      cursor: pointer;
+    }
+  }
+
+  .trix-button--remove {
+    text-indent: -9999px;
+    display: inline-block;
+    padding: 0;
+    outline: none;
+    width: 1.8em;
+    height: 1.8em;
+    line-height: 1.8em;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 2px solid highlight;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.25);
+
+    &::before {
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      opacity: 0.7;
+      content: "";
+      background-image: $icon-remove;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 90%;
+    }
+
+    &:hover {
+      border-color: #333;
+
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+
+  .attachment__metadata-container {
+    position: relative;
+  }
+
+  .attachment__metadata {
+    position: absolute;
+    left: 50%;
+    top: 2em;
+    transform: translate(-50%, 0);
+    max-width: 90%;
+    padding: 0.1em 0.6em;
+    font-size: 0.8em;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 3px;
+
+    .attachment__name {
+      display: inline-block;
+      max-width: 100%;
+      vertical-align: bottom;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .attachment__size {
+      margin-left: 0.2em;
+      white-space: nowrap;
+    }
+  }
+}
+
+
+
+
+
+---
+
+
+
+
+
+content.scss
+------------
+
+$quote-border-width: 0.3em;
+$quote-margin-start: 0.3em;
+$quote-padding-start: 0.6em;
+
+.trix-content {
+  line-height: 1.5;
+  overflow-wrap: break-word;
+  word-break: break-word;
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1 {
+    font-size: 1.2em;
+    line-height: 1.2;
+  }
+
+  blockquote {
+    border: 0 solid #ccc;
+    border-left-width: $quote-border-width;
+    margin-left: $quote-margin-start;
+    padding-left: $quote-padding-start;
+  }
+
+  [dir=rtl] blockquote,
+  blockquote[dir=rtl] {
+    border-width: 0;
+    border-right-width: $quote-border-width;
+    margin-right: $quote-margin-start;
+    padding-right: $quote-padding-start;
+  }
+
+  li {
+    margin-left: 1em;
+  }
+
+  [dir=rtl] li {
+    margin-right: 1em;
+  }
+
+  pre {
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+    font-family: monospace;
+    font-size: 0.9em;
+    padding: 0.5em;
+    white-space: pre;
+    background-color: #eee;
+    overflow-x: auto;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .attachment {
+    display: inline-block;
+    position: relative;
+    max-width: 100%;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+
+      &:hover,
+      &:visited:hover {
+        color: inherit;
+      }
+    }
+  }
+
+  .attachment__caption {
+    text-align: center;
+
+    .attachment__name + .attachment__size {
+      &::before {
+        content: ' \2022 ';
+      }
+    }
+  }
+
+  .attachment--preview {
+    width: 100%;
+    text-align: center;
+
+    .attachment__caption {
+      color: #666;
+      font-size: 0.9em;
+      line-height: 1.2;
+    }
+  }
+
+  .attachment--file {
+    color: #333;
+    line-height: 1;
+    margin: 0 2px 2px 2px;
+    padding: 0.4em 1em;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+  }
+
+  .attachment-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+
+    .attachment {
+      flex: 1 0 33%;
+      padding: 0 0.5em;
+      max-width: 33%;
+    }
+
+    &.attachment-gallery--2,
+    &.attachment-gallery--4 {
+      .attachment {
+        flex-basis: 50%;
+        max-width: 50%;
+      }
+    }
+  }
+}
+
+
+
+
+
+---
+
+
+
+
+
+editor.scss
+-----------
+
+trix-editor {
+  border: 1px solid #bbb;
+  border-radius: 3px;
+  margin: 0;
+  padding: 0.4em 0.6em;
+  min-height: 5em;
+  outline: none;
+}
+
+
+
+
+
+---
+
+
+
+
+
+icons.scss
+----------
+
+$icon-attach: svg('trix/images/attach.svg');
+$icon-bold: svg('trix/images/bold.svg');
+$icon-bullets: svg('trix/images/bullets.svg');
+$icon-code: svg('trix/images/code.svg');
+$icon-heading-1: svg('trix/images/heading_1.svg');
+$icon-italic: svg('trix/images/italic.svg');
+$icon-link: svg('trix/images/link.svg');
+$icon-nesting-level-decrease: svg('trix/images/nesting_level_decrease.svg');
+$icon-nesting-level-increase: svg('trix/images/nesting_level_increase.svg');
+$icon-numbers: svg('trix/images/numbers.svg');
+$icon-quote: svg('trix/images/quote.svg');
+$icon-redo: svg('trix/images/redo.svg');
+$icon-remove: svg('trix/images/remove.svg');
+$icon-strike: svg('trix/images/strike.svg');
+$icon-undo: svg('trix/images/undo.svg');
+
+
+
+
+
+---
+
+
+
+
+
+media-queries.scss
+------------------
+
+$phone-width: 768px;
+
+@mixin phone {
+  @media (max-width: #{$phone-width}) {
+    @content;
+  }
+}
+
+
+
+
+
+---
+
+
+
+
+
+selection.scss
+--------------
+
+%disable-selection {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+%invisible-selection {
+  &::-moz-selection { background: none; }
+  &::selection { background: none; }
+}
+
+%visible-selection {
+  &::-moz-selection { background: highlight; }
+  &::selection { background: highlight; }
+}
+
+
+
+
+
+---
+
+
+
+
+
+toolbar.scss
+------------
+
+@import "./media-queries";
+@import "./icons";
+
+$font-size-normal: 0.75em;
+$opacity-normal: 0.6;
+$opacity-disabled: 0.125;
+$opacity-active: 1;
+
+trix-toolbar {
+  * {
+    box-sizing: border-box;
+  }
+
+  .trix-button-row {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    overflow-x: auto;
+  }
+
+  .trix-button-group {
+    display: flex;
+    margin-bottom: 10px;
+    border: 1px solid #bbb;
+    border-top-color: #ccc;
+    border-bottom-color: #888;
+    border-radius: 3px;
+
+    &:not(:first-child) {
+      margin-left: 1.5vw;
+
+      @include phone {
+        margin-left: 0;
+      }
+    }
+  }
+
+  .trix-button-group-spacer {
+    flex-grow: 1;
+
+    @include phone {
+      display: none;
+    }
+  }
+
+  .trix-button {
+    position: relative;
+    float: left; // Collapse whitespace between elements
+    color: rgba(0,0,0, $opacity-normal);
+    font-size: $font-size-normal;
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 0 0.5em;
+    margin: 0;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0;
+    background: transparent;
+
+    &:not(:first-child) {
+      border-left: 1px solid #ccc;
+    }
+
+    &.trix-active {
+      background: #cbeefa;
+      color: rgba(0,0,0, $opacity-active);
+    }
+
+    &:not(:disabled) {
+      cursor: pointer;
+    }
+
+    &:disabled {
+      color: rgba(0,0,0, $opacity-disabled);
+    }
+
+    @include phone {
+      letter-spacing: -0.01em;
+      padding: 0 0.3em;
+    }
+  }
+
+  .trix-button--icon {
+    font-size: inherit;
+    width: 2.6em;
+    height: 1.6em;
+    max-width: calc(0.8em + 4vw);
+    text-indent: -9999px;
+
+    @include phone {
+      height: 2em;
+      max-width: calc(0.8em + 3.5vw);
+    }
+
+    &::before {
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      opacity: $opacity-normal;
+      content: "";
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+
+      @include phone {
+        right: 6%;
+        left: 6%;
+      }
+    }
+
+    &.trix-active::before {
+      opacity: $opacity-active;
+    }
+
+    &:disabled::before {
+      opacity: $opacity-disabled;
+    }
+  }
+
+  .trix-button--icon-attach::before { background-image: $icon-attach; top: 8%; bottom: 4%; }
+  .trix-button--icon-bold::before { background-image: $icon-bold; }
+  .trix-button--icon-italic::before { background-image: $icon-italic; }
+  .trix-button--icon-link::before { background-image: $icon-link; }
+  .trix-button--icon-strike::before { background-image: $icon-strike; }
+  .trix-button--icon-quote::before { background-image: $icon-quote; }
+  .trix-button--icon-heading-1::before { background-image: $icon-heading-1; }
+  .trix-button--icon-code::before { background-image: $icon-code; }
+  .trix-button--icon-bullet-list::before { background-image: $icon-bullets; }
+  .trix-button--icon-number-list::before { background-image: $icon-numbers; }
+  .trix-button--icon-undo::before { background-image: $icon-undo; }
+  .trix-button--icon-redo::before { background-image: $icon-redo; }
+  .trix-button--icon-decrease-nesting-level::before { background-image: $icon-nesting-level-decrease; }
+  .trix-button--icon-increase-nesting-level::before { background-image: $icon-nesting-level-increase; }
+
+  .trix-dialogs {
+    position: relative;
+  }
+
+  .trix-dialog {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    font-size: $font-size-normal;
+    padding: 15px 10px;
+    background: #fff;
+    box-shadow: 0 0.3em 1em #ccc;
+    border-top: 2px solid #888;
+    border-radius: 5px;
+    z-index: 5;
+  }
+
+  .trix-input--dialog {
+    font-size: inherit;
+    font-weight: normal;
+    padding: 0.5em 0.8em;
+    margin: 0 10px 0 0;
+    border-radius: 3px;
+    border: 1px solid #bbb;
+    background-color: #fff;
+    box-shadow: none;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    &.validate:invalid {
+      box-shadow: #F00 0px 0px 1.5px 1px;
+    }
+  }
+
+  .trix-button--dialog {
+    font-size: inherit;
+    padding: 0.5em;
+    border-bottom: none;
+  }
+
+  .trix-dialog--link {
+    max-width: 600px;
+  }
+
+  .trix-dialog__link-fields {
+    display: flex;
+    align-items: baseline;
+
+    .trix-input {
+      flex: 1;
+    }
+
+    .trix-button-group {
+      flex: 0 0 content;
+      margin: 0;
+    }
+  }
+}
+
+
+
+
+---
+
+
+
+
+trix.css
+--------
+
+trix-editor {
+  border: 1px solid #bbb;
+  border-radius: 20px;
+  margin: 0;
+  padding: 0.4em 0.6em;
+  min-height: 5em;
+  outline: none;
+}
+
+trix-toolbar * {
+  box-sizing: border-box;
+}
+
+trix-toolbar .trix-button-row {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  overflow-x: auto;
+}
+
+trix-toolbar .trix-button-group {
+  display: flex;
+  margin-bottom: 20px;
+  border: 1px solid #bbb;
+  // border-top-color: #ccc;
+  // border-bottom-color: #888;
+  border-radius: 5px;
+}
+
+trix-toolbar .trix-button-group:not(:first-child) {
+  margin-left: 1.5vw;
+}
+
+@media (max-device-width: 768px) {
+  trix-toolbar .trix-button-group:not(:first-child) {
+    margin-left: 0;
+  }
+}
+
+trix-toolbar .trix-button-group-spacer {
+  flex-grow: 1;
+}
+
+@media (max-device-width: 768px) {
+  trix-toolbar .trix-button-group-spacer {
+    display: none;
+  }
+}
+
+trix-toolbar .trix-button {
+  position: relative;
+  float: left;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 0.75em;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 0 0.5em;
+  margin: 0;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  border-radius: 0;
+  background: transparent;
+}
+
+trix-toolbar .trix-button:not(:first-child) {
+  border-left: 1px solid #ccc;
+}
+
+trix-toolbar .trix-button.trix-active {
+  background: #cbeefa;
+  color: black;
+}
+
+trix-toolbar .trix-button:hover {
+  background: #DDDDDD;
+  color: black;
+  transition: 0.3s;
+}
+
+trix-toolbar .trix-button:not(:disabled) {
+  cursor: pointer;
+}
+
+trix-toolbar .trix-button:disabled {
+  color: rgba(0, 0, 0, 0.125);
+}
+
+@media (max-device-width: 768px) {
+  trix-toolbar .trix-button {
+    letter-spacing: -0.01em;
+    padding: 0 0.3em;
+  }
+}
+
+trix-toolbar .trix-button--icon {
+  font-size: inherit;
+  width: 2.6em;
+  height: 1.6em;
+  max-width: calc(0.8em + 4vw);
+  text-indent: -9999px;
+}
+
+@media (max-device-width: 768px) {
+  trix-toolbar .trix-button--icon {
+    height: 2em;
+    max-width: calc(0.8em + 3.5vw);
+  }
+}
+
+trix-toolbar .trix-button--icon::before {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.5;
+  content: "";
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+@media (max-device-width: 768px) {
+  trix-toolbar .trix-button--icon::before {
+    right: 6%;
+    left: 6%;
+  }
+}
+
+trix-toolbar .trix-button--icon.trix-active::before {
+  opacity: 1;
+}
+
+trix-toolbar .trix-button--icon:disabled::before {
+  opacity: 0.125;
+}
+
+trix-toolbar .trix-button--icon-attach::before {
+  background-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M16.5%206v11.5a4%204%200%201%201-8%200V5a2.5%202.5%200%200%201%205%200v10.5a1%201%200%201%201-2%200V6H10v9.5a2.5%202.5%200%200%200%205%200V5a4%204%200%201%200-8%200v12.5a5.5%205.5%200%200%200%2011%200V6h-1.5z%22%2F%3E%3C%2Fsvg%3E);
+  top: 8%;
+  bottom: 4%;
+}
+
+trix-toolbar .trix-button--icon-bold::before {
+  background-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M15.6%2011.8c1-.7%201.6-1.8%201.6-2.8a4%204%200%200%200-4-4H7v14h7c2.1%200%203.7-1.7%203.7-3.8%200-1.5-.8-2.8-2.1-3.4zM10%207.5h3a1.5%201.5%200%201%201%200%203h-3v-3zm3.5%209H10v-3h3.5a1.5%201.5%200%201%201%200%203z%22%2F%3E%3C%2Fsvg%3E);
+}
+
+trix-toolbar .trix-button--icon-italic::before {
+  background-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M10%205v3h2.2l-3.4%208H6v3h8v-3h-2.2l3.4-8H18V5h-8z%22%2F%3E%3C%2Fsvg%3E);
+}
+
+trix-toolbar .trix-button--icon-link::before {
+  background-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M9.88%2013.7a4.3%204.3%200%200%201%200-6.07l3.37-3.37a4.26%204.26%200%200%201%206.07%200%204.3%204.3%200%200%201%200%206.06l-1.96%201.72a.91.91%200%201%201-1.3-1.3l1.97-1.71a2.46%202.46%200%200%200-3.48-3.48l-3.38%203.37a2.46%202.46%200%200%200%200%203.48.91.91%200%201%201-1.3%201.3z%22%2F%3E%3Cpath%20d%3D%22M4.25%2019.46a4.3%204.3%200%200%201%200-6.07l1.93-1.9a.91.91%200%201%201%201.3%201.3l-1.93%201.9a2.46%202.46%200%200%200%203.48%203.48l3.37-3.38c.96-.96.96-2.52%200-3.48a.91.91%200%201%201%201.3-1.3%204.3%204.3%200%200%201%200%206.07l-3.38%203.38a4.26%204.26%200%200%201-6.07%200z%22%2F%3E%3C%2Fsvg%3E);
+}
+
+trix-toolbar .trix-button--icon-strike::before {
+  background-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M12.73%2014l.28.14c.26.15.45.3.57.44.12.14.18.3.18.5%200%20.3-.15.56-.44.75-.3.2-.76.3-1.39.3A13.52%2013.52%200%200%201%207%2014.95v3.37a10.64%2010.64%200%200%200%204.84.88c1.26%200%202.35-.19%203.28-.56.93-.37%201.64-.9%202.14-1.57s.74-1.45.74-2.32c0-.26-.02-.51-.06-.75h-5.21zm-5.5-4c-.08-.34-.12-.7-.12-1.1%200-1.29.52-2.3%201.58-3.02%201.05-.72%202.5-1.08%204.34-1.08%201.62%200%203.28.34%204.97%201l-1.3%202.93c-1.47-.6-2.73-.9-3.8-.9-.55%200-.96.08-1.2.26-.26.17-.38.38-.38.64%200%20.27.16.52.48.74.17.12.53.3%201.05.53H7.23zM3%2013h18v-2H3v2z%22%2F%3E%3C%2Fsvg%3E);
+}
+
+trix-toolbar .trix-button--icon-quote::before {
+  background-image: url(data:image/svg+xml,%3Csvg%20version%3D%221%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M6%2017h3l2-4V7H5v6h3zm8%200h3l2-4V7h-6v6h3z%22%2F%3E%3C%2Fsvg%3E);
+}
+
+trix-toolbar .trix-button--icon-heading-1::before {
+  background-image: url(data:image/svg+xml,%3Csvg%20version%3D%221%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M12%209v3H9v7H6v-7H3V9h9zM8%204h14v3h-6v12h-3V7H8V4z%22%2F%3E%3C%2Fsvg%3E);
+}
+
+trix-toolbar .trix-button--icon-code::before {
+  background-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M18.2%2012L15%2015.2l1.4%201.4L21%2012l-4.6-4.6L15%208.8l3.2%203.2zM5.8%2012L9%208.8%207.6%207.4%203%2012l4.6%204.6L9%2015.2%205.8%2012z%22%2F%3E%3C%2Fsvg%3E);
+}
+
+trix-toolbar .trix-button--icon-bullet-list::before {
+  background-image: url(data:image/svg+xml,%3Csvg%20version%3D%221%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M4%204a2%202%200%201%200%200%204%202%202%200%200%200%200-4zm0%206a2%202%200%201%200%200%204%202%202%200%200%200%200-4zm0%206a2%202%200%201%200%200%204%202%202%200%200%200%200-4zm4%203h14v-2H8v2zm0-6h14v-2H8v2zm0-8v2h14V5H8z%22%2F%3E%3C%2Fsvg%3E);
+}
+
+trix-toolbar .trix-button--icon-number-list::before {
+  background-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M2%2017h2v.5H3v1h1v.5H2v1h3v-4H2v1zm1-9h1V4H2v1h1v3zm-1%203h1.8L2%2013.1v.9h3v-1H3.2L5%2010.9V10H2v1zm5-6v2h14V5H7zm0%2014h14v-2H7v2zm0-6h14v-2H7v2z%22%2F%3E%3C%2Fsvg%3E);
+}
+
+trix-toolbar .trix-button--icon-undo::before {
+  background-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M12.5%208c-2.6%200-5%201-6.9%202.6L2%207v9h9l-3.6-3.6A8%208%200%200%201%2020%2016l2.4-.8a10.5%2010.5%200%200%200-10-7.2z%22%2F%3E%3C%2Fsvg%3E);
+}
+
+trix-toolbar .trix-button--icon-redo::before {
+  background-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M18.4%2010.6a10.5%2010.5%200%200%200-16.9%204.6L4%2016a8%208%200%200%201%2012.7-3.6L13%2016h9V7l-3.6%203.6z%22%2F%3E%3C%2Fsvg%3E);
+}
+
+trix-toolbar .trix-button--icon-decrease-nesting-level::before {
+  background-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M3%2019h19v-2H3v2zm7-6h12v-2H10v2zm-8.3-.3l2.8%202.9L6%2014.2%204%2012l2-2-1.4-1.5L1%2012l.7.7zM3%205v2h19V5H3z%22%2F%3E%3C%2Fsvg%3E);
+}
+
+trix-toolbar .trix-button--icon-increase-nesting-level::before {
+  background-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M3%2019h19v-2H3v2zm7-6h12v-2H10v2zm-6.9-1L1%2014.2l1.4%201.4L6%2012l-.7-.7-2.8-2.8L1%209.9%203.1%2012zM3%205v2h19V5H3z%22%2F%3E%3C%2Fsvg%3E);
+}
+
+trix-toolbar .trix-dialogs {
+  position: relative;
+}
+
+trix-toolbar .trix-dialog {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  font-size: 0.75em;
+  padding: 15px 10px;
+  background: #fff;
+  box-shadow: 0 0.3em 1em #ccc;
+  border-top: 2px solid #888;
+  border-radius: 5px;
+  z-index: 5;
+}
+
+trix-toolbar .trix-input--dialog {
+  font-size: inherit;
+  font-weight: normal;
+  padding: 0.5em 0.8em;
+  margin: 0 10px 0 0;
+  border-radius: 3px;
+  border: 1px solid #bbb;
+  background-color: #fff;
+  box-shadow: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+trix-toolbar .trix-input--dialog.validate:invalid {
+  box-shadow: #F00 0px 0px 1.5px 1px;
+}
+
+trix-toolbar .trix-button--dialog {
+  font-size: inherit;
+  padding: 0.5em;
+  border-bottom: none;
+}
+
+trix-toolbar .trix-dialog--link {
+  max-width: 600px;
+}
+
+trix-toolbar .trix-dialog__link-fields {
+  display: flex;
+  align-items: baseline;
+}
+
+trix-toolbar .trix-dialog__link-fields .trix-input {
+  flex: 1;
+}
+
+trix-toolbar .trix-dialog__link-fields .trix-button-group {
+  flex: 0 0 content;
+  margin: 0;
+}
+
+trix-editor [data-trix-mutable]:not(.attachment__caption-editor) {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+trix-editor [data-trix-mutable]::-moz-selection,
+trix-editor [data-trix-cursor-target]::-moz-selection, trix-editor [data-trix-mutable] ::-moz-selection {
+  background: none;
+}
+
+trix-editor [data-trix-mutable]::selection,
+trix-editor [data-trix-cursor-target]::selection, trix-editor [data-trix-mutable] ::selection {
+  background: none;
+}
+
+trix-editor [data-trix-mutable].attachment__caption-editor:focus::-moz-selection {
+  background: highlight;
+}
+
+trix-editor [data-trix-mutable].attachment__caption-editor:focus::selection {
+  background: highlight;
+}
+
+trix-editor [data-trix-mutable].attachment.attachment--file {
+  box-shadow: 0 0 0 2px highlight;
+  border-color: transparent;
+}
+
+trix-editor [data-trix-mutable].attachment img {
+  box-shadow: 0 0 0 2px highlight;
+}
+
+trix-editor .attachment {
+  position: relative;
+}
+
+trix-editor .attachment:hover {
+  cursor: default;
+}
+
+trix-editor .attachment--preview .attachment__caption:hover {
+  cursor: text;
+}
+
+trix-editor .attachment__progress {
+  position: absolute;
+  z-index: 1;
+  height: 20px;
+  top: calc(50% - 10px);
+  left: 5%;
+  width: 90%;
+  opacity: 0.9;
+  transition: opacity 200ms ease-in;
+}
+
+trix-editor .attachment__progress[value="100"] {
+  opacity: 0;
+}
+
+trix-editor .attachment__caption-editor {
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+  color: inherit;
+  text-align: center;
+  vertical-align: top;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+trix-editor .attachment__toolbar {
+  position: absolute;
+  z-index: 1;
+  top: -0.9em;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+trix-editor .trix-button-group {
+  display: inline-flex;
+}
+
+trix-editor .trix-button {
+  position: relative;
+  float: left;
+  color: #666;
+  white-space: nowrap;
+  font-size: 80%;
+  padding: 0 0.8em;
+  margin: 0;
+  outline: none;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
+trix-editor .trix-button:not(:first-child) {
+  border-left: 1px solid #ccc;
+}
+
+trix-editor .trix-button.trix-active {
+  background: #cbeefa;
+}
+
+trix-editor .trix-button:not(:disabled) {
+  cursor: pointer;
+}
+
+trix-editor .trix-button--remove {
+  text-indent: -9999px;
+  display: inline-block;
+  padding: 0;
+  outline: none;
+  width: 1.8em;
+  height: 1.8em;
+  line-height: 1.8em;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 2px solid highlight;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.25);
+}
+
+trix-editor .trix-button--remove::before {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.7;
+  content: "";
+  background-image: url(data:image/svg+xml,%3Csvg%20height%3D%2224%22%20width%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M19%206.4L17.6%205%2012%2010.6%206.4%205%205%206.4l5.6%205.6L5%2017.6%206.4%2019l5.6-5.6%205.6%205.6%201.4-1.4-5.6-5.6z%22%2F%3E%3Cpath%20d%3D%22M0%200h24v24H0z%22%20fill%3D%22none%22%2F%3E%3C%2Fsvg%3E);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 90%;
+}
+
+trix-editor .trix-button--remove:hover {
+  border-color: #333;
+}
+
+trix-editor .trix-button--remove:hover::before {
+  opacity: 1;
+}
+
+trix-editor .attachment__metadata-container {
+  position: relative;
+}
+
+trix-editor .attachment__metadata {
+  position: absolute;
+  left: 50%;
+  top: 2em;
+  transform: translate(-50%, 0);
+  max-width: 90%;
+  padding: 0.1em 0.6em;
+  font-size: 0.8em;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 3px;
+}
+
+trix-editor .attachment__metadata .attachment__name {
+  display: inline-block;
+  max-width: 100%;
+  vertical-align: bottom;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+trix-editor .attachment__metadata .attachment__size {
+  margin-left: 0.2em;
+  white-space: nowrap;
+}
+
+@charset "UTF-8";
+.trix-content {
+  line-height: 1.5;
+}
+
+.trix-content * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.trix-content h1 {
+  font-size: 1.2em;
+  line-height: 1.2;
+}
+
+.trix-content blockquote {
+  border: 0 solid #ccc;
+  border-left-width: 0.3em;
+  margin-left: 0.3em;
+  padding-left: 0.6em;
+}
+
+.trix-content [dir=rtl] blockquote,
+.trix-content blockquote[dir=rtl] {
+  border-width: 0;
+  border-right-width: 0.3em;
+  margin-right: 0.3em;
+  padding-right: 0.6em;
+}
+
+.trix-content li {
+  margin-left: 1em;
+}
+
+.trix-content [dir=rtl] li {
+  margin-right: 1em;
+}
+
+.trix-content pre {
+  display: inline-block;
+  width: 100%;
+  vertical-align: top;
+  font-family: monospace;
+  font-size: 0.9em;
+  padding: 0.5em;
+  white-space: pre;
+  background-color: #eee;
+  overflow-x: auto;
+}
+
+.trix-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+.trix-content .attachment {
+  display: inline-block;
+  position: relative;
+  max-width: 100%;
+}
+
+.trix-content .attachment a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.trix-content .attachment a:hover, .trix-content .attachment a:visited:hover {
+  color: inherit;
+}
+
+.trix-content .attachment__caption {
+  text-align: center;
+}
+
+.trix-content .attachment__caption .attachment__name + .attachment__size::before {
+  content: ' · ';
+}
+
+.trix-content .attachment--preview {
+  width: 100%;
+  text-align: center;
+}
+
+.trix-content .attachment--preview .attachment__caption {
+  color: #666;
+  font-size: 0.9em;
+  line-height: 1.2;
+}
+
+.trix-content .attachment--file {
+  color: #333;
+  line-height: 1;
+  margin: 0 2px 2px 2px;
+  padding: 0.4em 1em;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+}
+
+.trix-content .attachment-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.trix-content .attachment-gallery .attachment {
+  flex: 1 0 33%;
+  padding: 0 0.5em;
+  max-width: 33%;
+}
+
+.trix-content .attachment-gallery.attachment-gallery--2 .attachment, .trix-content .attachment-gallery.attachment-gallery--4 .attachment {
+  flex-basis: 50%;
+  max-width: 50%;
+}
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Add avatar with carrierwave gem
 -------------------------------
 
@@ -15858,6 +18498,128 @@ https://github.com/shioyama/mobility
 https://guides.rubyonrails.org/i18n.html#action-view-helper-methods
 https://guides.rubyonrails.org/i18n.html#adding-date-time-formats
 https://guides.rubyonrails.org/i18n.html#pluralization
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Rails I18n Cheatsheet
+---------------------
+
+
+controller.rb
+-------------
+
+class MessagesController < ApplicationController
+  def create
+    redirect_to root_path, notice: t(".success")
+  end
+end
+
+
+
+
+locales/some.yml
+----------------
+
+en:
+  messages:
+    create:
+      success: true
+
+
+
+
+---
+
+
+
+
+
+HTML Translations
+-----------------
+
+some.yml
+--------
+
+en:
+  hello_html: <b>hello!</b>
+  title:
+    html: <b>title!</b>
+
+
+
+
+view.html.erb
+-------------
+
+<div><%= t('hello_html') %></div>
+<div><%= t('title.html') %></div>
+
+
+
+
+---
+
+
+
+
+Interpolation
+-------------
+
+some.yml
+--------
+
+en:
+  welcome_html: "<b>Welcome %{username}!</b>"
+
+
+
+
+view.html.erb
+-------------
+
+<%= t('welcome_html', username: @current_user.username) %>
+
+
+
+
+---
+
+
+
+
+Form Placeholders
+-----------------
+
+view.html.erb
+-------------
+
+<%= form.text_field :name, placeholder: true %>
+
+
+
+
+somy.yml
+--------
+
+en:
+  helpers:
+    placeholder:
+      user:
+        name: "Your name"
+
+
 
 
 
@@ -29665,8 +32427,8 @@ _nav.html.erb
   <%= link_to 'Settings', edit_user_registration_path, class: "text-dark text-decoration-none me-2" %>
   <%= link_to 'Sign out', destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-outline-danger" %>
 <% else %>
-  <%= link_to 'Sign in', new_user_session_path, class: "btn btn-success me-2" %>
-  <%= link_to 'Sign up', new_user_registration_path, class: "btn btn-secondary" %>
+  <%= link_to 'Sign in', new_user_session_path, class: "btn btn-outline-success me-2" %>
+  <%= link_to 'Sign up', new_user_registration_path, class: "btn btn-outline-secondary" %>
 <% end %>
 
 
@@ -29784,6 +32546,114 @@ registrations/edit.html.erb
 <%= link_to "Back", :back %>
 
 
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Basic Tailwind:css navbar for rails app
+---------------------------------------
+
+
+<nav class="bg-gray-800">
+  <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+    <div class="relative flex h-16 items-center justify-between">
+      <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+        <button
+          type="button"
+          class="
+            relative
+            inline-flex
+            items-center
+            justify-center
+            rounded-md
+            p-2
+            text-gray-400
+            hover:bg-gray-700
+            hover:text-white
+            focus:outline-none
+            focus:ring-2
+            focus:ring-inset
+            focus:ring-white"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <span class="absolute -inset-0.5"></span>
+          <span class="sr-only">Open main menu</span>
+
+          <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+
+          <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+        <div class="flex flex-shrink-0 items-center">
+          <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company">
+        </div>
+        <div class="hidden sm:ml-6 sm:block">
+          <div class="flex space-x-4">
+            <a href="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Hot Combobox Tailwind</a>
+            <a href="<%= root_path %>" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Posts</a>
+            <a href="<%= new_post_path %>" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Create Post</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Mobile menu, show/hide based on menu state. -->
+  <div class="sm:hidden" id="mobile-menu">
+    <div class="space-y-1 px-2 pb-3 pt-2">
+      <a href="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Hot Combobox Tailwind</a>
+      <a href="<%= root_path %>" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Posts</a>
+      <a href="<%= new_post_path %>" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Create Post</a>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Generate new rails app with template kickoff_tailwind
+-----------------------------------------------------
+
+
+$ git clone git@github.com:justalever/kickoff_tailwind.git
+$ rails new active_storage_drag_and_drop -m kickoff_tailwind/template.rb --webpack=stimulus
 
 
 
