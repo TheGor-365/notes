@@ -20920,6 +20920,835 @@ https://api.rubyonrails.org/classes/ActionDispatch/Flash.html
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+Slim
+----
+
+
+$ gem install slim
+
+
+
+---
+
+
+Syntax example
+--------------
+
+doctype html
+html
+  head
+    title Slim Examples
+    meta name="keywords" content="template language"
+    meta name="author" content=author
+    link rel="icon" type="image/png" href=file_path("favicon.png")
+    javascript:
+      alert('Slim supports embedded javascript!')
+
+  body
+    h1 Markup examples
+
+    #content
+      p This example shows you how a basic Slim file looks.
+
+    == yield
+
+    - if items.any?
+      table#items
+        - for item in items
+          tr
+            td.name = item.name
+            td.price = item.price
+    - else
+      p No items found. Please add some inventory.
+        Thank you!
+
+    div id="footer"
+      == render 'footer'
+      | Copyright &copy; #{@year} #{@author}
+
+
+
+
+---
+
+
+Line indicators
+---------------
+
+Verbatim text |
+---------------
+
+body
+  p
+    |
+      This is a test of the text block.
+
+==
+
+<body><p>This is a test of the text block.</p></body>
+
+
+
+
+---
+
+
+body
+  p
+    | This line is on the left margin.
+       This line will have one space in front of it.
+         This line will have two spaces in front of it.
+           And so on...
+
+
+
+---
+
+
+Verbatim text with trailing white space '
+-----------------------------------------
+
+The single quote tells Slim to copy the line (similar to |), 
+but makes sure that a single trailing white space is appended
+
+
+
+
+---
+
+
+Inline html <
+-------------
+
+<html>
+  head
+    title Example
+  <body>
+    - if articles.empty?
+    - else
+      table
+        - articles.each do |a|
+          <tr><td>#{a.name}</td><td>#{a.description}</td></tr>
+  </body>
+</html>
+
+
+
+---
+
+
+Control code -
+--------------
+
+body
+  - if articles.empty?
+    | No inventory
+
+
+
+
+---
+
+
+Output =
+--------
+
+= javascript_include_tag \
+   "jquery",
+   "application"
+
+
+
+---
+
+
+Output without HTML escaping ==
+-------------------------------
+
+
+Code comment /
+--------------
+
+body
+  p
+    / This line won't get displayed.
+      Neither does this line.
+    /! This will get displayed as html comments.
+
+==
+
+<body><p><!--This will get displayed as html comments.--></p></body>
+
+
+
+---
+
+
+HTML tags
+---------
+
+XML VERSION
+-----------
+
+doctype xml
+  <?xml version="1.0" encoding="utf-8" ?>
+
+doctype xml ISO-8859-1
+  <?xml version="1.0" encoding="iso-8859-1" ?>
+
+
+
+
+XHTML DOCTYPES
+--------------
+
+doctype html
+  <!DOCTYPE html>
+
+doctype 5
+  <!DOCTYPE html>
+
+doctype 1.1
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+doctype strict
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+doctype frameset
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+
+doctype mobile
+  <!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.2//EN"
+    "http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd">
+
+doctype basic
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.1//EN"
+    "http://www.w3.org/TR/xhtml-basic/xhtml-basic11.dtd">
+
+doctype transitional
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+HTML 4 DOCTYPES
+---------------
+
+doctype strict
+  <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+
+doctype frameset
+  <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
+    "http://www.w3.org/TR/html4/frameset.dtd">
+
+doctype transitional
+  <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+
+
+
+
+---
+
+
+Closed tags (trailing /)
+------------------------
+
+img src="image.png"/
+
+
+
+
+Trailing and leading whitespace (<, >)
+--------------------------------------
+
+a> href='url1' Link1
+a> href='url2' Link2
+
+a< href='url1' Link1
+a< href='url2' Link2
+
+a<> href='url1' Link1
+
+
+
+---
+
+
+Inline tags
+-----------
+
+ul
+  li.first: a href="/a" A link
+  li: a href="/b" B link
+
+
+
+ul
+  li.first: a[href="/a"] A link
+  li: a[href="/b"] B link
+
+
+
+
+Text content
+------------
+
+body
+  h1 id="headline" Welcome to my site.
+
+or
+--
+
+body
+  h1 id="headline"
+    | Welcome to my site.
+
+or
+--
+
+body
+  h1 id="headline"
+    Welcome to my site.
+
+
+
+
+---
+
+
+Dynamic content (= and ==)
+--------------------------
+
+body
+  h1 id="headline" = page_headline
+
+or
+--
+
+body
+  h1 id="headline"
+    = page_headline
+
+
+
+---
+
+
+Attributes
+----------
+
+a href="https://slim-template.github.io" title='Slim Homepage' Goto the Slim homepage
+
+
+---
+
+
+Attributes wrapper
+------------------
+
+body
+  h1(id="logo") = page_logo
+  h2[id="tagline" class="small tagline"] = page_tagline
+
+h2[id="tagline"
+   class="small tagline"] = page_tagline
+
+h1 id = "logo" = page_logo
+h2 [ id = "tagline" ] = page_tagline
+
+
+
+---
+
+
+Quoted attributes
+-----------------
+
+a href="https://slim-template.github.io" title='Slim Homepage' Goto the Slim homepage
+
+a href="http://#{url}" Goto the #{url}
+
+a href=="&amp;"
+
+a data-title="help" data-content="extremely long help text that goes on\
+  and on and on and then starts over...."
+
+
+
+---
+
+
+Ruby attributes
+---------------
+
+
+body
+  table
+    - for user in users
+      td id="user_#{user.id}" class=user.role
+        a href=user_action(user, :edit) Edit #{user.name}
+        a href=(path_to_user user) = user.name
+
+a href==action_path(:start)
+
+
+
+---
+
+
+Boolean attributes
+------------------
+
+
+input type="text" disabled="disabled"
+input type="text" disabled=true
+input(type="text" disabled)
+
+input type="text"
+input type="text" disabled=false
+input type="text" disabled=nil
+
+
+
+---
+
+
+Attribute merging
+-----------------
+
+
+a.menu class="highlight" href="https://slim-template.github.io/" slim-template.github.io
+
+==
+
+<a class="menu highlight" href="https://slim-template.github.io/">slim-template.github.io</a>
+
+
+a class=["menu","highlight"]
+a class=:menu,:highlight
+
+
+
+---
+
+
+Splat attributes *
+------------------
+
+.card*{'data-url'=>place_path(place), 'data-id'=>place.id} = place.name
+
+or
+--
+
+<div class="card" data-id="1234" data-url="/place/1234">Slim's house</div>
+
+
+
+.card *method_which_returns_hash = place.name
+.card *@hash_instance_variable = place.name
+
+
+
+.first *{class: [:second, :third]} Text
+
+==
+
+div class="first second third"
+
+
+
+---
+
+
+Dynamic tags *
+--------------
+
+ruby:
+  def self.a_unless_current
+    @page_current ? {tag: 'span'} : {tag: 'a', href: 'https://slim-template.github.io/'}
+  end
+- @page_current = true
+*a_unless_current Link
+- @page_current = false
+*a_unless_current Link
+
+<span>Link</span><a href="https://slim-template.github.io/">Link</a>
+
+
+
+---
+
+
+Shortcuts
+---------
+
+
+Tag shortcuts
+-------------
+
+
+Slim::Engine.set_options shortcut: {'c' => {tag: 'container'}, '#' => {attr: 'id'}, '.' => {attr: 'class'} }
+
+c.content Text
+
+<container class="content">Text</container>
+
+
+
+---
+
+
+Attribute shortcuts
+-------------------
+
+Slim::Engine.set_options shortcut: {'&' => {tag: 'input', attr: 'type'}, '#' => {attr: 'id'}, '.' => {attr: 'class'}}
+
+&text name="user"
+&password name="pw"
+&submit
+
+<input type="text" name="user" />
+<input type="password" name="pw" />
+<input type="submit" />
+
+
+
+Slim::Engine.set_options shortcut: {'@' => {attr: 'role'}, '#' => {attr: 'id'}, '.' => {attr: 'class'}}
+
+.person@admin = person.name
+
+<div class="person" role="admin">Daniel</div>
+
+
+
+Slim::Engine.set_options shortcut: {'@' => {attr: %w(data-role role)}}
+
+.person@admin = person.name
+
+<div class="person" role="admin" data-role="admin">Daniel</div>
+
+
+
+Slim::Engine.set_options shortcut: {'^' => {tag: 'script', attr: 'data-binding',
+  additional_attrs: { type: "text/javascript" }}}
+
+^products
+  == @products.to_json
+
+<script data-binding="products" type="text/javascript">
+[{"name": "product1", "price": "$100"},
+ {"name": "product2", "price": "$200"}]
+</script>
+
+
+
+---
+
+
+Lambda shortcuts
+----------------
+
+Slim::Engine.set_options shortcut: {'~' => {attr: ->(v) {{class: "styled-#{v}"}}}}
+
+h1~title Hello
+~text~question.paragraph How are you?
+
+<h1 class="styled-title">Hello</h1>
+<div class="styled-text styled-question paragraph">How are you?</div>
+
+
+
+---
+
+
+ID shortcut # and class shortcut .
+----------------------------------
+
+body
+  h1#headline
+    = page_headline
+  h2#tagline.small.tagline
+    = page_tagline
+  .content
+    = show_content
+
+==
+
+body
+  h1 id="headline"
+    = page_headline
+  h2 id="tagline" class="small tagline"
+    = page_tagline
+  div class="content"
+    = show_content
+
+
+
+---
+
+
+Helpers, capturing and includes
+-------------------------------
+
+module Helpers
+  def headline(&block)
+    if defined?(::Rails)
+      # In Rails we have to use capture!
+      "<h1>#{capture(&block)}</h1>"
+    else
+      # If we are using Slim without a framework (Plain Tilt),
+      # this works directly.
+      "<h1>#{yield}</h1>"
+    end
+  end
+end
+
+
+
+p
+  = headline do
+    ' Hello
+    = user.name
+
+
+p
+  = headline
+    ' Hello
+    = user.name
+
+
+
+---
+
+
+Capturing to local variables
+----------------------------
+
+module Helpers
+  def capture_to_local(var, &block)
+    set_var = block.binding.eval("lambda {|x| #{var} = x }")
+    set_var.call(defined?(::Rails) ? capture(&block) : yield)
+  end
+end
+
+
+
+/ The captured_content variable must be known by the Binding beforehand.
+= capture_to_local captured_content=:captured_content
+  p This will be captured in the variable captured_content
+= captured_content
+
+
+
+module Capture
+  def capture(var, enumerable = nil, &block)
+    value = enumerable ? enumerable.map(&block) : yield
+    block.binding.eval("lambda {|x| #{var} = x }").call(value)
+    nil
+  end
+end
+
+
+
+- links = { 'https://slim-template.github.io' => 'The Slim Template Language' }
+= capture link_list=:link_list, links do |url, text|
+  a href=url = text
+
+
+
+nav = include_slim 'menu'
+section = include_slim 'content'
+
+
+
+body
+  h1 Welcome \#{current_user.name} to the show.
+
+
+
+---
+
+
+Embedded engines (Markdown, ...)
+--------------------------------
+
+coffee:
+  square = (x) -> x * x
+
+markdown:
+  #Header
+    Hello from #{"Markdown!"}
+    Second Line!
+
+p: markdown: Tag with **inline** markdown!
+
+
+
+Slim::Embedded.options[:markdown] = {auto_ids: false}
+
+
+
+scss class="myClass":
+  $color: #f00;
+  body { color: $color; }
+
+
+
+<style class="myClass" type="text/css">body{color:red}</style>
+
+
+
+---
+
+
+Configuring Slim
+----------------
+
+Slim::Engine.set_options pretty: true, sort_attrs: false
+
+Slim::Engine.options[:pretty] = true
+
+Slim::Template.new('template.slim', optional_option_hash).render(scope)
+
+
+
+---
+
+
+Setting options at runtime
+--------------------------
+
+Slim::Template.new('template.slim', optional_option_hash).render(scope)
+
+Slim::Engine.with_options(option_hash) do
+  render :page, layout: true
+end
+
+Slim::Engine.with_options(pretty: true) do
+   render :page, layout: true
+end
+
+Slim::Engine.with_options(pretty: false) do
+   render :page, layout: true # :pretty is still true because it is cached
+end
+
+
+
+Slim::Engine < Temple::Engine
+Slim::Compiler < Temple::Filter
+
+
+
+---
+
+
+slim plugins
+------------
+
+
+https://github.com/slim-template/slim/blob/main/doc/logic_less.md
+https://github.com/slim-template/slim/blob/main/doc/include.md
+https://github.com/slim-template/slim/blob/main/doc/translator.md
+https://github.com/slim-template/slim/blob/main/doc/smart.md
+
+
+
+---
+
+
+Framework support
+-----------------
+
+
+Sinatra
+-------
+
+
+require 'sinatra'
+require 'slim'
+
+get('/') { slim :index }
+
+ __END__
+@@ index
+doctype html
+html
+  head
+    title Sinatra With Slim
+  body
+    h1 Slim Is Fun!
+
+
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Homepage
+--------
+
+https://slim-template.github.io
+
+
+
+Source
+------
+
+https://github.com/slim-template/slim
+
+
+
+Bugs
+----
+
+https://github.com/slim-template/slim/issues
+
+
+
+API documentation
+-----------------
+
+Latest Gem: https://rubydoc.info/gems/slim/frames
+GitHub main: https://rubydoc.info/github/slim-template/slim/main/frames
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 rack
 ----
 
@@ -32130,7 +32959,8 @@ Go the the Dashboard tab to see the progress it should say deploying…
 
 
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -32139,6 +32969,235 @@ Go the the Dashboard tab to see the progress it should say deploying…
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Deploy to render tutorial
+-------------------------
+
+
+---1---
+
+$ rails new mysite --database=postgresql -j esbuild --css bootstrap
+
+
+
+
+---2---
+
+$ rails db:create
+
+
+
+
+---3---
+
+$ bin/dev
+
+
+
+
+---4---
+
+create the Hello World landing page
+-----------------------------------
+
+$ rails g controller Render index
+
+
+
+config/routes.rb
+----------------
+
+Rails.application.routes.draw do
+  get 'render/index'
+  root "render#index"
+end
+
+
+
+app/views/render/index.html.erb
+-------------------------------
+
+<main class="container">
+  <div class="row text-center justify-content-center">
+    <div class="col">
+      <h1 class="display-4">Hello World!</h1>
+    </div>
+  </div>
+</main>
+
+
+
+localhost:3000
+--------------
+
+$ bin/dev
+
+
+
+
+
+Update your app for Render
+--------------------------
+
+
+---1---
+
+Create a build script
+---------------------
+
+/bin
+----
+
+$ touch render-build.sh
+
+
+bin/render-build.sh
+-------------------
+
+#!/usr/bin/env bash
+# exit on error
+set -o errexit
+
+bundle install
+bundle exec rails assets:precompile
+bundle exec rails assets:clean
+
+
+$ chmod a+x bin/render-build.sh
+
+
+
+---2---
+
+Swap SQLite for PostgreSQL (if necessary)
+-----------------------------------------
+
+$ rails db:system:change --to=postgresql
+
+
+
+---3---
+
+Deploy to Render
+----------------
+
+/on root
+--------
+
+$ touch render.yaml
+
+
+render.yml
+----------
+
+databases:
+  - name: mysite
+    databaseName: mysite
+    user: mysite
+    plan: free
+
+services:
+  - type: web
+    name: mysite
+    runtime: ruby
+    plan: free
+    buildCommand: "./bin/render-build.sh"
+    # preDeployCommand: "bundle exec rails db:migrate" # preDeployCommand only available on paid instance types
+    startCommand: "bundle exec rails server"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mysite
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: WEB_CONCURRENCY
+        value: 2 # sensible default
+
+
+commit and push this change to your remote repository.
+-----------------------------------------------------
+
+
+
+---4---
+
+In the Render Dashboard, go to the Blueprint page and click New Blueprint Instance. 
+Select your repository (after giving Render the permission to access it, if you haven’t already)
+
+
+
+---5---
+
+In the deploy window, set the value of the RAILS_MASTER_KEY to the contents of your config/master.key file. Then click Approve.
+
+
+
+OR
+--
+
+
+Deploy manually
+---------------
+
+
+---1---
+
+Create a new PostgreSQL database on Render. Note your database internal database URL—you’ll need it later
+---------------------------------------------------------------------------------------------------------
+
+
+
+---2---
+
+Create a new web service and point it to your application repository (make sure Render has a permission to access it)
+---------------------------------------------------------------------------------------------------------------------
+
+
+
+---3---
+
+Select Ruby for the web service’s runtime and set the following properties
+--------------------------------------------------------------------------
+
+
+----------------------------------------------
+Property                Value
+----------------------------------------------
+Build Command           ./bin/render-build.sh
+Pre-deploy Command*     ./bin/rails db:migrate
+Start Command           ./bin/rails server
+----------------------------------------------
+
+
+
+---4---
+
+Set the following environment variables for the web service
+-----------------------------------------------------------
+
+-----------------------------------------------------------------------------------------
+Key                         Value
+-----------------------------------------------------------------------------------------
+DATABASE_URL                The internal database URL for the database you created above
+RAILS_MASTER_KEY            Paste contents of the config/master.key file
+WEB_CONCURRENCY             2
+-----------------------------------------------------------------------------------------
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Deploy Rails to Heroku
 ----------------------
