@@ -5958,6 +5958,19 @@ _form.html.erb
 
 
 
+Simple_form Textarea Rows Columns
+---------------------------------
+
+<%= f.input :message, :input_html => {:rows => 10} %>
+<%= f.input :description, :as => :text, :input_html => { 'rows' => 5, 'cols' => 10 } %>
+
+
+
+
+---
+
+
+
 
 change types, slim
 ------------------
@@ -21689,8 +21702,104 @@ html
 ---
 
 
+Rails
+-----
 
 
+gem "slim-rails"
+
+
+Template Converters ERB to SLIM
+-------------------------------
+
+
+$ gem install html2slim
+
+
+
+
+$ erb2slim -h
+
+Usage: erb2slim INPUT_FILENAME_OR_DIRECTORY [OUTPUT_FILENAME_OR_DIRECTORY] [options]
+        --trace                      Show a full traceback on error
+    -d, --delete                     Delete ERB files
+    -h, --help                       Show this message
+    -v, --version                    Print version
+
+
+
+
+$ gem install html2haml haml2slim --no-ri --no-rdoc
+
+$ find ./app/views -name '*.erb' | xargs -I file sh -c \
+'html2haml --erb file | haml2slim > $(echo file | sed 's/erb/slim/') && \
+rm file'
+
+
+
+---
+
+
+Streaming
+---------
+
+
+Slim::RailsTemplate.set_options streaming: false
+
+
+
+---
+
+
+
+Tools
+-----
+
+$ slimrb --help
+
+Usage: slimrb [options]
+  -s, --stdin                      Read input from standard input instead of an input file
+      --trace                      Show a full traceback on error
+  -c, --compile                    Compile only but do not run
+  -e, --erb                        Convert to ERB
+      --rails                      Generate rails compatible code (Implies --compile)
+  -r, --require library            Load library or plugin with -r slim/plugin
+  -p, --pretty                     Produce pretty html for debugging purposes
+  -o, --option name=code           Set slim option
+  -l, --locals Hash|YAML|JSON      Set local variables
+  -h, --help                       Show this message
+  -v, --version                    Print version
+
+
+
+$ slimrb
+markdown:
+  First paragraph.
+
+  Second paragraph.
+
+  * one
+  * two
+  * three
+
+//Enter Ctrl-d
+<p>First paragraph </p>
+
+<p>Second paragraph </p>
+
+<ul>
+<li>one</li>
+<li>two</li>
+<li>three</li>
+</ul>
+
+
+
+---
+
+
+Syntax Highlighters
+-------------------
 
 
 
@@ -38509,6 +38618,1045 @@ ssl_bind '0.0.0.0', '3001', {
   key:  ENV.fetch("SSL_KEY_PATH") { "config/ssl/localhost.key" },
   cert: ENV.fetch("SSL_CERT_PATH") { "config/ssl/localhost.crt" },
 }
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+writing and formatting syntax for github actions readme.md
+----------------------------------------------------------
+
+
+Headings
+--------
+
+# A first-level heading
+## A second-level heading
+### A third-level heading
+
+
+
+
+---
+
+
+
+Styling text
+------------
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Style                       Syntax                        Keyboard shortcut                                   Example                                          Output
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Bold                    ** ** or __ __        Command+B (Mac) or Ctrl+B (Windows/Linux)                 **This is bold text**                         This is bold text
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Italic                  * * or _ _            Ctrl+I (Windows/Linux)                                    _ This text is italicized_                    This text is italicized
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Strikethrough           ~~ ~~                 None                                                      ~~ This was mistaken text~~                   This was mistaken text
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Bold and nested italic  ** ** and _ _         None                                                      **This text is _extremely_ important**        This text is extremely important
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+All bold and italic     *** ***               None                                                      ***All this text is important***              All this text is important
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Subscript               <sub> </sub>          None                                                      This is a <sub>subscript</sub> text           This is a subscript text
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Superscript             <sup> </sup>          None                                                      This is a <sup>superscript</sup> text         This is a superscript text
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+---
+
+
+
+Quoting text
+------------
+
+You can quote text with a >
+---------------------------
+
+Text that is not a quote
+
+> Text that is a quote
+
+
+
+---
+
+
+
+Quoting code
+------------
+
+Use `git status` to list all new or modified files that haven't yet been committed.
+
+
+
+Some basic Git commands are:
+```
+git status
+git add
+git commit
+```
+
+
+
+---
+
+
+
+Supported color models
+----------------------
+
+The background color is `#ffffff` for light mode and `#000000` for dark mode.
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Color                                 Syntax                                  Example                                     Output
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+HEX                           `#RRGGBB` `#0969DA`                     Screenshot of rendered GitHub                   Markdown showing how HEX value #0969DA appears with a blue circle.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+RGB                           `rgb(R,G,B)`  `rgb(9, 105, 218)`        Screenshot of rendered GitHub                   Markdown showing how RGB value 9, 105, 218 appears with a blue circle.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+HSL                           `hsl(H,S,L)`  `hsl(212, 92%, 45%)`      Screenshot of rendered GitHub                   Markdown showing how HSL value 212, 92%, 45% appears with a blue circle.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+---
+
+
+
+Links
+-----
+
+
+This site was built using [GitHub Pages](https://pages.github.com/).
+
+
+
+---
+
+
+
+Section links
+-------------
+
+[Contribution guidelines for this project](docs/CONTRIBUTING.md)
+[Contribution 
+guidelines for this project](docs/CONTRIBUTING.md)
+
+
+
+---
+
+
+
+Images
+------
+
+![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](https://myoctocat.com/assets/images/base-octocat.svg)
+
+
+
+---
+
+
+
+Specifying the theme an image is shown to
+-----------------------------------------
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/25423296/163456776-7f95b81a-f1ed-45f7-b7ab-8fa810d529fa.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/25423296/163456779-a8556205-d0a5-45e2-ac17-42d089e3c3f8.png">
+  <img alt="Shows an illustrated sun in light mode and a moon with stars in dark mode." src="https://user-images.githubusercontent.com/25423296/163456779-a8556205-d0a5-45e2-ac17-42d089e3c3f8.png">
+</picture>
+
+
+
+---
+
+
+
+Lists
+-----
+
+- George Washington
+* John Adams
++ Thomas Jefferson
+
+
+1. James Madison
+2. James Monroe
+3. John Quincy Adams
+
+
+
+---
+
+
+
+Nested Lists
+------------
+
+1. First list item
+   - First nested list item
+     - Second nested list item
+
+
+
+---
+
+
+
+Task lists
+----------
+
+- [x] #739
+- [ ] https://github.com/octo-org/octo-repo/issues/740
+- [ ] Add delight to the experience when all tasks are complete :tada:
+
+
+- [ ] \(Optional) Open a followup issue
+
+
+
+---
+
+
+
+Mentioning people and teams
+---------------------------
+
+@github/support What do you think about these updates?
+
+
+
+---
+
+
+
+Footnotes
+---------
+
+Here is a simple footnote[^1].
+
+A footnote can also have multiple lines[^2].
+
+[^1]: My reference.
+[^2]: To add line breaks within a footnote, prefix new lines with 2 spaces.
+  This is a second line.
+
+
+
+---
+
+
+
+Alerts
+------
+
+> [!NOTE]
+> Useful information that users should know, even when skimming content.
+
+> [!TIP]
+> Helpful advice for doing things better or more easily.
+
+> [!IMPORTANT]
+> Key information users need to know to achieve their goal.
+
+> [!WARNING]
+> Urgent info that needs immediate user attention to avoid problems.
+
+> [!CAUTION]
+> Advises about risks or negative outcomes of certain actions.
+
+
+
+
+---
+
+
+
+Hiding content with comments
+----------------------------
+
+<!-- This content will not appear in the rendered Markdown -->
+
+
+
+---
+
+
+
+Ignoring Markdown formatting
+----------------------------
+
+Let's rename \*our-new-project\* to \*our-old-project\*.
+
+
+
+---
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Ancestry
+--------
+
+
+Gemfile
+-------
+
+gem 'ancestry'
+
+
+
+---
+
+
+
+$ bundle install
+
+
+
+---
+
+
+
+Add ancestry column to your table
+---------------------------------
+
+$ rails g migration add_[ancestry]_to_[table] ancestry:string:index
+
+
+class AddAncestryToTable < ActiveRecord::Migration[6.1]
+  def change
+    change_table(:table) do |t|
+      # postgres
+      t.string "ancestry", collation: 'C', null: false
+      t.index "ancestry"
+      # mysql
+      t.string "ancestry", collation: 'utf8mb4_bin', null: false
+      t.index "ancestry"
+    end
+  end
+end
+
+
+
+
+---
+
+
+
+$ rake db:migrate
+
+
+
+---
+
+
+
+Configure ancestry defaults
+---------------------------
+
+config/initializers/ancestry.rb
+-------------------------------
+
+# use the newer format
+Ancestry.default_ancestry_format = :materialized_path2
+# Ancestry.default_update_strategy = :sql
+
+
+
+---
+
+
+
+Add ancestry to your model
+--------------------------
+
+app/models/[model.rb]
+---------------------
+
+class [Model] < ActiveRecord::Base
+   has_ancestry
+end
+
+
+
+---
+
+
+
+Organising records into a tree
+------------------------------
+
+
+TreeNode.create! :name => 'Stinky', :parent => TreeNode.create!(:name => 'Squeeky')
+
+node.children.create :name => 'Stinky'
+
+
+
+---
+
+
+
+has_ancestry options
+--------------------
+
+:ancestry_column       Column name to store ancestry
+                       'ancestry' (default)
+:ancestry_format       Format for ancestry column (see Ancestry Formats section):
+                       :materialized_path   1/2/3, root nodes ancestry=nil (default)
+                       :materialized_path2  /1/2/3/, root nodes ancestry=/ (preferred)
+:orphan_strategy       How to handle children of a destroyed node:
+                       :destroy   All children are destroyed as well (default)
+                       :rootify   The children of the destroyed node become root nodes
+                       :restrict  An AncestryException is raised if any children exist
+                       :adopt     The orphan subtree is added to the parent of the deleted node
+                                  If the deleted node is Root, then rootify the orphan subtree
+                       :none      skip this logic. (add your own `before_destroy`)
+:cache_depth           Cache the depth of each node: (See Depth Cache section)
+                       false   Do not cache depth (default)
+                       true    Cache depth in 'ancestry_depth'
+                       String  Cache depth in the column referenced
+:primary_key_format    Regular expression that matches the format of the primary key:
+                       '[0-9]+'            integer ids (default)
+                       '[-A-Fa-f0-9]{36}'  UUIDs
+:touch                 Touch the ancestors of a node when it changes:
+                       false  don't invalide nested key-based caches (default)
+                       true   touch all ancestors of previous and new parents
+:counter_cache         Create counter cache column accessor:
+                       false  don't store a counter cache (default)
+                       true   store counter cache in `children_count`.
+                       String name of column to store counter cache.
+:update_strategy       How to update descendants nodes:
+                       :ruby  All descendants are updated using the ruby algorithm. (default)
+                              This triggers update callbacks for each descendant node
+                       :sql   All descendants are updated using a single SQL statement.
+                              This strategy does not trigger update callbacks for the descendants.
+                              This strategy is available only for PostgreSql implementations
+
+
+
+
+
+---
+
+
+
+(Named) Scopes
+--------------
+
+node.children.where(:name => 'Mary').exists?
+node.subtree.order(:name).limit(10).each { ... }
+node.descendants.count
+
+
+roots                   Root nodes
+ancestors_of(node)      Ancestors of node, node can be either a record or an id
+children_of(node)       Children of node, node can be either a record or an id
+descendants_of(node)    Descendants of node, node can be either a record or an id
+indirects_of(node)      Indirect children of node, node can be either a record or an id
+subtree_of(node)        Subtree of node, node can be either a record or an id
+siblings_of(node)       Siblings of node, node can be either a record or an id
+
+
+node.children.create
+node.siblings.create!
+TestNode.children_of(node_id).new
+TestNode.siblings_of(node_id).create
+
+
+
+---
+
+
+
+Selecting nodes by depth
+------------------------
+
+before_depth(depth)     Return nodes that are less deep than depth (node.depth < depth)
+to_depth(depth)         Return nodes up to a certain depth (node.depth <= depth)
+at_depth(depth)         Return nodes that are at depth (node.depth == depth)
+from_depth(depth)       Return nodes starting from a certain depth (node.depth >= depth)
+after_depth(depth)      Return nodes that are deeper than depth (node.depth > depth)
+
+
+
+---
+
+
+
+Arrangement
+-----------
+
+{
+  #<TreeNode id: 100018, name: "Stinky", ancestry: nil> => {
+    #<TreeNode id: 100019, name: "Crunchy", ancestry: "100018"> => {
+      #<TreeNode id: 100020, name: "Squeeky", ancestry: "100018/100019"> => {}
+    },
+    #<TreeNode id: 100021, name: "Squishy", ancestry: "100018"> => {}
+  }
+}
+
+
+---
+
+
+TreeNode.find_by(:name => 'Crunchy').subtree.arrange
+TreeNode.find_by(:name => 'Crunchy').subtree.arrange(:order => :name)
+
+
+arrange_serializable
+--------------------
+
+TreeNode.arrange_serializable(:order => :name)
+# use an active model serializer
+TreeNode.arrange_serializable { |parent, children| MySerializer.new(parent, children: children) }
+TreeNode.arrange_serializable do |parent, children|
+  {
+     my_id: parent.id,
+     my_children: children
+  }
+end
+
+
+
+---
+
+
+
+Sorting
+-------
+
+sort_by_ancestry
+
+TreeNode.sort_by_ancestry(array_of_nodes)
+
+
+
+---
+
+
+Ancestry Database Column
+------------------------
+
+Postgres Storage Options
+------------------------
+
+ascii field collation
+---------------------
+
+t.string "ancestry", collation: 'C', null: false
+t.index "ancestry"
+
+
+
+ascii index
+-----------
+
+t.string "ancestry", null: false
+t.index  "ancestry", opclass: :varchar_pattern_ops
+
+
+
+binary column
+-------------
+
+t.binary "ancestry", limit: 3000, null: false
+t.index  "ancestry"
+
+
+ALTER DATABASE dbname SET bytea_output to 'escape';
+
+
+
+---
+
+
+
+Ancestry Formats
+----------------
+
+
+:materialized_path  - legacy format (currently the default for backwards compatibility reasons)
+:materialized_path2 - newer format. Use this if it is a new column
+
+
+:materialized_path    1/2/3,  root nodes ancestry=nil
+    descendants SQL: ancestry LIKE '1/2/3/%' OR ancestry = '1/2/3'
+:materialized_path2  /1/2/3/, root nodes ancestry=/
+    descendants SQL: ancestry LIKE '/1/2/3/%'
+
+
+
+---
+
+
+
+Migrating Ancestry Format
+-------------------------
+
+klass = YourModel
+
+set all child nodes
+-------------------
+
+klass.where.not(klass.arel_table[klass.ancestry_column].eq(nil)).update_all("#{klass.ancestry_column} = 
+CONCAT('#{klass.ancestry_delimiter}', #{klass.ancestry_column}, '#{klass.ancestry_delimiter}')")
+
+
+set all root nodes
+------------------
+
+klass.where(klass.arel_table[klass.ancestry_column].eq(nil)).update_all("#{klass.ancestry_column} = '#{klass.ancestry_root}'")
+
+change_column_null klass.table_name, klass.ancestry_column, false
+
+
+
+---
+
+
+
+Migrating from plugin that uses parent_id column
+------------------------------------------------
+
+Model.build_ancestry_from_parent_ids!
+# Model.rebuild_depth_cache!
+Model.check_ancestry_integrity!
+
+
+$ rails g migration remove_parent_id_from_[table]
+
+
+class RemoveParentIdFromToTable < ActiveRecord::Migration[6.1]
+  def change
+    remove_column "table", "parent_id", type: :integer
+  end
+end
+
+
+$ rake db:migrate
+
+
+
+---
+
+
+
+Depth cache
+-----------
+
+Add column
+----------
+
+class AddDepthCacheToTable < ActiveRecord::Migration[6.1]
+  def change
+    change_table(:table) do |t|
+      t.integer "ancestry_depth", default: 0
+    end
+  end
+end
+
+
+
+Add ancestry to your model
+--------------------------
+
+app/models/[model.rb]
+---------------------
+
+class [Model] < ActiveRecord::Base
+   has_ancestry cache_depth: true
+end
+
+
+
+Update existing values
+----------------------
+
+Model.rebuild_depth_cache!
+
+
+
+---
+
+
+
+Running Tests
+-------------
+
+git clone git@github.com:stefankroes/ancestry.git
+cd ancestry
+cp test/database.example.yml test/database.yml
+bundle
+appraisal install
+# all tests
+appraisal rake test
+# single test version (sqlite and rails 5.0)
+appraisal sqlite3-ar-50 rake test
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Datetime helper Rails
+---------------------
+
+
+Flags
+-----
+
+-  don't pad a numerical output
+_  use spaces for padding
+0  use zeros for padding
+^  upcase the result string
+#  change case
+:  use colons for %z
+
+
+
+
+---
+
+
+
+Date (Year, Month, Day)
+-----------------------
+
+%Y - Year with century
+%C - year / 100 (round down.  20 in 2009)
+%y - year % 100 (00..99)
+%m - Month of the year
+%B - The full month name
+%b - The abbreviated month name
+%h - Equivalent to %b
+%d - Day of the month
+%e - Day of the month
+%j - Day of the year
+
+
+
+Time (Hour, Minute, Second, Subsecond)
+--------------------------------------
+
+%H - Hour of the day, 24-hour clock
+%k - Hour of the day, 24-hour clock
+%I - Hour of the day, 12-hour clock
+%l - Hour of the day, 12-hour clock
+%P - Meridian indicator, lowercase (``am'' or ``pm'')
+%p - Meridian indicator, uppercase (``AM'' or ``PM'')
+%M - Minute of the hour (00..59)
+%S - Second of the minute (00..59)
+%L - Millisecond of the second (000..999)
+%N - Fractional seconds digits, default is 9 digits 
+
+
+
+Time zone
+---------
+
+%z - Time zone as hour and minute offset from UTC
+%Z - Equivalent to %:z (e.g. +09:00)
+
+
+
+Weekday
+-------
+
+%A - The full weekday name (``Sunday'')
+%^A  uppercased (``SUNDAY'')
+%a - The abbreviated name (``Sun'')
+%^a  uppercased (``SUN'')
+%u - Day of the week (Monday is 1, 1..7)
+%w - Day of the week (Sunday is 0, 0..6)
+
+
+
+ISO 8601 week-based year and week number
+----------------------------------------
+
+%G - The week-based year
+%g - The last 2 digits of the week-based year (00..99)
+%V - Week number of the week-based year (01..53)
+
+
+
+Week number
+-----------
+
+
+%U - Week number of the year.  The week starts with Sunday.  (00..53)
+%W - Week number of the year.  The week starts with Monday.  (00..53)
+
+
+
+Seconds since the Unix Epoch
+----------------------------
+
+%s - Number of seconds since 1970-01-01 00:00:00 UTC.
+%Q - Number of milliseconds since 1970-01-01 00:00:00 UTC.
+
+
+
+Literal string
+--------------
+
+%n - Newline character (\n)
+%t - Tab character (\t)
+%% - Literal ``%'' character
+
+
+
+Combination
+-----------
+
+%c - date and time (%a %b %e %T %Y)
+%D - Date (%m/%d/%y)
+%F - The ISO 8601 date format (%Y-%m-%d)
+%v - VMS date (%e-%b-%Y)
+%x - Same as %D
+%X - Same as %T
+%r - 12-hour time (%I:%M:%S %p)
+%R - 24-hour time (%H:%M)
+%T - 24-hour time (%H:%M:%S)
+%+ - date(1) (%a %b %e %H:%M:%S %Z %Y)
+
+
+
+---
+
+
+--------------------------------------------------------------------------------------------------------------------------------------
+%Y%m%d           => 20071119                  Calendar date (basic)
+--------------------------------------------------------------------------------------------------------------------------------------
+%F               => 2007-11-19                Calendar date (extended)
+--------------------------------------------------------------------------------------------------------------------------------------
+%Y-%m            => 2007-11                   Calendar date, reduced accuracy, specific month
+--------------------------------------------------------------------------------------------------------------------------------------
+%Y               => 2007                      Calendar date, reduced accuracy, specific year
+--------------------------------------------------------------------------------------------------------------------------------------
+%C               => 20                        Calendar date, reduced accuracy, specific century
+--------------------------------------------------------------------------------------------------------------------------------------
+%Y%j             => 2007323                   Ordinal date (basic)
+--------------------------------------------------------------------------------------------------------------------------------------
+%Y-%j            => 2007-323                  Ordinal date (extended)
+--------------------------------------------------------------------------------------------------------------------------------------
+%GW%V%u          => 2007W471                  Week date (basic)
+--------------------------------------------------------------------------------------------------------------------------------------
+%G-W%V-%u        => 2007-W47-1                Week date (extended)
+--------------------------------------------------------------------------------------------------------------------------------------
+%GW%V            => 2007W47                   Week date, reduced accuracy, specific week (basic)
+--------------------------------------------------------------------------------------------------------------------------------------
+%G-W%V           => 2007-W47                  Week date, reduced accuracy, specific week (extended)
+--------------------------------------------------------------------------------------------------------------------------------------
+%H%M%S           => 083748                    Local time (basic)
+--------------------------------------------------------------------------------------------------------------------------------------
+%T               => 08:37:48                  Local time (extended)
+--------------------------------------------------------------------------------------------------------------------------------------
+%H%M             => 0837                      Local time, reduced accuracy, specific minute (basic)
+--------------------------------------------------------------------------------------------------------------------------------------
+%H:%M            => 08:37                     Local time, reduced accuracy, specific minute (extended)
+--------------------------------------------------------------------------------------------------------------------------------------
+%H               => 08                        Local time, reduced accuracy, specific hour
+--------------------------------------------------------------------------------------------------------------------------------------
+%H%M%S,%L        => 083748,000                Local time with decimal fraction, comma as decimal sign (basic)
+--------------------------------------------------------------------------------------------------------------------------------------
+%T,%L            => 08:37:48,000              Local time with decimal fraction, comma as decimal sign (extended)
+--------------------------------------------------------------------------------------------------------------------------------------
+%H%M%S.%L        => 083748.000                Local time with decimal fraction, full stop as decimal sign (basic)
+--------------------------------------------------------------------------------------------------------------------------------------
+%T.%L            => 08:37:48.000              Local time with decimal fraction, full stop as decimal sign (extended)
+--------------------------------------------------------------------------------------------------------------------------------------
+%H%M%S%z         => 083748-0600               Local time and the difference from UTC (basic)
+--------------------------------------------------------------------------------------------------------------------------------------
+%T%:z            => 08:37:48-06:00            Local time and the difference from UTC (extended)
+--------------------------------------------------------------------------------------------------------------------------------------
+%Y%m%dT%H%M%S%z  => 20071119T083748-0600      Date and time of day for calendar date (basic)
+--------------------------------------------------------------------------------------------------------------------------------------
+%FT%T%:z         => 2007-11-19T08:37:48-06:00 Date and time of day for calendar date (extended)
+--------------------------------------------------------------------------------------------------------------------------------------
+%Y%jT%H%M%S%z    => 2007323T083748-0600       Date and time of day for ordinal date (basic)
+--------------------------------------------------------------------------------------------------------------------------------------
+%Y-%jT%T%:z      => 2007-323T08:37:48-06:00   Date and time of day for ordinal date (extended)
+--------------------------------------------------------------------------------------------------------------------------------------
+%GW%V%uT%H%M%S%z => 2007W471T083748-0600      Date and time of day for week date (basic)
+--------------------------------------------------------------------------------------------------------------------------------------
+%G-W%V-%uT%T%:z  => 2007-W47-1T08:37:48-06:00 Date and time of day for week date (extended)
+--------------------------------------------------------------------------------------------------------------------------------------
+%Y%m%dT%H%M      => 20071119T0837             Calendar date and local time (basic)
+--------------------------------------------------------------------------------------------------------------------------------------
+%FT%R            => 2007-11-19T08:37          Calendar date and local time (extended)
+--------------------------------------------------------------------------------------------------------------------------------------
+%Y%jT%H%MZ       => 2007323T0837Z             Ordinal date and UTC of day (basic)
+--------------------------------------------------------------------------------------------------------------------------------------
+%Y-%jT%RZ        => 2007-323T08:37Z           Ordinal date and UTC of day (extended)
+--------------------------------------------------------------------------------------------------------------------------------------
+%GW%V%uT%H%M%z   => 2007W471T0837-0600        Week date and local time and difference from UTC (basic)
+--------------------------------------------------------------------------------------------------------------------------------------
+%G-W%V-%uT%R%:z  => 2007-W47-1T08:37-06:00    Week date and local time and difference from UTC (extended)
+--------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+---
+
+
+
+Complete Formatting Codes
+-------------------------
+
+%a - The abbreviated weekday name (“Sun”)
+%A - The full weekday name (“Sunday”)
+%b - The abbreviated month name (“Jan”)
+%B - The full month name (“January”)
+%c - The preferred local date and time representation
+%C - Century (20 in 2009)
+%d - Day of the month (01..31)
+%D - Date (%m/%d/%y)
+%e - Day of the month, blank-padded ( 1..31)
+%F - Equivalent to %Y-%m-%d (the ISO 8601 date format)
+%h - Equivalent to %b
+%H - Hour of the day, 24-hour clock (00..23)
+%I - Hour of the day, 12-hour clock (01..12)
+%j - Day of the year (001..366)
+%k - hour, 24-hour clock, blank-padded ( 0..23)
+%l - hour, 12-hour clock, blank-padded ( 0..12)
+%L - Millisecond of the second (000..999)
+%m - Month of the year (01..12)
+%M - Minute of the hour (00..59)
+%n - Newline (n)
+%N - Fractional seconds digits, default is 9 digits (nanosecond)
+%p - Meridian indicator (“AM” or “PM”)
+%P - Meridian indicator (“am” or “pm”)
+%r - time, 12-hour (same as %I:%M:%S %p)
+%R - time, 24-hour (%H:%M)
+%s - Number of seconds since 1970-01-01 00:00:00 UTC.
+%S - Second of the minute (00..60)
+%t - Tab character (t)
+%T - time, 24-hour (%H:%M:%S)
+%u - Day of the week as a decimal, Monday being 1. (1..7)
+%U - Week number of the current year, starting with the first Sunday as the first day of the first week (00..53)
+%v - VMS date (%e-%b-%Y)
+%V - Week number of year according to ISO 8601 (01..53)
+%W - Week number of the current year, starting with the first Monday as the first day of the first week (00..53)
+%w - Day of the week (Sunday is 0, 0..6)
+%x - Preferred representation for the date alone, no time
+%X - Preferred representation for the time alone, no date
+%y - Year without a century (00..99)
+%Y - Year with century
+%z - Time zone as hour offset from UTC (e.g. +0900)
+%Z - Time zone name
+%% - Literal “%” character
+
+
+
+---
+
+
+
+%Y%m%d           => 20211119                  
+%F               => 2021-11-19                
+%Y-%m            => 2021-11                   
+%Y               => 2021                      
+%C               => 20                        
+%Y%j             => 2021323                   
+%Y-%j            => 2021-323                  
+%GW%V%u          => 2021W471                  
+%G-W%V-%u        => 2021-W47-1                
+%GW%V            => 2021W47                   
+%G-W%V           => 2021-W47                  
+%H%M%S           => 083748                    
+%T               => 08:37:48                  
+%H%M             => 0837                      
+%H:%M            => 08:37                     
+%H               => 08                        
+%H%M%S,%L        => 083748,000                
+%T,%L            => 08:37:48,000              
+%H%M%S.%L        => 083748.000                
+%T.%L            => 08:37:48.000              
+%H%M%S%z         => 083748-0600               
+%T%:z            => 08:37:48-06:00            
+%Y%m%dT%H%M%S%z  => 20211119T083748-0600      
+%FT%T%:z         => 2021-11-19T08:37:48-06:00 
+%Y%jT%H%M%S%z    => 2021323T083748-0600       
+%Y-%jT%T%:z      => 2021-323T08:37:48-06:00   
+%GW%V%uT%H%M%S%z => 2021W471T083748-0600      
+%G-W%V-%uT%T%:z  => 2021-W47-1T08:37:48-06:00 
+%Y%m%dT%H%M      => 20211119T0837             
+%FT%R            => 2021-11-19T08:37          
+%Y%jT%H%MZ       => 2021323T0837Z             
+%Y-%jT%RZ        => 2021-323T08:37Z           
+%GW%V%uT%H%M%z   => 2021W471T0837-0600        
+%G-W%V-%uT%R%:z  => 2021-W47-1T08:37-06:00    
+
+
+
+---
+
+
+time = Time.new  
+time.strftime("%d/%m/%Y") # "05/12/2015"
+time.strftime("%I:%M %p") # "11:04 PM"
+time.strftime("%d of %B, %Y") # "21 of December, 2015"
+
+
+
+---
+
+
+
+
 
 
 
