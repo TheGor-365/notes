@@ -38935,6 +38935,13 @@ Ancestry
 --------
 
 
+Stackoverflow questions
+-----------------------
+
+https://stackoverflow.com/questions/31559244/how-to-create-a-tree-with-ancestry-gem
+
+
+
 Gemfile
 -------
 
