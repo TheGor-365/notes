@@ -492,9 +492,95 @@ scp						                            --- копирует файлы с удал
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+navigation
+
+pwd                     # Показать текущую директорию
+ls                      # Список файлов
+ls -l                   # Подробный список (размер, права, даты)
+ls -a                   # Показать скрытые файлы (.gitignore)
+ls -lh                  # Читаемый размер (KB/MB)
+ls -lt                  # Сортировать по времени
+cd /path/to/dir         # Перейти в директорию
+cd ..                   # Назад на 1 уровень
+cd -                    # Вернуться в предыдущую директорию
 
 
 
+files
+
+
+touch file.txt          # Создать пустой файл
+cat file.txt            # Показать содержимое файла
+less file.txt           # Постраничный просмотр (q — выход)
+head -n 10 file.txt     # Первые 10 строк файла
+tail -n 10 file.txt     # Последние 10 строк
+tail -f log.txt         # Следить за логом в реальном времени
+
+cp file.txt copy.txt    # Копировать файл
+mv file.txt new.txt     # Переименовать или переместить файл
+rm file.txt             # Удалить файл
+
+
+
+directory
+
+
+
+mkdir new_folder        # Создать папку
+mkdir -p a/b/c          # Создать вложенные папки
+rmdir folder            # Удалить пустую папку
+rm -r folder            # Удалить папку с содержимым
+cp -r dir1 dir2         # Копировать папку рекурсивно
+mv folder /path/        # Переместить папку
+
+
+
+searching
+
+
+find . -name "*.rb"     # Найти все Ruby-файлы в текущей папке
+find / -type d -name logs  # Найти папку logs на диске
+grep "rails" file.txt   # Найти строку "rails" в файле
+grep -r "TODO" ./app    # Рекурсивный поиск текста
+
+
+
+zip
+
+
+tar -cvf archive.tar dir/    # Создать tar-архив
+tar -xvf archive.tar         # Распаковать tar
+tar -czvf archive.tar.gz dir # Создать tar.gz
+tar -xzvf archive.tar.gz     # Распаковать tar.gz
+
+zip -r archive.zip dir/      # Создать zip
+unzip archive.zip            # Распаковать zip
+
+
+
+rights
+
+
+ls -l                        # Посмотреть права
+chmod 644 file.txt           # Права rw-r--r--
+chmod +x script.sh           # Сделать исполняемым
+chown user:group file.txt    # Сменить владельца
+
+
+
+content
+
+
+nano file.txt                # Редактировать файл (nano)
+vi file.txt                  # Редактировать файл (vim)
+echo "Hello" > file.txt      # Перезаписать содержимое
+echo "New line" >> file.txt  # Добавить строку в конец
+
+
+
+diff file1.txt file2.txt     # Найти различия в 2 файлах
+wc -l file.txt               # Кол-во строк в файле
+md5sum file.txt              # Контрольная сумма
 
 
 

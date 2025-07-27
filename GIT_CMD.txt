@@ -744,7 +744,197 @@ q 								                                --- выход из diff и log
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
 
+1. Инициализация и настройка Git
+Команды:
 
+git init                          # Инициализация репозитория
+git clone URL                     # Клонировать существующий репозиторий
+git config --global user.name "Имя"       # Установить имя
+git config --global user.email "email"    # Установить email
+git config --list                 # Проверить настройки
+
+Best Practice:
+
+    Устанавливай имя и email глобально один раз, затем переопределяй локально для рабочих проектов, если нужно.
+
+    Всегда проверяй .gitignore перед первым коммитом.
+
+2. Работа с изменениями
+Основные команды:
+
+git status                        # Проверить статус изменений
+git add file                      # Добавить файл в индекс
+git add .                         # Добавить все изменения
+git commit -m "Сообщение"         # Коммит с сообщением
+git commit -am "Сообщение"        # Добавить и закоммитить отслеживаемые файлы
+
+Best Practice:
+
+    Не используй git add . без проверки git status.
+
+    Делай маленькие коммиты с осмысленными сообщениями — легче откатить изменения.
+
+    Сообщение должно содержать глагол в повелительном наклонении (например, "Fix bug with user login").
+
+3. История коммитов
+
+git log                           # История коммитов
+git log --oneline                 # Сжатый вид
+git log --graph --oneline --all   # Граф веток
+git show <hash>                   # Детали коммита
+
+Best Practice:
+
+    Используй git log --oneline --graph --decorate --all для наглядности.
+
+    Для поиска изменений по автору: git log --author="Имя".
+
+4. Ветки (branch)
+Создание и переключение:
+
+git branch                        # Список веток
+git branch new-feature            # Создать ветку
+git checkout new-feature          # Перейти в ветку
+git checkout -b new-feature       # Создать и перейти
+git switch -c new-feature         # Новый способ (git 2.23+)
+
+Удаление веток:
+
+git branch -d new-feature         # Удалить локальную ветку
+git push origin --delete new-feature  # Удалить удаленную ветку
+
+Best Practice:
+
+    Создавай отдельную ветку для каждой задачи (feature branch).
+
+    Не работай в main/master — делай merge или rebase через PR.
+
+5. Работа с удаленным репозиторием (GitHub)
+
+git remote add origin URL         # Подключить репозиторий
+git remote -v                     # Проверить подключение
+git push -u origin main           # Отправить ветку main
+git pull origin main              # Забрать обновления
+
+Best Practice:
+
+    Используй git pull --rebase вместо git pull для линейной истории.
+
+    Перед push всегда делай pull или fetch + rebase.
+
+6. Слияние и rebase
+Слияние (merge):
+
+git checkout main
+git merge new-feature
+
+Rebase:
+
+git checkout new-feature
+git rebase main
+
+Когда использовать что?
+
+    Merge — сохраняет историю веток, подходит для крупных проектов.
+
+    Rebase — делает историю линейной, удобно для feature-веток.
+
+7. Откат изменений
+
+git checkout file                # Отменить изменения в файле
+git reset --hard                 # Полный откат к последнему коммиту
+git reset --hard <hash>          # Откат к определенному коммиту
+git revert <hash>                # Создать обратный коммит
+
+Best Practice:
+
+    revert лучше для публичных веток, чтобы не ломать историю.
+
+    reset используй только на локальных ветках.
+
+8. Stash (сохранение черновиков)
+
+git stash                        # Сохранить незакоммиченные изменения
+git stash list                   # Список stash'ей
+git stash apply                  # Применить последний stash
+git stash pop                    # Применить и удалить stash
+
+9. Tag (релизы)
+
+git tag v1.0                     # Создать тег
+git push origin v1.0             # Отправить тег
+git tag                          # Список тегов
+
+10. Частые комбинации (рецепты)
+1. Создать ветку, закоммитить и запушить:
+
+git checkout -b feature/login
+git add .
+git commit -m "Add login form"
+git push -u origin feature/login
+
+2. Обновить ветку main и слить feature:
+
+git checkout main
+git pull origin main
+git checkout feature/login
+git rebase main
+git checkout main
+git merge feature/login
+
+3. Откатить последний коммит:
+
+git reset --soft HEAD~1      # Оставить изменения в рабочей директории
+git reset --hard HEAD~1      # Полностью удалить коммит и изменения
+
+4. Исправить последний коммит:
+
+git commit --amend
+
+11. Работа с GitHub (Best Practices)
+
+    Fork + Pull Request — не пушь напрямую в чужой репозиторий.
+
+    Используй GitHub Flow:
+
+        main всегда содержит стабильную версию.
+
+        Новые функции → feature/branch.
+
+        После проверки делай Pull Request.
+
+    Code Review — перед слиянием делай ревью.
+
+    GitHub Issues — связывай коммиты с задачами:
+    git commit -m "Fix login issue #42"
+
+12. Aliases (ускорение работы)
+
+Добавь в ~/.gitconfig:
+
+[alias]
+  st = status
+  co = checkout
+  br = branch
+  cm = commit -m
+  lg = log --oneline --graph --decorate --all
+
+Теперь можно писать: git st вместо git status.
+13. Лучшие практики Git
+
+    Делай частые коммиты: «маленькие и атомарные».
+
+    Перед коммитом проверяй код (rubocop, rspec).
+
+    Используй Pull Requests для всех изменений.
+
+    Пиши читабельные сообщения:
+
+        Заголовок ≤ 50 символов.
+
+        Описание — что и зачем изменено.
+
+    Не храни секреты и ключи в репозитории (используй .gitignore).
 
 
 

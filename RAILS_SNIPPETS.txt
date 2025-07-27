@@ -1136,6 +1136,634 @@ Make online video in browser faster
 Usefull rails commands
 ----------------------
 
+
+Rails console cmd's
+-------------------
+
+
+bin/rails console        # Запуск в текущем окружении (development)
+bin/rails c              # Короткая команда
+bin/rails c production   # Консоль в окружении production
+bin/rails c test         # Консоль в окружении test
+
+
+reload!                  # Перезагрузка кода (как перезапуск сервера)
+app.get "/"              # GET-запрос на /
+app.post "/users", params: { name: "Bob" }
+app.cookies              # Доступ к cookies
+app.session              # Доступ к сессии
+
+helper.number_to_currency(1234.5)   # Использовать view-хелперы
+Rails.application.routes.url_helpers.users_path  # URL-хелперы
+
+
+User.all                 # Все записи
+User.first               # Первая запись
+User.last                # Последняя запись
+User.find(1)             # Найти по ID
+User.find_by(email: "test@mail.com") # Найти по атрибуту
+User.where(active: true) # Фильтрация (Relation)
+User.where("age > ?", 18).order(:name)  # С условиями
+User.pluck(:email)       # Массив значений колонки
+User.count               # Кол-во записей
+
+# Создание и обновление
+u = User.new(name: "Alice", email: "alice@mail.com")
+u.save                   # Сохранить
+User.create(name: "John") # Создать и сохранить
+u.update(email: "new@mail.com") # Обновить
+
+# Удаление
+u.destroy                # Удалить запись
+User.delete_all          # Удалить все записи
+
+
+10.times { User.create(name: Faker::Name.name) }  # Используя gem 'faker'
+
+
+user.posts               # Все посты пользователя
+user.posts.create(title: "New post")  # Создать пост через ассоциацию
+post.user                # Пользователь, которому принадлежит пост
+
+
+user = User.first
+user.attributes          # Все поля
+user.name                # Доступ к полю
+user.changed?            # Изменен ли объект
+user.changes             # Что изменилось
+user.valid?              # Проверить валидации
+user.errors.full_messages  # Ошибки валидации
+
+
+Time.current             # Текущее время (зона Rails)
+1.day.ago                # Время 1 день назад
+2.weeks.from_now         # Через 2 недели
+Date.today               # Сегодня
+
+
+Rails.application.load_tasks
+Rake::Task['db:migrate'].invoke   # Запустить миграцию
+
+
+puts "Debug"              # Вывод текста
+pp user                   # Красивый вывод объекта
+logger.info "Message"     # Лог в Rails логах
+
+
+
+ActiveRecord::Base.connection.tables    # Список таблиц
+ActiveRecord::Base.connection.execute("SELECT * FROM users") # SQL-запрос
+Rails.logger.info User.all.inspect      # Логировать результат
+
+
+
+---
+
+
+
+
+redis config path
+-----------------
+
+
+/etc/redis/redis.conf
+
+
+
+---
+
+
+
+Redis Server
+------------
+
+
+# Остановить Redis
+sudo systemctl stop redis
+
+# Перезапустить
+sudo systemctl restart redis
+
+# Перезагрузить конфиг (без остановки)
+sudo systemctl reload redis
+
+
+
+---
+
+
+
+Redis
+------
+
+
+# Очистить кэш приложения
+bin/rails dev:cache        # Переключить кэш в dev (вкл/выкл)
+bin/rails tmp:cache:clear  # Очистить кэш tmp/cache
+
+# Проверить соединение с Redis в Rails console
+Rails.cache.redis.ping     # => "PONG" (если redis_cache_store)
+
+
+
+---
+
+
+
+Work with db
+------------
+
+
+select 0              # Переключиться на DB 0 (по умолчанию)
+select 1              # Перейти на DB 1
+dbsize                # Кол-во ключей в текущей базе
+move mykey 1          # Переместить ключ mykey в DB 1
+
+
+
+---
+
+
+
+Redis CLI
+---------
+
+
+# Проверка работы сервера
+ping                  # Проверка соединения (ответит PONG)
+
+# Установить ключ
+set mykey "Hello"
+
+# Получить значение
+get mykey             # Выведет "Hello"
+
+# Удалить ключ
+del mykey
+
+# Посмотреть все ключи
+keys *                # Покажет все ключи в базе
+
+# Установить TTL (в секундах)
+expire mykey 60
+
+# Проверить TTL
+ttl mykey
+
+# Информация о сервере
+info
+
+# Очистить все ключи (всех баз)
+flushall
+
+# Очистить только текущую базу
+flushdb
+
+
+
+---
+
+
+
+Redis on linux mint
+-------------------
+
+
+# Установка Redis
+sudo apt update
+sudo apt install redis-server
+
+# Запуск и автозагрузка
+sudo systemctl start redis
+sudo systemctl enable redis
+
+# Проверить статус
+sudo systemctl status redis
+
+# Проверить версию
+redis-server -v
+
+# Тест соединения
+redis-cli ping
+# Ответ: PONG
+
+
+
+---
+
+
+
+set for db in Linux
+-------------------
+
+# Установка sqlite3
+sudo apt install sqlite3 libsqlite3-dev
+
+# Установка PostgreSQL
+sudo apt install postgresql postgresql-contrib libpq-dev
+
+# Запуск PostgreSQL
+sudo service postgresql start
+sudo service postgresql status
+
+# Создать пользователя Rails (если не создан)
+sudo -u postgres createuser -s $USER
+
+
+
+Postgresql cmd's
+----------------
+
+
+4.1. Подключение
+
+# Открыть PostgreSQL-консоль
+psql -U postgres
+
+# Подключиться к базе
+\c my_app_development
+
+# Выход
+\q
+
+4.2. Основные команды psql
+
+\l         # Список баз данных
+\c db_name # Подключиться к базе
+\dt        # Список таблиц
+\d table   # Структура таблицы
+\du        # Список пользователей
+\dn        # Список схем
+\q         # Выход
+
+4.3. Создание и удаление
+
+# Создать базу
+createdb my_app_development -U postgres
+
+# Удалить базу
+dropdb my_app_development -U postgres
+
+5. Работа с пользователями PostgreSQL
+
+# Создать пользователя
+createuser myuser -P -s   # -P (запрос пароля), -s (superuser)
+
+# Изменить пароль пользователя
+psql -U postgres -c "ALTER USER myuser WITH PASSWORD 'newpassword';"
+
+6. Полезные команды Rails для PostgreSQL
+
+# Создать базу под текущий Rails-ENV
+RAILS_ENV=production bin/rails db:create
+
+# Выполнить миграции под production
+RAILS_ENV=production bin/rails db:migrate
+
+
+
+Sqlite3 cmd's
+-------------
+
+
+# Подключение к файлу базы
+sqlite3 db/development.sqlite3
+
+# Показать список таблиц
+.tables
+
+# Структура таблицы
+.schema table_name
+
+# Выполнить SQL-запрос
+SELECT * FROM users;
+
+# Выход
+.exit
+
+
+
+
+console rails
+-------------
+
+
+bin/rails dbconsole   # Откроет psql (PostgreSQL) или sqlite3 (SQLite)
+
+
+---
+
+
+Work with db rails
+------------------
+
+
+# Создать базу данных
+bin/rails db:create
+
+# Удалить базу данных
+bin/rails db:drop
+
+# Запустить миграции (создать таблицы/обновить схему)
+bin/rails db:migrate
+
+# Откатить последнюю миграцию
+bin/rails db:rollback
+
+# Откатить все миграции до нуля
+bin/rails db:migrate VERSION=0
+
+# Загрузить схему (db/schema.rb) в БД
+bin/rails db:schema:load
+
+# Сбросить базу данных (drop + create + migrate)
+bin/rails db:reset
+
+# Сидинг (запуск db/seeds.rb)
+bin/rails db:seed
+
+# Создать миграцию
+bin/rails g migration AddFieldToTable field_name:string
+
+# Проверить текущую версию схемы
+bin/rails db:version
+
+
+
+---
+
+
+
+# Rails New Cheat Sheet
+-----------------------
+
+
+## 1. Базовый шаблон
+rails new my_app                    # Новый проект (SQLite, Minitest, Webpacker)
+
+## 2. База данных
+rails new my_app -d postgresql      # PostgreSQL
+rails new my_app -d mysql           # MySQL
+rails new my_app -d mariadb         # MariaDB
+rails new my_app -d oracle          # Oracle
+rails new my_app -d sqlite3         # SQLite (по умолчанию)
+
+## 3. Режим API
+rails new my_api --api              # Минимальный стек для API
+
+## 4. Тесты
+rails new my_app -T                 # Без Minitest
+rails new my_app -T -M              # Без Minitest и Mailer-тестов (под RSpec)
+
+## 5. JavaScript (Rails 7)
+rails new my_app -j esbuild         # ESBuild
+rails new my_app -j rollup          # Rollup
+rails new my_app -j webpack         # Webpack
+rails new my_app -j importmap       # Importmap (по умолчанию)
+
+## 6. CSS (Rails 7)
+rails new my_app -c tailwind        # Tailwind CSS
+rails new my_app -c bootstrap       # Bootstrap 5
+rails new my_app -c bulma           # Bulma
+rails new my_app -c postcss         # PostCSS
+rails new my_app -c sass            # Sass
+
+## 7. Git и Bundle
+rails new my_app -G                 # Без Git init
+rails new my_app -B                 # Без bundle install
+
+## 8. Скип компонентов
+rails new my_app --skip-active-record   # Без ActiveRecord
+rails new my_app --skip-action-mailer   # Без Action Mailer
+rails new my_app --skip-action-cable    # Без Action Cable
+rails new my_app --skip-active-storage  # Без Active Storage
+rails new my_app --skip-sprockets       # Без Sprockets
+
+## 9. Минимальный шаблон
+rails new my_app --minimal          # Только базовый набор
+
+## 10. Шаблон
+rails new my_app -m URL             # Rails template из .rb файла
+
+## 11. Полный кастом
+rails new my_app -d postgresql --api -T -G -B \
+  --skip-active-record --skip-action-mailer \
+  --skip-action-cable -c tailwind -j esbuild
+
+
+---
+
+
+rails new my_app -c bootstrap -d postgresql -j esbuild
+
+
+---
+
+
+
+
+# Rails Generate Cheat Sheet
+----------------------------
+
+
+## 1. Основная форма команды
+rails generate GENERATOR NAME [options]
+# или
+rails g GENERATOR NAME [options]
+
+---
+
+## 2. Основные генераторы
+
+### 2.1. Scaffold (полный CRUD)
+rails g scaffold Post title:string body:text published:boolean
+# Создаёт модель, контроллер, представления, миграции, тесты, маршруты.
+
+### 2.2. Model (модель + миграция)
+rails g model Article title:string content:text views:integer
+# Опции:
+#   --skip-migration     # без миграции
+#   --parent=SuperClass  # унаследовать от SuperClass
+
+### 2.3. Controller
+rails g controller Posts index show new create
+# Создаёт контроллер и views для указанных экшенов.
+
+### 2.4. Resource (REST-контроллер)
+rails g resource Product name:string price:decimal
+# Создаёт модель, ресурсный контроллер, маршруты, миграции.
+
+### 2.5. Migration (только миграция)
+rails g migration AddViewsToArticles views:integer
+rails g migration CreateProducts name:string price:decimal
+
+### 2.6. Job (ActiveJob)
+rails g job Cleanup
+# Создаёт job-класс (app/jobs/cleanup_job.rb).
+
+### 2.7. Mailer
+rails g mailer UserMailer welcome_email password_reset
+# Создаёт класс для email и views.
+
+### 2.8. Helper
+rails g helper Posts
+# Создаёт helper-класс (app/helpers/posts_helper.rb).
+
+### 2.9. Channel (ActionCable)
+rails g channel Chat
+# Создаёт канал (app/channels/chat_channel.rb).
+
+### 2.10. Stimulus (Rails 7)
+rails g stimulus Chat
+# Создаёт Stimulus-контроллер JS.
+
+---
+
+## 3. Active Record генераторы
+
+### 3.1. Migration
+rails g migration AddPriceToProducts price:decimal
+rails g migration RemoveTitleFromArticles title:string
+rails g migration CreateJoinTable students courses
+
+### 3.2. Task
+rails g task cleanup:data
+# Создаёт Rake-task (lib/tasks/cleanup.rake).
+
+---
+
+## 4. Assets / JS / CSS
+
+### 4.1. Generator for JS
+rails g javascript hello
+# Создаёт JS-код (app/javascript/controllers/hello_controller.js).
+
+### 4.2. CSS Generator (Rails 7)
+rails g css framework_name
+# Устанавливает Tailwind/Bootstrap через hotwire-rails.
+
+---
+
+## 5. System & Test Generators
+
+### 5.1. System Test
+rails g system_test Posts
+# Создаёт тесты для System Testing (Capybara).
+
+### 5.2. Integration Test
+rails g integration_test Users
+# Тесты для интеграции.
+
+---
+
+## 6. Active Storage
+rails g active_storage:install
+# Миграции для ActiveStorage.
+
+---
+
+## 7. Devise (если установлен гем)
+rails g devise:install
+rails g devise User
+# Устанавливает аутентификацию.
+
+---
+
+## 8. Каноничные сокращения
+rails g scaffold <name>       # Полный набор (модель+контроллер+views+routes)
+rails g model <name>          # Только модель
+rails g controller <name>     # Только контроллер
+rails g migration <name>      # Только миграция
+rails g job <name>            # ActiveJob
+rails g mailer <name>         # Email-логика
+rails g channel <name>        # WebSockets (ActionCable)
+rails g stimulus <name>       # Stimulus контроллер
+rails g helper <name>         # View helper
+
+---
+
+## 9. Удаление генерации
+rails destroy scaffold Post
+rails destroy model Article
+# Отменяет генерацию (аналогично rails g).
+
+
+---
+
+
+
+# Rails Generators Cheat Sheet
+------------------------------
+
+
+## 1. Базовый синтаксис
+rails generate GENERATOR NAME [options]
+# или коротко:
+rails g GENERATOR NAME [options]
+
+---
+
+## 2. CRUD и модели
+rails g scaffold Post title:string body:text        # Полный CRUD
+rails g model Article title:string content:text     # Только модель + миграция
+rails g resource Product name:string price:decimal  # Модель + контроллер + routes
+rails g migration AddPriceToProducts price:decimal  # Только миграция
+
+---
+
+## 3. Контроллеры и представления
+rails g controller Posts index show new create      # Контроллер + views
+rails g helper Posts                                # Хелпер для views
+
+---
+
+## 4. Фоновая логика
+rails g job Cleanup                                 # ActiveJob
+rails g mailer UserMailer welcome_email             # Почтовый класс + views
+rails g channel Chat                                # ActionCable канал (WebSocket)
+rails g stimulus Chat                               # Stimulus-контроллер JS
+
+---
+
+## 5. ActiveStorage / ActionText
+rails g active_storage:install                      # Устанавливает ActiveStorage
+rails g action_text:install                         # Устанавливает ActionText (Trix)
+
+---
+
+## 6. Тесты
+rails g system_test Posts                           # System test (Capybara)
+rails g integration_test Users                      # Integration test
+rails g generator Example                           # Создаёт кастомный генератор
+
+---
+
+## 7. Assets, JS, CSS
+rails g javascript hello                            # JS (app/javascript/controllers)
+rails g css tailwind                                # CSS фреймворк (Rails 7)
+
+---
+
+## 8. Задачи и утилиты
+rails g task cleanup:data                           # Rake-задача (lib/tasks)
+rails g migration CreateJoinTable students courses  # Join таблица
+
+---
+
+## 9. Devise (если установлен гем)
+rails g devise:install                              # Установка Devise
+rails g devise User                                 # Модель User с auth
+
+---
+
+## 10. Удаление
+rails destroy scaffold Post                         # Удалить scaffold
+rails destroy model Article                         # Удалить модель
+
+
+---
+
+
 Simple form for rails
 ---------------------
 
@@ -1541,6 +2169,1095 @@ $ rails g migration add_category_to_products category:references
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+1. Action Text (Редактор + Trix)
+
+Используется для WYSIWYG-редактора с хранением контента (Trix Editor).
+
+Установка:
+
+bin/rails action_text:install
+bin/rails db:migrate
+
+Использование:
+
+# Модель
+class Article < ApplicationRecord
+  has_rich_text :content
+end
+
+Форма (ERB):
+
+<%= form_with model: @article do |form| %>
+  <%= form.rich_text_area :content %>
+<% end %>
+
+Вывод в шаблоне:
+
+<%= @article.content %>
+
+2. Action Mailer (Отправка почты)
+
+Создать mailer:
+
+bin/rails g mailer UserMailer
+
+Mailer-класс:
+
+class UserMailer < ApplicationMailer
+  def welcome_email(user)
+    @user = user
+    mail(to: @user.email, subject: "Добро пожаловать!")
+  end
+end
+
+Вызов из контроллера:
+
+UserMailer.welcome_email(@user).deliver_now
+UserMailer.welcome_email(@user).deliver_later  # через ActiveJob
+
+Настройка SMTP (config/environments/production.rb):
+
+config.action_mailer.delivery_method = :smtp
+config.action_mailer.smtp_settings = {
+  address: "smtp.gmail.com",
+  port: 587,
+  user_name: ENV["SMTP_USER"],
+  password: ENV["SMTP_PASS"],
+  authentication: :plain,
+  enable_starttls_auto: true
+}
+
+3. Active Storage (Загрузка файлов)
+
+Установка:
+
+bin/rails active_storage:install
+bin/rails db:migrate
+
+Пример модели:
+
+class User < ApplicationRecord
+  has_one_attached :avatar
+  has_many_attached :photos
+end
+
+Форма (ERB):
+
+<%= form.file_field :avatar %>
+<%= form.file_field :photos, multiple: true %>
+
+Вывод файла:
+
+<%= image_tag @user.avatar.variant(resize_to_fill: [100, 100]) %>
+
+4. Action Cable (WebSockets)
+
+Создание канала:
+
+bin/rails g channel Chat
+
+Канал:
+
+class ChatChannel < ApplicationCable::Channel
+  def subscribed
+    stream_from "chat_#{params[:room]}"
+  end
+
+  def speak(data)
+    ActionCable.server.broadcast("chat_#{params[:room]}", message: data["message"])
+  end
+end
+
+Клиент (JavaScript):
+
+import consumer from "channels/consumer"
+
+const chat = consumer.subscriptions.create({ channel: "ChatChannel", room: "lobby" }, {
+  received(data) { console.log(data) },
+  speak(msg) { this.perform("speak", { message: msg }) }
+})
+
+5. Active Job (Фоновые задачи)
+
+Генерация:
+
+bin/rails g job Cleanup
+
+Job:
+
+class CleanupJob < ApplicationJob
+  queue_as :default
+
+  def perform(*args)
+    User.inactive.destroy_all
+  end
+end
+
+Вызов:
+
+CleanupJob.perform_later  # асинхронно
+CleanupJob.perform_now    # синхронно
+
+С Sidekiq (config/application.rb):
+
+config.active_job.queue_adapter = :sidekiq
+
+6. Active Record (ORM)
+
+CRUD:
+
+User.create(name: "Alice")
+User.find(1)
+User.where(active: true)
+User.update_all(active: false)
+User.destroy_all
+
+Ассоциации:
+
+class User < ApplicationRecord
+  has_many :posts
+end
+class Post < ApplicationRecord
+  belongs_to :user
+end
+
+7. Action Mailbox (Входящие письма)
+
+Установка:
+
+bin/rails action_mailbox:install
+bin/rails db:migrate
+
+Mailbox-класс:
+
+class SupportMailbox < ApplicationMailbox
+  def process
+    Support.create!(subject: mail.subject, body: mail.decoded)
+  end
+end
+
+8. Active Support (Утилиты Rails)
+
+Time/Date helpers:
+
+1.day.ago
+2.weeks.from_now
+3.hours.since(Time.current)
+
+String helpers:
+
+"hello".pluralize     # => "hellos"
+"hello".titleize      # => "Hello"
+"my_app".camelize     # => "MyApp"
+
+9. Hotwire (Turbo + Stimulus)
+
+Turbo Frames (ERB):
+
+<turbo-frame id="messages">
+  <%= render @messages %>
+</turbo-frame>
+
+Stimulus Controller:
+
+import { Controller } from "@hotwired/stimulus"
+export default class extends Controller {
+  greet() { alert("Hello!") }
+}
+
+10. Action View (Хелперы для Views)
+
+Формы:
+
+<%= form_with model: @user do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.submit "Save" %>
+<% end %>
+
+Пути:
+
+<%= link_to "Home", root_path %>
+<%= button_to "Delete", user_path(@user), method: :delete %>
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+ACTION TEXT
+-----------Action Text + Bootstrap 5: Гайд по кастомизации
+1. Подключение Bootstrap стилей
+
+В Rails 7 (с importmap) в app/assets/stylesheets/application.bootstrap.scss:
+
+@import "bootstrap";
+@import "actiontext";
+@import "trix_custom"; // Кастомные стили для Trix
+
+2. Базовая интеграция с Bootstrap
+
+Форма с Action Text:
+
+<%= form_with model: @article, class: "needs-validation" do |f| %>
+  <div class="mb-3">
+    <%= f.label :title, class: "form-label" %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :content, class: "form-label" %>
+    <%= f.rich_text_area :content, class: "form-control trix-content" %>
+  </div>
+
+  <%= f.submit "Сохранить", class: "btn btn-primary" %>
+<% end %>
+
+3. Унификация стилей Trix под Bootstrap
+
+app/assets/stylesheets/trix_custom.scss:
+
+.trix-toolbar {
+  @extend .btn-toolbar;
+  background: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+  padding: 0.25rem;
+}
+
+.trix-button {
+  @extend .btn;
+  @extend .btn-outline-secondary;
+  margin: 0 0.125rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.trix-button.trix-active {
+  @extend .btn-primary;
+  color: #fff;
+}
+
+10 Готовых Тем для Trix с Bootstrap
+Тема 1. Light (по умолчанию Bootstrap)
+
+.trix-content {
+  background: #fff;
+  color: #212529;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+  padding: 0.75rem;
+}
+
+Тема 2. Dark (Bootstrap Dark)
+
+.trix-content {
+  background: #212529;
+  color: #f8f9fa;
+  border: 1px solid #444;
+  border-radius: 0.375rem;
+  padding: 0.75rem;
+}
+
+.trix-toolbar {
+  background: #343a40;
+  border: 1px solid #444;
+}
+
+Тема 3. Minimal (серый фон)
+
+.trix-content {
+  background: #f1f3f5;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+}
+
+Тема 4. Material-like
+
+.trix-content {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 0.75rem;
+}
+.trix-button.trix-active {
+  background: #6200ee;
+  color: #fff;
+}
+
+Тема 5. Glass
+
+.trix-content {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(200, 200, 200, 0.4);
+  border-radius: 0.375rem;
+  padding: 0.75rem;
+}
+
+Тема 6. Compact
+
+.trix-toolbar {
+  padding: 0.15rem;
+}
+.trix-button {
+  padding: 0.15rem 0.3rem;
+  font-size: 0.75rem;
+}
+.trix-content {
+  font-size: 0.875rem;
+  padding: 0.5rem;
+}
+
+Тема 7. Modern Blue
+
+.trix-toolbar {
+  background: #0d6efd;
+}
+.trix-button {
+  background: #fff;
+  color: #0d6efd;
+}
+.trix-button.trix-active {
+  background: #0a58ca;
+  color: #fff;
+}
+
+Тема 8. Rounded
+
+.trix-toolbar, .trix-content {
+  border-radius: 1rem;
+}
+.trix-button {
+  border-radius: 1rem;
+}
+
+Тема 9. Borderless
+
+.trix-toolbar, .trix-content {
+  border: none;
+  box-shadow: none;
+}
+
+Тема 10. Custom Brand (пример для iLab)
+
+.trix-toolbar {
+  background: #f5f5f5;
+}
+.trix-button.trix-active {
+  background: #ff3b30; // фирменный цвет
+}
+.trix-content {
+  border-color: #ff3b30;
+}
+
+4. Удаление ненужных инструментов
+
+document.addEventListener("trix-initialize", () => {
+  const toolbar = document.querySelector("trix-toolbar");
+  toolbar.querySelector("[data-trix-button-group='file-tools']").remove(); 
+  toolbar.querySelector("[data-trix-attribute='quote']").remove(); 
+});
+
+5. Добавление кастомных кнопок
+
+JS:
+
+document.addEventListener("trix-initialize", () => {
+  const textTools = document.querySelector("[data-trix-button-group='text-tools']");
+  textTools.insertAdjacentHTML(
+    'beforeend',
+    '<button type="button" class="btn btn-warning trix-button" data-trix-attribute="highlight">HL</button>'
+  );
+});
+
+CSS:
+
+.trix-content [highlight] {
+  background: yellow;
+  padding: 0 2px;
+}
+
+6. Лайфхаки (Best Practices)
+
+    Используй SCSS с Bootstrap mixins для единообразия.
+
+    Оборачивай редактор в контейнер form-control для сохранения стилей Bootstrap.
+
+    Не правь node_modules/trix, делай переопределения через свой trix_custom.scss.
+
+    Если нужна подсветка кода, интегрируй highlight.js вместе с Action Text.
+
+    Для мобайла добавь max-height и overflow-y: auto; у .trix-editor.
+
+Хочешь, я сделаю готовый trix_bootstrap.scss с 10 темами и подключу его в виде шаблона для Rails 7?
+
+Сгенерить готовый SCSS-файл (10 тем + миксин Bootstrap)?
+You said:
+Давай
+ChatGPT said:
+
+Ниже готовый trix_bootstrap.scss, который содержит все 10 тем + миксин для удобного переключения стилей Trix (Action Text) под Bootstrap 5. Этот файл можно сразу подключить в проект Rails 7.
+app/assets/stylesheets/trix_bootstrap.scss
+
+// Подключаем Bootstrap переменные и миксины
+@import "bootstrap";
+
+// ===============================
+// Общие стили для Trix под Bootstrap
+// ===============================
+.trix-toolbar {
+  @extend .btn-toolbar;
+  border: 1px solid $gray-300;
+  border-radius: $border-radius;
+  background: $body-bg;
+  padding: 0.25rem;
+}
+
+.trix-button {
+  @extend .btn;
+  @extend .btn-outline-secondary;
+  margin: 0 0.125rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.trix-button.trix-active {
+  @extend .btn-primary;
+  color: $white;
+}
+
+.trix-content {
+  @extend .form-control;
+  padding: 0.75rem;
+  min-height: 200px;
+  line-height: 1.5;
+  border-radius: $border-radius;
+}
+
+// ===============================
+// Темы для Trix Editor
+// ===============================
+
+// Миксин для тем
+@mixin trix-theme($bg, $color, $toolbar-bg, $toolbar-border, $active-bg) {
+  .trix-content {
+    background: $bg;
+    color: $color;
+    border: 1px solid $toolbar-border;
+  }
+  .trix-toolbar {
+    background: $toolbar-bg;
+    border: 1px solid $toolbar-border;
+  }
+  .trix-button.trix-active {
+    background: $active-bg;
+    color: $white;
+  }
+}
+
+// 1. Light
+.trix-theme-light {
+  @include trix-theme($white, $body-color, $body-bg, $gray-300, $primary);
+}
+
+// 2. Dark
+.trix-theme-dark {
+  @include trix-theme(#212529, $white, #343a40, #444, $primary);
+}
+
+// 3. Minimal
+.trix-theme-minimal {
+  @include trix-theme(#f1f3f5, $body-color, #f8f9fa, $gray-300, $primary);
+}
+
+// 4. Material-like
+.trix-theme-material {
+  @include trix-theme($white, $body-color, #fafafa, #e0e0e0, #6200ee);
+}
+
+// 5. Glass
+.trix-theme-glass {
+  .trix-content {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(200, 200, 200, 0.4);
+  }
+  .trix-toolbar {
+    background: rgba(250, 250, 250, 0.7);
+    backdrop-filter: blur(6px);
+  }
+}
+
+// 6. Compact
+.trix-theme-compact {
+  .trix-toolbar {
+    padding: 0.15rem;
+  }
+  .trix-button {
+    padding: 0.15rem 0.3rem;
+    font-size: 0.75rem;
+  }
+  .trix-content {
+    font-size: 0.875rem;
+    padding: 0.5rem;
+  }
+}
+
+// 7. Modern Blue
+.trix-theme-modern-blue {
+  .trix-toolbar {
+    background: $primary;
+  }
+  .trix-button {
+    background: $white;
+    color: $primary;
+  }
+  .trix-button.trix-active {
+    background: darken($primary, 10%);
+    color: $white;
+  }
+}
+
+// 8. Rounded
+.trix-theme-rounded {
+  .trix-toolbar,
+  .trix-content,
+  .trix-button {
+    border-radius: 1rem;
+  }
+}
+
+// 9. Borderless
+.trix-theme-borderless {
+  .trix-toolbar,
+  .trix-content {
+    border: none;
+    box-shadow: none;
+  }
+}
+
+// 10. Custom Brand (пример для iLab)
+.trix-theme-ilab {
+  .trix-toolbar {
+    background: #f5f5f5;
+  }
+  .trix-button.trix-active {
+    background: #ff3b30;
+    color: $white;
+  }
+  .trix-content {
+    border-color: #ff3b30;
+  }
+}
+
+// ===============================
+// Стили вложений
+// ===============================
+.trix-content .attachment {
+  display: block;
+  margin: 10px auto;
+  text-align: center;
+}
+
+.trix-content .attachment img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+// Placeholder
+.trix-editor[placeholder]:empty:before {
+  color: $gray-500;
+  font-style: italic;
+}
+
+Как использовать тему?
+
+    Подключи trix_bootstrap.scss в app/assets/stylesheets/application.bootstrap.scss:
+
+@import "bootstrap";
+@import "actiontext";
+@import "trix_bootstrap";
+
+В форме укажи класс темы:
+
+    <%= form.rich_text_area :content, class: "trix-content trix-theme-dark" %>
+
+---
+
+
+1. Генератор: trix_bootstrap:install
+
+Структура генератора:
+
+lib/generators/trix_bootstrap/
+  install/
+    install_generator.rb
+  templates/
+    trix_bootstrap.scss
+
+2. Код генератора
+
+Создай файл:
+lib/generators/trix_bootstrap/install/install_generator.rb
+
+module TrixBootstrap
+  class InstallGenerator < Rails::Generators::Base
+    source_root File.expand_path('templates', __dir__)
+    desc "Устанавливает кастомный Trix Editor с Bootstrap темами"
+
+    def copy_stylesheet
+      say "Копирую кастомные стили Trix в app/assets/stylesheets/trix_bootstrap.scss", :green
+      copy_file "trix_bootstrap.scss", "app/assets/stylesheets/trix_bootstrap.scss"
+    end
+
+    def update_application_styles
+      app_styles = "app/assets/stylesheets/application.bootstrap.scss"
+      unless File.readlines(app_styles).grep(/trix_bootstrap/).any?
+        append_to_file app_styles, "\n@import \"trix_bootstrap\";\n"
+        say "Добавлен @import 'trix_bootstrap' в #{app_styles}", :green
+      end
+    end
+
+    def action_text_install
+      say "Запускаю установку Action Text", :yellow
+      run "bin/rails action_text:install"
+    end
+
+    def show_instructions
+      say "\nУстановка завершена! Используй тему в форме:", :green
+      say "<%= form.rich_text_area :content, class: \"trix-content trix-theme-dark\" %>\n", :blue
+    end
+  end
+end
+
+3. Шаблон SCSS
+
+Создай файл:
+lib/generators/trix_bootstrap/install/templates/trix_bootstrap.scss
+
+Содержимое: (возьми мой предыдущий trix_bootstrap.scss, с 10 темами и кастомизацией).
+4. Запуск генератора
+
+После добавления файлов в проект:
+
+bin/rails g trix_bootstrap:install
+
+Генератор выполнит:
+
+    Установку Action Text (bin/rails action_text:install).
+
+    Создание файла app/assets/stylesheets/trix_bootstrap.scss.
+
+    Автоматическое подключение @import "trix_bootstrap"; в application.bootstrap.scss.
+
+
+
+---
+
+
+1. Структура файлов генератора
+
+lib/generators/trix_bootstrap/
+  install/
+    install_generator.rb
+  templates/
+    trix_bootstrap.scss
+    trix_custom.js
+
+2. Код генератора
+
+lib/generators/trix_bootstrap/install/install_generator.rb:
+
+module TrixBootstrap
+  class InstallGenerator < Rails::Generators::Base
+    source_root File.expand_path('templates', __dir__)
+    desc "Устанавливает кастомный Trix Editor с Bootstrap темами и кастомными кнопками"
+
+    def copy_stylesheet
+      say "Копирую кастомные стили Trix (10 тем)...", :green
+      copy_file "trix_bootstrap.scss", "app/assets/stylesheets/trix_bootstrap.scss"
+    end
+
+    def update_application_styles
+      app_styles = "app/assets/stylesheets/application.bootstrap.scss"
+      unless File.readlines(app_styles).grep(/trix_bootstrap/).any?
+        append_to_file app_styles, "\n@import \"trix_bootstrap\";\n"
+        say "Добавлен @import 'trix_bootstrap' в #{app_styles}", :green
+      end
+    end
+
+    def copy_js
+      say "Добавляю trix_custom.js (удаление кнопок и Highlight)...", :green
+      copy_file "trix_custom.js", "app/javascript/trix_custom.js"
+    end
+
+    def update_application_js
+      js_file = "app/javascript/application.js"
+      if File.exist?(js_file)
+        unless File.readlines(js_file).grep(/trix_custom/).any?
+          append_to_file js_file, "\nimport \"./trix_custom\";\n"
+          say "Добавлен import './trix_custom' в #{js_file}", :green
+        end
+      else
+        say "Внимание! Не найден #{js_file}. Подключи trix_custom.js вручную.", :yellow
+      end
+    end
+
+    def action_text_install
+      say "Устанавливаю Action Text...", :yellow
+      run "bin/rails action_text:install"
+    end
+
+    def show_instructions
+      say "\nУстановка завершена!", :green
+      say "Используй тему (например, dark):", :green
+      say "<%= form.rich_text_area :content, class: \"trix-content trix-theme-dark\" %>\n", :blue
+    end
+  end
+end
+
+3. JS-файл для кастомизации тулбара
+
+lib/generators/trix_bootstrap/install/templates/trix_custom.js:
+
+// Custom Trix Toolbar for Rails + Bootstrap
+document.addEventListener("trix-initialize", () => {
+  const toolbar = document.querySelector("trix-toolbar");
+
+  // Удаляем ненужные кнопки (пример: загрузка файлов)
+  const fileTools = toolbar.querySelector("[data-trix-button-group='file-tools']");
+  if (fileTools) fileTools.remove();
+
+  // Добавляем кастомную кнопку "Highlight"
+  const textTools = toolbar.querySelector("[data-trix-button-group='text-tools']");
+  if (textTools) {
+    textTools.insertAdjacentHTML(
+      'beforeend',
+      '<button type="button" class="btn btn-warning trix-button" data-trix-attribute="highlight" title="Highlight">HL</button>'
+    );
+  }
+});
+
+// Стилизация атрибута highlight через CSS
+document.addEventListener("trix-change", () => {
+  const style = document.createElement('style');
+  style.innerHTML = `
+    .trix-content [highlight] {
+      background: yellow;
+      padding: 0 2px;
+    }
+  `;
+  document.head.appendChild(style);
+});
+
+4. SCSS-шаблон
+
+В файл lib/generators/trix_bootstrap/install/templates/trix_bootstrap.scss помещается тот же SCSS с 10 темами, который я сделал выше (с Bootstrap mixins).
+5. Как использовать генератор?
+
+    Скопируй lib/generators/trix_bootstrap в проект.
+
+    Запусти:
+
+bin/rails g trix_bootstrap:install
+
+Теперь Action Text стилизован, а тулбар кастомизирован.
+
+
+
+---
+
+
+1. Структура будущего gem
+
+trix_bootstrap/
+  lib/
+    trix_bootstrap.rb
+    trix_bootstrap/
+      version.rb
+      railtie.rb
+      generators/
+        trix_bootstrap/
+          install/
+            install_generator.rb
+          templates/
+            trix_bootstrap.scss
+            trix_custom.js
+  trix_bootstrap.gemspec
+  README.md
+
+2. Создание каркаса gem
+
+Выполни команду:
+
+bundle gem trix_bootstrap --no-coc --no-mit --no-test --no-ext
+
+Это создаст директорию trix_bootstrap/ с базовыми файлами.
+3. Файл lib/trix_bootstrap.rb
+
+require "trix_bootstrap/version"
+require "trix_bootstrap/railtie" if defined?(Rails)
+
+module TrixBootstrap
+  class Error < StandardError; end
+end
+
+4. Версия gem
+
+lib/trix_bootstrap/version.rb
+
+module TrixBootstrap
+  VERSION = "0.1.0"
+end
+
+5. Railtie (автоподключение генераторов)
+
+lib/trix_bootstrap/railtie.rb
+
+module TrixBootstrap
+  class Railtie < Rails::Railtie
+  end
+end
+
+6. Генератор
+
+lib/trix_bootstrap/generators/trix_bootstrap/install/install_generator.rb
+
+module TrixBootstrap
+  module Generators
+    class InstallGenerator < Rails::Generators::Base
+      source_root File.expand_path('templates', __dir__)
+      desc "Устанавливает Action Text с кастомными стилями под Bootstrap."
+
+      def copy_stylesheet
+        say "Копирую trix_bootstrap.scss...", :green
+        copy_file "trix_bootstrap.scss", "app/assets/stylesheets/trix_bootstrap.scss"
+      end
+
+      def update_application_styles
+        app_styles = "app/assets/stylesheets/application.bootstrap.scss"
+        if File.exist?(app_styles) && !File.read(app_styles).include?("trix_bootstrap")
+          append_to_file app_styles, "\n@import \"trix_bootstrap\";\n"
+          say "Добавлен @import 'trix_bootstrap' в #{app_styles}", :green
+        end
+      end
+
+      def copy_js
+        say "Добавляю trix_custom.js (кастомизация тулбара)...", :green
+        copy_file "trix_custom.js", "app/javascript/trix_custom.js"
+      end
+
+      def update_application_js
+        js_file = "app/javascript/application.js"
+        if File.exist?(js_file) && !File.read(js_file).include?("trix_custom")
+          append_to_file js_file, "\nimport \"./trix_custom\";\n"
+          say "Добавлен import './trix_custom' в #{js_file}", :green
+        end
+      end
+
+      def action_text_install
+        say "Запускаю установку Action Text...", :yellow
+        run "bin/rails action_text:install"
+      end
+
+      def show_instructions
+        say "\nУстановка завершена!", :green
+        say "Пример использования:", :green
+        say "<%= form.rich_text_area :content, class: \"trix-content trix-theme-dark\" %>\n", :blue
+      end
+    end
+  end
+end
+
+7. Шаблоны
+
+    lib/trix_bootstrap/generators/trix_bootstrap/install/templates/trix_bootstrap.scss
+    (используй trix_bootstrap.scss с 10 темами и Bootstrap mixins, как мы сделали ранее).
+
+    lib/trix_bootstrap/generators/trix_bootstrap/install/templates/trix_custom.js
+    (используй trix_custom.js с удалением кнопок и Highlight).
+
+8. Gemspec (trix_bootstrap.gemspec)
+
+Gem::Specification.new do |spec|
+  spec.name          = "trix_bootstrap"
+  spec.version       = TrixBootstrap::VERSION
+  spec.authors       = ["Твое имя"]
+  spec.email         = ["you@example.com"]
+  spec.summary       = "Trix + Bootstrap custom styles and generator"
+  spec.description   = "Гем для быстрой интеграции Action Text с кастомными Bootstrap-темами и тулбаром."
+  spec.files         = Dir["lib/**/*", "README.md"]
+  spec.require_paths = ["lib"]
+  spec.add_dependency "rails", ">= 6.0"
+end
+
+9. Установка локально
+
+Выполни:
+
+gem build trix_bootstrap.gemspec
+gem install trix_bootstrap-0.1.0.gem
+
+Или подключи локально:
+
+gem "trix_bootstrap", path: "/path/to/trix_bootstrap"
+
+10. Использование
+
+bin/rails g trix_bootstrap:install
+
+
+Как использовать:
+
+    Распакуй архив:
+
+unzip trix_bootstrap_gem.zip
+cd trix_bootstrap
+
+Собери gem:
+
+gem build trix_bootstrap.gemspec
+gem install trix_bootstrap-0.1.0.gem
+
+В Gemfile проекта:
+
+gem "trix_bootstrap", path: "/path/to/trix_bootstrap"
+
+Запусти:
+
+bin/rails g trix_bootstrap:install
+
+# Trix Bootstrap
+
+`trix_bootstrap` — это gem для **кастомизации Action Text (Trix Editor)** в Rails 6/7, с поддержкой **Bootstrap 5**, готовыми темами, кастомными кнопками и улучшенной стилизацией.
+
+---
+
+## **Возможности**
+- Устанавливает и настраивает **Action Text**.
+- Добавляет **стили `trix_bootstrap.scss`** с 10 готовыми темами для редактора.
+- Кастомизирует тулбар Trix (удаление ненужных кнопок, добавление своих).
+- Поддержка **Bootstrap 5** классов и цветовой схемы.
+- Удобный генератор:
+  ```bash
+  bin/rails g trix_bootstrap:install
+
+
+
+  ---
+
+
+  Установка
+1. Добавление gem
+
+В Gemfile:
+
+gem "trix_bootstrap", path: "/path/to/trix_bootstrap"
+
+или (если опубликован):
+
+gem "trix_bootstrap"
+
+Затем:
+
+bundle install
+
+2. Установка через генератор
+
+bin/rails g trix_bootstrap:install
+
+Генератор выполнит:
+
+    Установку Action Text (bin/rails action_text:install).
+
+    Копирование файла app/assets/stylesheets/trix_bootstrap.scss.
+
+    Подключение @import "trix_bootstrap"; в application.bootstrap.scss.
+
+    Создание JS-файла app/javascript/trix_custom.js для кастомизации тулбара.
+
+Использование
+Форма с редактором
+
+<%= form_with model: @article do |f| %>
+  <div class="mb-3">
+    <%= f.label :content, class: "form-label" %>
+    <%= f.rich_text_area :content, class: "form-control trix-content trix-theme-dark" %>
+  </div>
+  <%= f.submit "Сохранить", class: "btn btn-primary" %>
+<% end %>
+
+Доступные темы
+
+Используй класс trix-theme-*:
+
+    trix-theme-light (по умолчанию)
+
+    trix-theme-dark
+
+    trix-theme-minimal
+
+    trix-theme-material
+
+    trix-theme-glass
+
+    trix-theme-compact
+
+    trix-theme-modern-blue
+
+    trix-theme-rounded
+
+    trix-theme-borderless
+
+    trix-theme-ilab (пример кастомного бренда)
+
+Пример:
+
+<%= form.rich_text_area :content, class: "trix-content trix-theme-material" %>
+
+Кастомные кнопки
+
+По умолчанию trix_custom.js:
+
+    Удаляет блок file-tools (загрузка файлов).
+
+    Добавляет кнопку Highlight.
+
+Кнопка Highlight выделяет текст:
+
+.trix-content [highlight] {
+  background: yellow;
+  padding: 0 2px;
+}
+
+Обновление Action Text
+
+Если уже установлен Action Text, генератор просто добавит кастомные стили и JS.
+Удаление
+
+Если нужно удалить кастомные файлы:
+
+rm app/assets/stylesheets/trix_bootstrap.scss
+rm app/javascript/trix_custom.js
+
+И убери @import "trix_bootstrap"; из application.bootstrap.scss.
+
+
 
 Associations (Rails 6)
 ----------------------
@@ -11123,6 +12840,774 @@ layouts/application.html.erb
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+
+Dynamic Content in Rails
+------------------------
+
+
+Turbo / Hotwire
+---------------
+
+
+jQuery + AJAX
+-------------
+
+1. Установка и настройка
+------------------------
+
+Добавляем jquery-rails в Gemfile:
+---------------------------------
+
+gem 'jquery-rails'
+bundle install
+yarn add jquery
+
+
+
+
+
+Подключаем jQuery и Rails UJS:
+------------------------------
+
+app/javascript/application.js
+-----------------------------
+
+import $ from "jquery";
+window.$ = $
+window.jQuery = $
+
+import Rails from "@rails/ujs"
+Rails.start()
+
+import "./products"   // наш AJAX-скрипт
+
+
+
+
+
+2. Роутинг
+----------
+
+config/routes.rb
+----------------
+
+Rails.application.routes.draw do
+  root "products#index"
+
+  resources :products, only: [:index] do
+    member do
+      get :product_details
+    end
+  end
+end
+
+
+
+
+
+3. Контроллер
+-------------
+
+app/controllers/products_controller.rb
+--------------------------------------
+
+class ProductsController < ApplicationController
+  protect_from_forgery except: :product_details
+
+  def index
+    @products = Product.all
+  end
+
+  def product_details
+    @product = Product.find(params[:id])
+    respond_to do |format|
+      format.js   # product_details.js.erb
+    end
+  end
+end
+
+
+
+
+
+4. Вьюхи
+--------
+
+4.1. Список товаров
+-------------------
+
+app/views/products/index.html.erb
+---------------------------------
+
+<h1>Список товаров</h1>
+
+<ul id="products-list">
+  <% @products.each do |product| %>
+    <li>
+      <%= product.name %> - <%= number_to_currency(product.price, unit: "₽") %>
+    </li>
+    <button class="btn btn-sm btn-primary product-details-btn"
+            data-id="<%= product.id %>"
+            data-turbo="false">
+      Details (AJAX)
+    </button>
+  <% end %>
+</ul>
+
+<hr>
+
+<!-- Контейнер для AJAX -->
+<h2>Детали (AJAX)</h2>
+<div id="ajax-product-details" class="mt-4"></div>
+
+
+
+
+
+4.2. Партиал с деталями
+-----------------------
+
+app/views/products/partials/_product_details.html.erb
+-----------------------------------------------------
+
+<h3><%= product.name %></h3>
+<p><%= product.description %></p>
+<p><strong><%= number_to_currency(product.price, unit: "₽") %></strong></p>
+
+
+
+
+
+4.3. JS-шаблон для AJAX
+-----------------------
+
+app/views/products/product_details.js.erb
+
+$("#ajax-product-details")
+  .hide()
+  .html("<%= j render partial: 'products/partials/product_details', locals: { product: @product } %>")
+  .fadeIn(300);
+
+
+
+
+
+5. JS для AJAX
+--------------
+
+app/javascript/products.js
+--------------------------
+
+import $ from "jquery";
+
+$(document).on("click", ".product-details-btn", function (e) {
+  e.preventDefault();
+  const id = $(this).data("id");
+  console.log(`AJAX: загружаем продукт ID=${id}`);
+
+  $.ajax({
+    url: `/products/${id}/product_details`,
+    dataType: "script",
+    success: function () {
+      console.log("AJAX: данные загружены");
+    },
+    error: function (xhr) {
+      console.log("AJAX: ошибка:", xhr);
+    }
+  });
+});
+
+
+
+
+
+6. Проверка
+-----------
+
+Запускаем:
+----------
+
+bin/dev
+
+Открываем http://localhost:3000 и жмём Details (AJAX) — данные загружаются в #ajax-product-details.
+
+
+
+
+---
+
+
+
+
+Turbo Frames + Turbo Streams (Hotwire)
+--------------------------------------
+
+
+1. Установка и настройка
+------------------------
+
+Устанавливаем Hotwire (Turbo):
+------------------------------
+
+В Gemfile должно быть:
+----------------------
+
+gem "turbo-rails"
+bundle install
+
+
+
+
+
+Подключаем Turbo в app/javascript/application.js:
+-------------------------------------------------
+
+import "@hotwired/turbo-rails"
+import "./controllers"
+import * as bootstrap from "bootstrap"
+
+
+
+
+
+2. Роутинг
+----------
+
+config/routes.rb
+----------------
+
+Rails.application.routes.draw do
+  root "products#index"
+
+  resources :products, only: [:index] do
+    member do
+      get :product_details
+    end
+  end
+end
+
+
+
+
+
+3. Контроллер
+-------------
+
+app/controllers/products_controller.rb
+--------------------------------------
+
+class ProductsController < ApplicationController
+  def index
+    @products = Product.all
+  end
+
+  def product_details
+    @product = Product.find(params[:id])
+    respond_to do |format|
+      format.turbo_stream  # product_details.turbo_stream.erb
+      format.html { render partial: "products/partials/product_details", locals: { product: @product } }
+    end
+  end
+end
+
+
+
+
+
+4. Вьюхи
+--------
+
+
+4.1. Список товаров
+-------------------
+
+app/views/products/index.html.erb
+---------------------------------
+
+<h1>Список товаров</h1>
+
+<ul id="products-list">
+  <% @products.each do |product| %>
+    <li>
+      <%= product.name %> - <%= number_to_currency(product.price, unit: "₽") %>
+    </li>
+    <!-- Turbo кнопка -->
+    <%= link_to "Details (TURBO)",
+                product_details_product_path(product, format: :turbo_stream),
+                data: { turbo_frame: "turbo-product-details", turbo_prefetch: "false" },
+                class: "btn btn-sm btn-success" %>
+  <% end %>
+</ul>
+
+<hr>
+
+<!-- Turbo Frame -->
+<h2>Детали (Turbo)</h2>
+<turbo-frame id="turbo-product-details" class="mt-4"></turbo-frame>
+
+
+
+
+
+4.2. Партиал с деталями
+-----------------------
+
+app/views/products/partials/_product_details.html.erb
+-----------------------------------------------------
+
+<h3><%= product.name %></h3>
+<p><%= product.description %></p>
+<p><strong><%= number_to_currency(product.price, unit: "₽") %></strong></p>
+
+
+
+
+
+4.3. Turbo Stream шаблон
+------------------------
+
+app/views/products/product_details.turbo_stream.erb
+---------------------------------------------------
+
+<turbo-stream target="turbo-product-details" action="update">
+  <template>
+    <%= render partial: 'products/partials/product_details', formats: [:html], locals: { product: @product } %>
+  </template>
+</turbo-stream>
+
+
+
+
+
+5. Особенности
+--------------
+
+Turbo Frame с id="turbo-product-details" заменяется контентом из product_details.turbo_stream.erb.
+
+data-turbo-prefetch="false" отключает автоматическую подгрузку при наведении.
+
+
+
+
+
+6. Проверка
+-----------
+
+Запускаем:
+----------
+
+bin/dev
+
+Жмём Details (TURBO) — контент подгружается в <turbo-frame>.
+
+
+
+
+---
+
+
+
+
+Stimulus Controller (Fetch + Partial)
+-------------------------------------
+
+
+1. Установка и настройка Stimulus
+---------------------------------
+
+Устанавливаем Stimulus (если не установлен):
+--------------------------------------------
+
+bin/rails stimulus:install
+
+
+
+
+
+После установки в app/javascript/controllers/ появится index.js, а в application.js добавится:
+----------------------------------------------------------------------------------------------
+
+import "./controllers"
+
+
+
+
+
+Проверяем, что в app/javascript/application.js есть:
+----------------------------------------------------
+
+import "@hotwired/turbo-rails"
+import "./controllers"
+import * as bootstrap from "bootstrap"
+
+
+
+
+
+2. Роутинг
+----------
+
+В config/routes.rb оставляем существующий маршрут для product_details:
+----------------------------------------------------------------------
+
+Rails.application.routes.draw do
+  root "products#index"
+
+  resources :products, only: [:index] do
+    member do
+      get :product_details
+    end
+  end
+end
+
+
+
+
+
+3. Контроллер
+-------------
+
+В app/controllers/products_controller.rb добавляем HTML-ответ для Stimulus:
+---------------------------------------------------------------------------
+
+class ProductsController < ApplicationController
+  def index
+    @products = Product.all
+  end
+
+  def product_details
+    @product = Product.find(params[:id])
+    respond_to do |format|
+      format.html { render partial: 'products/partials/product_details', locals: { product: @product } }
+    end
+  end
+end
+
+
+
+
+
+4. Вьюхи
+--------
+
+4.1. Список товаров
+-------------------
+
+app/views/products/index.html.erb
+---------------------------------
+
+<h1>Список товаров</h1>
+
+<ul id="products-list">
+  <% @products.each do |product| %>
+    <li>
+      <%= product.name %> - <%= number_to_currency(product.price, unit: "₽") %>
+    </li>
+    <!-- Stimulus кнопка -->
+    <button class="btn btn-sm btn-warning"
+            data-id="<%= product.id %>"
+            data-action="click->product-details#show">
+      Details (Stimulus)
+    </button>
+  <% end %>
+</ul>
+
+<hr>
+
+<!-- Stimulus блок -->
+<h2>Детали (Stimulus)</h2>
+<div data-controller="product-details">
+  <div data-product-details-target="details" class="mt-4"></div>
+</div>
+
+
+
+
+
+4.2. Партиал с деталями
+-----------------------
+
+app/views/products/partials/_product_details.html.erb
+-----------------------------------------------------
+
+<h3><%= product.name %></h3>
+<p><%= product.description %></p>
+<p><strong><%= number_to_currency(product.price, unit: "₽") %></strong></p>
+
+
+
+
+
+5. Stimulus Controller
+----------------------
+
+Создаём app/javascript/controllers/product_details_controller.js:
+-----------------------------------------------------------------
+
+import { Controller } from "@hotwired/stimulus"
+
+// Контроллер для кнопок "Details (Stimulus)"
+export default class extends Controller {
+  static targets = ["details"]
+
+  connect() {
+    console.log("Stimulus product-details подключен");
+  }
+
+  show(event) {
+    event.preventDefault();
+    const productId = event.currentTarget.dataset.id;
+    console.log(`Загрузка деталей товара ID: ${productId}`);
+
+    fetch(`/products/${productId}/product_details`)
+      .then(response => response.text())
+      .then(html => {
+        this.detailsTarget.innerHTML = html;
+      })
+      .catch(error => console.error("Ошибка Fetch:", error));
+  }
+}
+
+
+
+
+
+6. Регистрация контроллера
+--------------------------
+
+В app/javascript/controllers/index.js:
+--------------------------------------
+
+import { Application } from "@hotwired/stimulus"
+import ProductDetailsController from "./product_details_controller"
+
+const application = Application.start()
+application.register("product-details", ProductDetailsController)
+
+
+
+
+
+7. Проверка
+-----------
+
+Запускаем сервер:
+-----------------
+
+bin/dev
+
+
+В консоли браузера должны появиться сообщения:
+----------------------------------------------
+
+Stimulus product-details подключен
+
+
+При клике: Загрузка деталей товара ID: ...
+
+Контент должен загружаться в блок <div data-product-details-target="details">.
+
+
+
+
+
+8. Если не работает
+-------------------
+
+Проверяем, что data-controller="product-details" находится в родителе блока data-product-details-target.
+
+Проверяем наличие ошибок в консоли.
+
+Можно добавить console.log внутри show() для отладки.
+
+
+
+
+---
+
+
+
+Fetch API (Vanilla JS)
+----------------------
+
+
+1. Роутинг
+----------
+
+В config/routes.rb добавляем (или оставляем) маршрут:
+-----------------------------------------------------
+
+Rails.application.routes.draw do
+  root "products#index"
+
+  resources :products, only: [:index] do
+    member do
+      get :product_details
+    end
+  end
+end
+
+
+
+
+
+2. Контроллер
+-------------
+
+В app/controllers/products_controller.rb:
+-----------------------------------------
+
+class ProductsController < ApplicationController
+  def index
+    @products = Product.all
+  end
+
+  def product_details
+    @product = Product.find(params[:id])
+    respond_to do |format|
+      format.html { render partial: 'products/partials/product_details', locals: { product: @product } }
+    end
+  end
+end
+
+
+
+
+
+3. Вьюхи
+--------
+
+3.1. Список товаров
+-------------------
+
+app/views/products/index.html.erb
+---------------------------------
+
+<h1>Список товаров</h1>
+
+<ul id="products-list">
+  <% @products.each do |product| %>
+    <li>
+      <%= product.name %> - <%= number_to_currency(product.price, unit: "₽") %>
+    </li>
+    <!-- Fetch кнопка -->
+    <button class="btn btn-sm btn-info fetch-details-btn" data-id="<%= product.id %>">
+      Details (Fetch)
+    </button>
+  <% end %>
+</ul>
+
+<hr>
+
+<!-- Fetch блок -->
+<h2>Детали (Fetch)</h2>
+<div id="fetch-product-details" class="mt-4"></div>
+
+
+
+
+
+3.2. Партиал с деталями
+-----------------------
+
+app/views/products/partials/_product_details.html.erb
+(используется тот же партиал для всех способов):
+-----------------------------------------------------
+
+<h3><%= product.name %></h3>
+<p><%= product.description %></p>
+<p><strong><%= number_to_currency(product.price, unit: "₽") %></strong></p>
+
+
+
+
+
+4. JS-логика (Fetch API)
+------------------------
+
+В app/javascript/products_fetch.js создаём:
+-------------------------------------------
+
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("Fetch метод инициализирован");
+
+  document.querySelectorAll(".fetch-details-btn").forEach(button => {
+    button.addEventListener("click", (e) => {
+      e.preventDefault();
+      const productId = button.dataset.id;
+      console.log(`Загружаем детали продукта ID: ${productId}`);
+
+      fetch(`/products/${productId}/product_details`)
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById("fetch-product-details").innerHTML = html;
+        })
+        .catch(error => console.error("Ошибка Fetch:", error));
+    });
+  });
+});
+
+
+
+
+
+5. Подключение JS
+-----------------
+
+В app/javascript/application.js:
+--------------------------------
+
+import "./products_fetch"
+
+
+
+
+
+6. Проверка
+-----------
+
+Запускаем сервер:
+-----------------
+
+bin/dev
+
+
+В браузере открываем страницу /.
+--------------------------------
+
+Нажимаем Details (Fetch).
+
+Должны появиться динамические данные в блоке #fetch-product-details.
+
+
+
+
+
+7. Преимущества этого способа
+-----------------------------
+
+Полностью чистый JavaScript.
+
+Нет зависимости от jQuery, Stimulus, Turbo.
+
+Максимальный контроль над процессом (можно кастомизировать анимации, обработку ошибок и т.д.).
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 database.yml config template
 ----------------------------
 
@@ -13296,6 +15781,357 @@ https://dennishellweg.com/custom-attachments-in-action-text
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+i18n
+----
+
+
+i18n (internationalization) — встроенный механизм Rails для переводов текста и локализации форматов (дат, чисел, валют и т.д.).
+
+Rails использует YAML-файлы с ключами и переводами, а также поддерживает переключение локали на уровне приложения или пользователя.
+2. Установка и настройка
+Стандартная установка:
+
+i18n встроен в Rails, дополнительных gem'ов не требуется.
+
+Папка переводов:
+
+config/locales/en.yml
+config/locales/ru.yml
+
+Пример config/application.rb:
+
+config.i18n.default_locale = :en
+config.i18n.available_locales = [:en, :ru]
+
+Команда для генерации файла локали (rails-i18n):
+
+bundle add rails-i18n
+
+3. Пример структуры файла ru.yml
+
+ru:
+  hello: "Привет, мир!"
+  users:
+    index:
+      title: "Список пользователей"
+    show:
+      title: "Профиль пользователя %{name}"
+
+Доступ из кода:
+
+<%= t('hello') %>
+<%= t('users.index.title') %>
+<%= t('users.show.title', name: @user.name) %>
+
+4. Стандартные ключи Rails
+
+    helpers.submit — тексты кнопок (Submit/Update/Create).
+
+    errors.messages — сообщения ошибок валидации.
+
+    date / time — форматы даты/времени.
+
+    number — форматы чисел, валют.
+
+Пример ru.yml:
+
+ru:
+  errors:
+    messages:
+      blank: "Не может быть пустым"
+
+5. Перевод атрибутов моделей
+
+Файл ru.yml:
+
+ru:
+  activerecord:
+    models:
+      user: "Пользователь"
+    attributes:
+      user:
+        name: "Имя"
+        email: "Эл. почта"
+
+В формах:
+
+<%= f.label :name %> <!-- Выведет "Имя" -->
+
+6. Форматы даты и времени
+
+Файл ru.yml:
+
+ru:
+  time:
+    formats:
+      default: "%d.%m.%Y %H:%M"
+      short: "%d.%m %H:%M"
+  date:
+    formats:
+      default: "%d.%m.%Y"
+
+Использование:
+
+I18n.l(Date.today)               # => 25.07.2025
+I18n.l(Time.now, format: :short) # => 25.07 16:30
+
+7. Переводы с множественным числом
+
+Пример ru.yml:
+
+ru:
+  user:
+    count:
+      one: "1 пользователь"
+      few: "%{count} пользователя"
+      many: "%{count} пользователей"
+
+Использование:
+
+<%= t('user.count', count: 1) %>   # 1 пользователь
+<%= t('user.count', count: 3) %>   # 3 пользователя
+<%= t('user.count', count: 10) %>  # 10 пользователей
+
+8. Локализация в контроллерах и вьюхах
+
+Ключи с префиксами (.):
+
+<!-- app/views/users/index.html.erb -->
+<%= t('.title') %>
+
+( Rails подставит users.index.title )
+9. Переключение локали
+
+Установка локали:
+
+I18n.locale = :ru
+
+В application_controller.rb:
+
+before_action :set_locale
+
+def set_locale
+  I18n.locale = params[:locale] || I18n.default_locale
+end
+
+Добавить локаль в URL:
+
+scope "(:locale)", locale: /en|ru/ do
+  resources :users
+end
+
+10. Best Practices
+
+    Используй короткие ключи:
+
+users:
+  index:
+    title: "Список пользователей"
+
+Делай отдельные YAML для разных моделей/разделов:
+
+    config/locales/users.ru.yml
+    config/locales/errors.ru.yml
+
+    Выноси повторяющиеся строки в common ключи.
+
+    Используй rails-i18n для стандартных переводов.
+
+11. Полезные команды
+
+bundle add rails-i18n         # Установить общие переводы
+i18n-tasks health             # Проверить YAML-файлы
+i18n-tasks unused             # Найти неиспользуемые ключи
+i18n-tasks missing            # Найти недостающие переводы
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+Виды кэширования в Rails
+1.1. Page Caching (Устарело)
+
+    Кэширует целые страницы (HTML).
+
+    Сейчас редко используется (устарело).
+
+1.2. Action Caching
+
+    Кэширует результат экшена контроллера.
+
+    Пример:
+
+    caches_action :index
+
+1.3. Fragment Caching
+
+    Кэширует отдельные фрагменты представлений (частичные шаблоны).
+
+    Пример:
+
+    <% cache(@product) do %>
+      <%= render @product %>
+    <% end %>
+
+1.4. Low-Level Caching
+
+    Ручное кэширование данных через Rails.cache.
+
+    Пример:
+
+    Rails.cache.fetch("user_#{user.id}") do
+      user.expensive_method
+    end
+
+2. Конфигурация кэша
+
+В config/environments/production.rb:
+
+config.action_controller.perform_caching = true
+config.cache_store = :memory_store, { size: 64.megabytes }
+
+Популярные хранилища кэша:
+
+    :memory_store — для локальной разработки.
+
+    :file_store — кэш на диске.
+
+    :mem_cache_store — Memcached.
+
+    :redis_cache_store — Redis (рекомендуется для production):
+
+    config.cache_store = :redis_cache_store, { url: ENV["REDIS_URL"] }
+
+3. Команды управления кэшем
+
+rails dev:cache      # Включить/выключить кэш в dev
+rails runner 'Rails.cache.clear'  # Очистить кэш
+
+4. Примеры использования
+4.1. Кэширование партиалов
+
+<% cache ["product", product.id, product.updated_at] do %>
+  <%= render product %>
+<% end %>
+
+4.2. Russian Doll Caching
+
+(«Матрёшка») — вложенное кэширование.
+
+<% cache @product do %>
+  <%= @product.name %>
+  <% cache [@product, @reviews] do %>
+    <%= render @reviews %>
+  <% end %>
+<% end %>
+
+5. Low-Level Caching (Rails.cache)
+5.1. Чтение/запись
+
+Rails.cache.write("key", "value")
+Rails.cache.read("key")
+Rails.cache.delete("key")
+
+5.2. Fetch с блоком
+
+Rails.cache.fetch("key", expires_in: 10.minutes) do
+  heavy_calculation
+end
+
+5.3. Условное кэширование
+
+Rails.cache.fetch("stats", force: true) do
+  calculate_stats
+end
+
+6. Cache Keys (ключи кэша)
+
+Лучше использовать объекты ActiveRecord — ключ строится автоматически:
+
+<% cache @user do %>
+  <%= @user.name %>
+<% end %>
+
+Ключ: users/1-20250725... (включает updated_at).
+7. Expiration (время жизни)
+
+Rails.cache.fetch("report", expires_in: 12.hours) do
+  generate_report
+end
+
+8. Memcached / Redis
+
+Redis (рекомендуется):
+
+# Gemfile
+gem 'redis-rails'
+
+# config/environments/production.rb
+config.cache_store = :redis_cache_store, { url: ENV["REDIS_URL"], expires_in: 90.minutes }
+
+9. Best Practices
+
+    Используй Russian Doll Caching для вложенных partial.
+
+    Очищай кэш при изменении данных (touch, ключи с updated_at).
+
+    Следи за ключами — избегай конфликтов (cache [model, param]).
+
+    Кэшируй только «дорогие» операции (SQL с JOIN, heavy rendering).
+
+    В production используйте Redis или Memcached, не memory_store.
+
+10. Полезные команды и проверки
+Проверка состояния кэша:
+
+Rails.cache.exist?("key")
+Rails.cache.fetch("key") { "new_value" }
+
+Очистка кэша в консоли:
+
+Rails.cache.clear
+
+11. ActiveRecord Query Cache
+
+    Автоматический кэш SQL-запросов в рамках одного запроса HTTP.
+
+    Включается по умолчанию.
+
+    Пример отключения:
+
+ActiveRecord::Base.uncached do
+  User.count
+end
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 
 action_text styles
 ------------------
@@ -29337,6 +32173,49 @@ app works, but worker (for background jobs) is missing
 ------------------------------------------------------
 
 $ heroku ps:scale worker=1
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Redis tutorial
+--------------
+
+
+
+4. Redis в Rails (кэш, Sidekiq, ActionCable)
+4.1. Конфиг для Rails 7+
+
+В Gemfile:
+
+gem 'redis', '~> 5.0'
+
+4.2. Конфигурация кэша в config/environments/production.rb
+
+config.cache_store = :redis_cache_store, { url: ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } }
+
+4.3. ActionCable (config/cable.yml)
+
+production:
+  adapter: redis
+  url: redis://localhost:6379/2
+
+4.4. Sidekiq (config/sidekiq.yml)
+
+:queues:
+  - default
+:redis:
+  url: redis://localhost:6379/3
 
 
 

@@ -503,7 +503,173 @@ https://www.postgresqltutorial.com/postgresql-cheat-sheet/
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+Основные принципы оптимизации PostgreSQL
 
+    Правильные индексы — ускоряют SELECT, но замедляют INSERT/UPDATE.
+
+    Нормализация + денормализация — баланс для скорости чтения и записи.
+
+    EXPLAIN / EXPLAIN ANALYZE — анализ планов запросов.
+
+    VACUUM и ANALYZE — регулярная очистка и обновление статистики.
+
+    Настройка параметров PostgreSQL (work_mem, shared_buffers, etc.).
+
+2. Команды анализа и диагностики
+EXPLAIN и ANALYZE
+
+EXPLAIN SELECT * FROM users WHERE email = 'test@example.com';
+EXPLAIN ANALYZE SELECT * FROM users WHERE email = 'test@example.com';
+
+    EXPLAIN — показывает план запроса.
+
+    ANALYZE — выполняет запрос и показывает фактическое время.
+
+Просмотр текущих запросов
+
+SELECT * FROM pg_stat_activity;
+
+Статистика использования индексов
+
+SELECT relname, idx_scan, idx_tup_read, idx_tup_fetch
+FROM pg_stat_user_indexes JOIN pg_class ON pg_class.oid=pg_stat_user_indexes.relid;
+
+Текущие блокировки
+
+SELECT * FROM pg_locks;
+
+3. Индексы
+Создание индексов
+
+CREATE INDEX index_users_on_email ON users (email);
+
+Уникальный индекс
+
+CREATE UNIQUE INDEX index_users_on_email ON users (email);
+
+Составной индекс
+
+CREATE INDEX index_users_on_name_and_age ON users (name, age);
+
+GIN / GiST индексы (для JSONB и полнотекстового поиска)
+
+CREATE INDEX index_users_on_data_jsonb ON users USING gin (data);
+
+Полнотекстовый поиск
+
+CREATE INDEX index_articles_on_content_tsvector
+ON articles USING GIN (to_tsvector('english', content));
+
+4. VACUUM и ANALYZE
+Очистка мусора и статистика
+
+VACUUM;
+ANALYZE;
+
+Полная очистка
+
+VACUUM FULL;
+
+Автоматизация: Включай autovacuum в настройках PostgreSQL.
+5. Оптимизация конфигурации PostgreSQL (postgresql.conf)
+
+    shared_buffers: ~25% от RAM сервера.
+
+    work_mem: 4-16 MB (на соединение).
+
+    effective_cache_size: ~75% от RAM.
+
+    wal_buffers: 16MB (или больше для больших транзакций).
+
+    checkpoint_completion_target: 0.7–0.9.
+
+6. Лучшие практики запросов
+
+    SELECT только нужные поля (избегай SELECT *).
+
+    Используй LIMIT и OFFSET для пагинации.
+
+    Сложные JOIN заменяй на простые запросы + кэширование.
+
+    WHERE vs. LIKE:
+
+        LIKE 'abc%' — использует индекс.
+
+        LIKE '%abc%' — не использует индекс (создай GIN).
+
+    Используй EXISTS вместо IN, если список большой.
+
+7. Оптимизация ActiveRecord (Rails)
+
+    Используй select и pluck:
+
+User.select(:id, :email)
+User.pluck(:email)
+
+Жадная загрузка (includes) для N+1:
+
+Post.includes(:comments).each { |p| p.comments }
+
+Анализ запросов:
+
+    rails db:explain "Post.includes(:comments).to_sql"
+
+8. Миграции и индексы (Rails)
+Добавление индекса:
+
+rails g migration add_index_to_users_email
+
+add_index :users, :email
+
+Составной индекс:
+
+add_index :users, [:name, :age]
+
+Уникальный индекс:
+
+add_index :users, :email, unique: true
+
+9. Мониторинг и профилирование
+
+    pg_stat_statements (расширение):
+
+CREATE EXTENSION pg_stat_statements;
+SELECT * FROM pg_stat_statements ORDER BY total_exec_time DESC LIMIT 10;
+
+Проверка фрагментации таблиц:
+
+    SELECT relname, n_dead_tup FROM pg_stat_user_tables WHERE n_dead_tup > 0;
+
+10. Полезные команды
+
+-- Список таблиц
+\dt
+
+-- Список индексов
+\di
+
+-- Статистика по таблице
+\d+ users
+
+11. Автоматическая оптимизация
+
+    pg_repack — удаляет фрагментацию без VACUUM FULL.
+
+    PgHero (gem):
+
+    gem 'pghero'
+
+    Запуск панели: /pghero.
+
+12. Best Practices
+
+    Индексируй часто используемые WHERE и JOIN ключи.
+
+    Не создавай слишком много индексов — они замедляют запись.
+
+    Запускай ANALYZE после крупных обновлений данных.
+
+    Кэшируй запросы с помощью Rails.cache или Materialized Views.
 
 
 
